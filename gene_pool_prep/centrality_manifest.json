@@ -1,0 +1,108 @@
+{
+  "started": "2026-08-02T10:37:04.785933+00:00",
+  "finished": "2026-08-02T10:38:38.196857+00:00",
+  "elapsed_seconds": 93.4,
+  "centrality_measure": "in_degree",
+  "centrality_definition": "Number of other genes that list this gene among their top-100 most correlated partners. Out-degree is NOT used: it is exactly 100 for every gene by construction and carries no discriminating signal.",
+  "top_k_partners": 100,
+  "top_percent": 10.0,
+  "threshold_source": "matched to Track 3's variance_manifest.json (top_percent and n_selected both reused verbatim, so the two rankings contribute equally sized sets to Track 5's union)",
+  "n_genes_total": 49231,
+  "n_selected": 4924,
+  "correlation": {
+    "method": "Pearson across samples, gene x gene",
+    "approach": "blocked sgemm on z-scored columns",
+    "block_size": 2048,
+    "rationale": "A dense 49,231^2 float32 correlation matrix is ~9.7 GB against 25.7 GB of system RAM under existing pressure, and only the top 100 entries per row are ever needed. Blocking holds one 2048 x 49231 float32 slab (~403 MB) at a time.",
+    "self_correlation": "excluded (diagonal set to -inf before top-k)",
+    "tie_handling": "argpartition; ties at the top-100 boundary resolve arbitrarily but deterministically for a given input"
+  },
+  "sources": {
+    "matrix": "eda/dataset/cvd_data/gene_pool_prep/cvd_only_expression.npy",
+    "matrix_manifest": "eda/dataset/cvd_data/gene_pool_prep/cvd_only_matrix_manifest.json",
+    "gene_symbols": "eda/dataset/cvd_data/elasticnet_out/expression/gene_symbols.npy",
+    "variance_manifest": "gene_pool_prep/variance_manifest.json"
+  },
+  "source_population": {
+    "pool_definition": "disease_confirmed",
+    "n_samples": 8553,
+    "singlecell_filter_applied": true
+  },
+  "not_derived_from": "elasticnet_out/expression/X.npy \u2014 wrong population (CVD-vs-random-negative training pool). Centrality here is within-CVD co-expression only.",
+  "sanity_checks": {
+    "n_nonfinite_correlations": 0,
+    "no_nonfinite_correlations": true,
+    "corr_min": -0.7504149675369263,
+    "corr_max": 1.0000030994415283,
+    "corr_bounds_tolerance": 0.001,
+    "corr_within_bounds": true,
+    "n_zero_variance_genes": 0,
+    "in_degree_min": 0,
+    "in_degree_max": 3241,
+    "in_degree_mean": 100.0,
+    "in_degree_median": 39.0,
+    "in_degree_std": 171.3182142434821,
+    "total_edges": 4923100,
+    "expected_edges": 4923100,
+    "edge_count_consistent": true,
+    "frac_in_degree_near_100": 0.0489,
+    "in_degree_varies": true,
+    "not_degenerate_out_degree": true,
+    "n_duplicate_symbol_columns": 2691,
+    "n_same_symbol_edges": 6470,
+    "frac_same_symbol_edges": 0.00131,
+    "n_selected": 4924,
+    "n_selected_expected": 4924,
+    "selected_matches_track3": true,
+    "ranks_unique_and_complete": true,
+    "passed": true,
+    "failures": []
+  },
+  "cardiac_spot_check": {
+    "TTN": {
+      "present": true,
+      "in_degree": 233,
+      "centrality_rank": 5833,
+      "percentile": 11.848,
+      "selected": false
+    },
+    "MYH7": {
+      "present": true,
+      "in_degree": 304,
+      "centrality_rank": 3781,
+      "percentile": 7.68,
+      "selected": true
+    },
+    "ACTC1": {
+      "present": true,
+      "in_degree": 266,
+      "centrality_rank": 4780,
+      "percentile": 9.709,
+      "selected": true
+    },
+    "MYBPC3": {
+      "present": true,
+      "in_degree": 317,
+      "centrality_rank": 3516,
+      "percentile": 7.142,
+      "selected": true
+    },
+    "NPPA": {
+      "present": true,
+      "in_degree": 170,
+      "centrality_rank": 8905,
+      "percentile": 18.088,
+      "selected": false
+    },
+    "ACTN2": {
+      "present": true,
+      "in_degree": 369,
+      "centrality_rank": 2675,
+      "percentile": 5.434,
+      "selected": true
+    }
+  },
+  "outputs": {
+    "ranking": "high_centrality_genes.csv"
+  }
+}
