@@ -84,6 +84,19 @@ eda/dataset/cvd_data/elasticnet_out/expression/X.npy
 # manifest and sample-index vector beside it are small and stay in git.
 eda/dataset/cvd_data/gene_pool_prep/cvd_only_expression.npy
 
+# Gene-pool curation prose reports (union summaries, screen findings, audits).
+# Regenerable by re-running the stage that emits them, and they go stale the
+# moment a ranking is recomputed. The manifests and CSVs beside them carry the
+# same numbers in a form that does not drift. README.md is the module's
+# hand-written entry point, not a generated report, so it stays tracked.
+gene_pool_prep/**/*.md
+!gene_pool_prep/README.md
+
+# Superseded gene-pool run, kept locally for provenance only. These outputs
+# were computed before the library-size filter landed, on 8,725 samples rather
+# than 8,553, so they disagree with every tracked artifact by construction.
+gene_pool_prep/prefix_sample_filter/
+
 # BulkFormer third-party repo (~25 MB, includes its own .git). Users clone it
 # themselves via `git clone https://github.com/KangBoming/BulkFormer.git bulkencoders/BulkFormer`.
 bulkencoders/BulkFormer/
