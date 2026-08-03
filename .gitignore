@@ -79,6 +79,11 @@ eda/dataset/cvd_data/eda_out/normalized/subsample_matrix.npy
 # Regenerable via the load_expression stage of `python -m elasticnet.train`.
 eda/dataset/cvd_data/elasticnet_out/expression/X.npy
 
+# Gene-pool curation CVD-only expression matrix (~1.7 GB float32).
+# Regenerable via `python -m gene_pool_prep.materialize_cvd_matrix`. The
+# manifest and sample-index vector beside it are small and stay in git.
+eda/dataset/cvd_data/gene_pool_prep/cvd_only_expression.npy
+
 # BulkFormer third-party repo (~25 MB, includes its own .git). Users clone it
 # themselves via `git clone https://github.com/KangBoming/BulkFormer.git bulkencoders/BulkFormer`.
 bulkencoders/BulkFormer/

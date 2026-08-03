@@ -1,0 +1,79 @@
+{
+  "started": "2026-08-02T10:28:45.023709+00:00",
+  "finished": "2026-08-02T10:36:48.991216+00:00",
+  "pool_definition": "disease_confirmed",
+  "pool_definition_column": "is_cvd_disease",
+  "pool_definition_note": "disease_confirmed = is_cvd_disease only; the tissue-only-unconfirmed bucket is excluded per the standing extended-EDA rule that it must never be treated as disease-positive.",
+  "n_samples": 8553,
+  "n_genes": 49231,
+  "shape": [
+    8553,
+    49231
+  ],
+  "singlecell_filter_applied": true,
+  "singlecell_filter_stats": {
+    "total": 1098771,
+    "kept": 779009,
+    "excluded": 319762,
+    "excluded_pct": 29.1018,
+    "threshold": 0.5
+  },
+  "library_size_filter_applied": true,
+  "library_size_filter_stats": {
+    "min_library_size": 100000.0,
+    "n_before": 8725,
+    "n_kept": 8553,
+    "n_dropped": 172,
+    "dropped_pct": 1.9713,
+    "dropped_library_size_min": 2,
+    "dropped_library_size_max": 96374
+  },
+  "label_stats": {
+    "labels_total_rows": 1098771,
+    "n_is_cvd_disease": 10557,
+    "n_is_cvd_tissue": 33865,
+    "n_is_cvd_pool": 38072,
+    "n_tissue_only_unconfirmed": 27515,
+    "n_selected_before_singlecell_filter": 10557
+  },
+  "log2_pseudocount": 1.0,
+  "transform": "log2(raw_count + 1.0), matching load_expression.py",
+  "chunk_size": 2048,
+  "sources": {
+    "labels_parquet": "eda/dataset/cvd_data/extended_eda_out/labels/sample_labels.parquet",
+    "archs4_h5": {
+      "path": "eda/dataset/cvd_data/archs4/human_gene_v2.latest.h5",
+      "size_bytes": 62257385524,
+      "mtime_utc": "2026-07-07T09:14:33.598750+00:00",
+      "n_genes": 67186,
+      "n_samples": 1098771,
+      "expression_dataset": "data/expression"
+    },
+    "gene_universe_dir": "eda/dataset/cvd_data/elasticnet_out/expression",
+    "kept_gene_mask": "eda/dataset/cvd_data/elasticnet_out/expression/kept_gene_mask.npy",
+    "gene_symbols": "eda/dataset/cvd_data/elasticnet_out/expression/gene_symbols.npy"
+  },
+  "gene_universe_note": "QC gene mask reused verbatim from the elastic net run (>= 10% detection at count > 0); not recomputed here.",
+  "sanity_checks": {
+    "shape": [
+      8553,
+      49231
+    ],
+    "shape_matches_expected": true,
+    "n_nan": 0,
+    "n_inf": 0,
+    "no_nan_or_inf": true,
+    "min_value": 0.0,
+    "min_value_non_negative": true,
+    "max_value": 25.726638793945312,
+    "elasticnet_pool_n_samples": 34900,
+    "smaller_than_elasticnet_pool": true,
+    "passed": true,
+    "failures": []
+  },
+  "outputs": {
+    "expression": "cvd_only_expression.npy",
+    "sample_index": "cvd_only_sample_index.npy"
+  },
+  "not_derived_from": "elasticnet_out/expression/X.npy \u2014 wrong population (CVD-vs-random-negative training pool); this matrix is built fresh from the H5."
+}
