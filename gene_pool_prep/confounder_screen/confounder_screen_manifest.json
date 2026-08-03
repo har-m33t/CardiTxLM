@@ -1,0 +1,79 @@
+{
+  "generated": "2026-08-02T10:38:56+00:00",
+  "n_samples": 8553,
+  "n_samples_dropped_low_depth": 0,
+  "min_library_size": 100000.0,
+  "n_series": 476,
+  "confounders": {
+    "depth": "log10(library_size) from eda/steps/qc.py",
+    "batch": "series_id from extended_eda label table"
+  },
+  "note": "series_eta2 is biased upward by group count and is only read as a contrast between arms on a shared sample set, never against an absolute threshold.",
+  "arms": [
+    {
+      "arm": "centrality_only",
+      "n_genes": 2765,
+      "depth_r2_median": 0.282106208164224,
+      "depth_r2_mean": 0.3790768150586635,
+      "depth_r2_p90": 0.7808191164389088,
+      "frac_depth_r2_gt_0.10": 0.6698010849909584,
+      "frac_depth_r2_gt_0.25": 0.5150090415913201,
+      "series_eta2_median": 0.8248663879392873,
+      "series_eta2_mean": 0.8080095597429207,
+      "series_eta2_p90": 0.871530076969686,
+      "frac_series_eta2_gt_0.50": 0.9775768535262206
+    },
+    {
+      "arm": "variance_only",
+      "n_genes": 3522,
+      "depth_r2_median": 0.340422568639436,
+      "depth_r2_mean": 0.36851798085218623,
+      "depth_r2_p90": 0.6725195626984469,
+      "frac_depth_r2_gt_0.10": 0.9108461101646792,
+      "frac_depth_r2_gt_0.25": 0.6394094264622374,
+      "series_eta2_median": 0.8593935692838779,
+      "series_eta2_mean": 0.8437623437659514,
+      "series_eta2_p90": 0.8971996536279001,
+      "frac_series_eta2_gt_0.50": 0.9934696195343555
+    },
+    {
+      "arm": "kegg",
+      "n_genes": 114,
+      "depth_r2_median": 0.2822615703971518,
+      "depth_r2_mean": 0.3268173001295286,
+      "depth_r2_p90": 0.6637188329467675,
+      "frac_depth_r2_gt_0.10": 0.7982456140350878,
+      "frac_depth_r2_gt_0.25": 0.5175438596491229,
+      "series_eta2_median": 0.8518121437043066,
+      "series_eta2_mean": 0.8419664148807571,
+      "series_eta2_p90": 0.9166758504213124,
+      "frac_series_eta2_gt_0.50": 0.9912280701754386
+    },
+    {
+      "arm": "multi_source",
+      "n_genes": 840,
+      "depth_r2_median": 0.4249605355193236,
+      "depth_r2_mean": 0.4216144715102617,
+      "depth_r2_p90": 0.7419812389361716,
+      "frac_depth_r2_gt_0.10": 0.8107142857142857,
+      "frac_depth_r2_gt_0.25": 0.6011904761904762,
+      "series_eta2_median": 0.8918964844145962,
+      "series_eta2_mean": 0.889778715015736,
+      "series_eta2_p90": 0.91951196735662,
+      "frac_series_eta2_gt_0.50": 0.9988095238095238
+    },
+    {
+      "arm": "random_universe",
+      "n_genes": 4000,
+      "depth_r2_median": 0.12495994501057639,
+      "depth_r2_mean": 0.23769716715543257,
+      "depth_r2_p90": 0.6809851967194193,
+      "frac_depth_r2_gt_0.10": 0.54575,
+      "frac_depth_r2_gt_0.25": 0.34225,
+      "series_eta2_median": 0.7229799575057066,
+      "series_eta2_mean": 0.6925411678099863,
+      "series_eta2_p90": 0.8564341802188316,
+      "frac_series_eta2_gt_0.50": 0.8765
+    }
+  ]
+}
