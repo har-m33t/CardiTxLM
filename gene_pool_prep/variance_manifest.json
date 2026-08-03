@@ -1,0 +1,87 @@
+{
+  "started": "2026-08-02T10:36:58.448373+00:00",
+  "finished": "2026-08-02T10:36:59.342283+00:00",
+  "top_percent": 10.0,
+  "n_genes_total": 49231,
+  "n_selected": 4924,
+  "variance_ddof": 1,
+  "variance_axis": "samples (axis=0); one variance per gene column",
+  "transform_note": "Variance computed on Track 1's existing log2(raw_count + 1.0) values. No re-transform or re-normalisation applied.",
+  "method_note": "Two-pass float64: streaming mean, then streaming sum of squared deviations. Avoids the catastrophic cancellation of the sum/sum-of-squares shortcut on high-mean low-spread genes.",
+  "sources": {
+    "matrix": "eda/dataset/cvd_data/gene_pool_prep/cvd_only_expression.npy",
+    "matrix_manifest": "eda/dataset/cvd_data/gene_pool_prep/cvd_only_matrix_manifest.json",
+    "gene_symbols": "eda/dataset/cvd_data/elasticnet_out/expression/gene_symbols.npy",
+    "kept_gene_mask": "eda/dataset/cvd_data/elasticnet_out/expression/kept_gene_mask.npy"
+  },
+  "source_population": {
+    "pool_definition": "disease_confirmed",
+    "pool_definition_column": "is_cvd_disease",
+    "n_samples": 8553,
+    "singlecell_filter_applied": true
+  },
+  "not_derived_from": "elasticnet_out/expression/X.npy \u2014 wrong population (CVD-vs-random-negative training pool). Variance here is within-CVD only.",
+  "sanity_checks": {
+    "n_nan": 0,
+    "n_inf": 0,
+    "no_nan_or_inf": true,
+    "min_variance": 0.08588541957903753,
+    "max_variance": 64.78298384062096,
+    "variance_non_negative": true,
+    "n_genes_total": 49231,
+    "n_selected": 4924,
+    "n_selected_expected": 4924,
+    "selected_fraction_pct": 10.0018,
+    "selected_count_consistent": true,
+    "ranks_unique_and_complete": true,
+    "passed": true,
+    "failures": []
+  },
+  "cardiac_spot_check": {
+    "NPPA": {
+      "present": true,
+      "variance": 37.26703720400774,
+      "variance_rank": 15,
+      "percentile": 0.03,
+      "selected": true
+    },
+    "NPPB": {
+      "present": true,
+      "variance": 28.690129884857424,
+      "variance_rank": 42,
+      "percentile": 0.085,
+      "selected": true
+    },
+    "MYH7": {
+      "present": true,
+      "variance": 64.78298384062096,
+      "variance_rank": 1,
+      "percentile": 0.002,
+      "selected": true
+    },
+    "MYH6": {
+      "present": true,
+      "variance": 45.475592149766854,
+      "variance_rank": 6,
+      "percentile": 0.012,
+      "selected": true
+    },
+    "TTN": {
+      "present": true,
+      "variance": 27.439465262453275,
+      "variance_rank": 51,
+      "percentile": 0.104,
+      "selected": true
+    },
+    "ACTA1": {
+      "present": true,
+      "variance": 31.3194401553505,
+      "variance_rank": 30,
+      "percentile": 0.061,
+      "selected": true
+    }
+  },
+  "outputs": {
+    "ranking": "high_variance_genes.csv"
+  }
+}
