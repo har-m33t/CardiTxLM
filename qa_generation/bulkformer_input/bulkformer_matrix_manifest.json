@@ -1,0 +1,53 @@
+{
+  "started": "2026-08-03T09:49:05.053443+00:00",
+  "finished": "2026-08-03T09:52:29.192085+00:00",
+  "elapsed_seconds": 204.1,
+  "purpose": "BulkFormer's actual model input for the 8,553 disease-confirmed CVD samples \u2014 the expression source for Stage 1 GT functions.",
+  "why_this_exists": "gene_pool_prep/bulkformer_vocab_check.md found the project's log2(count + 1) matrix disagrees with BulkFormer's TPM -> log1p input on gene ordering (0 of 5 audited samples had matching top-10s), so GT computed from it does not describe what the model receives.",
+  "transform": {
+    "code_reused_from": "linear_probe/extract.py::normalize_and_align",
+    "steps": "raw counts / gene_length_kb -> TPM (per-sample, 1e6) -> log1p",
+    "vocabulary": "bulkformer_gene_info.csv ensg_id, 20,010 genes",
+    "units": "log1p(TPM)",
+    "reimplemented": false
+  },
+  "identifier_reconciliation": "symbol and ENSG read from the same H5 gene axis (meta/genes/symbol, meta/genes/ensembl_gene) \u2014 positional pairing within one file, per bulkformer_vocab_check.md section 2",
+  "sample_population": {
+    "n_samples": 8553,
+    "source": "eda/dataset/cvd_data/gene_pool_prep/cvd_only_sample_index.npy",
+    "note": "identical rows to cvd_only_expression.npy so no eligibility population changes as a side effect"
+  },
+  "sources": {
+    "h5": "eda/dataset/cvd_data/archs4/human_gene_v2.latest.h5",
+    "vocab": "bulkencoders/checkpoints/bulkformer/support/bulkformer_gene_info.csv",
+    "gene_lengths": "bulkencoders/checkpoints/bulkformer/support/gene_length_df.csv"
+  },
+  "sanity_checks": {
+    "shape": [
+      8553,
+      20010
+    ],
+    "shape_correct": true,
+    "n_nan": 0,
+    "n_inf": 0,
+    "no_nan_or_inf": true,
+    "n_masked_sentinel": 0,
+    "no_masked_genes": true,
+    "max_mask_prob": 0.0,
+    "mask_prob_zero": true,
+    "min_value": 0.0,
+    "max_value": 13.795612335205078,
+    "min_non_negative": true,
+    "n_symbol_map_rows": 20010,
+    "n_symbols_mapped": 20007,
+    "vocab_cols_covered": 20010,
+    "symbol_map_covers_full_vocab": true,
+    "passed": true,
+    "failures": []
+  },
+  "outputs": {
+    "expression": "bulkformer_expression.npy",
+    "sample_index": "bulkformer_sample_index.npy",
+    "symbol_map": "symbol_vocab_map.parquet"
+  }
+}
