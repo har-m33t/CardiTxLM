@@ -1,0 +1,973 @@
+{
+  "generated": "2026-08-03T18:57:30.179969+00:00",
+  "purpose": "Assignments removed from generation_plan.json before Step 3, with the evidence for each removal.",
+  "count": 46,
+  "dropped": [
+    {
+      "patient": "GSM1201749",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 4,
+      "entities": {
+        "spec": 50,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 50,
+        "value_at_rank_n": 1.753923,
+        "value_at_rank_n_plus_1": 1.753923,
+        "gene_at_rank_n": "MMP14",
+        "gene_at_rank_n_plus_1": "PKN1",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281717",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 0,
+      "entities": {
+        "spec": "1.0%",
+        "direction": "top",
+        "shape": "percentile",
+        "band": "percentile"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 58,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ABCG1",
+        "gene_at_rank_n_plus_1": "ABCG5",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281717",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 9,
+      "entities": {
+        "spec": 100,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 100,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ACSS1",
+        "gene_at_rank_n_plus_1": "ACSS2",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281717",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 8,
+      "entities": {
+        "spec": 75,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 75,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ACACA",
+        "gene_at_rank_n_plus_1": "ACACB",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281725",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 4,
+      "entities": {
+        "spec": 75,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 75,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ABHD16A",
+        "gene_at_rank_n_plus_1": "ABHD18",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281727",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 1,
+      "entities": {
+        "spec": 75,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 75,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ABTB1",
+        "gene_at_rank_n_plus_1": "ABTB2",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281728",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 4,
+      "entities": {
+        "spec": 100,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 100,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ACE2",
+        "gene_at_rank_n_plus_1": "ACKR1",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281728",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 0,
+      "entities": {
+        "spec": "2.0%",
+        "direction": "top",
+        "shape": "percentile",
+        "band": "percentile"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 116,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ACSS2",
+        "gene_at_rank_n_plus_1": "ACSS3",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281728",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 1,
+      "entities": {
+        "spec": 50,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 50,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "AASDH",
+        "gene_at_rank_n_plus_1": "ABAT",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281729",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 0,
+      "entities": {
+        "spec": "1.0%",
+        "direction": "top",
+        "shape": "percentile",
+        "band": "percentile"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 58,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ABCC1",
+        "gene_at_rank_n_plus_1": "ABCC3",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281730",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 1,
+      "entities": {
+        "spec": 100,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 100,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ACSM5",
+        "gene_at_rank_n_plus_1": "ACSS1",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281730",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 8,
+      "entities": {
+        "spec": 50,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 50,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ABCC5",
+        "gene_at_rank_n_plus_1": "ABCC8",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281731",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 9,
+      "entities": {
+        "spec": 50,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 50,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "AAR2",
+        "gene_at_rank_n_plus_1": "AASDH",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281731",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 5,
+      "entities": {
+        "spec": "2.0%",
+        "direction": "top",
+        "shape": "percentile",
+        "band": "percentile"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 116,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ACSS2",
+        "gene_at_rank_n_plus_1": "ACSS3",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281734",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 8,
+      "entities": {
+        "spec": 100,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 100,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ACADS",
+        "gene_at_rank_n_plus_1": "ACADVL",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281734",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 5,
+      "entities": {
+        "spec": "2.0%",
+        "direction": "top",
+        "shape": "percentile",
+        "band": "percentile"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 116,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ACSL1",
+        "gene_at_rank_n_plus_1": "ACSL5",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281735",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 1,
+      "entities": {
+        "spec": 100,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 100,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ACSL5",
+        "gene_at_rank_n_plus_1": "ACSM2A",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281735",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 9,
+      "entities": {
+        "spec": 50,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 50,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ABCB8",
+        "gene_at_rank_n_plus_1": "ABCC1",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281759",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 2,
+      "entities": {
+        "spec": 100,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 100,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ACTN2",
+        "gene_at_rank_n_plus_1": "ACTN4",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281759",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 4,
+      "entities": {
+        "spec": 75,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 75,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ACE",
+        "gene_at_rank_n_plus_1": "ACE2",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281784",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 4,
+      "entities": {
+        "spec": 50,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 50,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ABCG5",
+        "gene_at_rank_n_plus_1": "ABCG8",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281784",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 2,
+      "entities": {
+        "spec": 40,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 40,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ABCC5",
+        "gene_at_rank_n_plus_1": "ABCC8",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281784",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 9,
+      "entities": {
+        "spec": 75,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 75,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ACE",
+        "gene_at_rank_n_plus_1": "ACE2",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281785",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 5,
+      "entities": {
+        "spec": "5.0%",
+        "direction": "top",
+        "shape": "percentile",
+        "band": "percentile"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 290,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ACACA",
+        "gene_at_rank_n_plus_1": "ACACB",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281798",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 4,
+      "entities": {
+        "spec": 100,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 100,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ACACA",
+        "gene_at_rank_n_plus_1": "ACACB",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281799",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 0,
+      "entities": {
+        "spec": "5.0%",
+        "direction": "top",
+        "shape": "percentile",
+        "band": "percentile"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 290,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "AKT1S1",
+        "gene_at_rank_n_plus_1": "AKT3",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281801",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 8,
+      "entities": {
+        "spec": 75,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 75,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ABCC1",
+        "gene_at_rank_n_plus_1": "ABCC3",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281801",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 1,
+      "entities": {
+        "spec": 100,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 100,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ABTB1",
+        "gene_at_rank_n_plus_1": "ABTB2",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281801",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 5,
+      "entities": {
+        "spec": "1.0%",
+        "direction": "top",
+        "shape": "percentile",
+        "band": "percentile"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 58,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "A2M",
+        "gene_at_rank_n_plus_1": "A2ML1",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281824",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 9,
+      "entities": {
+        "spec": 100,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 100,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ACLY",
+        "gene_at_rank_n_plus_1": "ACMSD",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281824",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 8,
+      "entities": {
+        "spec": 75,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 75,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ABHD8",
+        "gene_at_rank_n_plus_1": "ABI3",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281825",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 1,
+      "entities": {
+        "spec": 40,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 40,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ABCC8",
+        "gene_at_rank_n_plus_1": "ABCC9",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281825",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 3,
+      "entities": {
+        "spec": 100,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 100,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ACTN4",
+        "gene_at_rank_n_plus_1": "ACTR1B",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281825",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 5,
+      "entities": {
+        "spec": "1.0%",
+        "direction": "top",
+        "shape": "percentile",
+        "band": "percentile"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 58,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ABLIM3",
+        "gene_at_rank_n_plus_1": "ABR",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281831",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 3,
+      "entities": {
+        "spec": 40,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 40,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "AASDH",
+        "gene_at_rank_n_plus_1": "ABAT",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281848",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 9,
+      "entities": {
+        "spec": 40,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 40,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "AAR2",
+        "gene_at_rank_n_plus_1": "AASDH",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281848",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 1,
+      "entities": {
+        "spec": 100,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 100,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ACP2",
+        "gene_at_rank_n_plus_1": "ACSL1",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281862",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 5,
+      "entities": {
+        "spec": "2.0%",
+        "direction": "top",
+        "shape": "percentile",
+        "band": "percentile"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 116,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ADA2",
+        "gene_at_rank_n_plus_1": "ADAD1",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281883",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 5,
+      "entities": {
+        "spec": "5.0%",
+        "direction": "top",
+        "shape": "percentile",
+        "band": "percentile"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 290,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "AKAP6",
+        "gene_at_rank_n_plus_1": "AKR1C1",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281884",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 0,
+      "entities": {
+        "spec": "5.0%",
+        "direction": "top",
+        "shape": "percentile",
+        "band": "percentile"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 290,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ALDH1A1",
+        "gene_at_rank_n_plus_1": "ALDH1A2",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281885",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 4,
+      "entities": {
+        "spec": 100,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 100,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ABCD2",
+        "gene_at_rank_n_plus_1": "ABCD3",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281886",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 0,
+      "entities": {
+        "spec": "2.0%",
+        "direction": "top",
+        "shape": "percentile",
+        "band": "percentile"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 116,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ACAA1",
+        "gene_at_rank_n_plus_1": "ACACA",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM1281888",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 3,
+      "entities": {
+        "spec": 75,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 75,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "ABI3BP",
+        "gene_at_rank_n_plus_1": "ABL1",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM4365328",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 1,
+      "entities": {
+        "spec": 100,
+        "direction": "top",
+        "shape": "count",
+        "band": "wide"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 100,
+        "value_at_rank_n": 4.979916,
+        "value_at_rank_n_plus_1": 4.979916,
+        "gene_at_rank_n": "PTN",
+        "gene_at_rank_n_plus_1": "XRCC6",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM5726801",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 0,
+      "entities": {
+        "spec": "5.0%",
+        "direction": "top",
+        "shape": "percentile",
+        "band": "percentile"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 290,
+        "value_at_rank_n": 0.0,
+        "value_at_rank_n_plus_1": 0.0,
+        "gene_at_rank_n": "AGAP3",
+        "gene_at_rank_n_plus_1": "AGAP5",
+        "units": "log1p(TPM)"
+      }
+    },
+    {
+      "patient": "GSM7053789",
+      "stage": 1,
+      "category": "ranking_ordering_query",
+      "template_index": 0,
+      "entities": {
+        "spec": "1.0%",
+        "direction": "top",
+        "shape": "percentile",
+        "band": "percentile"
+      },
+      "reason": "boundary_tie",
+      "evidence": {
+        "cut_at_rank": 58,
+        "value_at_rank_n": 5.246327,
+        "value_at_rank_n_plus_1": 5.246327,
+        "gene_at_rank_n": "AEBP1",
+        "gene_at_rank_n_plus_1": "VCAN",
+        "units": "log1p(TPM)"
+      }
+    }
+  ]
+}

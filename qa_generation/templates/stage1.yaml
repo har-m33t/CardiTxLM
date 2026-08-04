@@ -1,0 +1,87 @@
+# Stage 1 — Schema Alignment templates
+# All five categories verified answerable from current project data:
+#   - direct_abundance_query, threshold_query, ranking_ordering_query,
+#     comparative_query: direct lookup/filter/sort/compare against the
+#     per-sample normalized ARCHS4 expression vector (Lachmann et al.:
+#     quantile-normalized, log2-transformed gene-level counts).
+#   - interaction_network_query: co-expression relationship selects the
+#     gene set (reusing the saved gene-gene correlation output from the
+#     gene-pool curation work's Track 4 — no live ARCHS4 API dependency),
+#     the answer is each selected gene's real expression value in the
+#     sample, same lookup mechanism as direct_abundance_query.
+# No changes needed from the verified set — nothing here depends on the
+# elastic-net ranking or any label, so the Gene-Driver Reasoning scope
+# correction (see stage2_templates.yaml) does not apply to this file.
+
+direct_abundance_query:
+  - "Report the expression level of {gene}."
+  - "What is the measured expression value of {gene}?"
+  - "Retrieve the transcript abundance for {gene}."
+  - "Provide the expression measurement associated with {gene}."
+  - "Show the expression value recorded for {gene}."
+  - "What is the expression profile entry for {gene}?"
+  - "List the normalized expression level of {gene}."
+  - "How much is {gene} expressed in this sample?"
+  - "Return the measured abundance of {gene}."
+  - "Identify the expression value corresponding to {gene}."
+
+threshold_query:
+  - "Find the genes whose expression values exceed {threshold}."
+  - "Which genes have expression measurements above {threshold}?"
+  - "Retrieve the genes with expression levels greater than {threshold}."
+  - "Report the genes that meet the expression threshold of {threshold}."
+  - "Identify all genes with expression values higher than {threshold}."
+  - "Which genes have measured expression below {threshold}?"
+  - "Find genes whose transcript abundance falls under {threshold}."
+  - "List the genes with expression measurements that satisfy {threshold}."
+  - "Return all genes with expression values beyond {threshold}."
+
+ranking_ordering_query:
+  # {N} / {percentile} are required on every template in this category —
+  # ranking is only well-defined with an explicit size bound.
+  - "Which genes belong to the top {percentile} when ranked by expression level?"
+  - "Report the highest-expressed {N} genes in this sample."
+  - "Retrieve the top {N} genes with the greatest expression values."
+  - "Which genes are among the top {N} by expression ranking?"
+  - "List the top {N} genes ordered by measured expression."
+  - "Find the genes ranked within the upper {percentile} of expression values."
+  - "Return the bottom {N} genes by expression ranking."
+  - "Which genes are included among the bottom {N} based on expression level?"
+  - "Order the genes by expression measurement and report the first {N}."
+  - "Identify the top {N} genes occupying the highest positions in the expression ranking."
+
+comparative_query:
+  - "How does the expression of {gene_A} compare with {gene_B}?"
+  - "Compare the measured expression values of {gene_A} and {gene_B}."
+  - "Which gene has the higher expression level, {gene_A} or {gene_B}?"
+  - "Determine the relative expression between {gene_A} and {gene_B}."
+  - "Report the difference in expression values for {gene_A} and {gene_B}."
+  - "How does the transcript abundance of {gene_A} relate to {gene_B}?"
+  - "Identify whether {gene_A} or {gene_B} has the greater expression measurement."
+  - "Evaluate the expression levels of {gene_A} compared with {gene_B}."
+  - "What is the relative abundance of {gene_A} versus {gene_B}?"
+  - "Show how the expression measurements of {gene_A} and {gene_B} differ."
+
+interaction_network_query:
+  # {gene}'s co-expression partner set comes from the saved Track 4 output
+  # (top-100-per-gene edge list, recomputed vocabulary-restricted; see
+  # gene_pool_prep/correction_pass_report.md); the fact reported is always
+  # this sample's real expression value for each selected partner, never the
+  # correlation strength itself.
+  #
+  # {N} is required on every template in this category, for the same reason
+  # ranking_ordering_query requires an explicit size bound: the stored edge
+  # list holds 100 partners per gene, so "the genes most co-expressed with
+  # {gene}" does not identify how many genes the answer covers. Without {N}
+  # the GT function had to pick a count the question never asked for, and the
+  # answer asserted a bound the question did not contain.
+  - "What is the expression level of the top {N} genes most co-expressed with {gene} in this sample?"
+  - "Report the measured expression values of the top {N} co-expressed partners of {gene}."
+  - "Retrieve the expression levels of the {N} genes most strongly associated with {gene} through co-expression relationships."
+  - "Which genes are among the top {N} co-expressed partners of {gene}, and what are their expression values?"
+  - "List the measured expression values of the {N} genes most closely co-expressed with {gene}."
+  - "Provide the transcript abundance values for the top {N} co-expressed genes of {gene}."
+  - "What are the expression measurements of {gene}'s top {N} co-expression partners?"
+  - "Identify the top {N} genes co-expressed with {gene} and report their expression levels in this sample."
+  - "Show the expression profile values of the top {N} genes selected by the co-expression relationship with {gene}."
+  - "Retrieve the sample expression measurements for the {N} nearest network neighbors of {gene}."

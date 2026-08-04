@@ -1,0 +1,72 @@
+# Stage 2 — Clinical Reasoning templates
+#
+# disease_subtype_classification: verified answerable. GT is this
+#   project's own disease_confirmed_subtype label (extended-EDA curation
+#   from ARCHS4 metadata) — not a native ARCHS4 field, but a verified,
+#   project-derived one. insufficient_data for unresolved/tissue-only
+#   samples.
+#
+# comparative_differential_reasoning: verified answerable ONLY when
+#   {comparison_group} resolves to neg_hard (tissue_only_disease_
+#   unconfirmed, from linear_probe/probe_sample_labels.parquet). The
+#   random-bulk-tissue comparison group is CONFOUNDED — confirmed via the
+#   linear probe's own numbers (ROC-AUC drops 0.925 -> 0.781 once tissue
+#   identity is controlled for) — and must never be used to fill this
+#   category. This constraint is enforced at fill-time (Step 3 of
+#   qa_generation_pipeline_todo.md) / in gt_functions.py, not encoded in
+#   the template text itself, since the templates are agnostic to which
+#   group gets bound in.
+#
+# gene_driver_reasoning: SCOPE-CORRECTED, do not revert. An audit of
+#   elasticnet_out/gene_signal/gene_signal_ranking.csv found it reflects a
+#   single global "CVD vs. random-bulk-tissue" classification — there is
+#   no per-subtype ranking anywhere in this project, and building one is
+#   deferred (see qa_generation_pipeline_todo.md, "Deferred" section).
+#   The original {condition}-bound subtype-specific templates ("genes
+#   most associated with the {condition} subtype") are NOT usable as
+#   ground truth and have been replaced below with broad-CVD phrasing.
+#   GT is the ~1,300 genes with nonzero_frac == 1.0 in the existing
+#   ranking (the stable, cross-fold-confirmed subset) — every
+#   disease-confirmed CVD sample gets the same underlying answer; this is
+#   a corpus-level fact, not computed per sample or per subtype.
+
+disease_subtype_classification:
+  - "Predict the cardiovascular subtype indicated by the transcriptomic profile."
+  - "Determine the most likely cardiovascular condition from the gene expression profile."
+  - "Classify the transcriptomic profile according to the associated cardiovascular subtype."
+  - "What cardiovascular subtype is represented by this molecular expression profile?"
+  - "Analyze the gene expression profile to predict the corresponding cardiovascular classification."
+  - "Identify the cardiovascular condition associated with this transcriptomic signature."
+  - "Determine the subtype label supported by the observed gene expression pattern."
+  - "Predict the cardiovascular category from the provided transcriptomic profile."
+  - "Which cardiovascular subtype best matches this gene expression profile?"
+  - "Use the transcriptomic profile to classify the associated cardiovascular condition."
+
+comparative_differential_reasoning:
+  # {comparison_group} MUST be bound to neg_hard at fill-time — see note above.
+  - "Compare the transcriptomic profile of {condition} with {comparison_group}."
+  - "Determine the gene expression differences between {condition} and {comparison_group}."
+  - "Analyze the molecular features that distinguish {condition} from {comparison_group}."
+  - "How does the transcriptomic signature of {condition} differ from {comparison_group}?"
+  - "Identify the expression patterns that separate {condition} and {comparison_group}."
+  - "Evaluate the differential gene expression profile between {condition} and {comparison_group}."
+  - "Determine which transcriptomic features characterize the difference between {condition} and {comparison_group}."
+  - "Compare the molecular signatures associated with {condition} and {comparison_group}."
+  - "What gene expression patterns distinguish {condition} from {comparison_group}?"
+
+gene_driver_reasoning:
+  # Corrected set — no {condition} placeholder. Every template resolves
+  # to broad cardiovascular disease vs. random-bulk-tissue signal, drawn
+  # from the ~1,300-gene stable subset of the existing elastic-net
+  # ranking. Do not reintroduce subtype-conditioned phrasing here without
+  # first completing the deferred per-subtype elastic-net rerun.
+  - "Identify the genes most indicative of cardiovascular disease based on the transcriptomic profile."
+  - "Which genes are most associated with distinguishing this cardiovascular sample from unrelated tissue?"
+  - "Determine the top molecular signals contributing to cardiovascular disease classification."
+  - "Based on the gene expression ranking, identify the most informative genes for cardiovascular disease."
+  - "Report the genes that contribute most strongly to distinguishing cardiovascular disease."
+  - "Analyze the key genes driving the cardiovascular transcriptomic signature."
+  - "Which genes have the strongest association with cardiovascular disease status?"
+  - "Identify the highest-ranking signal genes distinguishing this cardiovascular sample."
+  - "Determine the genes most responsible for the observed cardiovascular expression pattern."
+  - "What are the primary gene-level features supporting cardiovascular disease classification?"

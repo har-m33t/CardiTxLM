@@ -1,0 +1,266 @@
+{
+  "stage1": {
+    "direct_abundance_query": {
+      "eligible_patients": 8553,
+      "target": 40000,
+      "emitted": 40000,
+      "unmet_capacity": 0,
+      "dropped_boundary_tie": 0,
+      "items_per_patient_mean": 4.677,
+      "entity_capacity_min": 5797,
+      "templates_total": 10,
+      "templates_usable": 10,
+      "templates_excluded": []
+    },
+    "threshold_query": {
+      "eligible_patients": 8553,
+      "target": 40000,
+      "emitted": 40000,
+      "unmet_capacity": 0,
+      "dropped_boundary_tie": 0,
+      "items_per_patient_mean": 4.677,
+      "entity_capacity_min": 2,
+      "templates_total": 9,
+      "templates_usable": 8,
+      "templates_excluded": [
+        7
+      ]
+    },
+    "ranking_ordering_query": {
+      "eligible_patients": 8553,
+      "target": 40000,
+      "emitted": 39954,
+      "unmet_capacity": 0,
+      "dropped_boundary_tie": 46,
+      "items_per_patient_mean": 4.671,
+      "entity_capacity_min": 13,
+      "templates_total": 10,
+      "templates_usable": 8,
+      "templates_excluded": [
+        6,
+        7
+      ]
+    },
+    "comparative_query": {
+      "eligible_patients": 8553,
+      "target": 40000,
+      "emitted": 40000,
+      "unmet_capacity": 0,
+      "dropped_boundary_tie": 0,
+      "items_per_patient_mean": 4.677,
+      "entity_capacity_min": 5797,
+      "templates_total": 10,
+      "templates_usable": 10,
+      "templates_excluded": []
+    },
+    "interaction_network_query": {
+      "eligible_patients": 8553,
+      "target": 40000,
+      "emitted": 40000,
+      "unmet_capacity": 0,
+      "dropped_boundary_tie": 0,
+      "items_per_patient_mean": 4.677,
+      "entity_capacity_min": 5797,
+      "templates_total": 10,
+      "templates_usable": 10,
+      "templates_excluded": []
+    }
+  },
+  "stage2": {
+    "disease_subtype_classification": {
+      "eligible_patients": 2687,
+      "emitted": 2687,
+      "items_per_patient": 1,
+      "templates_total": 10
+    },
+    "comparative_differential_reasoning": {
+      "eligible_patients": 8553,
+      "emitted": 8553,
+      "items_per_patient": 1,
+      "templates_total": 9
+    },
+    "gene_driver_reasoning": {
+      "eligible_patients": 8553,
+      "emitted": 8553,
+      "items_per_patient": 1,
+      "templates_total": 10
+    }
+  },
+  "ranking_diversification": {
+    "method": "parameter-band sampling (approach a). ~45% of ranking instances target windows wider than the top 10 \u2014 count bands 25-100 or percentile bands 1-5% \u2014 instead of always asking for the top 10.",
+    "why_not_gene_exclusion": "approach (b), excluding MT- genes from top-N answers, would require an exclusion parameter on ranking_query. That is a GT-layer change, out of scope for Step 2, and it would also make the answer disagree with the question ('the highest-expressed 10 genes' would silently omit the actual highest).",
+    "baseline_all_top10": {
+      "n_instances": 39954,
+      "total_answer_slots": 399540,
+      "distinct_genes": 500,
+      "top20_share": 0.7637,
+      "mt_share": 0.6213,
+      "top20_genes": [
+        "MT-CO1",
+        "MT-CO2",
+        "MT-ND4",
+        "MT-ATP6",
+        "MT-ND2",
+        "MT-ND1",
+        "MT-ND5",
+        "MT-ND6",
+        "MT-ND3",
+        "MT-ND4L",
+        "FTL",
+        "MT-ATP8",
+        "TMSB4X",
+        "GAPDH",
+        "SERPINE1",
+        "MYL7",
+        "ACTB",
+        "MYH7",
+        "FN1",
+        "SPARC"
+      ]
+    },
+    "diversified": {
+      "n_instances": 39954,
+      "total_answer_slots": 1866212,
+      "distinct_genes": 4812,
+      "top20_share": 0.2604,
+      "mt_share": 0.1769,
+      "top20_genes": [
+        "MT-CO1",
+        "MT-CO2",
+        "MT-ND4",
+        "MT-ATP6",
+        "MT-ND1",
+        "MT-ND2",
+        "MT-ND3",
+        "MT-ND6",
+        "MT-ND5",
+        "MT-ND4L",
+        "GAPDH",
+        "FTL",
+        "ACTB",
+        "TMSB4X",
+        "MT-ATP8",
+        "EEF2",
+        "ACTG1",
+        "VIM",
+        "SPARC",
+        "LGALS1"
+      ]
+    }
+  },
+  "dropped_assignments": {
+    "total": 46,
+    "by_reason": {
+      "boundary_tie": 46
+    },
+    "by_category": {
+      "ranking_ordering_query": 46
+    },
+    "log": "dropped_assignments.json"
+  },
+  "totals": {
+    "stage1": {
+      "target": 200000,
+      "achievable": 199954,
+      "pct_of_target": 99.98
+    },
+    "stage2": {
+      "target": 50000,
+      "achievable": 19793,
+      "pct_of_target": 39.59,
+      "shortfall": 30207,
+      "phrasings_per_patient_to_hit_target": 2.53
+    },
+    "grand_total": 219747
+  },
+  "subtype_cap": {
+    "before": {
+      "coronary_artery_disease": 943,
+      "heart_failure": 804,
+      "cardiomyopathy_other": 141,
+      "hypertension": 679,
+      "arrhythmia_afib": 122
+    },
+    "after": {
+      "coronary_artery_disease": 941,
+      "heart_failure": 804,
+      "cardiomyopathy_other": 141,
+      "hypertension": 679,
+      "arrhythmia_afib": 122
+    },
+    "total_before": 2689,
+    "total_after": 2687,
+    "cap_pct": 35.0,
+    "cap_n_per_subtype": {
+      "coronary_artery_disease": 941,
+      "heart_failure": 941,
+      "cardiomyopathy_other": 941,
+      "hypertension": 941,
+      "arrhythmia_afib": 941
+    },
+    "subtypes_over_cap": [
+      "coronary_artery_disease"
+    ],
+    "cap_engaged": true,
+    "freed_budget": 2,
+    "freed_budget_redistributed": 0,
+    "redistribution_note": "not redistributable \u2014 one item per patient, and every remaining subtype already contributes all of its eligible patients",
+    "unresolved_present": false
+  },
+  "eligible_populations": {
+    "stage1": 8553,
+    "disease_subtype_classification": 2687,
+    "comparative_differential_reasoning": 8553,
+    "gene_driver_reasoning": 8553
+  },
+  "eligibility_detail": {
+    "stage1": {
+      "eligible_by_gate": 8553,
+      "without_materialized_input": 0,
+      "retained": 8553
+    },
+    "disease_subtype_classification": {
+      "eligible_by_gate": 2942,
+      "without_materialized_input": 253,
+      "retained": 2689
+    },
+    "comparative_differential_reasoning": {
+      "eligible_by_gate": 8725,
+      "without_materialized_input": 172,
+      "retained": 8553
+    },
+    "gene_driver_reasoning": {
+      "eligible_by_gate": 10557,
+      "without_materialized_input": 2004,
+      "retained": 8553
+    }
+  },
+  "parameters": {
+    "POPULATION_SCOPE": "per_category_maximal_eligibility",
+    "STAGE1_PER_CATEGORY_SPLIT": "even",
+    "SUBTYPE_CAP_PCT": 35.0,
+    "DIVERSITY_RULE": "one_template_per_patient_category_entity",
+    "RANKING_DIVERSIFICATION": true,
+    "seed": 20260803,
+    "interaction_n_choices": [
+      5,
+      10,
+      10,
+      15,
+      20
+    ],
+    "gene_driver_top_n_by_template": {
+      "0": 10,
+      "1": 15,
+      "2": 20,
+      "3": 10,
+      "4": 15,
+      "5": 20,
+      "6": 10,
+      "7": 15,
+      "8": 20,
+      "9": 10
+    }
+  },
+  "elapsed_seconds": 10.3
+}
