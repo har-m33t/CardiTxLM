@@ -1,0 +1,54 @@
+{
+  "started": "2026-08-03T17:52:28.612750+00:00",
+  "finished": "2026-08-03T17:52:56.798150+00:00",
+  "elapsed_seconds": 28.2,
+  "purpose": "Top-100 co-expression partner list per curated-pool gene, for interaction_network_query in qa_generation/gt_functions.py.",
+  "why_this_exists": "Track 4 (gene_pool_prep/compute_centrality_genes.py) computed the same correlations but persisted only in-degree counts; the top-100 partner sets were never written to disk.",
+  "methodology": {
+    "inherited_from": "gene_pool_prep/compute_centrality_genes.py",
+    "correlation": "Pearson across samples, blocked sgemm on z-scored columns",
+    "partner_universe": "21016 of 49231 QC-filtered columns \u2014 those whose symbol carries an in-vocabulary ENSG. Not restricted to the curated pool (Track 4 behaviour retained), but restricted to genes BulkFormer actually receives, per bulkformer_vocab_check.md.",
+    "partner_restriction_rationale": "a co-expression partner outside the 20,010-gene vocabulary is a fact about a gene the model cannot see, so it cannot be a valid answer; standardization still spans all columns, so correlation values are unchanged",
+    "source_rows": "5797 curated-pool genes only (Track 4 used all 49231 columns as rows because in-degree needs every edge; QA only ever queries pool genes)",
+    "top_k_partners": 100,
+    "k_raw_columns_per_source": 400,
+    "duplicate_symbol_columns": "all columns carrying a pool symbol act as source rows; their partner sets are merged keeping the highest r per partner symbol",
+    "self_symbol_partners": "excluded \u2014 subsumes Track 4's diagonal exclusion and drops the duplicate-column artifact edges its manifest flagged (n_same_symbol_edges = 6470)",
+    "tie_handling": "ties on r resolved by partner symbol, ascending"
+  },
+  "source_population": {
+    "pool_definition": "disease_confirmed",
+    "n_samples": 8553,
+    "n_genes": 49231
+  },
+  "sources": {
+    "matrix": "eda/dataset/cvd_data/gene_pool_prep/cvd_only_expression.npy",
+    "gene_symbols": "eda/dataset/cvd_data/elasticnet_out/expression/gene_symbols.npy",
+    "gene_pool": "gene_pool_prep/curated_gene_pool_bulkformer_filtered.csv"
+  },
+  "n_pool_genes": 5797,
+  "n_edges": 579700,
+  "corr_min": -0.707808256149292,
+  "corr_max": 1.0000009536743164,
+  "n_source_columns": 6655,
+  "sanity_checks": {
+    "n_genes": 5797,
+    "all_genes_have_top_k": true,
+    "covers_full_pool": true,
+    "no_self_symbol_edges": true,
+    "corr_within_bounds": true,
+    "n_out_of_vocab_partners": 0,
+    "all_partners_in_vocab": true,
+    "all_sources_in_vocab": true,
+    "ranks_complete": true,
+    "r_non_increasing_with_rank": true,
+    "independent_recompute_n": 25,
+    "independent_recompute_max_abs_err": 1.2549650161286507e-06,
+    "independent_recompute_matches": true,
+    "passed": true,
+    "failures": []
+  },
+  "outputs": {
+    "edges": "coexpression_edges.parquet"
+  }
+}
