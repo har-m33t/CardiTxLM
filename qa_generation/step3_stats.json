@@ -1,0 +1,25 @@
+{
+  "attempted": 40000,
+  "stage1_written": 40000,
+  "stage2_written": 0,
+  "excluded": 0,
+  "excluded_by_reason": {},
+  "excluded_by_category": {},
+  "written_by_category": {
+    "threshold_query": 40000
+  },
+  "skipped_resume": 179747,
+  "mean_answer_chars_by_category": {
+    "threshold_query": 347
+  },
+  "preflight": {
+    "ranking_ties_dropped": true,
+    "gene_driver_top_n_bound": true,
+    "interaction_n_bound": true,
+    "total_assignments": 219747,
+    "expected_total": 219747,
+    "total_matches": true,
+    "passed": true
+  },
+  "elapsed_seconds": 9.7
+}
