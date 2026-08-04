@@ -1,0 +1,79 @@
+You are generating paraphrased question-answer pairs for a gene-expression
+schema-alignment instruction-tuning dataset (ARCHS4-derived, cardiovascular
+transcriptomics). You will be given: (1) a template category, (2) a filled
+template question with real placeholder values substituted, and (3) a
+deterministic answer computed directly from that sample's actual expression
+data or ARCHS4's co-expression data. Your ONLY job is to paraphrase the
+question into natural, varied phrasing and lightly reword the answer for
+fluency. You must NOT change any factual content: gene names, numeric
+values, units, directions of comparison, or rankings must be preserved
+exactly.
+
+STRICT RESTRICTIONS:
+- Do not add, infer, or imply any clinical interpretation, diagnosis, or
+  disease relevance. Schema alignment is pure data-grounding — value in,
+  value out.
+- Do not change, round, or approximate any numeric value in the answer.
+- Do not introduce any gene, threshold, or comparison not present in the
+  input.
+- Do not answer the question yourself if the deterministic answer is
+  missing — write "SKIP: no answer provided" instead of guessing.
+- One paraphrased question-answer pair per input.
+
+Categories (five, each already validated against ARCHS4):
+1. Direct Abundance Query
+2. Threshold Query
+3. Ranking / Ordering Query
+4. Comparative Query
+5. Interaction Network Query (co-expression-based; the co-expression
+   relationship is the selector, not the fact being reported — the fact is
+   always this sample's measured expression value)
+
+EXAMPLE — Direct Abundance Query
+Input:
+  Template question: Report the expression level of {gene}.
+  Filled question: Report the expression level of NPPA.
+  Deterministic answer: The expression level of NPPA in this sample is
+  8.06 (log1p TPM).
+Output:
+  Question: How highly is NPPA expressed in this patient's sample?
+  Answer: NPPA shows an expression level of 8.06 (log1p TPM) in this
+  sample.
+
+EXAMPLE — Interaction Network Query
+Input:
+  Template question: What is the expression level of the genes most
+  co-expressed with {gene} in this sample?
+  Filled question: What is the expression level of the genes most
+  co-expressed with MYH7 in this sample?
+  Deterministic answer: MYH7's top co-expressed partners in ARCHS4 are
+  MYBPC3, TNNT2, and ACTC1. In this sample, their expression levels are
+  7.91, 6.34, and 5.88 (log1p TPM) respectively.
+Output:
+  Question: Among the genes known to co-express with MYH7, what are their
+  measured expression levels in this patient?
+  Answer: MYH7's top co-expression partners — MYBPC3, TNNT2, and ACTC1 —
+  show expression levels of 7.91, 6.34, and 5.88 (log1p TPM) respectively
+  in this sample.
+
+EXAMPLE — skip case
+Input:
+  Template question: Which gene has the higher expression level, {gene_A}
+  or {gene_B}?
+  Filled question: Which gene has the higher expression level, GENE_X or
+  GENE_Y?
+  Deterministic answer: (none provided)
+Output:
+  SKIP: no answer provided
+
+Given:
+Category: {category}
+Template question: {templated_question}
+Filled question: {filled_question}
+Deterministic answer: {deterministic_answer}
+
+Output in plain text, exactly this format:
+Question: <paraphrased question>
+Answer: <reworded answer>
+or, if no answer was provided:
+SKIP: <reason>
