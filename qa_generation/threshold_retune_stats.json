@@ -1,0 +1,70 @@
+{
+  "target_range": [
+    5,
+    30
+  ],
+  "before": {
+    "n": 40000,
+    "in_range": 8242,
+    "out_of_range": 31758,
+    "min": 5,
+    "median": 258,
+    "max": 3158,
+    "by_direction": {
+      "above": {
+        "n": 24880,
+        "median": 90,
+        "max": 570,
+        "in_range": 8242
+      },
+      "below": {
+        "n": 15120,
+        "median": 1951,
+        "max": 3158,
+        "in_range": 0
+      }
+    }
+  },
+  "retuned": 40000,
+  "direction_changed_below_to_above": 15120,
+  "infeasible": 0,
+  "after_planned": {
+    "n": 40000,
+    "min": 5,
+    "median": 17,
+    "max": 30,
+    "in_range": 40000
+  },
+  "other_categories_unchanged": {
+    "direct_abundance_query": true,
+    "ranking_ordering_query": true,
+    "comparative_query": true,
+    "interaction_network_query": true,
+    "disease_subtype_classification": true,
+    "comparative_differential_reasoning": true,
+    "gene_driver_reasoning": true
+  },
+  "all_other_categories_byte_identical": true,
+  "threshold_query_changed": true,
+  "checksums_before": {
+    "direct_abundance_query": "8bc8f79c807e64f81278807bbb6de5bf9c04f5b4048326e4638f15a7627793fe",
+    "threshold_query": "c0f16e98e2599e6519e86d93dcd5956ad0ef5a0dc88930b36e672cbf8bdd9826",
+    "ranking_ordering_query": "bf748a628b1595c2129dbc49542ea9f1386c7a9e8e96d5536cfcf336c9c36c42",
+    "comparative_query": "42c2ce3b1fc6ada003eab4db619839fe9b849ae5dac96658989c674af6485867",
+    "interaction_network_query": "c3688df8d2db34d5149aa7c3497b2fea0a7a400f81787a16358da9a6c05fc9ca",
+    "disease_subtype_classification": "587ea91de301e2403a48c27e1763d19a2763eae1ac5a2b206bc86662ddc6d0ef",
+    "comparative_differential_reasoning": "c9439fe93f96f0b291649fa335e233c78ea42b0ce676a67cdf530031086021d7",
+    "gene_driver_reasoning": "d25f67b098b55eddf26a30d09d49f5480cbbd86b977276c1fe1eafbcc0550afb"
+  },
+  "checksums_after": {
+    "direct_abundance_query": "8bc8f79c807e64f81278807bbb6de5bf9c04f5b4048326e4638f15a7627793fe",
+    "threshold_query": "e877e339066245a5294b22f6af8b67327fb6bedcd308b77423125306763034c8",
+    "ranking_ordering_query": "bf748a628b1595c2129dbc49542ea9f1386c7a9e8e96d5536cfcf336c9c36c42",
+    "comparative_query": "42c2ce3b1fc6ada003eab4db619839fe9b849ae5dac96658989c674af6485867",
+    "interaction_network_query": "c3688df8d2db34d5149aa7c3497b2fea0a7a400f81787a16358da9a6c05fc9ca",
+    "disease_subtype_classification": "587ea91de301e2403a48c27e1763d19a2763eae1ac5a2b206bc86662ddc6d0ef",
+    "comparative_differential_reasoning": "c9439fe93f96f0b291649fa335e233c78ea42b0ce676a67cdf530031086021d7",
+    "gene_driver_reasoning": "d25f67b098b55eddf26a30d09d49f5480cbbd86b977276c1fe1eafbcc0550afb"
+  },
+  "elapsed_seconds": 10.3
+}
