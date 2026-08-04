@@ -115,3 +115,40 @@ linear_probe/*.parquet
 # vicuna one holds a downloaded tokenizer + a reduced-depth Llama checkpoint).
 integration/_smoke_tmp/
 integration/_vicuna_smoke_tmp/
+
+# QA-generation model input (653 MB float32, 8,553 x 20,010). Regenerable via
+# `python -m qa_generation.build_bulkformer_matrix`, which calls
+# linear_probe/extract.py::normalize_and_align — the single authoritative
+# TPM -> log1p implementation. The manifest, sample index and symbol->ENSG map
+# beside it are small and stay in git as the provenance record.
+qa_generation/bulkformer_input/bulkformer_expression.npy
+
+# Top-100 co-expression partners per pool gene. Regenerable via
+# `python -m qa_generation.build_coexpression_edges`; its manifest stays tracked.
+qa_generation/coexpression/coexpression_edges.parquet
+
+# Sampling plan (33 MB) and every generated corpus (~590 MB of JSONL): filled
+# pairs, DeepSeek request/response batches and pilot runs. Regenerable by
+# re-running the pipeline, though the DeepSeek stages cost money to reproduce,
+# so these are archived outside git rather than committed. The *_stats.json and
+# *_report.md files beside them carry the same numbers and stay tracked.
+qa_generation/generation_plan.json
+qa_generation/*.jsonl
+
+# Training bundle — the handoff tree. 8,553 per-sample .npy vectors (686 MB),
+# rebuildable with `python -m qa_generation.materialize_npy`, plus the two
+# training JSONs (126 MB). NOTE: the JSONs have no producer script in this repo
+# (the schema conversion was run ad hoc), so they are not regenerable from
+# tracked code — back them up separately. materialization_manifest.json stays
+# tracked as the provenance record.
+data/cvd_transcriptome/embeddings/
+data/cvd_transcriptome/text_files/
+
+# The training JSONs belong in data/cvd_transcriptome/text_files/, not at the
+# repo root; this stops a stray copy landing in a commit if a converter is run.
+/stage1_train.json
+/stage2_train.json
+
+# env file
+ .env
+.env
