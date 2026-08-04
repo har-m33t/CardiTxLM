@@ -1,0 +1,18 @@
+{
+  "started": "2026-08-03T22:34:52.551835+00:00",
+  "finished": "2026-08-03T22:34:54.933861+00:00",
+  "source_matrix": "qa_generation/bulkformer_input/bulkformer_expression.npy",
+  "method": "row slice of the existing materialization; no transform executed, each file is a byte-exact copy of one matrix row",
+  "transform_provenance": "TPM -> log1p over the 20,010-gene ENSG vocabulary, produced by linear_probe/extract.py::normalize_and_align during the correction pass (qa_generation/build_bulkformer_matrix.py)",
+  "image_folder": "data/cvd_transcriptome/embeddings",
+  "sanity_checks": {
+    "n_referenced": 8553,
+    "n_written": 8553,
+    "all_referenced_written": true,
+    "verified_sample": 500,
+    "byte_exact_mismatches": 0,
+    "byte_exact": true,
+    "embeddings_bytes": 685676904,
+    "passed": true
+  }
+}

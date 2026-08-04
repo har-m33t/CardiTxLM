@@ -1,0 +1,35 @@
+{
+  "result": "pass",
+  "detail": {
+    "stage1": {
+      "entries": 8,
+      "images_shape": [
+        8,
+        20010
+      ],
+      "input_ids_shape": [
+        8,
+        96
+      ],
+      "image_sentinels": 8,
+      "rows_sharing_one_image": 3,
+      "distinct_token_sequences": 3,
+      "provenance_mismatches": 0
+    },
+    "stage2": {
+      "entries": 8,
+      "images_shape": [
+        8,
+        20010
+      ],
+      "input_ids_shape": [
+        8,
+        148
+      ],
+      "image_sentinels": 8,
+      "rows_sharing_one_image": 3,
+      "distinct_token_sequences": 3,
+      "provenance_mismatches": 0
+    }
+  }
+}
