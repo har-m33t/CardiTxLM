@@ -64,6 +64,7 @@ output/*
 
 # Claude Code — ignore everything under .claude/
 .claude/
+.codex/
 
 # ARCHS4 raw data — the ~58 GB source H5 and partial-download shards
 # must never be committed; only the analysis outputs go into git.
@@ -152,3 +153,4 @@ data/cvd_transcriptome/text_files/
 # env file
  .env
 .env
+data.zip
