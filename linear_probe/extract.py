@@ -34,6 +34,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import multiprocessing
 import sys
 import time
 from collections import OrderedDict
@@ -183,11 +184,27 @@ def normalize_and_align(counts: np.ndarray, h5_gene_symbols: list[str],
     return aligned, mask_prob
 
 
+def _read_one_column(args: tuple[str, int]) -> np.ndarray:
+    """Read a single sample's full gene column. Module-level so it's picklable
+    for multiprocessing."""
+    h5_path, sample_idx = args
+    with h5py.File(h5_path, "r") as f:
+        return np.asarray(f["data/expression"][:, sample_idx], dtype=np.uint32)
+
+
 class ArchS4CountReader:
     """Random-access reader over ARCHS4's `data/expression` for a fixed
     sample index list. Rows are genes, columns are samples in the on-disk
     layout, so we transpose after reading a batch.
+
+    The H5 is chunked as (2000 genes, 1 sample) — every column read pulls 34
+    separately gzip-compressed chunks over the network filesystem. A single
+    h5py fancy-index read serializes those chunk fetches (~3 samples/s).
+    Reading columns in a worker pool instead parallelizes the network I/O
+    directly; measured ~8x throughput at 16 workers vs. serial reads.
     """
+
+    N_WORKERS = 16
 
     def __init__(self, h5_path: Path, sample_indices: np.ndarray, logger: logging.Logger):
         self.h5_path = h5_path
@@ -197,21 +214,19 @@ class ArchS4CountReader:
             self.h5_gene_symbols = _decode_h5_bytes(f["meta/genes/ensembl_gene"][:])
             self.n_genes_h5 = len(self.h5_gene_symbols)
             logger.info(f"H5 gene axis: {self.n_genes_h5} genes")
+        self._pool = multiprocessing.Pool(self.N_WORKERS)
 
     def read_batch(self, batch_sample_positions: np.ndarray) -> np.ndarray:
         """Read raw counts for a batch of sample-indices; returns shape
         [batch, n_genes_h5]."""
         idx = np.asarray(batch_sample_positions, dtype=np.int64)
-        # h5py fancy indexing requires sorted indices for good performance.
-        order = np.argsort(idx)
-        sorted_idx = idx[order]
-        with h5py.File(self.h5_path, "r") as f:
-            block = f["data/expression"][:, sorted_idx]  # [n_genes_h5, batch]
-        # Restore original batch order.
-        inv = np.empty_like(order)
-        inv[order] = np.arange(len(order))
-        block = block[:, inv]
-        return block.T  # [batch, n_genes_h5]
+        args = [(str(self.h5_path), int(i)) for i in idx]
+        columns = self._pool.map(_read_one_column, args)   # order-preserving
+        return np.stack(columns, axis=0)                   # [batch, n_genes_h5]
+
+    def close(self) -> None:
+        self._pool.close()
+        self._pool.join()
 
 
 # ----- model instantiation ------------------------------------------------
@@ -319,33 +334,32 @@ def _write_shard(shard_dir: Path, start: int, emb: np.ndarray,
 def extract_variant(variant: Variant, manifest: pd.DataFrame, reader: ArchS4CountReader,
                     vocab: list[str], length_dict: dict[str, int],
                     device: torch.device, batch_size: int, out_path: Path,
-                    logger: logging.Logger, shard_every: int = 1000,
-                    resume: bool = True) -> dict:
-    """Run frozen forward passes over `manifest`, mean-pool, write parquet."""
+                    logger: logging.Logger, checkpoint_every: int = 50) -> dict:
+    """Run frozen forward passes over `manifest`, mean-pool, write parquet.
+
+    Checkpoints progress to `out_path.ckpt.npz` every `checkpoint_every` batches
+    so an interrupted run resumes from the last checkpoint instead of redoing
+    the whole variant.
+    """
+    model = build_encoder(variant, device, logger)
+
     n = len(manifest)
+    emb_dim = variant.dim + 3
     sample_positions = manifest["sample_index"].to_numpy()
 
-    shard_dir = _shard_dir(out_path, variant)
-    shard_dir.mkdir(parents=True, exist_ok=True)
-    if resume:
-        all_embs, all_mask_probs, resume_from = _load_shards(shard_dir, batch_size, n, logger)
-    else:
-        all_embs, all_mask_probs, resume_from = [], [], 0
-    (shard_dir / "_shard_meta.json").write_text(json.dumps(
-        {"variant": variant.name, "n_samples": n, "batch_size": batch_size}, indent=2))
-
-    if resume_from >= n:
-        logger.info(f"[{variant.name}] all {n} samples already in shards — assembling parquet")
-        model = None
-    else:
-        model = build_encoder(variant, device, logger)
-
-    pending: list[np.ndarray] = []
-    pending_mask: list[float] = []
-    pending_start = resume_from
+    ckpt_path = out_path.with_suffix(".ckpt.npz")
+    start_at = 0
+    emb_out = np.zeros((n, emb_dim), dtype=np.float32)
+    all_mask_probs: list[float] = []
+    if ckpt_path.exists():
+        ckpt = np.load(ckpt_path)
+        emb_out = ckpt["emb_out"]
+        start_at = int(ckpt["next_start"])
+        all_mask_probs = list(ckpt["mask_probs"])
+        logger.info(f"[{variant.name}] resuming from checkpoint at {start_at}/{n} samples")
 
     t0 = time.perf_counter()
-    for start in range(resume_from, n, batch_size):
+    for i, start in enumerate(range(start_at, n, batch_size)):
         end = min(start + batch_size, n)
         batch_positions = sample_positions[start:end]
         counts = reader.read_batch(batch_positions)          # [B, N_h5]
@@ -357,29 +371,21 @@ def extract_variant(variant: Variant, manifest: pd.DataFrame, reader: ArchS4Coun
             gene_emb = model(x, mask_prob=mask_prob, output_expr=False)   # [B, 20010, dim+3]
             sample_emb = gene_emb.mean(dim=1)                             # [B, dim+3]
         emb_cpu = sample_emb.detach().float().cpu().numpy()
-        pending.append(emb_cpu)
-        pending_mask.extend([mask_prob] * (end - start))
-
-        if sum(len(p) for p in pending) >= shard_every or end >= n:
-            block = np.vstack(pending)
-            _write_shard(shard_dir, pending_start, block, pending_mask,
-                         sample_positions[pending_start:pending_start + len(block)])
-            all_embs.append(block)
-            all_mask_probs.extend(pending_mask)
-            logger.info(f"[{variant.name}] checkpointed shard at sample {pending_start}"
-                        f"–{pending_start + len(block)}")
-            pending_start += len(block)
-            pending, pending_mask = [], []
+        emb_out[start:end] = emb_cpu
+        all_mask_probs.append(mask_prob)
 
         seen = end
         elapsed = time.perf_counter() - t0
-        done_this_run = seen - resume_from
-        rate = done_this_run / max(elapsed, 1e-6)
+        rate = (seen - start_at) / max(elapsed, 1e-6)
         eta_s = (n - seen) / max(rate, 1e-6)
         logger.info(f"[{variant.name}] {seen}/{n} samples in {elapsed:.1f}s "
                     f"({rate:.2f}/s, ETA {eta_s / 3600:.2f} h)")
 
-    emb = np.vstack(all_embs)   # [n, dim+3]
+        if (i + 1) % checkpoint_every == 0 or seen == n:
+            np.savez(ckpt_path, emb_out=emb_out, next_start=seen,
+                     mask_probs=np.array(all_mask_probs))
+
+    emb = emb_out   # [n, dim+3]
     total_seconds = time.perf_counter() - t0
 
     if len(emb) != n:
@@ -391,6 +397,7 @@ def extract_variant(variant: Variant, manifest: pd.DataFrame, reader: ArchS4Coun
     emb_df = pd.DataFrame(emb, columns=[f"e{j:04d}" for j in range(emb.shape[1])])
     out_df = pd.concat([manifest.reset_index(drop=True), emb_df], axis=1)
     out_df.to_parquet(out_path, index=False)
+    ckpt_path.unlink(missing_ok=True)
 
     stats = {
         "variant": variant.name,
@@ -466,16 +473,18 @@ def main(argv: list[str] | None = None) -> int:
     reader = ArchS4CountReader(args.h5, manifest["sample_index"].to_numpy(), logger)
 
     per_variant_stats = []
-    for name in args.variants:
-        if name not in VARIANTS:
-            logger.error(f"unknown variant {name!r}; choose from {list(VARIANTS)}")
-            return 2
-        variant = VARIANTS[name]
-        out_path = args.outdir / f"embeddings_{name}.parquet"
-        stats = extract_variant(variant, manifest, reader, vocab, length_dict,
-                                device, args.batch_size, out_path, logger,
-                                shard_every=args.shard_every, resume=not args.no_resume)
-        per_variant_stats.append(stats)
+    try:
+        for name in args.variants:
+            if name not in VARIANTS:
+                logger.error(f"unknown variant {name!r}; choose from {list(VARIANTS)}")
+                return 2
+            variant = VARIANTS[name]
+            out_path = args.outdir / f"embeddings_{name}.parquet"
+            stats = extract_variant(variant, manifest, reader, vocab, length_dict,
+                                    device, args.batch_size, out_path, logger)
+            per_variant_stats.append(stats)
+    finally:
+        reader.close()
 
     # Merge into any existing manifest rather than replacing it — variants are
     # extracted in separate invocations (each takes hours), and a plain

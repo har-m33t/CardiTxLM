@@ -1,8 +1,8 @@
 {
-  "run_timestamp": "2026-07-06T22:28:22.264467+00:00",
-  "outdir": "/Users/harmeetsingh/cvd_data",
+  "run_timestamp": "2026-08-11T08:56:43.279702+00:00",
+  "outdir": "eda/dataset/cvd_data",
   "archs4": {
     "status": "failed",
-    "error": "expected str, bytes or os.PathLike object, not NoneType"
+    "error": "argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'NoneType'"
   }
 }

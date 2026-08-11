@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Dict, List, Optional, Sequence, Tuple, Union
 from packaging import version
 
@@ -13,17 +13,17 @@ import torch
 import tokenizers
 
 IS_TOKENIZER_GREATER_THAN_0_14 = version.parse(tokenizers.__version__) >= version.parse('0.14')
-    
+
 system = "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions."
 
 @register_template('llama')
 @dataclass
 class LlamaTemplate(Template):
-    format_image_token: "Formatter" = StringFormatter(slot="<image>\n{{content}}")
-    format_user: "Formatter" = StringFormatter(slot="USER" + ": " + "{{content}}" + " ")
-    format_assistant: "Formatter" = StringFormatter(slot="ASSISTANT" + ": " + "{{content}}" + "</s>")
-    system: "Formatter" = EmptyFormatter(slot=system+" ")
-    separator: "Formatter" = EmptyFormatter(slot=[' ASSISTANT: ', '</s>'])
+    format_image_token: "Formatter" = field(default_factory=lambda: StringFormatter(slot="<image>\n{{content}}"))
+    format_user: "Formatter" = field(default_factory=lambda: StringFormatter(slot="USER" + ": " + "{{content}}" + " "))
+    format_assistant: "Formatter" = field(default_factory=lambda: StringFormatter(slot="ASSISTANT" + ": " + "{{content}}" + "</s>"))
+    system: "Formatter" = field(default_factory=lambda: EmptyFormatter(slot=system+" "))
+    separator: "Formatter" = field(default_factory=lambda: EmptyFormatter(slot=[' ASSISTANT: ', '</s>']))
     
     def _make_masks(self, labels, tokenizer, sep, eos_token_length, rounds):
         cur_len = 1 # bos
