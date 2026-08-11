@@ -1,19 +1,27 @@
 # BulkFormer tower — smoke-test status
 
-## Status: **Wiring verified — encoder integration NOT yet verified end-to-end.**
+## Status: **encoder integration verified end-to-end (Linux/CUDA, torch 2.8.0+cu128, 2026-08-11).**
 
-This is deliberately a two-part claim, and only the first part is done:
+Both parts of the claim now hold:
 
 - ✅ **Wiring verified** — the TinyLLaVA-side integration (data path, tower
   pooling, connector, freezing, train step) runs end-to-end with a **stub**
   encoder.
-- ❌ **Encoder integration NOT verified end-to-end** — the real frozen
-  BulkFormer-127M forward has **not** been run inside this tower + training
-  pipeline yet (blocked by the local toolchain; see below).
+- ✅ **Encoder integration verified end-to-end** — `python -m
+  integration.smoke_test --real-encoder` loads the real frozen
+  BulkFormer-127M checkpoint and passes: `[B-tower] out_shape=(3, 1, 643)`,
+  `frozen_params_with_grad=0`, `loss=10.37624` (finite), `connector_grad_norm
+  =0.859615`, `tower_grads=0`. Reproduced on a 2x RTX 4090 box (see repo
+  history around 2026-08-11 for the dependency set that made this pass:
+  torch_geometric/torch_scatter/torch_sparse wheels from
+  data.pyg.org/whl/torch-2.8.0+cu128.html, performer_pytorch, and a
+  `field(default_factory=...)` fix to the six `tinyllava/data/template/*.py`
+  dataclasses, which used mutable/unhashable defaults that Python 3.11+'s
+  stricter dataclass check rejects).
 
-**Do NOT treat this as sufficient to start real Stage 1 pretraining.** The gate
-that actually closes the encoder gap is defined under "Required before Stage 1"
-below.
+This clears the gate below — Stage 1 pretraining is no longer blocked on the
+encoder-integration check itself (it may still be blocked on other things,
+e.g. training data availability).
 
 Reproduce (default = stub mode): `python -m integration.smoke_test`
 
