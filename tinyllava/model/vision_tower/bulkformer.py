@@ -83,7 +83,11 @@ def _load_checkpoint(model, ckpt_path):
 class BulkFormerVisionTower(VisionTower):
     def __init__(self, cfg):
         super().__init__(cfg)
-        variant = getattr(cfg, 'bulkformer_variant', 'BulkFormer-127M')
+        # BulkFormer-93M is the LOCKED encoder scale for this project (see
+        # llm_training_plan.md §2). The fallback here matters only if a config
+        # omits `bulkformer_variant`; the shipped
+        # integration/bulkformer_hf_config/config.json sets it explicitly.
+        variant = getattr(cfg, 'bulkformer_variant', 'BulkFormer-93M')
         if variant not in _VARIANTS:
             raise ValueError(f"unknown bulkformer_variant {variant!r}; "
                              f"choose from {list(_VARIANTS)}")
@@ -93,7 +97,7 @@ class BulkFormerVisionTower(VisionTower):
         self._vision_tower = model
         self._image_processor = _ExpressionProcessor()
         self._variant = variant
-        self.embed_dim = spec["dim"] + 3  # == cfg.hidden_size (643 for 127M)
+        self.embed_dim = spec["dim"] + 3  # == cfg.hidden_size (515 for the locked 93M)
 
     def _load_model(self, vision_tower_name, **kwargs):
         # BulkFormer is frozen and fully loaded from its canonical checkpoint in

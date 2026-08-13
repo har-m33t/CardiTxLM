@@ -1,5 +1,5 @@
 {
   "model_type": "clip_vision_model",
-  "hidden_size": 643,
-  "bulkformer_variant": "BulkFormer-127M"
+  "hidden_size": 515,
+  "bulkformer_variant": "BulkFormer-93M"
 }
