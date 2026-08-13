@@ -1,6 +1,21 @@
 # BulkFormer tower — smoke-test status
 
-## Status: **encoder integration verified end-to-end (Linux/CUDA, torch 2.8.0+cu128, 2026-08-11).**
+> ## ⚠ 2026-08-13 — GATE RE-OPENED BY THE 93M LOCK
+>
+> Everything below was measured against **BulkFormer-127M** (`643`-dim tower
+> output). The project has since **locked BulkFormer-93M** (`515`-dim) as the
+> fixed encoder scale — see `llm_training_plan.md` §2. The real-encoder pass
+> recorded here therefore does **not** cover the variant that will actually run.
+>
+> **Re-run `python -m integration.smoke_test --real-encoder` on the CUDA box
+> before Stage 1.** The test itself needs no edit — it reads the variant from
+> `integration/bulkformer_hf_config/config.json`, which now selects 93M. Expect
+> `(B, 1, 515)` where this document says `(B, 1, 643)`.
+>
+> The dependency findings, the stub-vs-real gating argument and the environment
+> notes below are unaffected and still apply.
+
+## Status: **encoder integration verified end-to-end for the now-retired 127M variant (Linux/CUDA, torch 2.8.0+cu128, 2026-08-11); NOT yet re-verified for the locked 93M.**
 
 Both parts of the claim now hold:
 

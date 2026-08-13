@@ -11,6 +11,13 @@
 > **BulkFormer-127M** (`dim=640`) → per-sample embedding `dim+3 = 643` →
 > `vision_hidden_size = 643`; encoder **frozen** throughout; LLM backbone left as
 > the existing placeholder (out of scope).
+>
+> **⚠ SUPERSEDED 2026-08-13 — encoder scale.** The project has locked
+> **BulkFormer-93M** (`dim=512`) → embedding `515` → `vision_hidden_size = 515`.
+> Every `127M` / `640` / `643` figure below is therefore historical; the
+> mechanism it describes is unchanged, only the width. See `llm_training_plan.md`
+> §2 for the lock and its justification. (The LLM backbone placeholder was also
+> since resolved to Vicuna-7B — see `integration/vicuna_smoke_test_result.md`.)
 
 ## 1. Confirmed training-sample JSON schema
 
