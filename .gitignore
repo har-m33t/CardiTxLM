@@ -140,15 +140,21 @@ qa_generation/*.jsonl
 # Training bundle — the handoff tree. 8,553 per-sample .npy vectors (686 MB),
 # rebuildable with `python -m qa_generation.materialize_npy`.
 # The training JSONs have no producer script in this repo (the schema conversion
-# was run ad hoc), so they are NOT regenerable from tracked code:
-#   * stage2_train.json (11 MB, instruction tuning) is TRACKED — see the negation
-#     below. It is the bundle the Stage-2 LoRA run consumes.
-#   * stage1_train.json (115 MB, connector alignment) stays untracked: it is over
-#     GitHub's 100 MB per-file hard limit and needs git-lfs or an external backup.
+# was run ad hoc), so they are NOT regenerable from tracked code. Both stages are
+# therefore committed, zipped, one archive per stage:
+#   * stage1_train.zip  — 199,954 connector-alignment pairs (115 MB -> 26 MB)
+#   * stage2_train.zip  —  19,793 instruction-tuning items  ( 11 MB ->  0.5 MB)
+# Zipping is what makes stage 1 committable at all: the raw JSON is over GitHub's
+# 100 MB per-file hard limit, the archive is well under it. Unzip in place before
+# training — the launchers read the .json paths, not the archives.
+# stage2_train.json is also tracked uncompressed (it predates the archives and is
+# small enough to diff); stage1_train.json stays untracked.
 # materialization_manifest.json stays tracked as the provenance record.
 data/cvd_transcriptome/embeddings/
 data/cvd_transcriptome/text_files/*
 !data/cvd_transcriptome/text_files/stage2_train.json
+!data/cvd_transcriptome/text_files/stage1_train.zip
+!data/cvd_transcriptome/text_files/stage2_train.zip
 
 # The training JSONs belong in data/cvd_transcriptome/text_files/, not at the
 # repo root; this stops a stray copy landing in a commit if a converter is run.
