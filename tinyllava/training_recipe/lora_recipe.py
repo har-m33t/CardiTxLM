@@ -43,7 +43,10 @@ class LoRATrainingRecipe(BaseTrainingRecipe):
                 model.to(torch.bfloat16)
             if self.training_arguments.fp16:
                 model.to(torch.float16)
-        if model.peft_config is None:
+        # `peft_config` only exists once a model has already been wrapped by PEFT;
+        # a freshly built TinyLlavaForConditionalGeneration has no such attribute
+        # (transformers 4.40 / peft 0.10 -> AttributeError), so probe it safely.
+        if getattr(model, 'peft_config', None) is None:
             log("Adding LoRA adapters...")
             model = get_peft_model(model, lora_config)  
         return model
