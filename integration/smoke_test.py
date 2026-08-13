@@ -7,13 +7,17 @@ Two modes, selected explicitly on the command line:
       torch_geometric / torch_sparse). It verifies the TinyLLaVA-side WIRING
       only; it does NOT verify the real encoder integration end-to-end.
 
-  REAL mode  (--real-encoder) — loads the actual frozen BulkFormer-127M
-      checkpoint. Requires the torch_geometric + torch_sparse stack. This is the
-      test that CLOSES the encoder-integration gap, and it MUST pass on the
-      target training environment before Stage 1 pretraining starts.
+  REAL mode  (--real-encoder) — loads the actual frozen BulkFormer checkpoint
+      named by `integration/bulkformer_hf_config/config.json`, which is LOCKED to
+      **BulkFormer-93M** (`BulkFormer-93M.pt`, embedding dim 512+3 = 515).
+      Requires the torch_geometric + torch_sparse stack. This is the test that
+      CLOSES the encoder-integration gap, and it MUST pass on the target training
+      environment before Stage 1 pretraining starts. NOTE: the recorded pass in
+      integration/smoke_test_result.md was against the retired 127M variant, so
+      it must be re-run for 93M.
 
 Both modes exercise: (A) dataset `.npy` branch → collated `[B, 20010]`;
-(B) tower.forward pooling → `[B, 1, 643]`, encoder frozen; (C) full TinyLlava
+(B) tower.forward pooling → `[B, 1, 515]`, encoder frozen; (C) full TinyLlava
 forward → connector `[B, 1, hidden]`, LLM loss, backward.
 
 Run (default stub):  python -m integration.smoke_test
@@ -110,7 +114,8 @@ def main(argv=None):
     import argparse
     ap = argparse.ArgumentParser(description="BulkFormer tower smoke test.")
     ap.add_argument("--real-encoder", action="store_true",
-                    help="Load the REAL frozen BulkFormer-127M checkpoint "
+                    help="Load the REAL frozen BulkFormer checkpoint selected by "
+                         "integration/bulkformer_hf_config (locked: BulkFormer-93M) "
                          "(requires torch_geometric + torch_sparse). Without this "
                          "flag a STUB encoder is used and encoder integration is "
                          "NOT verified.")
