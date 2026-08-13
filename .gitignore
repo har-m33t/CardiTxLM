@@ -116,6 +116,7 @@ linear_probe/*.parquet
 # vicuna one holds a downloaded tokenizer + a reduced-depth Llama checkpoint).
 integration/_smoke_tmp/
 integration/_vicuna_smoke_tmp/
+integration/_stage1_dryrun/
 
 # QA-generation model input (653 MB float32, 8,553 x 20,010). Regenerable via
 # `python -m qa_generation.build_bulkformer_matrix`, which calls
@@ -137,13 +138,17 @@ qa_generation/generation_plan.json
 qa_generation/*.jsonl
 
 # Training bundle — the handoff tree. 8,553 per-sample .npy vectors (686 MB),
-# rebuildable with `python -m qa_generation.materialize_npy`, plus the two
-# training JSONs (126 MB). NOTE: the JSONs have no producer script in this repo
-# (the schema conversion was run ad hoc), so they are not regenerable from
-# tracked code — back them up separately. materialization_manifest.json stays
-# tracked as the provenance record.
+# rebuildable with `python -m qa_generation.materialize_npy`.
+# The training JSONs have no producer script in this repo (the schema conversion
+# was run ad hoc), so they are NOT regenerable from tracked code:
+#   * stage2_train.json (11 MB, instruction tuning) is TRACKED — see the negation
+#     below. It is the bundle the Stage-2 LoRA run consumes.
+#   * stage1_train.json (115 MB, connector alignment) stays untracked: it is over
+#     GitHub's 100 MB per-file hard limit and needs git-lfs or an external backup.
+# materialization_manifest.json stays tracked as the provenance record.
 data/cvd_transcriptome/embeddings/
-data/cvd_transcriptome/text_files/
+data/cvd_transcriptome/text_files/*
+!data/cvd_transcriptome/text_files/stage2_train.json
 
 # The training JSONs belong in data/cvd_transcriptome/text_files/, not at the
 # repo root; this stops a stray copy landing in a commit if a converter is run.
@@ -154,3 +159,15 @@ data/cvd_transcriptome/text_files/
  .env
 .env
 data.zip
+integration/_stage2_lora_dryrun_tmp/
+
+# Agent-generated status reports (dry-run results, hardware retunes, per-stage
+# verifications). They are a working record of one run at one point in time, go
+# stale as soon as the code they describe changes, and every number in them is
+# reproducible by re-running the harness they name. Hand-written docs
+# (llm_training_plan.md, README.md, writeup.md) are not reports and stay tracked.
+# NOTE: reports committed before this rule landed remain tracked — .gitignore
+# does not untrack, and removing them would drop history.
+**/*_report.md
+**/*_result.md
+**/*_verification.md
