@@ -147,12 +147,11 @@ qa_generation/*.jsonl
 # Zipping is what makes stage 1 committable at all: the raw JSON is over GitHub's
 # 100 MB per-file hard limit, the archive is well under it. Unzip in place before
 # training — the launchers read the .json paths, not the archives.
-# stage2_train.json is also tracked uncompressed (it predates the archives and is
-# small enough to diff); stage1_train.json stays untracked.
+# The raw .json files are ignored: the archives are the single tracked copy of
+# each stage, so there is no duplicate to drift.
 # materialization_manifest.json stays tracked as the provenance record.
 data/cvd_transcriptome/embeddings/
 data/cvd_transcriptome/text_files/*
-!data/cvd_transcriptome/text_files/stage2_train.json
 !data/cvd_transcriptome/text_files/stage1_train.zip
 !data/cvd_transcriptome/text_files/stage2_train.zip
 
