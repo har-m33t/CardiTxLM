@@ -1,4 +1,11 @@
 #!/bin/bash
+# ⚠ SUPERSEDED (2026-08-13). The pipeline now runs as two standalone launchers:
+#     Stage 1  -> scripts/train/train_stage1.sh
+#     Stage 2  -> scripts/train/train_stage2_lora.sh   (LoRA-only)
+#   This script's stage 2 is a FULL fine-tune via finetune.sh, which is the
+#   retired branch (see scripts/train/deprecated/). Kept for provenance; it is
+#   not the script to launch. See llm_training_plan.md.
+#
 # Two-stage BulkFormer training launcher — mirrors scripts/train/train_phi.sh.
 #
 #   Stage 1 (pretrain.sh):  connector-only alignment. BulkFormer tower + LLM
@@ -41,12 +48,12 @@ FINETUNE_IMAGE_PATH=integration/data/images
 LLM_VERSION=lmsys/vicuna-7b-v1.5
 # Vision tower: the "bulkformer" prefix selects BulkFormerVisionTower via the
 # substring-matching factory; the path is the local HF config dir exposing
-# hidden_size=643 and bulkformer_variant (BulkFormer-127M).
+# hidden_size=515 and bulkformer_variant (BulkFormer-93M — the locked scale).
 VT_VERSION=bulkformer:$(pwd)/integration/bulkformer_hf_config
 VT_VERSION2=""
 CN_VERSION=transcript_linear
 CONV_VERSION=llama   # Vicuna v1 template (this repo's name for it); used in stage 2
-VERSION=bulkformer-127m
+VERSION=bulkformer-93m
 TRAIN_RECIPE=common
 MODEL_MAX_LENGTH=2048
 
