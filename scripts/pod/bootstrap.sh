@@ -141,27 +141,21 @@ EOF
 
 # ---------------------------------------------------------------------------
 step "verify the pre-encoded 515-d cache against a live tower forward"
-# The cache was DERIVED locally from linear_probe's embedding parquet rather
-# than produced by a GPU encoder pass. That shortcut is justified by code
-# equivalence (the tower's construction+forward and extract.py's are identical,
-# and the 93M extraction ran at mask_prob=0.0000, matching the tower's hardcoded
-# 0.0 — see data/cvd_transcriptome/encoded_cache_manifest.json), but the
-# equivalence was never confirmed NUMERICALLY, because deepspeed is absent on the
-# machine that built it. This is the first place it can be.
+# The cache was DERIVED from linear_probe's embedding parquet rather than
+# produced by a GPU encoder pass — the shortcut that removes an entire GPU stage
+# from this retrain. It was verified bitwise-exact locally against a live CPU
+# forward of the real tower (max_abs_diff 0.0, with a rolled-vector control); see
+# data/cvd_transcriptome/encoded_cache_manifest.json. This re-checks it here, on
+# different hardware and a freshly downloaded BulkFormer checkpoint, before
+# hours of paid GPU time depend on it.
 #
-# If it fails, regenerate on the GPU (~13 min at the measured 10.9 vectors/s)
-# instead of training on a cache we cannot stand behind.
-if "$PY" -m integration.precompute_encoder_cache \
-        --dest data/cvd_transcriptome/embeddings_encoded \
-        --verify 8 --check-only 2>/dev/null; then
-    echo "cache verified against a live tower forward"
-else
-    echo "cache verification failed or --check-only unsupported; regenerating on GPU"
-    "$PY" -m integration.precompute_encoder_cache \
-        --src data/cvd_transcriptome/embeddings \
-        --dest data/cvd_transcriptome/embeddings_encoded \
-        --verify 8
-fi
+# A full re-encode is deliberately impossible on the pod: the raw [20010]
+# vectors are 668 MB and not shipping them is the entire point. A 16-sample
+# slice travels with the repo (1.0 MB) purely so this check can run.
+cd "$REPO/data/cvd_transcriptome"
+[ -d verify_sample_raw ] || unzip -o -q verify_sample_raw.zip
+cd "$REPO"
+"$PY" -m integration.verify_encoded_cache --device cuda
 
 # ---------------------------------------------------------------------------
 step "preflight assertions"

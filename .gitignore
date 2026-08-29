@@ -192,3 +192,5 @@ qa_generation/de/*.npz
 # pre-encoded passthrough means the raw ones never have to reach a GPU box.
 data/cvd_transcriptome/embeddings_encoded/
 !data/cvd_transcriptome/embeddings_encoded.zip
+data/cvd_transcriptome/verify_sample_raw/
+!data/cvd_transcriptome/verify_sample_raw.zip
