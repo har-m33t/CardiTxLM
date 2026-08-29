@@ -177,3 +177,11 @@ integration/_stage2_lora_dryrun_tmp/
 **/*_result.md
 **/*_verification.md
 regen_retrain_plan.md
+
+# Per-sample differential expression artifacts (qa_generation/build_per_sample_de.py).
+# The parquet and manifest stay tracked — they are small and carry the numbers
+# the report cites. The two .npz are 13 MB and 71 MB of intermediate arrays and
+# are regenerated from the ARCHS4 H5 in about a minute, so they are not worth
+# carrying in git. The H5 itself is not in git either (see the archs4/ rule
+# above), so a fresh clone rebuilds these from the same source or not at all.
+qa_generation/de/*.npz

@@ -1,36 +1,62 @@
 # Stage 2 — Clinical Reasoning templates
 #
-# disease_subtype_classification: verified answerable. GT is this
-#   project's own disease_confirmed_subtype label (extended-EDA curation
-#   from ARCHS4 metadata) — not a native ARCHS4 field, but a verified,
-#   project-derived one. insufficient_data for unresolved/tissue-only
-#   samples.
+# REGENERATED 2026-08-29 (see regen_retrain_plan.md, Phase 2d). Read this
+# header before changing anything below it.
 #
-# comparative_differential_reasoning: verified answerable ONLY when
-#   {comparison_group} resolves to neg_hard (tissue_only_disease_
-#   unconfirmed, from linear_probe/probe_sample_labels.parquet). The
-#   random-bulk-tissue comparison group is CONFOUNDED — confirmed via the
-#   linear probe's own numbers (ROC-AUC drops 0.925 -> 0.781 once tissue
-#   identity is controlled for) — and must never be used to fill this
-#   category. This constraint is enforced at fill-time (Step 3 of
-#   qa_generation_pipeline_todo.md) / in gt_functions.py, not encoded in
-#   the template text itself, since the templates are agnostic to which
-#   group gets bound in.
+# WHAT CHANGED AND WHY
+# --------------------
+# The previous version of this file was correct for the ground truth that
+# existed at the time, and wrong for the model. Two of the three categories
+# resolved to a CORPUS-LEVEL fact — the same answer string for all 8,553
+# samples — which was 86.4% of the Stage-2 corpus. For that share of the
+# supervision the loss-minimising behaviour is to emit a fixed string and
+# ignore the expression profile entirely, which is exactly what the trained
+# model learned to do (see stage2_session_report.md: loss 2.883 -> 0.166 in
+# 155 steps, and LLM latents that only tie the frozen encoder they sit on).
 #
-# gene_driver_reasoning: SCOPE-CORRECTED, do not revert. An audit of
-#   elasticnet_out/gene_signal/gene_signal_ranking.csv found it reflects a
-#   single global "CVD vs. random-bulk-tissue" classification — there is
-#   no per-subtype ranking anywhere in this project, and building one is
-#   deferred (see qa_generation_pipeline_todo.md, "Deferred" section).
-#   The original {condition}-bound subtype-specific templates ("genes
-#   most associated with the {condition} subtype") are NOT usable as
-#   ground truth and have been replaced below with broad-CVD phrasing.
-#   GT is the ~1,300 genes with nonzero_frac == 1.0 in the existing
-#   ranking (the stable, cross-fold-confirmed subset) — every
-#   disease-confirmed CVD sample gets the same underlying answer; this is
-#   a corpus-level fact, not computed per sample or per subtype.
+# `qa_generation/build_per_sample_de.py` now computes REAL per-sample
+# differential expression against the tissue-matched neg_hard comparison
+# group, so both categories have genuinely per-sample ground truth and the
+# templates below are reworded to ask for it.
+#
+# disease_subtype_classification: UNCHANGED. Its GT was always per-sample
+#   (this project's own disease_confirmed_subtype label, extended-EDA
+#   curation from ARCHS4 metadata) and was never part of the problem.
+#   insufficient_data for unresolved/tissue-only samples.
+#
+# comparative_differential_reasoning: {comparison_group} is STILL restricted
+#   to neg_hard (tissue_only_disease_unconfirmed), and this restriction has
+#   NOT been relaxed. The random-bulk-tissue comparison group is CONFOUNDED —
+#   the linear probe's own ROC-AUC drops 0.925 -> 0.781 once tissue identity
+#   is controlled for — so it must never be bound here. Enforced at fill time
+#   in gt_functions.py, not in the template text, since templates are
+#   agnostic to which group gets bound.
+#
+# gene_driver_reasoning: SCOPE CHANGED, deliberately, and this is not a
+#   revert of the earlier scope correction. That correction removed
+#   {condition}-bound SUBTYPE-specific phrasing, because no per-subtype
+#   elastic-net ranking exists anywhere in this project
+#   (gene_pool_prep/elastic_net_ranking_audit.md). That remains true and
+#   subtype-conditioned phrasing is still forbidden — do not reintroduce it.
+#   What is new is PER-SAMPLE phrasing, which is a different axis: the gene
+#   set is still the broad-CVD stable elastic-net subset (nonzero_frac == 1.0,
+#   ~1,142 genes after BulkFormer-vocabulary filtering), but the answer now
+#   names which of those genes deviate in THIS patient's own profile, from
+#   this patient's own measured expression. Broad gene set, per-sample
+#   readout. No subtype claim is made or implied.
+#
+# magnitude_reasoning: NEW category. Grounded entirely in the effect-size
+#   distribution that build_per_sample_de.py already computes, so it costs no
+#   new computation and adds genuine per-sample NUMERIC variation to the
+#   corpus beyond gene identity alone. Buckets (minimal / moderate / large)
+#   come from tertile cut points computed once across all samples and
+#   recorded in de_manifest.json.
+#
+# Every category still returns insufficient_data rather than a fabricated
+# answer when the underlying computation did not produce a usable result.
 
 disease_subtype_classification:
+  # Unchanged — this category was never degenerate.
   - "Predict the cardiovascular subtype indicated by the transcriptomic profile."
   - "Determine the most likely cardiovascular condition from the gene expression profile."
   - "Classify the transcriptomic profile according to the associated cardiovascular subtype."
@@ -43,30 +69,45 @@ disease_subtype_classification:
   - "Use the transcriptomic profile to classify the associated cardiovascular condition."
 
 comparative_differential_reasoning:
-  # {comparison_group} MUST be bound to neg_hard at fill-time — see note above.
-  - "Compare the transcriptomic profile of {condition} with {comparison_group}."
-  - "Determine the gene expression differences between {condition} and {comparison_group}."
-  - "Analyze the molecular features that distinguish {condition} from {comparison_group}."
-  - "How does the transcriptomic signature of {condition} differ from {comparison_group}?"
-  - "Identify the expression patterns that separate {condition} and {comparison_group}."
-  - "Evaluate the differential gene expression profile between {condition} and {comparison_group}."
-  - "Determine which transcriptomic features characterize the difference between {condition} and {comparison_group}."
-  - "Compare the molecular signatures associated with {condition} and {comparison_group}."
-  - "What gene expression patterns distinguish {condition} from {comparison_group}?"
+  # {comparison_group} MUST be bound to neg_hard at fill time — see header.
+  #
+  # Reworded to invite a per-sample answer with named genes and effect sizes.
+  # The old phrasings ("Compare the transcriptomic profile of {condition}
+  # with {comparison_group}") asked about a GROUP, which is what licensed a
+  # corpus-level answer in the first place; every template below asks about
+  # THIS sample.
+  - "Compare this patient's transcriptomic profile with a {comparison_group} profile — which genes show the largest differences?"
+  - "What specific expression changes distinguish this sample from {comparison_group}?"
+  - "Identify the genes most elevated in this patient relative to {comparison_group}."
+  - "Identify the genes most reduced in this patient relative to {comparison_group}."
+  - "How large is the transcriptomic deviation between this sample and {comparison_group}, and which genes drive it?"
+  - "Which genes in this sample deviate most from {comparison_group}, and in which direction?"
+  - "Relative to {comparison_group}, what are this profile's most differentially expressed genes?"
+  - "Determine the gene expression differences between this sample and {comparison_group}."
+  - "Analyze the molecular features that distinguish this patient's profile from {comparison_group}."
 
 gene_driver_reasoning:
-  # Corrected set — no {condition} placeholder. Every template resolves
-  # to broad cardiovascular disease vs. random-bulk-tissue signal, drawn
-  # from the ~1,300-gene stable subset of the existing elastic-net
-  # ranking. Do not reintroduce subtype-conditioned phrasing here without
-  # first completing the deferred per-subtype elastic-net rerun.
-  - "Identify the genes most indicative of cardiovascular disease based on the transcriptomic profile."
-  - "Which genes are most associated with distinguishing this cardiovascular sample from unrelated tissue?"
-  - "Determine the top molecular signals contributing to cardiovascular disease classification."
-  - "Based on the gene expression ranking, identify the most informative genes for cardiovascular disease."
-  - "Report the genes that contribute most strongly to distinguishing cardiovascular disease."
-  - "Analyze the key genes driving the cardiovascular transcriptomic signature."
-  - "Which genes have the strongest association with cardiovascular disease status?"
-  - "Identify the highest-ranking signal genes distinguishing this cardiovascular sample."
-  - "Determine the genes most responsible for the observed cardiovascular expression pattern."
-  - "What are the primary gene-level features supporting cardiovascular disease classification?"
+  # Broad-CVD gene set, PER-SAMPLE readout. No {condition} placeholder — do
+  # not reintroduce subtype-conditioned phrasing without first completing the
+  # deferred per-subtype elastic-net rerun.
+  - "Of the genes broadly associated with cardiovascular disease, which are most elevated in this specific patient?"
+  - "Which known cardiovascular signal genes show notable deviation in this patient's profile?"
+  - "Based on this patient's expression profile, which established disease-associated genes stand out?"
+  - "Does this patient's profile show elevated expression in the genes most strongly linked to cardiovascular disease broadly? Which ones?"
+  - "Among the established cardiovascular signal genes, which are most reduced in this patient?"
+  - "Which of the genes known to distinguish cardiovascular disease are abnormal in this particular sample?"
+  - "Report the cardiovascular-associated genes whose expression is most atypical in this profile."
+  - "For this sample specifically, which broad cardiovascular signal genes depart most from the comparison population?"
+
+magnitude_reasoning:
+  # NEW. GT is derived directly from the effect-size distribution in
+  # per_sample_de.parquet — the count/fraction of genes exceeding the
+  # deviation threshold and the magnitude of the top-K effect sizes —
+  # bucketed into minimal / moderate / large by tertile cut points computed
+  # once across all samples.
+  - "How strongly does this patient's transcriptomic profile deviate from a typical non-diseased tissue profile?"
+  - "Rate the overall magnitude of transcriptomic change in this sample relative to {comparison_group}."
+  - "Is this patient's expression deviation from {comparison_group} large, moderate, or minimal, and in which genes is it most pronounced?"
+  - "Characterize the extent of transcriptomic disruption in this profile."
+  - "How many genes in this sample depart substantially from {comparison_group}, and how large is the largest departure?"
+  - "Overall, how far from {comparison_group} does this transcriptomic profile sit?"

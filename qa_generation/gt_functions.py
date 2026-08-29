@@ -74,6 +74,16 @@ PROBE_LABELS = REPO / "linear_probe/probe_sample_labels.parquet"
 PROBE_RESULTS = REPO / "linear_probe/results"
 COEXPRESSION_EDGES = REPO / "qa_generation/coexpression/coexpression_edges.parquet"
 
+# Per-sample differential expression against the tissue-matched neg_hard
+# reference, produced by `qa_generation/build_per_sample_de.py`. This is what
+# makes the two formerly-degenerate Stage-2 categories per-sample; see the
+# "Stage 2" section header below for the full history.
+DE_DIR = REPO / "qa_generation/de"
+DE_PER_SAMPLE = DE_DIR / "per_sample_de.parquet"
+DE_STABLE_Z = DE_DIR / "stable_gene_z.npz"
+DE_MANIFEST = DE_DIR / "de_manifest.json"
+HOLDOUT_SERIES = REPO / "data/cvd_transcriptome/holdout_series.json"
+
 INSUFFICIENT_DATA = "insufficient_data"
 OK = "ok"
 
@@ -254,6 +264,65 @@ def _stable_signal_genes() -> pd.DataFrame:
 
 
 @lru_cache(maxsize=1)
+def _de_rows() -> pd.DataFrame:
+    """Per-sample differential expression, indexed by accession.
+
+    One row per disease-confirmed sample: its most elevated and most reduced
+    genes against its own tissue-matched `neg_hard` reference, with real effect
+    sizes. Written by `build_per_sample_de.py`; see `de_manifest.json` for the
+    reference construction, the gene gates and the tertile cut points.
+    """
+    de = pd.read_parquet(_require(DE_PER_SAMPLE))
+    return de.set_index(de.geo_accession.astype(str))
+
+
+@lru_cache(maxsize=1)
+def _de_manifest() -> dict[str, Any]:
+    return json.loads(_require(DE_MANIFEST).read_text())
+
+
+@lru_cache(maxsize=1)
+def _stable_gene_z() -> dict[str, Any]:
+    """Per-sample z / log-fold-change over the stable CVD signal genes.
+
+    Shape [n_samples, n_stable]. `row_of` maps an accession to its row.
+
+    NaN is MEANINGFUL here and must never be imputed. A NaN means that gene had
+    zero variance inside that sample's own tissue-matched reference bucket, so
+    no z-score is defined for it — the correct handling is to omit the gene for
+    that sample, exactly as every other uncomputable quantity in this module is
+    omitted rather than approximated. `de_manifest.json` carries a check proving
+    every NaN position coincides with a zero-variance reference position.
+    """
+    z = np.load(_require(DE_STABLE_Z), allow_pickle=True)
+    accessions = _de_rows()
+    by_index = {int(s): a for a, s in zip(accessions.index, accessions.sample_index)}
+    row_of = {
+        by_index[int(s)]: i
+        for i, s in enumerate(z["sample_index"])
+        if int(s) in by_index
+    }
+    out = {
+        "z": z["z"],
+        "lfc": z["lfc"],
+        "genes": [str(g) for g in z["genes"]],
+        "rank": z["rank"],
+        "mean_coef": z["mean_coef"],
+        "direction": [str(d) for d in z["direction"]],
+        "in_clingen_hcvd": z["in_clingen_hcvd"],
+        "row_of": row_of,
+    }
+    # `rank_gate` is the same selection-time filter the parquet's top-K lists
+    # use — |lfc| >= 0.5, a resolvable gene symbol, and not sex-linked. It is
+    # applied HERE too, because this function ranks the stable-gene matrix
+    # directly rather than reading the parquet's lists: without it the gates
+    # would hold for `comparative_differential_reasoning` and silently not for
+    # `gene_driver_reasoning`. Absent (older artifact) means no gating.
+    out["rank_gate"] = z["rank_gate"] if "rank_gate" in z.files else None
+    return out
+
+
+@lru_cache(maxsize=1)
 def _stable_counts() -> dict[str, int]:
     """Stable-gene counts at each filtering stage, so the figures reconcile."""
     rank = pd.read_csv(_require(GENE_RANKING))
@@ -366,6 +435,43 @@ def _canon_rank_direction(value: Any) -> str | None:
     if token in _BOTTOM:
         return "bottom"
     return None
+
+
+def _parse_top_n(top_n: Any, upper: int) -> int | None:
+    """Validate a caller-bound answer size, or None if it is unusable.
+
+    Deliberately strict, and deliberately refuses an unbound value rather than
+    defaulting: `gene_driver_reasoning` once defaulted `top_n` to None, which
+    meant "return all 1,142 stable genes" while every template in the category
+    asked for "the top" signals. A silent default that contradicts the question
+    is worse than a refusal.
+
+    `bool` is rejected explicitly because it is an `int` subclass in Python, so
+    `top_n=True` would otherwise quietly mean 1.
+    """
+    if top_n is None or isinstance(top_n, bool):
+        return None
+    if not isinstance(top_n, (int, np.integer)):
+        return None
+    n = int(top_n)
+    if n < 1 or n > upper:
+        return None
+    return n
+
+
+#: Which side of the deviation a question is asking about. Bound per template
+#: index, because the templates are not interchangeable on this axis: "Identify
+#: the genes most ELEVATED in this patient" and "...most REDUCED" must not both
+#: receive a list ranked by absolute deviation, or the answer contradicts the
+#: question it was paired with. That is a subtler version of the same defect
+#: this regeneration exists to fix — supervision whose target does not follow
+#: from its input — so it is validated rather than defaulted.
+RANK_DIRECTIONS = frozenset({"up", "down", "both", "abs"})
+
+
+def _parse_direction(direction: Any) -> str | None:
+    d = str(direction).strip().lower() if direction is not None else ""
+    return d if d in RANK_DIRECTIONS else None
 
 
 def _parse_size(spec: Any, universe: int) -> tuple[int, str, float | None] | None:
@@ -700,22 +806,85 @@ def disease_subtype_classification(sample_id: Any) -> GTResult:
     )
 
 
+def _de_row(category: str, accession: str) -> tuple[Any, GTResult | None]:
+    """Fetch a sample's DE row, or the refusal that should replace it."""
+    de = _de_rows()
+    if accession not in de.index:
+        return None, _insufficient(category, accession, "sample_not_in_de_table")
+    row = de.loc[accession]
+    if str(row.status) != OK:
+        return None, _insufficient(
+            category, accession, f"de_{row.reason or 'unavailable'}"
+        )
+    return row, None
+
+
+def _reference_description(row: Any) -> dict[str, Any]:
+    """How this sample's comparison population was chosen.
+
+    `reference_scope` is either `tissue:<bucket>` (a source_name_ch1 bucket with
+    at least 30 neg_hard samples) or `pool` (the whole non-holdout neg_hard
+    population). Which one was used is reported, never silently substituted —
+    the same discipline the old `comparison_group_not_permitted` refusal
+    enforced for the group itself.
+    """
+    scope = str(row.reference_scope)
+    tissue_matched = scope.startswith("tissue:")
+    return {
+        "comparison_group": "neg_hard",
+        "comparison_group_definition": (
+            "tissue_only_disease_unconfirmed — CVD-relevant tissue, bulk, with "
+            "no disease confirmation in the metadata"
+        ),
+        "reference_scope": scope,
+        "reference_is_tissue_matched": tissue_matched,
+        "reference_tissue": scope.split(":", 1)[1] if tissue_matched else None,
+        "reference_n": int(row.reference_n),
+        "reference_excludes_holdout_series": True,
+        "n_genes_compared": int(row.n_genes_compared),
+    }
+
+
+def _named_genes(genes, zs, lfcs, limit: int) -> list[dict[str, Any]]:
+    """Render a ranked slice as gene records, dropping anything uncomputable."""
+    out: list[dict[str, Any]] = []
+    for gene, z, lfc in zip(genes, zs, lfcs):
+        zf, lf = float(z), float(lfc)
+        if not (math.isfinite(zf) and math.isfinite(lf)):
+            continue
+        out.append(
+            {
+                "gene": str(gene),
+                "z": round(zf, 3),
+                "log_fold_change": round(lf, 3),
+                "direction": "elevated" if zf > 0 else "reduced",
+            }
+        )
+        if len(out) >= limit:
+            break
+    return out
+
+
 def comparative_differential_reasoning(
-    sample_id: Any, comparison_group: str
+    sample_id: Any, comparison_group: str, top_n: Any = 5, direction: Any = "both"
 ) -> GTResult:
-    """How disease-confirmed CVD separates from the `neg_hard` control pool.
+    """THIS sample's own differential expression against `neg_hard`.
 
-    Only `neg_hard` (`tissue_only_disease_unconfirmed`) is answerable. The
-    random-bulk-tissue group conflates tissue identity with disease signal, so
-    any other binding returns insufficient_data rather than being silently
-    swapped for a confounded one.
+    REWRITTEN (regen plan, Phase 2c). The previous version returned a
+    corpus-level linear-probe ROC-AUC summary with `per_gene_differential: None`
+    — the identical answer for all 8,553 samples, because no expression matrix
+    covered the neg_hard pool and so no per-gene contrast had ever been computed.
+    That, together with `gene_driver_reasoning`, made 86.4% of the Stage-2 corpus
+    information-free with respect to its own input.
 
-    The payload carries corpus-level separability, not per-gene differential
-    expression: no expression matrix exists for the neg_hard pool
-    (the materialized matrices cover disease-confirmed samples only), so no
-    per-gene contrast has ever been computed at this comparison. The field is
-    present and explicitly null so Step 4 cannot mistake absence for licence to
-    invent one.
+    `build_per_sample_de.py` now materializes the neg_hard pool's expression and
+    computes a real per-sample contrast, so the answer names genes and effect
+    sizes measured in THIS patient's profile.
+
+    Only `neg_hard` is answerable, and that restriction is UNCHANGED. The
+    random-bulk-tissue group conflates tissue identity with disease signal (the
+    probe's own ROC-AUC falls 0.925 -> 0.781 once tissue is controlled for), so
+    any other binding is refused rather than silently substituted.
     """
     category = "comparative_differential_reasoning"
     accession = _resolve_sample(sample_id)
@@ -730,80 +899,76 @@ def comparative_differential_reasoning(
     probe = _probe_labels()
     if accession not in probe.index:
         return _insufficient(category, accession, "sample_not_in_probe_labels")
-    rec = probe.loc[accession]
-    if not bool(rec.is_positive):
+    if not bool(probe.loc[accession].is_positive):
         return _insufficient(category, accession, "sample_not_a_probe_positive")
 
-    results = _probe_results()
-    if "neg_hard" not in results:
-        return _insufficient(category, accession, "neg_hard_probe_results_missing")
-    neg_hard = results["neg_hard"]
-    primary = max(neg_hard, key=lambda v: neg_hard[v]["roc_auc_mean"])
-    confounded = results.get("neg_whole_corpus", {}).get(primary)
+    row, refusal = _de_row(category, accession)
+    if refusal is not None:
+        return refusal
 
-    subtype = str(rec.cvd_subtype)
+    n = _parse_top_n(top_n, upper=len(row.top_up_genes))
+    if n is None:
+        return _insufficient(category, accession, f"unusable_top_n:{top_n!r}")
+    want = _parse_direction(direction)
+    if want is None:
+        return _insufficient(category, accession, f"unusable_direction:{direction!r}")
+
+    up = (_named_genes(row.top_up_genes, row.top_up_z, row.top_up_lfc, n)
+          if want in ("up", "both", "abs") else [])
+    down = (_named_genes(row.top_down_genes, row.top_down_z, row.top_down_lfc, n)
+            if want in ("down", "both", "abs") else [])
+    if not up and not down:
+        return _insufficient(category, accession, "no_computable_gene_effects")
+
+    subtype = str(probe.loc[accession].cvd_subtype)
     return GTResult(
         category=category, sample_id=accession, status=OK,
         payload={
             "sample_subtype": subtype if subtype not in NON_SUBTYPE_LABELS else None,
-            "comparison_group": "neg_hard",
-            "comparison_group_definition": (
-                "tissue_only_disease_unconfirmed — CVD-relevant tissue, bulk, "
-                "with no disease confirmation in the metadata"
+            **_reference_description(row),
+            "units": EXPRESSION_UNITS,
+            "effect_size_definition": (
+                "z = (this sample's value - reference mean) / reference sd; "
+                "log_fold_change = this sample's value - reference mean, which "
+                "is already a log fold change because both are log1p(TPM)"
             ),
-            "n_positive": neg_hard[primary]["n_positive"],
-            "n_comparison": neg_hard[primary]["n_negative"],
-            "n_series": neg_hard[primary]["n_series"],
-            "separability": {
-                "metric": "linear probe ROC-AUC, grouped 5-fold by series",
-                "primary_variant": primary,
-                "roc_auc_mean": round(neg_hard[primary]["roc_auc_mean"], 4),
-                "roc_auc_std": round(neg_hard[primary]["roc_auc_std"], 4),
-                "by_variant": {
-                    v: round(s["roc_auc_mean"], 4) for v, s in neg_hard.items()
-                },
-            },
-            "confound_context": (
-                None
-                if confounded is None
-                else {
-                    "random_tissue_roc_auc": round(confounded["roc_auc_mean"], 4),
-                    "note": (
-                        "The random-bulk-tissue comparison scores higher only "
-                        "because tissue identity is uncontrolled; that group is "
-                        "not valid ground truth for disease-specific claims."
-                    ),
-                }
+            "direction_asked": want,
+            "most_elevated": up,
+            "most_reduced": down,
+            "n_genes_beyond_2sd": int(row.n_genes_abs_z_gt2),
+            "frac_genes_beyond_2sd": round(float(row.frac_genes_abs_z_gt2), 5),
+            "max_abs_z": round(float(row.max_abs_z), 3),
+            "ranking_semantics": (
+                "these are the most extreme genes for this sample, not a "
+                "significance-tested set; a listed gene with |z| below 2 is "
+                "simply this sample's largest deviation, not a significant one"
             ),
-            "per_gene_differential": None,
-            "per_gene_differential_reason": (
-                "no expression matrix exists for the neg_hard pool, so no "
-                "per-gene contrast has been computed at this comparison"
-            ),
+            "per_sample": True,
         },
     )
 
 
-def gene_driver_reasoning(sample_id: Any, top_n: Any) -> GTResult:
-    """Top N genes driving broad CVD-vs-tissue classification, for a qualifying sample.
+def gene_driver_reasoning(
+    sample_id: Any, top_n: Any, direction: Any = "abs"
+) -> GTResult:
+    """Which BROAD-CVD signal genes deviate in THIS patient specifically.
 
-    `top_n` is required and must be bound explicitly. It previously defaulted to
-    `None`, which returned all 1,142 stable genes — while every template in this
-    category asks for "the top molecular signals" or "the highest-ranking signal
-    genes". A 1,142-gene list is not what that question asks for, so the bound is
-    now stated by the caller and an unbound value is refused rather than
-    silently meaning "all".
+    REWRITTEN (regen plan, Phase 2b). The previous version returned the same
+    global elastic-net ranking for every qualifying sample and said so in its own
+    payload (`sample_role: "eligibility_gate_only"`). The gene set is still that
+    ranking's cross-fold-stable subset — but the answer is now a per-sample
+    readout OF it: which of those genes actually deviate in this patient's own
+    profile, using the z-scores `build_per_sample_de.py` computed.
 
-    Broad CVD only, and deliberately not parameterised by subtype. The
-    elastic-net ranking behind this answer comes from one global
-    CVD-vs-random-tissue model; no per-subtype ranking exists anywhere in the
-    project (`gene_pool_prep/elastic_net_ranking_audit.md`). Every
-    disease-confirmed CVD sample therefore shares the same gene list — this is a
-    corpus-level fact. The function's job is to confirm the sample qualifies and
-    return that shared ranking, not to compute anything per sample.
+    TWO AXES, DO NOT CONFLATE THEM. This change makes the answer PER-SAMPLE. It
+    does NOT make it per-subtype, and the earlier scope correction still stands:
+    the ranking comes from one global CVD-vs-random-tissue model, no per-subtype
+    ranking exists anywhere in this project (`elastic_net_ranking_audit.md`), and
+    subtype-conditioned phrasing must not be reintroduced.
 
-    The list is the cross-fold-stable subset only: `nonzero_frac == 1.0`, i.e.
-    a nonzero coefficient in all five outer folds.
+    `top_n` bounds how many deviating genes are named. It stays caller-bound —
+    it previously defaulted to None, which returned all 1,142 genes while every
+    template asked for "the top" signals.
     """
     category = "gene_driver_reasoning"
     accession = _resolve_sample(sample_id)
@@ -813,53 +978,141 @@ def gene_driver_reasoning(sample_id: Any, top_n: Any) -> GTResult:
     if not bool(rec.is_cvd_disease):
         return _insufficient(category, accession, "not_disease_confirmed")
 
-    stable = _stable_signal_genes()
-    if (
-        top_n is None
-        or isinstance(top_n, bool)
-        or not isinstance(top_n, (int, np.integer))
-        or int(top_n) < 1
-        or int(top_n) > len(stable)
-    ):
+    row, refusal = _de_row(category, accession)
+    if refusal is not None:
+        return refusal
+
+    sz = _stable_gene_z()
+    if accession not in sz["row_of"]:
+        return _insufficient(category, accession, "sample_not_in_stable_gene_matrix")
+    i = sz["row_of"][accession]
+    z, lfc = sz["z"][i], sz["lfc"][i]
+
+    n = _parse_top_n(top_n, upper=len(sz["genes"]))
+    if n is None:
         return _insufficient(category, accession, f"unusable_top_n:{top_n!r}")
-    stable = stable.head(int(top_n))
+    want = _parse_direction(direction)
+    if want is None:
+        return _insufficient(category, accession, f"unusable_direction:{direction!r}")
+
+    # NaN means "no z is defined for this gene against this sample's reference"
+    # (zero variance in the bucket). Omit, never impute — see _stable_gene_z.
+    ok_mask = np.isfinite(z) & np.isfinite(lfc)
+    if sz["rank_gate"] is not None:
+        ok_mask &= sz["rank_gate"][i]
+    if want == "up":
+        ok_mask &= z > 0
+    elif want == "down":
+        ok_mask &= z < 0
+    usable = np.where(ok_mask)[0]
+    if usable.size == 0:
+        return _insufficient(
+            category, accession, f"no_computable_stable_gene_z:{want}"
+        )
+
+    if want == "up":
+        order = usable[np.argsort(-z[usable])][:n]
+    elif want == "down":
+        order = usable[np.argsort(z[usable])][:n]
+    else:
+        order = usable[np.argsort(-np.abs(z[usable]))][:n]
+    genes = [
+        {
+            "gene": sz["genes"][j],
+            "z": round(float(z[j]), 3),
+            "log_fold_change": round(float(lfc[j]), 3),
+            "direction_in_sample": "elevated" if z[j] > 0 else "reduced",
+            "elastic_net_rank": int(sz["rank"][j]),
+            "elastic_net_direction": sz["direction"][j],
+            "in_clingen_hcvd": bool(sz["in_clingen_hcvd"][j]),
+        }
+        for j in order
+    ]
 
     return GTResult(
         category=category, sample_id=accession, status=OK,
         payload={
             "scope": "broad_cardiovascular_disease",
             "not_subtype_specific": True,
+            "per_sample": True,
             "scope_note": (
-                "Ranking is from a single global CVD-vs-random-bulk-tissue "
-                "elastic-net model. It supports no subtype-specific claim."
+                "The gene SET is the stable subset of a single global "
+                "CVD-vs-random-bulk-tissue elastic-net model, so it supports no "
+                "subtype-specific claim. The DEVIATIONS reported are this "
+                "sample's own, measured against its tissue-matched reference."
             ),
-            "n_returned": int(len(stable)),
-            "n_stable_genes": int(len(_stable_signal_genes())),
-            "n_stable_rows_before_symbol_dedup": _stable_counts()[
-                "rows_before_symbol_dedup"
-            ],
-            "n_dropped_out_of_bulkformer_vocab": _stable_counts()[
-                "dropped_out_of_vocab"
-            ],
+            **_reference_description(row),
+            "units": EXPRESSION_UNITS,
+            "n_stable_genes": int(len(sz["genes"])),
+            "n_stable_genes_computable_here": int(usable.size),
+            "n_returned": len(genes),
             "stability_criterion": "nonzero_frac == 1.0 (all 5 outer folds)",
             "vocabulary_filter": (
                 "genes outside BulkFormer's 20,010-gene input vocabulary removed; "
                 "a filter on the existing ranking, not an elastic-net re-run"
             ),
-            "genes": [
-                {
-                    "gene": str(r.gene_symbol),
-                    "rank": int(r.rank),
-                    "mean_coef": round(float(r.mean_coef), 5),
-                    "abs_mean_coef": round(float(r.abs_mean_coef), 5),
-                    "direction": str(r.direction),
-                    "in_clingen_hcvd": bool(r.in_clingen_hcvd),
-                }
-                for r in stable.itertuples()
-            ],
-            "ranked_by": "abs_mean_coef, descending",
-            "sample_role": "eligibility_gate_only",
-            "in_expression_matrix": accession in _expression_rows(),
+            "direction_asked": want,
+            "ranked_by": {
+                "up": "z in this sample, most elevated first",
+                "down": "z in this sample, most reduced first",
+            }.get(want, "absolute z in this sample, descending"),
+            "genes": genes,
+        },
+    )
+
+
+def magnitude_reasoning(sample_id: Any, comparison_group: str) -> GTResult:
+    """How far THIS sample's whole profile sits from its reference population.
+
+    NEW category (regen plan, Phase 2d). Grounded entirely in effect sizes
+    `build_per_sample_de.py` already computes, so it costs no extra computation
+    and adds genuine per-sample NUMERIC variation to the corpus — variation in
+    magnitude, not just in which genes get named.
+
+    The qualitative bucket comes from tertile cut points computed once across
+    every sample and recorded in `de_manifest.json`, so "large" means the same
+    thing in every answer rather than being judged per sample.
+    """
+    category = "magnitude_reasoning"
+    accession = _resolve_sample(sample_id)
+    if accession is None:
+        return _insufficient(category, sample_id, "unknown_sample_id")
+    group = str(comparison_group).strip().lower()
+    if group not in VALID_COMPARISON_GROUPS:
+        return _insufficient(
+            category, accession, f"comparison_group_not_permitted:{comparison_group}"
+        )
+    rec = _sample_labels().loc[accession]
+    if not bool(rec.is_cvd_disease):
+        return _insufficient(category, accession, "not_disease_confirmed")
+
+    row, refusal = _de_row(category, accession)
+    if refusal is not None:
+        return refusal
+
+    tertiles = _de_manifest().get("magnitude_tertiles", {})
+    top = _named_genes(row.top_up_genes, row.top_up_z, row.top_up_lfc, 1)
+    return GTResult(
+        category=category, sample_id=accession, status=OK,
+        payload={
+            "magnitude": str(row.magnitude_bucket),
+            **_reference_description(row),
+            "units": EXPRESSION_UNITS,
+            "n_genes_beyond_2sd": int(row.n_genes_abs_z_gt2),
+            "frac_genes_beyond_2sd": round(float(row.frac_genes_abs_z_gt2), 5),
+            "mean_abs_z": round(float(row.mean_abs_z), 3),
+            "max_abs_z": round(float(row.max_abs_z), 3),
+            "largest_deviation_gene": top[0] if top else None,
+            "bucket_definition": {
+                "metric": tertiles.get("metric", "frac_genes_abs_z_gt2"),
+                "cut_low": tertiles.get("cut_low"),
+                "cut_high": tertiles.get("cut_high"),
+                "note": (
+                    "tertiles of the whole disease-confirmed population, computed "
+                    "once, so the label is comparable across samples"
+                ),
+            },
+            "per_sample": True,
         },
     )
 
@@ -874,4 +1127,5 @@ GT_FUNCTIONS = {
     "disease_subtype_classification": disease_subtype_classification,
     "comparative_differential_reasoning": comparative_differential_reasoning,
     "gene_driver_reasoning": gene_driver_reasoning,
+    "magnitude_reasoning": magnitude_reasoning,
 }

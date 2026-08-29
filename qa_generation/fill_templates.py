@@ -165,34 +165,123 @@ def render_stage1(category: str, payload: dict, entities: dict) -> str:
     raise ValueError(f"no stage 1 renderer for {category}")
 
 
+#: Above this, a z-score stops being an interpretable number and starts being an
+#: artifact of a tiny reference standard deviation — most often a tissue bucket
+#: near the 30-sample floor, where a per-gene sd is estimated from very few
+#: observations. The DEVIATION is real (the |lfc| >= 0.5 gate guarantees a
+#: genuine fold change), but "z = 176.907" states a precision the estimate does
+#: not have, and writing it into a training target teaches the model to emit
+#: spurious precision. The fold change carries the magnitude instead.
+Z_REPORTING_CAP = 50.0
+
+
+def _z(value: float) -> str:
+    """Render a z-score, refusing to state one the estimate cannot support."""
+    if value >= Z_REPORTING_CAP:
+        return f"z > {Z_REPORTING_CAP:.0f}"
+    if value <= -Z_REPORTING_CAP:
+        return f"z < -{Z_REPORTING_CAP:.0f}"
+    return f"z = {value}"
+
+
+def _effects(records: list[dict]) -> str:
+    """Render gene records as "GENE (z = ..., log-fold-change ...)".
+
+    Both numbers are carried because they answer different questions and the
+    generation prompt forbids dropping either: z says how unusual the value is
+    for this reference population, log-fold-change says how large the change
+    actually is. A large z on a tiny fold change is a near-zero-variance
+    artifact, and a reader can only see that if both are present.
+    """
+    return ", ".join(
+        f"{r['gene']} ({_z(r['z'])}, log-fold-change {r['log_fold_change']})"
+        for r in records
+    )
+
+
+def _reference_phrase(payload: dict) -> str:
+    """Name the comparison population the way the answer should say it."""
+    if payload.get("reference_is_tissue_matched"):
+        return (
+            f"{NEG_HARD_SURFACE} matched on tissue "
+            f"({payload['reference_tissue']}, n = {payload['reference_n']})"
+        )
+    return f"{NEG_HARD_SURFACE} (n = {payload['reference_n']})"
+
+
 def render_stage2(category: str, payload: dict, entities: dict) -> str:
     if category == "disease_subtype_classification":
         return f"disease_confirmed_subtype: {payload['subtype']}"
 
     if category == "comparative_differential_reasoning":
-        sep = payload["separability"]
-        subtype = payload["sample_subtype"] or "cardiovascular disease"
-        # Deliberately corpus-level. No per-gene differential exists for this
-        # comparison — no expression matrix covers the neg_hard pool — so the
-        # answer states the separability that was measured and explicitly says
-        # the per-gene contrast is not established. See gt_functions_report.md.
+        # PER-SAMPLE as of the Phase 2c regeneration. The previous renderer
+        # emitted a corpus-level ROC-AUC sentence plus "a per-gene differential
+        # expression contrast has not been computed" — identical for all 8,553
+        # samples. Real per-sample DE now exists, so the answer names this
+        # sample's own genes and effect sizes.
+        # Only the side the question asked about is rendered. A template reading
+        # "Identify the genes most REDUCED in this patient" must not receive a
+        # list of elevated genes: an answer that does not follow from its
+        # question is the same class of defect as the fixed-string degeneracy
+        # this regeneration removes, just harder to see.
+        parts = [f"Relative to {_reference_phrase(payload)}, this sample's"]
+        if payload["most_elevated"]:
+            parts.append(f"most elevated genes are {_effects(payload['most_elevated'])}")
+        if payload["most_reduced"]:
+            joiner = "; its most reduced are" if payload["most_elevated"] else "most reduced genes are"
+            parts.append(f"{joiner} {_effects(payload['most_reduced'])}")
+        head = " ".join(parts).replace(" ; ", "; ")
         return (
-            f"Relative to {NEG_HARD_SURFACE} (n = {payload['n_comparison']}, the "
-            f"neg_hard pool), disease-confirmed cardiovascular samples "
-            f"(n = {payload['n_positive']}) are separable at "
-            f"ROC-AUC {sep['roc_auc_mean']} "
-            f"(sd {sep['roc_auc_std']}, {sep['metric']}, {sep['primary_variant']}). "
-            f"This sample is labelled {subtype}. A per-gene differential "
-            f"expression contrast has not been computed for this comparison, so "
-            f"no individual genes are attributed."
+            # "in either direction" is load-bearing. The listed genes are this
+            # sample's most extreme, which is NOT the same as "significant": a
+            # sample whose largest reduction is z = -1.9 has none clearing the
+            # 2sd bar on that side, and without this phrasing the count reads as
+            # though the named genes were among it.
+            f"{head}. Across {payload['n_genes_compared']} comparable genes, "
+            f"{payload['n_genes_beyond_2sd']} depart by more than two standard "
+            f"deviations from that population in either direction. Values are "
+            f"{payload['units']}; z is this sample's deviation in reference "
+            f"standard deviations."
         )
 
     if category == "gene_driver_reasoning":
-        genes = ", ".join(g["gene"] for g in payload["genes"])
+        genes = ", ".join(
+            f"{g['gene']} ({_z(g['z'])}, {g['direction_in_sample']})"
+            for g in payload["genes"]
+        )
+        # Match the claim to the question's direction, for the same reason as
+        # comparative_differential_reasoning above.
+        selected = {
+            "up": "the ones most elevated in this sample",
+            "down": "the ones most reduced in this sample",
+        }.get(payload.get("direction_asked"), "the ones deviating most in this sample")
+        # Broad gene SET, per-sample READOUT. Both halves are stated because
+        # dropping either produces a false claim: without the first the answer
+        # implies a subtype-specific finding, without the second it collapses
+        # back to the corpus-level string this regeneration exists to remove.
         return (
-            f"Top {payload['n_returned']} stable elastic-net signal genes for "
-            f"cardiovascular disease vs. random bulk tissue (nonzero in all 5 CV "
-            f"folds): {genes}."
+            f"Of the {payload['n_stable_genes']} genes with a stable "
+            f"cardiovascular-disease signal in the elastic-net ranking "
+            f"({payload['stability_criterion']}), {selected} "
+            f"relative to {_reference_phrase(payload)} are: {genes}. "
+            f"The gene set is broad cardiovascular disease, not subtype-specific; "
+            f"the deviations are this sample's own."
+        )
+
+    if category == "magnitude_reasoning":
+        top = payload["largest_deviation_gene"]
+        largest = (
+            f"the largest single departure is {top['gene']} at {_z(top['z'])}"
+            if top else "no single gene departure could be computed"
+        )
+        return (
+            f"Deviation magnitude: {payload['magnitude']}. "
+            f"{payload['n_genes_beyond_2sd']} of {payload['n_genes_compared']} "
+            f"comparable genes ({payload['frac_genes_beyond_2sd'] * 100:.2f}%) "
+            f"exceed a two-standard-deviation departure from "
+            f"{_reference_phrase(payload)}; {largest}. "
+            f"Magnitude labels are tertiles of this statistic across the whole "
+            f"disease-confirmed population."
         )
 
     raise ValueError(f"no stage 2 renderer for {category}")
@@ -218,11 +307,72 @@ def compute_gt(category: str, patient: str, entities: dict):
         return gt.disease_subtype_classification(patient)
     if category == "comparative_differential_reasoning":
         return gt.comparative_differential_reasoning(
-            patient, entities["comparison_group"]
+            patient, entities["comparison_group"], entities["top_n"],
+            entities["direction"],
         )
     if category == "gene_driver_reasoning":
-        return gt.gene_driver_reasoning(patient, entities["top_n"])
+        return gt.gene_driver_reasoning(
+            patient, entities["top_n"], entities["direction"]
+        )
+    if category == "magnitude_reasoning":
+        return gt.magnitude_reasoning(patient, entities["comparison_group"])
     raise ValueError(f"unknown category {category}")
+
+
+def preflight_regen(assignments: list[dict], held: set[str]) -> dict:
+    """Confirm a Stage-2 REGENERATION plan before any work is done.
+
+    A separate function from `preflight` on purpose. That one asserts the exact
+    totals of the original closed Step-2 state (219,747 assignments, 39,954
+    ranking items) — the right check for the corpus it guards, and one that must
+    not be loosened just because a different plan now also flows through here.
+    This checks the properties that matter for the regeneration instead.
+    """
+    counts = Counter(a["category"] for a in assignments)
+
+    def bound_int(entity, key):
+        v = entity.get(key)
+        return isinstance(v, int) and not isinstance(v, bool)
+
+    needs_n = [a for a in assignments
+               if a["category"] in ("comparative_differential_reasoning",
+                                    "gene_driver_reasoning")]
+    needs_dir = needs_n
+    needs_group = [a for a in assignments
+                   if a["category"] in ("comparative_differential_reasoning",
+                                        "magnitude_reasoning")]
+    leaked = sorted({a["patient"] for a in assignments} & held)
+
+    checks = {
+        "categories": dict(counts),
+        "total_assignments": len(assignments),
+        "no_stage1_categories": not (set(counts) & STAGE1_CATEGORIES),
+        "all_four_stage2_categories": set(counts) == {
+            "disease_subtype_classification",
+            "comparative_differential_reasoning",
+            "gene_driver_reasoning",
+            "magnitude_reasoning",
+        },
+        "top_n_bound": all(bound_int(a["entities"], "top_n") for a in needs_n),
+        "direction_bound": all(
+            a["entities"].get("direction") in ("up", "down", "both", "abs")
+            for a in needs_dir
+        ),
+        "comparison_group_bound": all(
+            a["entities"].get("comparison_group") == "neg_hard" for a in needs_group
+        ),
+        # The single most important invariant of the regeneration: no sample
+        # reserved for evaluation may appear in the training corpus.
+        "n_holdout_leaked": len(leaked),
+        "no_holdout_leak": not leaked,
+    }
+    checks["passed"] = all(
+        checks[k] for k in (
+            "no_stage1_categories", "all_four_stage2_categories", "top_n_bound",
+            "direction_bound", "comparison_group_bound", "no_holdout_leak",
+        )
+    )
+    return checks
 
 
 def preflight(assignments: list[dict]) -> dict:
@@ -272,23 +422,48 @@ def already_done(paths: list[Path]) -> set[int]:
 
 
 def main() -> int:
+    # Declared up front: `global` must precede every use in the function, and
+    # these names appear below as argparse defaults before being rebound.
+    global STAGE2_OUT, EXCLUDED_OUT
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--limit", type=int, default=None)
+    parser.add_argument("--plan", type=Path, default=PLAN,
+                        help="plan JSON; defaults to the original Step-2 plan")
+    parser.add_argument("--regen", action="store_true",
+                        help="the plan is a Stage-2 regeneration plan, not the "
+                             "original closed Step-2 state — use the "
+                             "regeneration preflight")
+    parser.add_argument("--stage2-out", type=Path, default=STAGE2_OUT)
+    parser.add_argument("--excluded-out", type=Path, default=EXCLUDED_OUT)
+    # Separate stats path for a regeneration run. step3_stats.json is the
+    # provenance record of the ORIGINAL corpus; a regeneration must not
+    # overwrite it, or the record of what produced Stage 1 is silently lost.
+    parser.add_argument("--stats-out", type=Path, default=QA / "step3_stats.json")
     args = parser.parse_args()
+    STAGE2_OUT, EXCLUDED_OUT = args.stage2_out, args.excluded_out
 
     started = datetime.now(timezone.utc)
-    plan = json.loads(PLAN.read_text())
+    plan = json.loads(args.plan.read_text())
     assignments = plan["assignments"]
 
-    checks = preflight(assignments)
+    if args.regen:
+        held = set(json.loads(
+            (REPO / "data/cvd_transcriptome/holdout_series.json").read_text()
+        )["holdout_geo_accession"])
+        checks = preflight_regen(assignments, held)
+        stop_msg = "STOP: the regeneration plan failed preflight."
+    else:
+        checks = preflight(assignments)
+        stop_msg = "STOP: generation_plan.json is not the closed Step 2 state."
     print(f"preflight: {json.dumps(checks)}", flush=True)
     if not checks["passed"]:
-        print("STOP: generation_plan.json is not the closed Step 2 state.")
+        print(stop_msg)
         return 1
 
     templates = load_templates()
-    outputs = [STAGE1_OUT, STAGE2_OUT, EXCLUDED_OUT]
+    outputs = ([STAGE2_OUT, EXCLUDED_OUT] if args.regen
+               else [STAGE1_OUT, STAGE2_OUT, EXCLUDED_OUT])
     skip = already_done(outputs) if args.resume else set()
     if not args.resume:
         for path in outputs:
@@ -396,7 +571,7 @@ def main() -> int:
     del stats["answer_chars_by_category"]
     stats["preflight"] = checks
     stats["elapsed_seconds"] = round((finished - started).total_seconds(), 1)
-    (QA / "step3_stats.json").write_text(json.dumps(stats, indent=2))
+    args.stats_out.write_text(json.dumps(stats, indent=2))
 
     print(json.dumps(stats, indent=2))
     return 0

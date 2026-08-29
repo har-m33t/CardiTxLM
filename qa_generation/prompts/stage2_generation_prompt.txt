@@ -15,31 +15,45 @@ STRICT RESTRICTIONS:
   risk, prognosis, mortality, or severity — these have no verified label
   source in this project and must never be answered even if the question
   superficially resembles one that could be.
-- For Gene-Driver Reasoning specifically: gold answers are corpus-level
-  (broad cardiovascular-disease-vs-tissue signal, drawn from the stable
-  subset of the existing elastic-net ranking), never per-individual-patient
-  or per-subtype. Do not phrase or imply per-patient or per-subtype
-  attribution ("this patient's driver genes", "genes specific to this
-  subtype") — phrase at the broad cardiovascular-disease level only, per
-  how the gene_driver_reasoning templates are written (no {condition}
-  placeholder).
-- For Comparative/Differential Reasoning specifically: {comparison_group}
-  must already be bound to the verified neg_hard comparison group
-  (tissue_only_disease_unconfirmed samples) before you receive the input —
-  if comparison_group is missing, unresolved, or bound to anything other
-  than neg_hard, skip rather than proceeding.
 - Do not change, round, or approximate any numeric value in the gold
-  answer. Reproduce every figure exactly as given (0.7806 stays 0.7806,
-  not 0.78; 22307 may be written 22,307 but not 22300).
+  answer. Reproduce every figure exactly as given (z = 6.41 stays 6.41,
+  not 6.4; 1,142 may be written 1142 but not 1100).
+- Never introduce a gene name that is not in the gold answer, and never
+  drop one that is. The gene lists ARE the answer; a shortened list
+  presents a partial answer as a complete one, and an added gene is a
+  fabrication.
 - Do not add diagnostic confidence language ("definitely", "certainly")
   beyond what the gold answer supports.
+- Never state or imply that a finding is specific to a cardiovascular
+  SUBTYPE. No per-subtype gene ranking exists in this project. Per-PATIENT
+  attribution is correct and expected (see below); per-SUBTYPE attribution
+  is not.
+- For Comparative/Differential Reasoning and Magnitude Reasoning:
+  {comparison_group} must already be bound to the verified neg_hard
+  comparison group (tissue_only_disease_unconfirmed samples) before you
+  receive the input — if comparison_group is missing, unresolved, or bound
+  to anything other than neg_hard, skip rather than proceeding.
 - One paraphrased question-answer pair per input.
 
-Categories (three — pathway/biological-process and prognosis/risk
+A NOTE ON PER-PATIENT PHRASING — THIS IS A DELIBERATE CHANGE:
+Earlier versions of this prompt forbade per-patient phrasing for
+Gene-Driver Reasoning and Comparative/Differential Reasoning, because at
+that time the gold answers for both were corpus-level: every sample
+received an identical answer string. That is no longer true. Real
+per-sample differential expression is now computed against the
+tissue-matched comparison group, so the gold answers for those categories
+name genes and effect sizes measured in THIS patient's own profile.
+Per-patient phrasing ("this patient's profile shows...", "in this sample,
+X is elevated") is now CORRECT and should be preserved. Do not
+generalise a per-patient gold answer back into a population-level claim.
+
+Categories (four — pathway/biological-process and prognosis/risk
 categories are explicitly excluded, no verified label source exists):
 1. Disease / Subtype Classification
-2. Comparative / Differential Reasoning
-3. Gene-Driver Reasoning (broad cardiovascular-disease level only)
+2. Comparative / Differential Reasoning (per-patient, vs. neg_hard)
+3. Gene-Driver Reasoning (broad cardiovascular gene set, per-patient
+   readout — never per-subtype)
+4. Magnitude Reasoning (per-patient deviation size, vs. neg_hard)
 
 EXAMPLE — Disease/Subtype Classification
 Input:
@@ -52,41 +66,63 @@ Output:
   expression profile most likely indicate?
   Answer: This profile is consistent with dilated cardiomyopathy.
 
-EXAMPLE — Comparative/Differential Reasoning
+EXAMPLE — Comparative/Differential Reasoning (per-patient)
 Input:
   Category: comparative_differential_reasoning
-  Template question: Compare the patient's transcriptomic profile with a
-  {comparison_group} profile.
+  Template question: Identify the genes most elevated in this patient
+  relative to {comparison_group}.
   Comparison group: neg_hard (tissue_only_disease_unconfirmed)
-  Gold answer: This corpus-level comparison shows a measurable difference
-  between cardiovascular-disease-confirmed samples and tissue-matched
-  samples without a confirmed diagnosis (classifier ROC-AUC 0.7806,
-  sd 0.1055).
-  Per-gene attribution for this comparison has not been established — no
-  differential expression analysis has been run at this comparison, so
-  no specific driving genes can be named.
+  Gold answer: Relative to tissue-matched samples without confirmed
+  cardiovascular disease (heart tissue reference, n = 431), this sample's
+  most elevated genes are NPPA (z = 6.41, log-fold-change 3.02), SERPINA3
+  (z = 5.18, log-fold-change 2.44) and FRZB (z = 4.77, log-fold-change
+  2.11). Its most reduced are MYH6 (z = -4.92, log-fold-change -2.35) and
+  PLN (z = -3.64, log-fold-change -1.58).
 Output:
-  Question: How does this patient's transcriptomic profile differ from
-  cardiac tissue without a confirmed cardiovascular diagnosis?
-  Answer: There is a measurable transcriptomic difference between this
-  sample's group and tissue-matched samples lacking a confirmed
-  diagnosis (classifier ROC-AUC 0.7806, sd 0.1055), though which
-  specific genes drive that difference has not been established for this
-  comparison.
+  Question: Compared with tissue-matched samples that have no confirmed
+  cardiovascular diagnosis, which genes are most strongly elevated in
+  this patient?
+  Answer: Against a tissue-matched reference of heart samples without a
+  confirmed cardiovascular diagnosis (n = 431), this patient's most
+  elevated genes are NPPA (z = 6.41, log-fold-change 3.02), SERPINA3
+  (z = 5.18, log-fold-change 2.44) and FRZB (z = 4.77, log-fold-change
+  2.11), while MYH6 (z = -4.92, log-fold-change -2.35) and PLN (z =
+  -3.64, log-fold-change -1.58) are the most reduced.
 
-EXAMPLE — Gene-Driver Reasoning (broad CVD level, not subtype-specific)
+EXAMPLE — Gene-Driver Reasoning (broad gene set, per-patient readout)
 Input:
   Category: gene_driver_reasoning
-  Template question: Identify the genes most indicative of cardiovascular
-  disease based on the transcriptomic profile.
-  Gold answer: Top stable elastic-net signal genes for cardiovascular
-  disease vs. random bulk tissue (nonzero in all 5 CV folds): NPPA, NPPB,
-  ATP2A2, MYH7, TNNT2.
+  Template question: Of the genes broadly associated with cardiovascular
+  disease, which are most elevated in this specific patient?
+  Gold answer: Of the 1142 genes with a stable cardiovascular-disease
+  signal in the elastic-net ranking (nonzero in all 5 CV folds), this
+  sample shows the largest elevation in NPPA (z = 6.41), ASPN (z = 3.95)
+  and COL1A1 (z = 3.12), and the largest reduction in MYH6 (z = -4.92).
 Output:
-  Question: Which genes are most strongly associated with cardiovascular
-  disease in this analysis?
-  Answer: The genes most strongly associated with cardiovascular disease
-  are NPPA, NPPB, ATP2A2, MYH7, and TNNT2.
+  Question: Among the genes with an established broad cardiovascular
+  signal, which stand out most in this patient's profile?
+  Answer: Of the 1142 genes carrying a stable cardiovascular-disease
+  signal in the elastic-net ranking (nonzero across all 5 CV folds), this
+  patient shows the greatest elevation in NPPA (z = 6.41), ASPN (z =
+  3.95) and COL1A1 (z = 3.12), with MYH6 (z = -4.92) the most reduced.
+
+EXAMPLE — Magnitude Reasoning
+Input:
+  Category: magnitude_reasoning
+  Template question: How strongly does this patient's transcriptomic
+  profile deviate from a typical non-diseased tissue profile?
+  Comparison group: neg_hard (tissue_only_disease_unconfirmed)
+  Gold answer: Deviation magnitude: large. 2417 of 19684 usable genes
+  (12.28%) exceed a two-standard-deviation departure from tissue-matched
+  samples without confirmed cardiovascular disease; the largest single
+  departure is NPPA at z = 6.41.
+Output:
+  Question: Overall, how far does this sample's expression profile sit
+  from tissue-matched controls without cardiovascular disease?
+  Answer: The deviation is large: 2417 of 19684 usable genes (12.28%)
+  depart by more than two standard deviations from tissue-matched samples
+  without a confirmed cardiovascular diagnosis, the largest being NPPA at
+  z = 6.41.
 
 EXAMPLE — skip case (no verified label)
 Input:
