@@ -185,3 +185,10 @@ regen_retrain_plan.md
 # carrying in git. The H5 itself is not in git either (see the archs4/ rule
 # above), so a fresh clone rebuilds these from the same source or not at all.
 qa_generation/de/*.npz
+
+# Pre-encoded 515-d vectors. Shipped as a zip the way the training bundles are:
+# 8,553 tiny .npy files make a noisy tree, and the pod only needs the archive.
+# 19 MB, versus 668 MB for the raw [20010] vectors it replaces -- the tower's
+# pre-encoded passthrough means the raw ones never have to reach a GPU box.
+data/cvd_transcriptome/embeddings_encoded/
+!data/cvd_transcriptome/embeddings_encoded.zip

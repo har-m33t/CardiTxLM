@@ -77,6 +77,14 @@ CN_VERSION=transcript_linear
 CONV_VERSION=llama                     # see constraint (1) above
 MODEL_MAX_LENGTH=2048
 
+# Attention kernel. flash_attention_2 is the default and what the 2026-08-13 run
+# used, but it is the one dependency that can fail to build on a fresh pod. The
+# fallback is cheap here: Stage-2 sequences are short (measured on the real
+# bundle: mean 141, p95 190, max 199 tokens), so attention is not the bottleneck
+# and `sdpa` costs little. Set ATTN_IMPL=sdpa when flash-attn is unavailable
+# rather than blocking the run on it.
+ATTN_IMPL="${ATTN_IMPL:-flash_attention_2}"
+
 # The variant the tower actually instantiates comes from that config dir, not
 # from this script — so assert the two agree instead of assuming it.
 if ! grep -q "\"bulkformer_variant\": \"${BULKFORMER_VARIANT}\"" "${VT_CONFIG_DIR}/config.json"; then
@@ -142,7 +150,7 @@ deepspeed --include "localhost:${GPUS}" --master_port 29501 tinyllava/train/trai
     --connector_type $CN_VERSION \
     --mm_vision_select_layer -2 \
     --image_aspect_ratio square \
-    --attn_implementation flash_attention_2 \
+    --attn_implementation "$ATTN_IMPL" \
     --bf16 True \
     --training_recipe lora \
     --tune_type_llm lora \
