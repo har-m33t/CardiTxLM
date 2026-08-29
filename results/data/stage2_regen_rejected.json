@@ -1,0 +1,113 @@
+[
+  {
+    "id": "magnitude_reasoning:1140",
+    "problems": [
+      "invented gene(s): ['ORF4F']",
+      "dropped gene(s): ['OR4F4']"
+    ]
+  },
+  {
+    "id": "comparative_differential_reasoning:6707",
+    "problems": [
+      "invented gene(s): ['NCGAP']",
+      "dropped gene(s): ['NCAPG']"
+    ]
+  },
+  {
+    "id": "magnitude_reasoning:7152",
+    "problems": [
+      "invented gene(s): ['ORF4F']",
+      "dropped gene(s): ['OR4F3']"
+    ]
+  },
+  {
+    "id": "magnitude_reasoning:7339",
+    "problems": [
+      "invented gene(s): ['ORF4F']",
+      "dropped gene(s): ['OR4F4']"
+    ]
+  },
+  {
+    "id": "gene_driver_reasoning:7537",
+    "problems": [
+      "number(s) not in gold: ['7.220']"
+    ]
+  },
+  {
+    "id": "comparative_differential_reasoning:10603",
+    "problems": [
+      "invented gene(s): ['NCGAP']",
+      "dropped gene(s): ['NCAPG']"
+    ]
+  },
+  {
+    "id": "magnitude_reasoning:10839",
+    "problems": [
+      "invented gene(s): ['RBM1Y8']",
+      "dropped gene(s): ['RBMY1B']",
+      "number(s) not in gold: ['8']"
+    ]
+  },
+  {
+    "id": "magnitude_reasoning:12533",
+    "problems": [
+      "number(s) not in gold: ['19184']"
+    ]
+  },
+  {
+    "id": "comparative_differential_reasoning:13192",
+    "problems": [
+      "invented gene(s): ['NCGAP']",
+      "dropped gene(s): ['NCAPG']"
+    ]
+  },
+  {
+    "id": "magnitude_reasoning:16546",
+    "problems": [
+      "invented gene(s): ['ORF4F']",
+      "dropped gene(s): ['OR4F4']"
+    ]
+  },
+  {
+    "id": "magnitude_reasoning:17094",
+    "problems": [
+      "invented gene(s): ['ORF4F']",
+      "dropped gene(s): ['OR4F4']"
+    ]
+  },
+  {
+    "id": "gene_driver_reasoning:18230",
+    "problems": [
+      "number(s) not in gold: ['3.130']"
+    ]
+  },
+  {
+    "id": "comparative_differential_reasoning:18294",
+    "problems": [
+      "invented gene(s): ['ORF4F3']",
+      "dropped gene(s): ['OR4F3']"
+    ]
+  },
+  {
+    "id": "magnitude_reasoning:26459",
+    "problems": [
+      "invented gene(s): ['ORF4F']",
+      "dropped gene(s): ['OR4F4']"
+    ]
+  },
+  {
+    "id": "magnitude_reasoning:26909",
+    "problems": [
+      "invented gene(s): ['ORL14P']",
+      "dropped gene(s): ['OR14L1P']"
+    ]
+  },
+  {
+    "id": "magnitude_reasoning:26938",
+    "problems": [
+      "invented gene(s): ['RBM1Y8']",
+      "dropped gene(s): ['RBMY1B']",
+      "number(s) not in gold: ['8']"
+    ]
+  }
+]

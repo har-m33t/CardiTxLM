@@ -1,0 +1,14 @@
+{
+  "model": "deepseek-v4-flash",
+  "calls": 26988,
+  "ok": 26988,
+  "skipped": 0,
+  "errors": 0,
+  "cache_hit_tokens": 48252800,
+  "cache_miss_tokens": 5817098,
+  "output_tokens": 5348942,
+  "cache_hit_rate": 0.8924,
+  "cost_usd": 2.447205,
+  "pricing_checked": "2026-08-03",
+  "elapsed_s": 773.3
+}

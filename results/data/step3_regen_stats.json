@@ -1,0 +1,39 @@
+{
+  "attempted": 26988,
+  "stage1_written": 0,
+  "stage2_written": 26988,
+  "excluded": 0,
+  "excluded_by_reason": {},
+  "excluded_by_category": {},
+  "written_by_category": {
+    "comparative_differential_reasoning": 7212,
+    "gene_driver_reasoning": 7212,
+    "disease_subtype_classification": 5352,
+    "magnitude_reasoning": 7212
+  },
+  "skipped_resume": 0,
+  "mean_answer_chars_by_category": {
+    "comparative_differential_reasoning": 949,
+    "gene_driver_reasoning": 682,
+    "disease_subtype_classification": 44,
+    "magnitude_reasoning": 348
+  },
+  "preflight": {
+    "categories": {
+      "comparative_differential_reasoning": 7212,
+      "gene_driver_reasoning": 7212,
+      "disease_subtype_classification": 5352,
+      "magnitude_reasoning": 7212
+    },
+    "total_assignments": 26988,
+    "no_stage1_categories": true,
+    "all_four_stage2_categories": true,
+    "top_n_bound": true,
+    "direction_bound": true,
+    "comparison_group_bound": true,
+    "n_holdout_leaked": 0,
+    "no_holdout_leak": true,
+    "passed": true
+  },
+  "elapsed_seconds": 2.5
+}

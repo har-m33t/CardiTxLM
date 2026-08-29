@@ -1,0 +1,47 @@
+{
+  "purpose": "Stage-2 regeneration and retrain \u2014 all deliverables",
+  "rebuild_with": "python3 scripts/build_results_folder.py",
+  "note": "copied from canonical locations; delete and rebuild freely, this folder is never the source of truth",
+  "contents": {
+    "tables": [
+      "encoder_scale_sweep.csv",
+      "encoder_scale_sweep_note.md",
+      "multilabel_before_after.csv",
+      "multilabel_probe_after.csv",
+      "multilabel_probe_before.csv",
+      "probe_comparison.csv",
+      "probe_three_way.json"
+    ],
+    "logs": [
+      "eval_regen.log",
+      "pod_bootstrap.log",
+      "stage2_regen_trainer_state.json",
+      "stage2_trainer_state.json"
+    ],
+    "data": [
+      "de_manifest.json",
+      "encoded_cache_manifest.json",
+      "holdout_series.json",
+      "multilabel_labels_manifest.json",
+      "regen_usage_summary.json",
+      "stage2_bundle_stats.json",
+      "stage2_regen_plan_stats.json",
+      "stage2_regen_rejected.json",
+      "step3_regen_stats.json"
+    ],
+    "loss_curves": [
+      "stage1_loss.png",
+      "stage2_loss_before_after.png"
+    ],
+    "plots": [
+      "multilabel_before_after.png",
+      "probe_three_way.png"
+    ],
+    ".": [
+      "MANIFEST.json",
+      "README.md",
+      "SUMMARY.md"
+    ]
+  },
+  "missing": []
+}

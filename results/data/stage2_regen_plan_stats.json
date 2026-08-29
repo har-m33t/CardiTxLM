@@ -1,0 +1,97 @@
+{
+  "generated": "2026-08-29T17:41:35.983375+00:00",
+  "purpose": "Stage-2 regeneration plan (regen_retrain_plan.md phases 1a, 2d, 2f)",
+  "parameters": {
+    "seed": 20260829,
+    "subtype_cap_pct": 35.0,
+    "templates_per_sample": {
+      "disease_subtype_classification": 3,
+      "comparative_differential_reasoning": 1,
+      "gene_driver_reasoning": 1,
+      "magnitude_reasoning": 1
+    },
+    "holdout_series_file": "data/cvd_transcriptome/holdout_series.json",
+    "n_holdout_accessions": 2607
+  },
+  "summary": {
+    "total": 26988,
+    "by_category": {
+      "comparative_differential_reasoning": 7212,
+      "gene_driver_reasoning": 7212,
+      "disease_subtype_classification": 5352,
+      "magnitude_reasoning": 7212
+    },
+    "share_by_category": {
+      "comparative_differential_reasoning": 26.72,
+      "gene_driver_reasoning": 26.72,
+      "disease_subtype_classification": 19.83,
+      "magnitude_reasoning": 26.72
+    },
+    "population_after_holdout": {
+      "disease_subtype_classification": 1784,
+      "comparative_differential_reasoning": 7212,
+      "gene_driver_reasoning": 7212,
+      "magnitude_reasoning": 7212
+    },
+    "dropped": {
+      "disease_subtype_classification": {
+        "eligible_by_gate": 2942,
+        "without_materialized_input": 253,
+        "removed_as_holdout": 746,
+        "retained": 1943
+      },
+      "comparative_differential_reasoning": {
+        "eligible_by_gate": 8553,
+        "without_materialized_input": 0,
+        "removed_as_holdout": 1341,
+        "retained": 7212
+      },
+      "gene_driver_reasoning": {
+        "eligible_by_gate": 8553,
+        "without_materialized_input": 0,
+        "removed_as_holdout": 1341,
+        "retained": 7212
+      },
+      "magnitude_reasoning": {
+        "eligible_by_gate": 8553,
+        "without_materialized_input": 0,
+        "removed_as_holdout": 1341,
+        "retained": 7212
+      }
+    },
+    "subtype_cap": {
+      "before": {
+        "coronary_artery_disease": 839,
+        "heart_failure": 319,
+        "hypertension": 648,
+        "cardiomyopathy_other": 49,
+        "arrhythmia_afib": 88
+      },
+      "after": {
+        "coronary_artery_disease": 680,
+        "heart_failure": 319,
+        "hypertension": 648,
+        "cardiomyopathy_other": 49,
+        "arrhythmia_afib": 88
+      },
+      "total_before": 1943,
+      "total_after": 1784,
+      "cap_pct": 35.0,
+      "cap_n_per_subtype": {
+        "coronary_artery_disease": 680,
+        "heart_failure": 680,
+        "hypertension": 680,
+        "cardiomyopathy_other": 680,
+        "arrhythmia_afib": 680
+      },
+      "subtypes_over_cap": [
+        "coronary_artery_disease"
+      ],
+      "cap_engaged": true,
+      "freed_budget": 159,
+      "freed_budget_redistributed": 0,
+      "redistribution_note": "not redistributable \u2014 one item per patient, and every remaining subtype already contributes all of its eligible patients",
+      "unresolved_present": false
+    }
+  }
+}

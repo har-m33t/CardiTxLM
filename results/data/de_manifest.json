@@ -1,0 +1,415 @@
+{
+  "started": "2026-08-29T17:46:04.561819+00:00",
+  "finished": "2026-08-29T17:46:42.581244+00:00",
+  "elapsed_seconds": 38.0,
+  "timings": {
+    "stage1_populations_s": 0.4,
+    "stage2_reference_reads_s": 18.5,
+    "stage3_reference_stats_s": 4.3,
+    "stage4_masks_and_inputs_s": 1.0,
+    "stage5_per_sample_de_s": 9.8,
+    "stage6_write_outputs_s": 3.5
+  },
+  "purpose": "REAL per-sample differential expression: how each disease-confirmed sample's own transcriptome deviates from a tissue-matched neg_hard reference population.",
+  "why_this_exists": "Stage-2 answers were 86.4% a single fixed string because comparative_differential_reasoning returned a corpus-level probe summary (per_gene_differential: None) and gene_driver_reasoning returned the same global elastic-net ranking for every sample (sample_role: eligibility_gate_only). This file supplies the per-sample quantity they should consume.",
+  "transform": {
+    "code_reused_from": "linear_probe/extract.py::normalize_and_align + ArchS4CountReader",
+    "steps": "raw counts / gene_length_kb -> TPM (per-sample, 1e6) -> log1p -> vocab align",
+    "units": "log1p(TPM); lfc = x - mu is therefore already a log fold change",
+    "reimplemented": false
+  },
+  "populations": {
+    "n_neg_hard_total": 22307,
+    "n_neg_hard_excluded_holdout": 1266,
+    "n_neg_hard_reference": 21041,
+    "n_positive_missing_label_meta": 0
+  },
+  "holdout_exclusion": {
+    "holdout_series_file": "data/cvd_transcriptome/holdout_series.json",
+    "n_holdout_series": 92,
+    "n_neg_hard_excluded": 1266,
+    "rationale": "holdout-series negatives contributing to reference statistics would leak holdout information into TRAINING answers",
+    "verified_no_holdout_series_in_reference": true
+  },
+  "tissue_matching": {
+    "bucket_key": "normalized source_name_ch1 (lowercase, punctuation/whitespace collapsed)",
+    "min_bucket_n": 30,
+    "n_distinct_reference_source_names": 1258,
+    "n_qualifying_buckets": 96,
+    "n_reference_samples_in_qualifying_buckets": 14562,
+    "n_positives_tissue_matched": 2144,
+    "n_positives_pooled_fallback": 6409,
+    "note": "reference_scope records the choice per sample; never silently substituted"
+  },
+  "gene_exclusions": {
+    "n_excluded_sentinel": 0,
+    "n_excluded_sentinel_reference": 0,
+    "n_excluded_sentinel_positives": 0,
+    "n_excluded_zero_sd_pool": 1,
+    "n_genes_usable": 20009,
+    "sentinel_value": -10.0,
+    "sd_floor": 1e-06,
+    "note": "per-reference sd floor is applied again inside each bucket"
+  },
+  "stable_signal_genes": {
+    "source": "eda/dataset/cvd_data/elasticnet_out/gene_signal/gene_signal_ranking.csv",
+    "criterion": "nonzero_frac == 1.0",
+    "n_raw": 1291,
+    "n_in_bulkformer_vocab": 1194,
+    "n_final_after_gene_mask": 1142
+  },
+  "magnitude_tertiles": {
+    "metric": "frac_genes_abs_z_gt2",
+    "cut_low": 0.01679244264960289,
+    "cut_high": 0.050977058708667755,
+    "labels": [
+      "minimal",
+      "moderate",
+      "large"
+    ],
+    "computed_over": "the 'ok' samples, once, across the whole positive set"
+  },
+  "ranking_gates": {
+    "applies_to": "top_up_genes / top_down_genes and their z/lfc arrays ONLY",
+    "does_not_apply_to": "mean_abs_z, max_abs_z, n_genes_abs_z_gt2, frac_genes_abs_z_gt2, magnitude_bucket, and the z/lfc matrices in stable_gene_z.npz \u2014 a deviation COUNT is not distorted by the artifact the way a top-K named-gene list is",
+    "min_abs_lfc": 0.5,
+    "min_abs_lfc_rationale": "0.5 on a log1p(TPM) scale is ~1.65x. Below it, a gene whose reference sd sits just above the 1e-6 floor can post an enormous z off a trivial fold change; 'GENE elevated (z=10548)' is supervision that teaches the model to describe noise.",
+    "require_gene_symbol": true,
+    "require_gene_symbol_rationale": "symbol_vocab_map falls back to the ENSG accession when a gene has no symbol. A gene we cannot name is a gene we should not claim.",
+    "n_vocab_entries_without_symbol": 625,
+    "exclude_sex_linked": true,
+    "sex_linked_genes": [
+      "RPS4Y1",
+      "DDX3Y",
+      "UTY",
+      "USP9Y",
+      "KDM5D",
+      "EIF1AY",
+      "NLGN4Y",
+      "ZFY",
+      "XIST",
+      "TSIX"
+    ],
+    "sex_linked_genes_matched_in_vocab": [
+      "DDX3Y",
+      "EIF1AY",
+      "KDM5D",
+      "NLGN4Y",
+      "RPS4Y1",
+      "USP9Y",
+      "UTY",
+      "ZFY"
+    ],
+    "sex_linked_genes_not_in_vocab": [
+      "TSIX",
+      "XIST"
+    ],
+    "n_vocab_entries_sex_linked": 8,
+    "exclude_sex_linked_rationale": "Sex is a covariate here, not the phenotype under study. Excluding sex-linked genes from a DE ranking is routine when sex is not the variable of interest. Without it, 8.9% of samples would have had chromosomal sex as the headline finding of their generated answer \u2014 per-sample and numerically correct, but not cardiovascular signal. Applied by user decision after the confound was measured.",
+    "mean_genes_dropped_per_sample_by_sex_gate": 6.485,
+    "exclude_cnv_polymorphism": true,
+    "cnv_polymorphism_genes": [
+      "GSTM1",
+      "GSTT1",
+      "UGT2B17"
+    ],
+    "cnv_polymorphism_genes_matched_in_vocab": [
+      "GSTM1",
+      "UGT2B17"
+    ],
+    "cnv_polymorphism_genes_not_in_vocab": [
+      "GSTT1"
+    ],
+    "n_vocab_entries_cnv_polymorphism": 2,
+    "exclude_cnv_polymorphism_rationale": "GSTM1, GSTT1 and UGT2B17 are common whole-gene germline DELETION polymorphisms \u2014 a large fraction of the population is null for each, so extreme expression variance reflects inherited copy number rather than phenotype. All three carry nonzero_frac == 0.00 and abs_mean_coef == 0.0000 in gene_signal_ranking.csv (zero elastic-net coefficient in EVERY fold), so by this project's own measure they hold no cardiovascular signal and excluding them removes nothing the project considers disease-relevant. Exactly these three genes; the gate is deliberately NOT generalized to zero-coefficient genes.",
+    "mean_genes_dropped_per_sample_by_cnv_gate": 0.947,
+    "mean_genes_dropped_per_sample_by_lfc_gate": 10856.7,
+    "mean_nameable_genes_dropped_per_sample_by_symbol_gate": 169.8,
+    "mean_genes_eligible_for_ranking_per_sample": 8825.1,
+    "min_genes_eligible_for_ranking": 1314,
+    "stable_gene_z_note": "z/lfc keep the full 1,142-gene row as required; the same gate is supplied precomputed as `rank_gate` for selection-time use."
+  },
+  "gate_rationale": {
+    "purpose": "All four selection-time gates in one place, with why each exists, so the reasoning need not be reconstructed later. Every gate applies to top_up_genes / top_down_genes ONLY. None of them touch mean_abs_z, max_abs_z, n_genes_abs_z_gt2, frac_genes_abs_z_gt2, the magnitude tertiles, or the z/lfc matrices \u2014 those are population statistics over all comparable genes, and a named-gene filter must not move them. The tertile cut points are verified identical across every gate revision.",
+    "chain": "pass_lfc AND nameable AND not_sex_linked AND not_cnv_polymorphism",
+    "gates": [
+      {
+        "name": "lfc_gate",
+        "rule": "|lfc| >= 0.5 (log1p(TPM) scale, ~1.65x)",
+        "why": "Removes near-zero-denominator artifacts. A gene whose reference sd sits just above the 1e-6 floor can post an enormous z off a trivial fold change; 'GENE elevated (z=10548)' is supervision that teaches the model to describe noise."
+      },
+      {
+        "name": "nameable",
+        "rule": "gene_symbol is a real symbol, not an ENSG accession",
+        "why": "symbol_vocab_map falls back to the ENSG accession when a gene has no symbol (625 vocab entries). An accession is not a usable clinical claim \u2014 a reader cannot check it \u2014 so a gene we cannot name is a gene we should not claim."
+      },
+      {
+        "name": "not_sex_linked",
+        "rule": "symbol not in ['RPS4Y1', 'DDX3Y', 'UTY', 'USP9Y', 'KDM5D', 'EIF1AY', 'NLGN4Y', 'ZFY', 'XIST', 'TSIX']",
+        "why": "Sex is a covariate here, not the phenotype under study. Measured before acting: 8.9% of samples had a sex-linked gene as their single most notable elevated gene. Excluding sex-linked genes from a DE ranking is routine when sex is not the variable of interest."
+      },
+      {
+        "name": "not_cnv_polymorphism",
+        "rule": "symbol not in ['GSTM1', 'GSTT1', 'UGT2B17']",
+        "why": "Inherited copy number, not phenotype. These are common whole-gene germline deletion polymorphisms, and all three have a zero elastic-net coefficient in every fold, so the exclusion is evidence-based rather than a taste call."
+      }
+    ],
+    "deliberately_not_gated": {
+      "LEP": "Real biology (adipose content), not a genotyping artifact \u2014 retained despite a zero elastic-net coefficient. See sanity_checks.confound_audit.retained_confounds.",
+      "zero_coefficient_genes_generally": "Gating on these would collapse the lists toward the 1,142 stable CVD genes and destroy the point of an unbiased DE comparison."
+    }
+  },
+  "ranking_semantics": {
+    "what_top_k_is": "The 25 most extreme genes by z among those passing the ranking gates. It is a RANKING, not a significance test.",
+    "what_top_k_is_not": "NOT '25 genes that passed a significance bar'. A list can be entirely below |z| = 2 \u2014 that simply means the sample has no strongly deviating genes in that direction, which is an honest finding.",
+    "consumer_rule": "Do not render a |z| below 2 as 'significantly elevated' or 'significantly reduced'. Check the z value before choosing the wording; n_genes_abs_z_gt2 is the count that speaks to how many genes actually clear |z| > 2.",
+    "lists_may_be_shorter_than_25": "When fewer than 25 genes clear the gates the list is shorter. It is never padded."
+  },
+  "nan_semantics": {
+    "stable_gene_z.npz z/lfc": "NaN means NOT COMPARABLE for that sample: the gene had zero variance inside that sample's own reference, so no z is defined. Never impute it \u2014 the consuming GT function must omit the gene for that sample."
+  },
+  "outputs": {
+    "per_sample": "per_sample_de.parquet",
+    "stable_gene_z": "stable_gene_z.npz",
+    "reference_stats": "de_reference_stats.npz"
+  },
+  "sanity_checks": {
+    "n_rows": 8553,
+    "n_rows_correct": true,
+    "n_ok": 8553,
+    "n_insufficient_data": 0,
+    "insufficient_reasons": {},
+    "distinct_top_up_gene_lists": 8458,
+    "distinct_top_up_first_gene": 1094,
+    "degeneracy_fixed": true,
+    "n_nan_mean_abs_z": 0,
+    "no_nan_summary_stats": true,
+    "n_nan_stable_z": 2993,
+    "frac_nan_stable_z": 0.00030642355085617383,
+    "n_stable_genes_with_any_nan": 16,
+    "stable_z_nan_fully_explained_by_zero_variance": true,
+    "magnitude_bucket_counts": {
+      "minimal": 2858,
+      "large": 2850,
+      "moderate": 2845
+    },
+    "all_top_genes_in_vocab": true,
+    "no_holdout_series_in_reference": true,
+    "max_ref_mask_prob": 0.0,
+    "reference_mask_prob_zero": true,
+    "n_lists_shorter_than_top_k": 0,
+    "no_ranked_list_short": true,
+    "all_top_genes_nameable": true,
+    "all_top_lfc_pass_gate": true,
+    "n_sex_linked_in_top_up": 0,
+    "n_sex_linked_in_top_down": 0,
+    "n_cnv_polymorphism_in_top_up": 0,
+    "n_cnv_polymorphism_in_top_down": 0,
+    "no_cnv_polymorphism_in_ranked_lists": true,
+    "no_sex_linked_genes_in_ranked_lists": true,
+    "low_variance_tail": {
+      "note": "share of top-up entries whose z is large but whose log-fold-change is trivial \u2014 the residue of the mandated sd < 1e-6 floor",
+      "frac_top_up_abs_lfc_lt_0.10": 0.0,
+      "frac_top_up_abs_lfc_lt_0.25": 0.0,
+      "frac_rank1_abs_lfc_lt_0.25": 0.0,
+      "max_abs_z_observed_after_gate": 10548.1
+    },
+    "confound_audit": {
+      "note": "Sex-linked genes are real biology but are CONFOUNDS, not cardiovascular signal. Measured first, then excluded from the ranked lists by user decision. The pre-gate figures are kept here deliberately: the finding stays auditable even though it is now mitigated.",
+      "headline_finding_before_mitigation": "8.9% of samples had a sex-linked gene as their single most notable elevated gene; 9.4% had one somewhere in the top 25. RPS4Y1 alone drove the large majority. Top-down was essentially clean.",
+      "mitigation": "sex_linked_gene_gate (see ranking_gates.exclude_sex_linked)",
+      "sex_linked_genes_checked": [
+        "DDX3Y",
+        "EIF1AY",
+        "KDM5D",
+        "NLGN4Y",
+        "RPS4Y1",
+        "TSIX",
+        "USP9Y",
+        "UTY",
+        "XIST",
+        "ZFY"
+      ],
+      "cnv_polymorphism_genes_checked": [
+        "GSTM1",
+        "GSTT1",
+        "UGT2B17"
+      ],
+      "top_up": {
+        "rank1_ungated": {
+          "RPS4Y1": 757,
+          "GSTM1": 225,
+          "LEP": 179,
+          "ENSG00000278384": 176,
+          "ENSG00000256950": 170,
+          "CCL11": 141,
+          "TP53TG3E": 102,
+          "SERPINA9": 100,
+          "DEFA1B": 92,
+          "AQP2": 91,
+          "TMC3": 85,
+          "CST2": 77,
+          "FCGR2A": 76,
+          "DUSP29": 70,
+          "CXCL9": 69
+        },
+        "rank1_before_exclusion_gates": {
+          "RPS4Y1": 758,
+          "GSTM1": 231,
+          "LEP": 198,
+          "CCL11": 165,
+          "CCDC175": 151,
+          "AQP2": 118,
+          "TBC1D3C": 116,
+          "DEFA1B": 112,
+          "TP53TG3E": 110,
+          "SERPINA9": 109,
+          "TMC3": 102,
+          "CST2": 94,
+          "FCGR2A": 82,
+          "DUSP29": 73,
+          "SPDYE13": 73
+        },
+        "rank1_after_all_gates": {
+          "LEP": 198,
+          "VPS52": 179,
+          "CCL11": 165,
+          "CCDC175": 151,
+          "TBC1D3C": 149,
+          "PPT2": 132,
+          "AQP2": 118,
+          "DEFA1B": 112,
+          "TP53TG3E": 110,
+          "SERPINA9": 109,
+          "TMC3": 102,
+          "CST2": 94,
+          "HLA-F": 90,
+          "CSAG1": 82,
+          "FCGR2A": 82
+        },
+        "sex_linked_before_exclusion_gates": {
+          "rank1": 758,
+          "rank1_pct": 8.86,
+          "in_top5": 789,
+          "anywhere_in_top25": 802,
+          "n_lists": 8553
+        },
+        "sex_linked_after_all_gates": {
+          "rank1": 0,
+          "rank1_pct": 0.0,
+          "in_top5": 0,
+          "anywhere_in_top25": 0,
+          "n_lists": 8553
+        },
+        "cnv_polymorphism_before_exclusion_gates": {
+          "rank1": 231,
+          "rank1_pct": 2.7,
+          "in_top5": 480,
+          "anywhere_in_top25": 1087,
+          "n_lists": 8553
+        },
+        "cnv_polymorphism_after_all_gates": {
+          "rank1": 0,
+          "rank1_pct": 0.0,
+          "in_top5": 0,
+          "anywhere_in_top25": 0,
+          "n_lists": 8553
+        }
+      },
+      "top_down": {
+        "rank1_ungated": {
+          "AGPAT1": 670,
+          "ICA1": 530,
+          "TYMS": 400,
+          "RPS18": 332,
+          "HSP90AA1": 189,
+          "HSPB1": 182,
+          "CDH2": 179,
+          "ILK": 174,
+          "PINK1": 160,
+          "CHCHD2": 142,
+          "CCDC85B": 133,
+          "CLIC4": 130,
+          "NUSAP1": 114,
+          "RPS6": 110,
+          "PTPRK": 109
+        },
+        "rank1_before_exclusion_gates": {
+          "AGPAT1": 670,
+          "ICA1": 530,
+          "TYMS": 400,
+          "RPS18": 332,
+          "HSP90AA1": 189,
+          "HSPB1": 182,
+          "CDH2": 179,
+          "ILK": 174,
+          "PINK1": 160,
+          "CHCHD2": 142,
+          "CCDC85B": 133,
+          "CLIC4": 130,
+          "NUSAP1": 114,
+          "RPS6": 110,
+          "PTPRK": 109
+        },
+        "rank1_after_all_gates": {
+          "AGPAT1": 670,
+          "ICA1": 530,
+          "TYMS": 400,
+          "RPS18": 332,
+          "HSP90AA1": 189,
+          "HSPB1": 182,
+          "CDH2": 179,
+          "ILK": 174,
+          "PINK1": 160,
+          "CHCHD2": 142,
+          "CCDC85B": 133,
+          "CLIC4": 130,
+          "NUSAP1": 114,
+          "RPS6": 110,
+          "PTPRK": 109
+        },
+        "sex_linked_before_exclusion_gates": {
+          "rank1": 0,
+          "rank1_pct": 0.0,
+          "in_top5": 16,
+          "anywhere_in_top25": 100,
+          "n_lists": 8553
+        },
+        "sex_linked_after_all_gates": {
+          "rank1": 0,
+          "rank1_pct": 0.0,
+          "in_top5": 0,
+          "anywhere_in_top25": 0,
+          "n_lists": 8553
+        },
+        "cnv_polymorphism_before_exclusion_gates": {
+          "rank1": 0,
+          "rank1_pct": 0.0,
+          "in_top5": 0,
+          "anywhere_in_top25": 29,
+          "n_lists": 8553
+        },
+        "cnv_polymorphism_after_all_gates": {
+          "rank1": 0,
+          "rank1_pct": 0.0,
+          "in_top5": 0,
+          "anywhere_in_top25": 0,
+          "n_lists": 8553
+        }
+      },
+      "caveat": "'ungated' lists hold only 5 entries (diagnostic), so 'anywhere_in_top25' is not meaningful for them. 'before_exclusion_gates' is the full top-25 with the lfc and nameable gates applied but NEITHER exclusion gate \u2014 it is the live measurement of what those gates displaced, recomputed every run rather than carried as a constant.",
+      "retained_confounds": {
+        "note": "Known confounds deliberately LEFT IN the ranked lists. Recorded so the corpus's limitations are stated rather than discovered downstream.",
+        "LEP": {
+          "rank1_count": 198,
+          "rank1_pct": 2.31,
+          "elasticnet_nonzero_frac": 0.0,
+          "why_retained": "LEP tracks adipose content. That is real biology and a genuine phenotype, not a genotyping artifact, so it is NOT excluded even though its elastic-net coefficient is zero in every fold. Excluding it would amount to deciding which biology counts as interesting \u2014 a much weaker justification than the structural-polymorphism argument that removes GSTM1/GSTT1/UGT2B17."
+        },
+        "zero_coefficient_genes_generally": "NOT excluded, by explicit decision. Gating on zero elastic-net coefficient would collapse the DE lists toward the 1,142 stable CVD genes and destroy the point of an unbiased differential comparison."
+      }
+    },
+    "failures": [],
+    "passed": true
+  }
+}

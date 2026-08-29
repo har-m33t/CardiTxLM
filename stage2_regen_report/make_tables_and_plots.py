@@ -87,10 +87,18 @@ def probe_plot(df: pd.DataFrame) -> None:
         return
     labels, means, errs, colors = [], [], [], []
     for _, r in sub.iterrows():
-        est = {"linear": "linear probe",
-               "mlp": "MLP probe",
-               "linear_pca_matched": f"linear, PCA-{int(r.pca_components or 0)}"
-               }.get(r.estimator, r.estimator)
+        # Built per-branch, not as a dict literal: the PCA label interpolates
+        # pca_components, which is NaN on the other rows, and a dict literal
+        # evaluates every value regardless of which key is selected.
+        if r.estimator == "linear":
+            est = "linear probe"
+        elif r.estimator == "mlp":
+            est = "MLP probe"
+        elif r.estimator == "linear_pca_matched":
+            k = r.pca_components
+            est = f"linear probe\nPCA-{int(k)}" if pd.notna(k) else "linear, PCA-matched"
+        else:
+            est = r.estimator
         name = "BulkFormer-93M" if r.feature_set.startswith("BulkFormer") else "LLM latent"
         labels.append(f"{name}\n{est}")
         means.append(r.roc_auc_mean)
