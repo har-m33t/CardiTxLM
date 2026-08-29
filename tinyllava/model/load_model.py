@@ -45,7 +45,14 @@ def load_pretrained_model(model_name_or_path, load_type='hf', load_8bit=False, l
             model.language_model.load_state_dict(language_model_ckp)
             vision_tower_ckp_path = os.path.join(model_name_or_path, 'vision_tower/pytorch_model.bin')
             vision_tower_ckp = load_base_ckp_for_lora(vision_tower_ckp_path)
-            model.vision_tower._vision_tower.load_state_dict(vision_tower_ckp)
+            # strict=False, matching the connector line below. The recipes save
+            # tower weights via named_parameters(), which omits BUFFERS — and
+            # BulkFormer's Performer attention keeps projection_matrix and
+            # calls_since_last_redraw as buffers, so a strict load raises
+            # "Missing key(s) ... fast_attention.projection_matrix". Those are
+            # not learned state, and BulkFormerVisionTower loads its own
+            # canonical .pt in __init__ regardless, so nothing is lost here.
+            model.vision_tower._vision_tower.load_state_dict(vision_tower_ckp, strict=False)
             connector_ckp_path = os.path.join(model_name_or_path, 'connector/pytorch_model.bin')
             connector_ckp = load_base_ckp_for_lora(connector_ckp_path)
             model.connector.load_state_dict(connector_ckp, strict=False)
