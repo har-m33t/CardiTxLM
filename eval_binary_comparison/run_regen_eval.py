@@ -134,7 +134,9 @@ def main() -> int:
         results["populations"][pop_name] = {}
         for fname, (X, idx) in feats.items():
             meta = labels.reindex(idx)
-            keep = (meta.is_positive | meta.is_neg_hard).to_numpy()
+            # .copy(): pandas can hand back a read-only view here, and the
+            # in-place &= below then raises "output array is read-only".
+            keep = (meta.is_positive | meta.is_neg_hard).to_numpy().copy()
             if restrict:
                 keep &= meta.series_id.isin(held_series).to_numpy()
             Xs = X[keep]
