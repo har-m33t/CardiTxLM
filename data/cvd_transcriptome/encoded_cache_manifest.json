@@ -1,0 +1,93 @@
+{
+  "purpose": "Pre-encoded 515-d BulkFormer-93M vectors for Stage-2 training, derived from the linear-probe embedding parquet instead of a GPU encoder pass (equivalent computation; see module docstring).",
+  "built_by": "integration/build_encoded_cache_from_parquet.py",
+  "built_at": "2026-08-29T10:38:14-0700",
+  "source_parquet": "/Users/harmeetsingh/UofA/TinyLLaVA_Factory/linear_probe/embeddings/embeddings_BulkFormer-93M.parquet",
+  "source_sample_index": "/Users/harmeetsingh/UofA/TinyLLaVA_Factory/qa_generation/bulkformer_input/bulkformer_sample_index.npy",
+  "encoder": {
+    "variant": "BulkFormer-93M",
+    "hidden_size": 515,
+    "config_dir": "/Users/harmeetsingh/UofA/TinyLLaVA_Factory/integration/bulkformer_hf_config",
+    "checkpoint": "bulkencoders/checkpoints/bulkformer/models/BulkFormer-93M.pt"
+  },
+  "dest": "/Users/harmeetsingh/UofA/TinyLLaVA_Factory/data/cvd_transcriptome/embeddings_encoded",
+  "filename_convention": "<GEO_ACCESSION>.npy, float32 (515,)",
+  "n_requested": 8553,
+  "n_written": 8553,
+  "total_bytes": 18713964,
+  "missing_from_parquet": [],
+  "stage2_json": "/Users/harmeetsingh/UofA/TinyLLaVA_Factory/data/cvd_transcriptome/text_files/stage2_train.json",
+  "stage2_images_uncovered": [],
+  "acceptance_threshold_max_abs_diff": 0.0001,
+  "verification": {
+    "attempted": true,
+    "ok": true,
+    "device": "cpu",
+    "worst_max_abs_diff": 0.0,
+    "groups": [
+      {
+        "offset": 0,
+        "n": 8,
+        "samples": [
+          "GSM1085736",
+          "GSM1085737",
+          "GSM1085738",
+          "GSM1085739",
+          "GSM1085740",
+          "GSM1085741",
+          "GSM1126620",
+          "GSM1126621"
+        ],
+        "max_abs_diff": 0.0,
+        "mean_abs_value": 0.36554962396621704,
+        "relative_diff": 0.0,
+        "live_batch1_vs_batchN": 1.5497207641601562e-06,
+        "control_rolled_cache_max_abs_diff": 0.8752729892730713,
+        "batch_size": 8
+      },
+      {
+        "offset": 4000,
+        "n": 8,
+        "samples": [
+          "GSM5529331",
+          "GSM5529333",
+          "GSM5529334",
+          "GSM5529335",
+          "GSM5529336",
+          "GSM5529338",
+          "GSM5529342",
+          "GSM5529345"
+        ],
+        "max_abs_diff": 0.0,
+        "mean_abs_value": 0.39285552501678467,
+        "relative_diff": 0.0,
+        "live_batch1_vs_batchN": 2.7641654014587402e-06,
+        "control_rolled_cache_max_abs_diff": 0.2921525239944458,
+        "batch_size": 8
+      },
+      {
+        "offset": 8549,
+        "n": 8,
+        "samples": [
+          "GSM9696626",
+          "GSM9696629",
+          "GSM9696631",
+          "GSM9696632",
+          "GSM1085736",
+          "GSM1085737",
+          "GSM1085738",
+          "GSM1085739"
+        ],
+        "max_abs_diff": 0.0,
+        "mean_abs_value": 0.3560197353363037,
+        "relative_diff": 0.0,
+        "live_batch1_vs_batchN": 1.8477439880371094e-06,
+        "control_rolled_cache_max_abs_diff": 1.0000369548797607,
+        "batch_size": 8
+      }
+    ],
+    "deepspeed_import_shim": true,
+    "note": "live forward of the real BulkFormerVisionTower on CPU over the raw [20010] vectors, on disjoint sample groups, with a rolled-cache control proving the comparison discriminates (deepspeed absent: import-only placeholder used; the encoder itself is fully real)"
+  },
+  "passed": true
+}

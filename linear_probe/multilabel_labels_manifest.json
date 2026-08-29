@@ -1,0 +1,186 @@
+{
+  "purpose": "Broad multi-label probe label table for the LLM-latent representation-quality comparison (retrain plan Phase 1c/4c). Consumed by both the before-fix and after-fix probe runs.",
+  "population": "/Users/harmeetsingh/UofA/TinyLLaVA_Factory/linear_probe/embeddings/sample_manifest.parquet",
+  "n_rows": 57207,
+  "cv_grouping_key": "series_id (geo_accession also carried)",
+  "rare_class_rule": "classes with support < 200 collapsed to '__other__'",
+  "sentinels": {
+    "other": "__other__",
+    "missing": "__missing__"
+  },
+  "scientific_labels": [
+    "tissue",
+    "disease_category",
+    "cvd_subtype",
+    "is_bulk"
+  ],
+  "technical_controls": [
+    "platform",
+    "instrument"
+  ],
+  "labels": {
+    "_alignment": {
+      "manifest_rows": 57207,
+      "h5_sample_axis": 1098771,
+      "geo_accession_mismatches_h5_vs_manifest": 0
+    },
+    "tissue": {
+      "source_field": "H5 meta/samples/source_name_ch1",
+      "kind": "scientific",
+      "note": "free-text sample source; normalized (lowercase, punctuation and whitespace collapsed). This is the confound the project worries about: strong tissue recovery is informative, not a failure.",
+      "n_raw_distinct": 10427,
+      "n_normalized_distinct": 9716,
+      "min_support": 200,
+      "n_classes_kept": 27,
+      "n_classes_collapsed_to_other": 9689,
+      "n_samples_in_other": 39017,
+      "n_samples_missing_raw": 6,
+      "n_rows_without_label": 0,
+      "class_support": {
+        "__other__": 39017,
+        "ipsc cardiomyocytes": 4395,
+        "induced pluripotent stem cell": 1332,
+        "blood": 1279,
+        "whole blood": 1153,
+        "endo": 995,
+        "cardiomyocyte": 727,
+        "huvec": 664,
+        "heart": 647,
+        "pbmc": 621,
+        "left ventricle": 581,
+        "human umbilical vein endothelial cells": 522,
+        "blank": 515,
+        "liver": 456,
+        "mcf7 cells": 434,
+        "peripheral blood": 401,
+        "skin": 350,
+        "cardiac": 349,
+        "cell line": 344,
+        "brain": 306,
+        "endothelial cells": 303,
+        "h1 human embryonic stem cell derived neural progenitor cells endothelial cells mesenchymal stem cells and microglia macrophage precursors": 292,
+        "smooth muscle cell": 284,
+        "lung": 282,
+        "differentiating ipsc derived cardiomyocytes": 278,
+        "aorta": 248,
+        "pbmcs": 226,
+        "bone marrow": 206
+      },
+      "n_classes_present_in_column": 28,
+      "degenerate_single_class": false
+    },
+    "disease_category": {
+      "source_field": "eda/dataset/cvd_data/extended_eda_out/labels/sample_labels.parquet :: disease_category (joined on sample_index)",
+      "kind": "scientific",
+      "n_normalized_distinct": 9,
+      "min_support": 200,
+      "n_classes_kept": 4,
+      "n_classes_collapsed_to_other": 5,
+      "n_samples_in_other": 236,
+      "n_rows_without_label": 0,
+      "n_samples_missing_or_empty": 0,
+      "class_support": {
+        "unclear unlabeled": 47710,
+        "cardiovascular": 8725,
+        "cancer neoplasm": 307,
+        "__other__": 236,
+        "infectious": 229
+      },
+      "n_classes_present_in_column": 5,
+      "degenerate_single_class": false
+    },
+    "cvd_subtype": {
+      "source_field": "linear_probe/embeddings/sample_manifest.parquet :: cvd_subtype",
+      "kind": "scientific",
+      "note": "empty cvd_subtype (the whole-corpus negative pool) is encoded as __missing__, which is a real and meaningful class here, not a defect.",
+      "n_normalized_distinct": 8,
+      "min_support": 200,
+      "n_classes_kept": 6,
+      "n_classes_collapsed_to_other": 2,
+      "n_samples_in_other": 265,
+      "n_rows_without_label": 0,
+      "n_samples_empty_string_raw": 26175,
+      "class_support": {
+        "__missing__": 26175,
+        "tissue only disease unconfirmed": 22307,
+        "disease matched subtype unresolved": 5915,
+        "coronary artery disease": 945,
+        "heart failure": 921,
+        "hypertension": 679,
+        "__other__": 265
+      },
+      "n_classes_present_in_column": 7,
+      "degenerate_single_class": false
+    },
+    "platform": {
+      "source_field": "H5 meta/samples/platform_id",
+      "kind": "technical_control",
+      "note": "TECHNICAL CONTROL, not a scientific result. Probe AUC here measures how much purely technical batch signal the representation carries. Never report as a scientific finding.",
+      "description": "GEO platform accession",
+      "n_normalized_distinct": 13,
+      "min_support": 200,
+      "n_classes_kept": 11,
+      "n_classes_collapsed_to_other": 2,
+      "n_samples_in_other": 118,
+      "n_rows_without_label": 0,
+      "class_support": {
+        "gpl24676": 17579,
+        "gpl16791": 17363,
+        "gpl18573": 6895,
+        "gpl20301": 6468,
+        "gpl11154": 4713,
+        "gpl21697": 1078,
+        "gpl21290": 1047,
+        "gpl20795": 986,
+        "gpl23227": 481,
+        "gpl18460": 259,
+        "gpl15520": 220,
+        "__other__": 118
+      },
+      "n_classes_present_in_column": 12,
+      "degenerate_single_class": false
+    },
+    "instrument": {
+      "source_field": "H5 meta/samples/instrument_model",
+      "kind": "technical_control",
+      "note": "TECHNICAL CONTROL, not a scientific result. Probe AUC here measures how much purely technical batch signal the representation carries. Never report as a scientific finding.",
+      "description": "sequencer model",
+      "n_normalized_distinct": 13,
+      "min_support": 200,
+      "n_classes_kept": 11,
+      "n_classes_collapsed_to_other": 2,
+      "n_samples_in_other": 118,
+      "n_rows_without_label": 0,
+      "class_support": {
+        "illumina novaseq 6000": 17579,
+        "illumina hiseq 2500": 17363,
+        "illumina nextseq 500": 6895,
+        "illumina hiseq 4000": 6468,
+        "illumina hiseq 2000": 4713,
+        "nextseq 550": 1078,
+        "illumina hiseq 3000": 1047,
+        "hiseq x ten": 986,
+        "bgiseq 500": 481,
+        "illumina hiseq 1500": 259,
+        "illumina miseq": 220,
+        "__other__": 118
+      },
+      "n_classes_present_in_column": 12,
+      "degenerate_single_class": false
+    },
+    "is_bulk": {
+      "source_field": "H5 meta/samples/singlecellprobability",
+      "kind": "scientific",
+      "rule": "singlecellprobability < 0.5 (SC_PROB_MAX imported from linear_probe/labels.py)",
+      "n_classes_kept": 2,
+      "n_classes_collapsed_to_other": 0,
+      "n_rows_without_label": 0,
+      "class_support": {
+        "True": 57207
+      },
+      "n_classes_present_in_column": 1,
+      "degenerate_single_class": true,
+      "warning": "Only one class present across the probe population; this label is NOT probeable and must be skipped."
+    }
+  }
+}
