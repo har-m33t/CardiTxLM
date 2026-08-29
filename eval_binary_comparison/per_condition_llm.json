@@ -1,0 +1,26 @@
+{
+  "per_condition": {
+    "heart_failure": {
+      "roc_auc_mean": 0.7560262602178195,
+      "n_folds": 5
+    },
+    "arrhythmia_afib": {
+      "roc_auc_mean": 0.656161975383351,
+      "n_folds": 4
+    },
+    "coronary_artery_disease": {
+      "roc_auc_mean": 0.4781211183757702,
+      "n_folds": 5
+    },
+    "cardiomyopathy_other": {
+      "roc_auc_mean": 0.721539416499423,
+      "n_folds": 5
+    },
+    "hypertension": {
+      "roc_auc_mean": 0.5860840110272122,
+      "n_folds": 5
+    }
+  },
+  "macro_auroc": 0.6395865563007151,
+  "pooled_binary": 0.4972672766722647
+}

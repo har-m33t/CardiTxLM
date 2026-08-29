@@ -1,0 +1,80 @@
+{
+  "BulkFormer-37M": {
+    "per_condition": {
+      "heart_failure": {
+        "roc_auc_mean": 0.8646619344619608,
+        "roc_auc_std": 0.08579704927792832,
+        "pr_auc_mean": 0.31397554136878625,
+        "n_folds": 5
+      },
+      "arrhythmia_afib": {
+        "roc_auc_mean": 0.903671145173884,
+        "roc_auc_std": 0.08331610076700106,
+        "pr_auc_mean": 0.09158503289744684,
+        "n_folds": 3
+      },
+      "coronary_artery_disease": {
+        "roc_auc_mean": 0.8109593321106399,
+        "roc_auc_std": 0.1061105317179101,
+        "pr_auc_mean": 0.2869547643138889,
+        "n_folds": 5
+      },
+      "cardiomyopathy_other": {
+        "roc_auc_mean": 0.6920991064972436,
+        "roc_auc_std": 0.1879042234526107,
+        "pr_auc_mean": 0.07293186277057521,
+        "n_folds": 4
+      },
+      "hypertension": {
+        "roc_auc_mean": 0.9215971859951365,
+        "roc_auc_std": 0.04646620656943748,
+        "pr_auc_mean": 0.46308908755397543,
+        "n_folds": 5
+      }
+    },
+    "macro_auroc": 0.838597740847773,
+    "pooled_binary_roc_auc": 0.7769298942767698,
+    "pooled_binary_std": 0.16570719374257672,
+    "pooled_binary_pr_auc": 0.6312081977686431,
+    "n_features": 131
+  },
+  "BulkFormer-50M": {
+    "per_condition": {
+      "heart_failure": {
+        "roc_auc_mean": 0.8064140586347112,
+        "roc_auc_std": 0.14615877756796902,
+        "pr_auc_mean": 0.2951272327486976,
+        "n_folds": 5
+      },
+      "arrhythmia_afib": {
+        "roc_auc_mean": 0.8004672806143374,
+        "roc_auc_std": 0.15227294973577862,
+        "pr_auc_mean": 0.15971003204469794,
+        "n_folds": 3
+      },
+      "coronary_artery_disease": {
+        "roc_auc_mean": 0.7429552449105866,
+        "roc_auc_std": 0.14830461339752665,
+        "pr_auc_mean": 0.2624423094660898,
+        "n_folds": 5
+      },
+      "cardiomyopathy_other": {
+        "roc_auc_mean": 0.7562777674845559,
+        "roc_auc_std": 0.19060059137596452,
+        "pr_auc_mean": 0.10381407194888424,
+        "n_folds": 4
+      },
+      "hypertension": {
+        "roc_auc_mean": 0.7301927600445498,
+        "roc_auc_std": 0.10256758648525659,
+        "pr_auc_mean": 0.22103154144983422,
+        "n_folds": 5
+      }
+    },
+    "macro_auroc": 0.7672614223377481,
+    "pooled_binary_roc_auc": 0.6890326480431209,
+    "pooled_binary_std": 0.20691136196362886,
+    "pooled_binary_pr_auc": 0.5459046286602852,
+    "n_features": 259
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "BulkFormer-37M": {
+    "per_condition": {
+      "heart_failure": {
+        "roc_auc_mean": 0.8278170770006573,
+        "roc_auc_std": 0.13456712047265407,
+        "pr_auc_mean": 0.2976292051153343,
+        "n_folds": 5
+      },
+      "arrhythmia_afib": {
+        "roc_auc_mean": 0.9115789575493151,
+        "roc_auc_std": 0.07083402285667957,
+        "pr_auc_mean": 0.19278461770490263,
+        "n_folds": 4
+      },
+      "coronary_artery_disease": {
+        "roc_auc_mean": 0.8085396413706553,
+        "roc_auc_std": 0.07335907747536294,
+        "pr_auc_mean": 0.2219936778994442,
+        "n_folds": 5
+      },
+      "cardiomyopathy_other": {
+        "roc_auc_mean": 0.7446149348779378,
+        "roc_auc_std": 0.10664920782057907,
+        "pr_auc_mean": 0.03579615153563111,
+        "n_folds": 5
+      },
+      "hypertension": {
+        "roc_auc_mean": 0.8406951112145709,
+        "roc_auc_std": 0.13051445112267251,
+        "pr_auc_mean": 0.40949350303165255,
+        "n_folds": 5
+      }
+    },
+    "macro_auroc": 0.8266491444026274,
+    "pooled_binary": {
+      "roc_auc_mean": 0.780740381348511,
+      "roc_auc_std": 0.10529224565138863,
+      "pr_auc_mean": 0.6110094251551914,
+      "n_folds": 5
+    }
+  },
+  "BulkFormer-50M": {
+    "per_condition": {
+      "heart_failure": {
+        "roc_auc_mean": 0.7961300282535098,
+        "roc_auc_std": 0.12295525257213583,
+        "pr_auc_mean": 0.2653275217821932,
+        "n_folds": 5
+      },
+      "arrhythmia_afib": {
+        "roc_auc_mean": 0.8418816524762498,
+        "roc_auc_std": 0.06770040539815582,
+        "pr_auc_mean": 0.1527735541017406,
+        "n_folds": 4
+      },
+      "coronary_artery_disease": {
+        "roc_auc_mean": 0.7757436438098193,
+        "roc_auc_std": 0.17638353556822325,
+        "pr_auc_mean": 0.26981052352846685,
+        "n_folds": 5
+      },
+      "cardiomyopathy_other": {
+        "roc_auc_mean": 0.7159745283651868,
+        "roc_auc_std": 0.16588881781340242,
+        "pr_auc_mean": 0.026059920113678515,
+        "n_folds": 5
+      },
+      "hypertension": {
+        "roc_auc_mean": 0.7893283558285147,
+        "roc_auc_std": 0.1082395526503742,
+        "pr_auc_mean": 0.30285493314773765,
+        "n_folds": 5
+      }
+    },
+    "macro_auroc": 0.7838116417466561,
+    "pooled_binary": {
+      "roc_auc_mean": 0.7220356542243542,
+      "roc_auc_std": 0.11176853638484603,
+      "pr_auc_mean": 0.5326929277690681,
+      "n_folds": 5
+    }
+  },
+  "BulkFormer-93M": {
+    "per_condition": {
+      "heart_failure": {
+        "roc_auc_mean": 0.8832922450722286,
+        "roc_auc_std": 0.0431259542367358,
+        "pr_auc_mean": 0.269995177199634,
+        "n_folds": 5
+      },
+      "arrhythmia_afib": {
+        "roc_auc_mean": 0.9101149541744392,
+        "roc_auc_std": 0.06219829414916337,
+        "pr_auc_mean": 0.1355643431543621,
+        "n_folds": 4
+      },
+      "coronary_artery_disease": {
+        "roc_auc_mean": 0.8277969913070102,
+        "roc_auc_std": 0.07291849618035294,
+        "pr_auc_mean": 0.2973973956467098,
+        "n_folds": 5
+      },
+      "cardiomyopathy_other": {
+        "roc_auc_mean": 0.8425842380525141,
+        "roc_auc_std": 0.03165877680433274,
+        "pr_auc_mean": 0.026656218208932835,
+        "n_folds": 5
+      },
+      "hypertension": {
+        "roc_auc_mean": 0.840617272859974,
+        "roc_auc_std": 0.16653837385133505,
+        "pr_auc_mean": 0.475308959003928,
+        "n_folds": 5
+      }
+    },
+    "macro_auroc": 0.8608811402932333,
+    "pooled_binary": {
+      "roc_auc_mean": 0.8141946652973843,
+      "roc_auc_std": 0.08336833490673619,
+      "pr_auc_mean": 0.6590885939734885,
+      "n_folds": 5
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "seed": 20260707,
+  "prompt": "Based on this transcriptomic profile, does this sample show evidence of cardiovascular disease?",
+  "population": {
+    "total": 31032,
+    "positives": 8725,
+    "negatives": 22307,
+    "positives_seen_in_training": 8553
+  },
+  "llm_full_contaminated": {
+    "roc_auc_mean": 0.44410985674236203,
+    "roc_auc_std": 0.2101681193945774,
+    "pr_auc_mean": 0.3015316328848113,
+    "pr_auc_std": 0.09488146598218747,
+    "accuracy_mean": 0.71883905256325,
+    "accuracy_std": 0.00029504460273375684,
+    "sensitivity_mean": 0.0,
+    "sensitivity_std": 0.0,
+    "specificity_mean": 1.0,
+    "specificity_std": 0.0,
+    "f1_mean": 0.0,
+    "f1_std": 0.0,
+    "brier_mean": 0.25739028680715503,
+    "brier_std": 0.002442973093292809,
+    "n_folds": 5
+  },
+  "llm_heldout_positives_only": {
+    "roc_auc_mean": 0.934262396933128,
+    "roc_auc_std": 0.07221007913682667,
+    "pr_auc_mean": 0.11831443595766808,
+    "pr_auc_std": 0.11948791202228651,
+    "accuracy_mean": 0.9924267494276281,
+    "accuracy_std": 0.008781622300075745,
+    "sensitivity_mean": 0.0,
+    "sensitivity_std": 0.0,
+    "specificity_mean": 1.0,
+    "specificity_std": 0.0,
+    "f1_mean": 0.0,
+    "f1_std": 0.0,
+    "brier_mean": 0.009145867428414592,
+    "brier_std": 0.007327594376781536,
+    "n_folds": 5
+  },
+  "probe_neg_hard": {
+    "n_folds_ran": 5,
+    "n_folds_skipped": 0,
+    "roc_auc_mean": 0.8005027589067442,
+    "roc_auc_std": 0.18718749466494697,
+    "pr_auc_mean": 0.672268305568217,
+    "pr_auc_std": 0.2231120932090414,
+    "accuracy_mean": 0.765179141898424,
+    "accuracy_std": 0.12312126580898107,
+    "sensitivity_mean": 0.6523327463971658,
+    "sensitivity_std": 0.2136181484974636,
+    "specificity_mean": 0.8093104199407308,
+    "specificity_std": 0.11446395240900038,
+    "f1_mean": 0.614351410259607,
+    "f1_std": 0.20436951822610092,
+    "brier_mean": 0.1736944541335106,
+    "brier_std": 0.09574967275228559
+  }
+}

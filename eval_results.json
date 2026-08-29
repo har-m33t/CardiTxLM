@@ -1,0 +1,1480 @@
+{
+  "limitations": [
+    "No held-out split: the LoRA run trained on all 19,793 stage-2 items, so every generation metric here is training-set performance and an upper bound, not a generalization estimate.",
+    "The linear-probe baseline is a different task (binary CVD vs control) on a different sample pool (31k-35k samples incl. negatives absent from this model's training data). It is context, not a comparison."
+  ],
+  "n_evaluated": 180,
+  "generation_metrics": {
+    "comparative_differential_reasoning": {
+      "n": 60,
+      "exact_match": 0.0
+    },
+    "disease_subtype_classification": {
+      "n": 60,
+      "exact_match": 0.2,
+      "condition_parse_rate": 0.9333,
+      "condition_accuracy": 0.6833
+    },
+    "gene_driver_reasoning": {
+      "n": 60,
+      "exact_match": 0.0,
+      "mean_gene_recall": 0.5056
+    }
+  },
+  "linear_probe_baseline_93M": {
+    "neg_hard": {
+      "roc_auc_mean": 0.8005027589067442,
+      "roc_auc_std": 0.18718749466494697,
+      "pr_auc_mean": 0.672268305568217,
+      "pr_auc_std": 0.2231120932090414
+    },
+    "neg_whole_corpus": {
+      "roc_auc_mean": 0.9444390764877365,
+      "roc_auc_std": 0.023014785039463047,
+      "pr_auc_mean": 0.897153598302911,
+      "pr_auc_std": 0.040467772061995956
+    }
+  },
+  "results": [
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM7659228.npy",
+      "question": "<image>\nWhich transcriptomic features distinguish cardiovascular disease from tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "When compared against tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) are separable with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression analysis has not been performed for this comparison, so no specific genes can be attributed as drivers of the difference.",
+      "prediction": "tissue-matched samples without confirmed cardiovascular disease (n = 22,307) are separable from disease-confirmed cardiovascular samples (n = 8,725) with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. However, a per-gene differential expression analysis has not been performed for this comparison, so no"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM6419957.npy",
+      "question": "<image>\nHow does the transcriptomic profile of coronary artery disease compare with that of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "Relative to tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled coronary_artery_disease. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed.",
+      "prediction": "0 | \n1 | \n2 | \n3 | \n4 | \n5 | \n6 | \n7 | \n8 | \n9 | \n10 | \n11 | \n12 | \n13 | \n14 | \n15 | \n16 | \n17 | \n18 | \n19 | \n20 | \n21 | \n22 | \n23 | \n24 | \n25 | \n26 | \n27 |"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM6717181.npy",
+      "question": "<image>\nHow do the molecular signatures of cardiovascular disease compare with those of tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) are separable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed.",
+      "prediction": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-g"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM4139224.npy",
+      "question": "<image>\nHow does the transcriptomic profile of cardiovascular disease compare with tissue-matched samples that lack a confirmed cardiovascular diagnosis?",
+      "reference": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) are separable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled as cardiovascular disease. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed.",
+      "prediction": "0 | \n1 | \n2 | \n3 | \n4 | \n5 | \n6 | \n7 | \n8 | \n9 | \n10 | \n11 | \n12 | \n13 | \n14 | \n15 | \n16 | \n17 | \n18 | \n19 | \n20 | \n21 | \n22 | \n23 | \n24 | \n25 | \n26 | \n27 |"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM1281731.npy",
+      "question": "<image>\nHow do the gene expression profiles of heart failure samples compare with those of tissue-matched samples that lack a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled heart failure. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed.",
+      "prediction": "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM6165936.npy",
+      "question": "<image>\nWhat transcriptomic features distinguish cardiovascular disease from tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) can be separated with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. No per-gene differential expression analysis has been performed for this comparison, so no individual genes can be attributed as driving this separation.",
+      "prediction": "tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool) are separable from disease-confirmed cardiovascular samples (n = 8,725) with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. However, a per-gene differential expression analysis has not been performed"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM4139259.npy",
+      "question": "<image>\nHow do the molecular signatures of cardiovascular disease compare with those of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), the disease-confirmed cardiovascular samples (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055; linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). The sample in question is labeled as cardiovascular disease. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed.",
+      "prediction": "Compared with tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM6718055.npy",
+      "question": "<image>\nHow does the transcriptomic profile of cardiovascular disease compare with that of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "Relative to tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22307, the neg_hard pool), samples confirmed for cardiovascular disease (n = 8725) are distinguishable with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is labeled as cardiovascular disease. A per-gene differential expression contrast has not been computed for this comparison, so no specific genes are attributed.",
+      "prediction": "0 | \n1 | \n2 | \n3 | \n4 | \n5 | \n6 | \n7 | \n8 | \n9 | \n10 | \n11 | \n12 | \n13 | \n14 | \n15 | \n16 | \n17 | \n18 | \n19 | \n20 | \n21 | \n22 | \n23 | \n24 | \n25 | \n26 | \n27 |"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM2641090.npy",
+      "question": "<image>\nWhat expression patterns distinguish heart failure from tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), cardiovascular-disease-confirmed samples (n = 8,725) are separable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as heart failure. A per-gene differential expression analysis has not been performed for this comparison, so no individual genes can be attributed as drivers of the separation.",
+      "prediction": "tissue_hard pool: heart failure (n = 8725) vs. tissue_hard pool without confirmed cardiovascular disease (n = 22307, the neg_hard pool) is separable with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is classified as heart failure. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM3067322.npy",
+      "question": "<image>\nWhat gene expression patterns differentiate heart failure from tissue samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) can be distinguished with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This particular sample is labeled heart failure. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes can be attributed as driving this separation.",
+      "prediction": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), cardiovascular-disease-confirmed samples (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled heart failure. A per-g"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM2551190.npy",
+      "question": "<image>\nHow do the molecular signatures of cardiovascular disease compare with those of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples confirmed to have cardiovascular disease (n = 8,725) show separable transcriptomic profiles, with a linear probe ROC-AUC of 0.7806 (sd 0.1055; grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes can be attributed.",
+      "prediction": "Compared with tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM5565879.npy",
+      "question": "<image>\nHow does the transcriptomic profile of hypertension compare with that of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "When compared against tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool), cardiovascular-disease-confirmed samples (n = 8,725) are distinguishable with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This particular sample is labeled as hypertension. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes can be attributed to the observed separation.",
+      "prediction": "tissue-matched_hard pool (n = 22,307) is distinguishable from cardiovascular_disease_confirmed (n = 8,725) at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled as hypertension. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM3692306.npy",
+      "question": "<image>\nWhat transcriptional patterns differentiate confirmed cardiovascular disease from tissue-matched samples without a confirmed diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) can be distinguished with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. However, a per-gene differential expression analysis has not been performed for this comparison, so no specific genes are implicated.",
+      "prediction": "tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool) are distinguishable from confirmed cardiovascular disease samples (n = 8,725) at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression analysis has not been"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM5929829.npy",
+      "question": "<image>\nWhat expression patterns distinguish cardiovascular disease from tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "When compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) show a measurable separation, with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed.",
+      "prediction": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) can be separated with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-g"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM1126640.npy",
+      "question": "<image>\nWhat expression patterns distinguish heart failure from tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) are separable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled heart_failure. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed.",
+      "prediction": "tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool) are separable from disease-confirmed cardiovascular samples (n = 8,725) with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled heart failure. A per-gene differential expression contrast has not been computed for"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM1126666.npy",
+      "question": "<image>\nWhat expression patterns distinguish heart failure from tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, from the neg_hard pool), cardiovascular-disease-confirmed samples (n = 8,725) are separable with a linear-probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). The sample in question is classified as heart failure. However, no per-gene differential expression analysis has been performed for this comparison, so specific genes driving the separation cannot be named.",
+      "prediction": "tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool) are separable from disease-confirmed cardiovascular samples (n = 8,725) with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled heart failure. A per-gene differential expression contrast has not been computed for"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM5726629.npy",
+      "question": "<image>\nHow does the transcriptomic profile of cardiovascular disease differ from that of tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) can be distinguished with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is labeled as cardiovascular disease. A per-gene differential expression analysis has not been performed for this comparison, so no specific genes are attributed to the difference.",
+      "prediction": "tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool) are distinguishable from samples with confirmed cardiovascular disease (n = 8,725) at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression analysis has not"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM4697645.npy",
+      "question": "<image>\nHow does the transcriptomic profile of cardiovascular disease compare with that of tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) are separable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled as cardiovascular disease. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed.",
+      "prediction": "tissue-matched samples without confirmed cardiovascular disease (n = 22,307) are distinguishable from samples with confirmed cardiovascular disease (n = 8,725) at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression analysis has not been performed for this comparison,"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM2899129.npy",
+      "question": "<image>\nWhat gene expression patterns differentiate cardiovascular disease from tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) can be distinguished with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled as cardiovascular disease. However, a per-gene differential expression analysis has not been performed for this comparison, so no individual genes can be attributed as driving the separation.",
+      "prediction": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) can be distinguished with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. No per-g"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM4364961.npy",
+      "question": "<image>\nHow do gene expression patterns in cardiovascular disease differ from those in tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307 in the neg_hard pool), samples confirmed to have cardiovascular disease (n = 8,725) can be distinguished with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled as cardiovascular disease. However, no per-gene differential expression analysis has been performed for this comparison, so specific individual genes cannot be attributed.",
+      "prediction": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-g"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM4452455.npy",
+      "question": "<image>\nHow does the transcriptomic profile of cardiovascular disease compare to that of tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 22307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8725) are separable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled as cardiovascular disease. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed.",
+      "prediction": "tissue-matched samples without confirmed cardiovascular disease (n = 22,307) are distinguishable from samples with confirmed cardiovascular disease (n = 8,725) at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression analysis has not been performed for this comparison,"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM4829284.npy",
+      "question": "<image>\nHow does the transcriptomic profile of cardiovascular disease compare with tissue-matched samples that have not been confirmed to have the condition?",
+      "reference": "Compared with tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) can be distinguished with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression analysis has not been performed for this comparison, so no specific genes are attributed to the difference.",
+      "prediction": "0 | \n1 | \n2 | \n3 | \n4 | \n5 | \n6 | \n7 | \n8 | \n9 | \n10 | \n11 | \n12 | \n13 | \n14 | \n15 | \n16 | \n17 | \n18 | \n19 | \n20 | \n21 | \n22 | \n23 | \n24 | \n25 | \n26 | \n27 |"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM5827417.npy",
+      "question": "<image>\nHow does the gene expression profile of hypertension differ from that of tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) are separable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled hypertension. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed.",
+      "prediction": "tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool) are distinguishable from cardiovascular-disease-confirmed samples (n = 8,725) at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled as hypertension. A per-gene differential expression contrast"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM8138159.npy",
+      "question": "<image>\nHow does the gene expression profile of coronary artery disease compare with that of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled as coronary artery disease. No per-gene differential expression analysis has been performed for this comparison, so no individual genes are attributed.",
+      "prediction": "0 | tissue_hard | coronary_artery_disease | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM6165946.npy",
+      "question": "<image>\nHow does the transcriptomic profile of cardiovascular disease compare with that of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 22307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression contrast has not been computed for this comparison, so no specific genes are attributed.",
+      "prediction": "Compared with tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM8328841.npy",
+      "question": "<image>\nWhat expression patterns distinguish cardiovascular disease from tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This particular sample is labeled as cardiovascular disease. However, no per-gene differential expression analysis has been performed for this comparison, so no individual genes can be attributed as driving the separation.",
+      "prediction": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) can be separated with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-g"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM6893184.npy",
+      "question": "<image>\nHow does the transcriptomic signature of cardiovascular disease compare with that of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. No per-gene differential expression analysis has been performed for this comparison, so no individual genes are attributed.",
+      "prediction": "0 | \n1 | \n2 | \n3 | \n4 | \n5 | \n6 | \n7 | \n8 | \n9 | \n10 | \n11 | \n12 | \n13 | \n14 | \n15 | \n16 | \n17 | \n18 | \n19 | \n20 | \n21 | \n22 | \n23 | \n24 | \n25 | \n26 | \n27 |"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM7473713.npy",
+      "question": "<image>\nHow does the gene expression profile of cardiovascular disease compare with that of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "Relative to tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) are distinguishable with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression analysis has not been performed for this comparison, so no individual genes are attributed.",
+      "prediction": "7,725 disease-confirmed cardiovascular samples are distinguishable from the 22,307 tissue-matched samples without a confirmed diagnosis (the neg_hard pool). This sample is classified as cardiovascular disease. A per-gene differential expression analysis has not been performed for this comparison, so no individual genes are attributed."
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM5511621.npy",
+      "question": "<image>\nHow does the gene expression profile of cardiovascular disease compare with that of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool), samples confirmed to have cardiovascular disease (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed.",
+      "prediction": "Compared with tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM6717687.npy",
+      "question": "<image>\nHow does the gene expression profile of cardiovascular disease compare with that of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "Relative to tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22,307, from the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) can be distinguished with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression analysis has not been performed for this comparison, so no specific genes are attributed to the difference.",
+      "prediction": "0 | \n1 | \n2 | \n3 | \n4 | \n5 | \n6 | \n7 | \n8 | \n9 | \n10 | \n11 | \n12 | \n13 | \n14 | \n15 | \n16 | \n17 | \n18 | \n19 | \n20 | \n21 | \n22 | \n23 | \n24 | \n25 | \n26 | \n27 |"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM4139253.npy",
+      "question": "<image>\nWhat transcriptomic features distinguish cardiovascular disease from tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking confirmed cardiovascular disease (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) are separable with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. No per-gene differential expression analysis has been performed for this contrast, so specific genes cannot be attributed.",
+      "prediction": "tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool) are separable from disease-confirmed cardiovascular samples (n = 8,725) with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. However, a per-gene differential expression analysis has not been performed"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM1704815.npy",
+      "question": "<image>\nWhat molecular features separate cardiovascular disease from tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples confirmed to have cardiovascular disease (n = 8,725) show clear separability, with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. No per-gene differential expression analysis has been performed for this comparison, so specific genes driving the separation have not been identified.",
+      "prediction": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM8021709.npy",
+      "question": "<image>\nHow do the molecular signatures of heart failure compare with those of tissue-matched samples that lack a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples without confirmed cardiovascular disease (n = 22,307, from the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) can be distinguished with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This particular sample is labeled as heart failure. However, a per-gene differential expression analysis has not been performed for this comparison, so no specific genes can be attributed to the difference.",
+      "prediction": "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM2641087.npy",
+      "question": "<image>\nHow does the transcriptomic profile of heart failure compare with that of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "Relative to tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8725) are separable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled heart_failure. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed.",
+      "prediction": "tissue-matched_hard pool (n = 22,307) is distinguishable from cardiovascular_disease_confirmed (n = 8,725) at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled heart failure. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM4365334.npy",
+      "question": "<image>\nWhat molecular features separate cardiovascular disease from tissue-matched samples that lack a confirmed cardiovascular diagnosis?",
+      "reference": "Compared to tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) are distinguishable with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. However, a per-gene differential expression analysis has not been performed for this comparison, so no specific individual genes are attributed as drivers of the difference.",
+      "prediction": "Compared with tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM5460738.npy",
+      "question": "<image>\nWhat molecular features set cardiovascular disease apart from tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) can be distinguished with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression analysis has not been performed for this comparison, so no individual genes are attributed as drivers.",
+      "prediction": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-g"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM7659265.npy",
+      "question": "<image>\nHow does the transcriptomic signature of cardiovascular disease compare with that of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) can be distinguished with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is labeled as cardiovascular disease. A per-gene differential expression contrast has not been computed for this comparison, so no specific genes are attributed.",
+      "prediction": "0 | \n1 | \n2 | \n3 | \n4 | \n5 | \n6 | \n7 | \n8 | \n9 | \n10 | \n11 | \n12 | \n13 | \n14 | \n15 | \n16 | \n17 | \n18 | \n19 | \n20 | \n21 | \n22 | \n23 | \n24 | \n25 | \n26 | \n27 |"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM6165948.npy",
+      "question": "<image>\nWhich transcriptomic features distinguish cardiovascular disease from tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) are separable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled as cardiovascular disease. A per-gene differential expression analysis has not been performed for this comparison, so no specific genes can be attributed to the difference.",
+      "prediction": "tissue-matched samples without confirmed cardiovascular disease (n = 22,307) are separable from disease-confirmed cardiovascular samples (n = 8,725) with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. However, a per-gene differential expression analysis has not been performed for this comparison, so no"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM7073912.npy",
+      "question": "<image>\nWhat molecular features differentiate cardiovascular disease from tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) show a separable transcriptomic profile, with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This particular sample is classified as cardiovascular disease. However, no per-gene differential expression analysis has been performed for this comparison, so no specific individual genes can be attributed as driving the separation.",
+      "prediction": "tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool) are distinguishable from disease-confirmed cardiovascular samples (n = 8,725) at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. However, a per-gene differential"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM7182514.npy",
+      "question": "<image>\nWhat gene expression patterns distinguish cardiovascular disease from tissue-matched samples without a confirmed diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) can be separated with a ROC-AUC of 0.7806 (sd 0.1055; linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression analysis has not been performed for this comparison, so no individual genes are attributed.",
+      "prediction": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) can be separated with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-g"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM6717585.npy",
+      "question": "<image>\nHow does the transcriptomic signature of cardiovascular disease compare with that of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression analysis has not been performed for this comparison, so no specific genes are attributed.",
+      "prediction": "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM6717916.npy",
+      "question": "<image>\nHow does the transcriptomic profile of cardiovascular disease compare with that of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "When compared with tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) can be distinguished with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. No per-gene differential expression analysis has been performed for this comparison, so no specific genes are attributed to the difference.",
+      "prediction": "0 | \n1 | \n2 | \n3 | \n4 | \n5 | \n6 | \n7 | \n8 | \n9 | \n10 | \n11 | \n12 | \n13 | \n14 | \n15 | \n16 | \n17 | \n18 | \n19 | \n20 | \n21 | \n22 | \n23 | \n24 | \n25 | \n26 | \n27 |"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM6215612.npy",
+      "question": "<image>\nWhich transcriptomic features distinguish cardiovascular disease from tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22307, neg_hard pool), disease-confirmed cardiovascular samples (n = 8725) are separable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed.",
+      "prediction": "tissue-matched samples without confirmed cardiovascular disease (n = 22,307) are separable from disease-confirmed cardiovascular samples (n = 8,725) with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. However, a per-gene differential expression analysis has not been performed for this comparison, so no"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM3417086.npy",
+      "question": "<image>\nWhat expression patterns distinguish heart failure from tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 22307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8725) are separable at ROC-AUC 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labelled heart_failure. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed.",
+      "prediction": "tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool) are separable from disease-confirmed cardiovascular samples (n = 8,725) with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled heart failure. A per-gene differential expression contrast has not been computed for"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM7228580.npy",
+      "question": "<image>\nHow does the transcriptomic signature of cardiovascular disease compare with that of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "When compared with tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression analysis has not been performed for this comparison, so no individual genes are attributed as drivers.",
+      "prediction": "0 | \n1 | \n2 | \n3 | \n4 | \n5 | \n6 | \n7 | \n8 | \n9 | \n10 | \n11 | \n12 | \n13 | \n14 | \n15 | \n16 | \n17 | \n18 | \n19 | \n20 | \n21 | \n22 | \n23 | \n24 | \n25 | \n26 | \n27 |"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM2044443.npy",
+      "question": "<image>\nHow does the transcriptomic profile of cardiovascular disease compare with that of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "When compared with tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) are distinguishable at a linear-probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold cross-validation by series, BulkFormer-37M). This sample is classified as cardiovascular disease. However, no per-gene differential expression analysis has been performed for this comparison, so specific genes responsible for the difference have not been identified.",
+      "prediction": "0 | \n1 | \n2 | \n3 | \n4 | \n5 | \n6 | \n7 | \n8 | \n9 | \n10 | \n11 | \n12 | \n13 | \n14 | \n15 | \n16 | \n17 | \n18 | \n19 | \n20 | \n21 | \n22 | \n23 | \n24 | \n25 | \n26 | \n27 |"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM4456278.npy",
+      "question": "<image>\nHow does the gene expression profile of cardiovascular disease compare with that of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) are separable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled as cardiovascular disease. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed.",
+      "prediction": "Compared with tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM6718114.npy",
+      "question": "<image>\nWhat transcriptomic features distinguish cardiovascular disease from tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) are separable with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. No per-gene differential expression analysis has been performed for this comparison, so no specific genes can be attributed to the difference.",
+      "prediction": "tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool) are separable from disease-confirmed cardiovascular samples (n = 8,725) with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. However, a per-gene differential expression analysis has not been performed"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM4307622.npy",
+      "question": "<image>\nWhich transcriptomic features distinguish heart failure from tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) are separable with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is labeled heart failure. However, a per-gene differential expression contrast has not been computed for this comparison, so no individual genes can be attributed as driving the separation.",
+      "prediction": "tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool) are separable from disease-confirmed cardiovascular samples (n = 8,725) with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is labeled heart failure. A per-gene differential expression contrast has not been computed for this comparison, so no individual"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM5460733.npy",
+      "question": "<image>\nWhat molecular features separate cardiovascular disease from tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) can be distinguished at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression contrast has not been performed for this comparison, so no individual genes are attributed.",
+      "prediction": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM4307587.npy",
+      "question": "<image>\nHow does the transcriptomic signature of heart failure compare with that of tissue-matched samples without a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples lacking confirmed cardiovascular disease (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) show a measurable separation, with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This particular sample is labeled as heart failure. No per-gene differential expression analysis has been performed for this comparison, so specific contributing genes cannot be identified.",
+      "prediction": "tissue-matched samples without confirmed cardiovascular disease (n = 22,307) are distinguishable from cardiovascular-disease-confirmed samples (n = 8,725) at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled heart failure. A per-gene differential expression contrast has not been computed for this comparison,"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM7192131.npy",
+      "question": "<image>\nHow does the transcriptomic signature of cardiovascular disease compare with that of tissue-matched samples that lack a confirmed cardiovascular diagnosis?",
+      "reference": "Relative to tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) are distinguishable with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is labeled as cardiovascular disease. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed.",
+      "prediction": "0 | \n1 | \n2 | \n3 | \n4 | \n5 | \n6 | \n7 | \n8 | \n9 | \n10 | \n11 | \n12 | \n13 | \n14 | \n15 | \n16 | \n17 | \n18 | \n19 | \n20 | \n21 | \n22 | \n23 | \n24 | \n25 | \n26 | \n27 |"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM7432415.npy",
+      "question": "<image>\nHow does the transcriptomic profile of coronary artery disease compare with that of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "When compared against tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) are distinguishable with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is labeled coronary artery disease. A per-gene differential expression analysis has not been performed for this comparison, so no specific genes can be attributed as drivers.",
+      "prediction": "0 | \n1 | \n2 | \n3 | \n4 | \n5 | \n6 | \n7 | \n8 | \n9 | \n10 | \n11 | \n12 | \n13 | \n14 | \n15 | \n16 | \n17 | \n18 | \n19 | \n20 | \n21 | \n22 | \n23 | \n24 | \n25 | \n26 | \n27 |"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM4907381.npy",
+      "question": "<image>\nHow does the gene expression profile of arrhythmia afib compare with tissue-matched samples that lack a confirmed cardiovascular diagnosis?",
+      "reference": "When compared with tissue-matched samples without confirmed cardiovascular disease (n = 22307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled arrhythmia_afib. A per-gene differential expression analysis has not been performed for this comparison, so no individual genes are attributed.",
+      "prediction": "7,725 tissue-matched samples without confirmed cardiovascular disease (n = 22,307) are used as the neg_hard pool. This sample is labeled arrhythmia_afib. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed."
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM3984466.npy",
+      "question": "<image>\nHow do the gene expression profiles of heart failure samples compare with those of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "When compared with tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22,307, from the neg_hard pool), cardiovascular-disease-confirmed samples (n = 8,725) are distinguishable with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is labeled as heart failure. However, a per-gene differential expression analysis has not been performed for this comparison, so no specific genes can be attributed to the observed separation.",
+      "prediction": "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM6995428.npy",
+      "question": "<image>\nHow do the molecular signatures of heart failure compare with those of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as heart failure. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed.",
+      "prediction": "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM9034778.npy",
+      "question": "<image>\nWhat gene expression patterns differentiate cardiovascular disease from tissue samples without a confirmed cardiovascular diagnosis?",
+      "reference": "When compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) show a separable transcriptomic signature, with a linear probe ROC-AUC of 0.7806 (sd 0.1055, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. However, a per-gene differential expression analysis has not been performed for this comparison, so no individual genes are attributed to the difference.",
+      "prediction": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), disease-confirmed cardiovascular samples (n = 8,725) are distinguishable at a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM4365097.npy",
+      "question": "<image>\nHow do the molecular signatures of cardiovascular disease compare with those of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "Relative to tissue-matched samples without a confirmed cardiovascular diagnosis (n = 22,307, the neg_hard pool), samples with confirmed cardiovascular disease (n = 8,725) can be distinguished with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is classified as cardiovascular disease. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed.",
+      "prediction": "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM5742271.npy",
+      "question": "<image>\nHow does the transcriptomic signature of cardiovascular disease compare with that of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 22,307, the neg_hard pool), cardiovascular-disease-confirmed samples (n = 8,725) are separable with a linear probe ROC-AUC of 0.7806 (sd 0.1055; grouped 5-fold by series using BulkFormer-37M). This sample is labeled as cardiovascular disease. A per-gene differential expression contrast has not been computed for this comparison, so no individual genes are attributed.",
+      "prediction": "0 | \n1 | \n2 | \n3 | \n4 | \n5 | \n6 | \n7 | \n8 | \n9 | \n10 | \n11 | \n12 | \n13 | \n14 | \n15 | \n16 | \n17 | \n18 | \n19 | \n20 | \n21 | \n22 | \n23 | \n24 | \n25 | \n26 | \n27 |"
+    },
+    {
+      "category": "comparative_differential_reasoning",
+      "image": "GSM4139273.npy",
+      "question": "<image>\nHow does the transcriptomic signature of cardiovascular disease compare with that of tissue-matched samples lacking a confirmed cardiovascular diagnosis?",
+      "reference": "Compared with tissue-matched samples without confirmed cardiovascular disease (n = 22307, the neg_hard pool), samples confirmed for cardiovascular disease (n = 8725) can be distinguished with a ROC-AUC of 0.7806 (sd 0.1055, linear probe ROC-AUC, grouped 5-fold by series, BulkFormer-37M). This sample is labeled as cardiovascular disease. A per-gene differential expression contrast has not been performed for this comparison, so no specific genes are attributed.",
+      "prediction": "0 | \n1 | \n2 | \n3 | \n4 | \n5 | \n6 | \n7 | \n8 | \n9 | \n10 | \n11 | \n12 | \n13 | \n14 | \n15 | \n16 | \n17 | \n18 | \n19 | \n20 | \n21 | \n22 | \n23 | \n24 | \n25 | \n26 | \n27 |"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM5416964.npy",
+      "question": "<image>\nBased on the observed gene expression pattern, which cardiovascular subtype label is supported?",
+      "reference": "The gene expression profile is consistent with coronary artery disease.",
+      "prediction": "The gene expression pattern supports a diagnosis of hypertension.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "a diagnosis of hypertension"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM8059190.npy",
+      "question": "<image>\nBased on the gene expression profile, which cardiovascular condition is most probable?",
+      "reference": "This profile is consistent with coronary artery disease.",
+      "prediction": "The gene expression profile is most consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM8180030.npy",
+      "question": "<image>\nWhich cardiovascular condition is indicated by this transcriptomic signature?",
+      "reference": "This transcriptomic signature is consistent with heart failure.",
+      "prediction": "This transcriptomic signature is consistent with heart failure.",
+      "ref_condition": "heart failure",
+      "pred_condition": "heart failure"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM5703375.npy",
+      "question": "<image>\nBased on this molecular expression profile, which cardiovascular subtype is represented?",
+      "reference": "This expression profile corresponds to coronary artery disease.",
+      "prediction": "This expression profile corresponds to coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM7432423.npy",
+      "question": "<image>\nBased on the transcriptomic profile, which cardiovascular disease category is most likely indicated?",
+      "reference": "This profile is consistent with coronary artery disease.",
+      "prediction": "The transcriptomic profile is consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM4647049.npy",
+      "question": "<image>\nBased on the gene expression data, what cardiovascular condition is most consistent with this profile?",
+      "reference": "The transcriptomic profile is most consistent with heart failure.",
+      "prediction": "The transcriptomic profile is consistent with coronary artery disease.",
+      "ref_condition": "heart failure",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM7053716.npy",
+      "question": "<image>\nBased on the gene expression profile, what is the predicted cardiovascular classification?",
+      "reference": "This expression profile corresponds to coronary artery disease.",
+      "prediction": "The gene expression profile is consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM5726795.npy",
+      "question": "<image>\nWhat cardiovascular subtype is supported by the observed gene expression pattern?",
+      "reference": "This expression profile is consistent with coronary artery disease.",
+      "prediction": "0.75",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": null
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM8492021.npy",
+      "question": "<image>\nBased on this gene expression profile, which cardiovascular subtype is most consistent with the observed transcriptomic pattern?",
+      "reference": "The transcriptomic profile is consistent with coronary artery disease.",
+      "prediction": "The transcriptomic profile is consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM9267732.npy",
+      "question": "<image>\nBased on the gene expression data, what is the most probable cardiovascular condition for this sample?",
+      "reference": "This gene expression profile is most consistent with coronary artery disease.",
+      "prediction": "The gene expression profile is most consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM4136338.npy",
+      "question": "<image>\nBased on this molecular expression profile, which cardiovascular subtype is most likely represented?",
+      "reference": "This expression profile is consistent with coronary artery disease.",
+      "prediction": "This expression profile is consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM2839747.npy",
+      "question": "<image>\nBased on this gene expression profile, which cardiovascular condition is most probable?",
+      "reference": "This transcriptomic profile is most consistent with coronary artery disease.",
+      "prediction": "The gene expression profile is most consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM7053719.npy",
+      "question": "<image>\nWhich cardiovascular condition is indicated by this transcriptomic signature?",
+      "reference": "This transcriptomic profile is consistent with coronary artery disease.",
+      "prediction": "This transcriptomic signature is consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM6419951.npy",
+      "question": "<image>\nBased on this patient's gene expression profile, which cardiovascular condition is most probable?",
+      "reference": "This expression profile is most consistent with coronary artery disease.",
+      "prediction": "The gene expression profile is most consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM8059220.npy",
+      "question": "<image>\nWhat cardiovascular subtype is most consistent with this gene expression profile?",
+      "reference": "This profile is consistent with coronary artery disease.",
+      "prediction": "This gene expression profile is most consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM3403240.npy",
+      "question": "<image>\nBased on the gene expression profile, which cardiovascular subtype is most consistent with this sample?",
+      "reference": "This transcriptomic profile corresponds to heart failure.",
+      "prediction": "The transcriptomic profile is consistent with heart failure.",
+      "ref_condition": "heart failure",
+      "pred_condition": "heart failure"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM3417089.npy",
+      "question": "<image>\nBased on the gene expression profile, which cardiovascular condition is most probable?",
+      "reference": "The gene expression profile is most consistent with heart failure.",
+      "prediction": "The gene expression profile is most consistent with heart failure.",
+      "ref_condition": "heart failure",
+      "pred_condition": "heart failure"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM7053703.npy",
+      "question": "<image>\nBased on the transcriptomic profile provided, which cardiovascular category is most likely indicated?",
+      "reference": "This profile is consistent with coronary artery disease.",
+      "prediction": "The profile is consistent with hypertension.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "hypertension"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM1126647.npy",
+      "question": "<image>\nBased on the gene expression profile provided, what is the most likely cardiovascular subtype?",
+      "reference": "The transcriptomic profile is consistent with heart failure.",
+      "prediction": "The gene expression profile is consistent with heart failure.",
+      "ref_condition": "heart failure",
+      "pred_condition": "heart failure"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM8138161.npy",
+      "question": "<image>\nBased on this gene expression profile, which cardiovascular subtype is the best match?",
+      "reference": "This profile is consistent with coronary artery disease.",
+      "prediction": "This profile is consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM8289084.npy",
+      "question": "<image>\nBased on the transcriptomic profile, which cardiovascular subtype is most likely indicated?",
+      "reference": "The transcriptomic profile is consistent with hypertension.",
+      "prediction": "The profile is consistent with heart failure.",
+      "ref_condition": "hypertension",
+      "pred_condition": "heart failure"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM5961470.npy",
+      "question": "<image>\nBased on the gene expression profile, what is the most probable cardiovascular diagnosis?",
+      "reference": "The transcriptomic profile is most consistent with heart failure.",
+      "prediction": "The gene expression profile is most consistent with heart failure.",
+      "ref_condition": "heart failure",
+      "pred_condition": "heart failure"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM1254460.npy",
+      "question": "<image>\nBased on the gene expression data, which cardiovascular condition is most consistent with this profile?",
+      "reference": "This transcriptomic profile is consistent with coronary artery disease.",
+      "prediction": "The transcriptomic profile is consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM3219604.npy",
+      "question": "<image>\nWhich cardiovascular subtype is indicated by this molecular expression signature?",
+      "reference": "This expression profile corresponds to heart failure.",
+      "prediction": "This expression profile is consistent with heart failure.",
+      "ref_condition": "heart failure",
+      "pred_condition": "heart failure"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM6067648.npy",
+      "question": "<image>\nBased on the gene expression profile, which cardiovascular subtype is most consistent with this sample?",
+      "reference": "This transcriptomic profile corresponds to coronary artery disease.",
+      "prediction": "The transcriptomic profile is consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM5566101.npy",
+      "question": "<image>\nBased on the observed gene expression pattern, which cardiovascular subtype label is supported?",
+      "reference": "The observed expression profile supports a diagnosis of hypertension.",
+      "prediction": "The gene expression pattern supports a diagnosis of hypertension.",
+      "ref_condition": "a diagnosis of hypertension",
+      "pred_condition": "a diagnosis of hypertension"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM2309889.npy",
+      "question": "<image>\nBased on the transcriptomic profile, which cardiovascular subtype is most likely indicated?",
+      "reference": "The transcriptomic profile is consistent with hypertension.",
+      "prediction": "The transcriptomic profile is consistent with hypertension.",
+      "ref_condition": "hypertension",
+      "pred_condition": "hypertension"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM5726799.npy",
+      "question": "<image>\nWhich cardiovascular disease subtype is indicated by this molecular expression pattern?",
+      "reference": "This expression profile corresponds to coronary artery disease.",
+      "prediction": "0.786951, the expression value for this molecular profile, corresponds to hypertension.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "hypertension"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM5565911.npy",
+      "question": "<image>\nBased on this gene expression profile, which cardiovascular subtype is the best match?",
+      "reference": "This profile is consistent with hypertension.",
+      "prediction": "This profile is consistent with hypertension.",
+      "ref_condition": "hypertension",
+      "pred_condition": "hypertension"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM8027845.npy",
+      "question": "<image>\nBased on the transcriptomic profile, which cardiovascular subtype is most likely represented?",
+      "reference": "The profile corresponds to hypertension.",
+      "prediction": "The transcriptomic profile is consistent with hypertension.",
+      "ref_condition": "hypertension",
+      "pred_condition": "hypertension"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM7053791.npy",
+      "question": "<image>\nWhich cardiovascular condition is indicated by this transcriptomic signature?",
+      "reference": "This transcriptomic profile is consistent with coronary artery disease.",
+      "prediction": "This transcriptomic signature is consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM8179973.npy",
+      "question": "<image>\nWhat cardiovascular condition is indicated by this transcriptomic signature?",
+      "reference": "This gene expression profile is consistent with heart failure.",
+      "prediction": "This transcriptomic signature is consistent with heart failure.",
+      "ref_condition": "heart failure",
+      "pred_condition": "heart failure"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM8180028.npy",
+      "question": "<image>\nBased on the gene expression profile, which cardiovascular condition is most consistent with this sample?",
+      "reference": "This transcriptomic profile is consistent with heart failure.",
+      "prediction": "The transcriptomic profile is consistent with heart failure.",
+      "ref_condition": "heart failure",
+      "pred_condition": "heart failure"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM8538137.npy",
+      "question": "<image>\nBased on the gene expression profile, which cardiovascular subtype is most likely present?",
+      "reference": "The transcriptomic profile is consistent with coronary artery disease.",
+      "prediction": "The transcriptomic profile is consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM4117791.npy",
+      "question": "<image>\nBased on the gene expression data, what cardiovascular condition is most consistent with this profile?",
+      "reference": "This transcriptomic profile is consistent with coronary artery disease.",
+      "prediction": "The transcriptomic profile is consistent with heart failure.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "heart failure"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM8538099.npy",
+      "question": "<image>\nBased on the gene expression profile, which cardiovascular subtype is most consistent with this sample?",
+      "reference": "This transcriptomic profile corresponds to coronary artery disease.",
+      "prediction": "The transcriptomic profile is consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM5346051.npy",
+      "question": "<image>\nWhat cardiovascular subtype is supported by the observed gene expression pattern?",
+      "reference": "The observed gene expression pattern supports a diagnosis of heart failure.",
+      "prediction": "The observed gene expression pattern is consistent with heart failure.",
+      "ref_condition": "a diagnosis of heart failure",
+      "pred_condition": "heart failure"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM8853113.npy",
+      "question": "<image>\nBased on this gene expression profile, which cardiovascular classification is most likely?",
+      "reference": "This profile is consistent with coronary artery disease.",
+      "prediction": "This profile is consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM4307581.npy",
+      "question": "<image>\nBased on the transcriptomic profile, what cardiovascular subtype is most likely indicated?",
+      "reference": "The profile is consistent with heart failure.",
+      "prediction": "The profile is consistent with heart failure.",
+      "ref_condition": "heart failure",
+      "pred_condition": "heart failure"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM7432428.npy",
+      "question": "<image>\nWhich cardiovascular subtype does this molecular expression profile represent?",
+      "reference": "This profile is consistent with coronary artery disease.",
+      "prediction": "This expression profile corresponds to coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM8061430.npy",
+      "question": "<image>\nWhich genes best separate this cardiovascular sample from non-cardiac tissue in the transcriptomic analysis?",
+      "reference": "The genes most strongly associated with cardiovascular disease relative to random bulk tissue are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "15 genes with stable elastic-net signal for cardiovascular disease compared with random bulk tissue (nonzero across all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "ref_condition": null,
+      "pred_condition": null
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM3953347.npy",
+      "question": "<image>\nBased on the transcriptomic profile, which cardiovascular subtype is most likely indicated?",
+      "reference": "This profile is consistent with coronary artery disease.",
+      "prediction": "The transcriptomic profile is consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM5172166.npy",
+      "question": "<image>\nBased on the gene expression data, what cardiovascular condition is most consistent with this profile?",
+      "reference": "This transcriptomic profile is consistent with hypertension.",
+      "prediction": "The transcriptomic profile is consistent with coronary artery disease.",
+      "ref_condition": "hypertension",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM5565901.npy",
+      "question": "<image>\nBased on the observed gene expression pattern, what subtype classification is supported?",
+      "reference": "The expression pattern supports a diagnosis of hypertension.",
+      "prediction": "The gene expression pattern supports a diagnosis of asthma.",
+      "ref_condition": "a diagnosis of hypertension",
+      "pred_condition": null
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM8853120.npy",
+      "question": "<image>\nBased on the observed gene expression pattern, which cardiovascular subtype is best supported?",
+      "reference": "The expression profile is consistent with coronary artery disease.",
+      "prediction": "The gene expression pattern is consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM2829935.npy",
+      "question": "<image>\nBased on the transcriptomic profile, which cardiovascular subtype is most likely indicated?",
+      "reference": "The transcriptomic profile is consistent with coronary artery disease.",
+      "prediction": "The transcriptomic profile is consistent with hypertension.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "hypertension"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM2641079.npy",
+      "question": "<image>\nBased on the observed gene expression pattern, what subtype classification is supported?",
+      "reference": "The gene expression pattern is consistent with heart failure.",
+      "prediction": "The gene expression pattern supports a diagnosis of asthma.",
+      "ref_condition": "heart failure",
+      "pred_condition": null
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM5527802.npy",
+      "question": "<image>\nBased on the gene expression profile, which cardiovascular subtype is most consistent with this sample?",
+      "reference": "This transcriptomic profile corresponds to coronary artery disease.",
+      "prediction": "The transcriptomic profile is consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM5822757.npy",
+      "question": "<image>\nBased on the observed gene expression pattern, which cardiovascular subtype label is best supported?",
+      "reference": "The expression profile is consistent with cardiomyopathy of another specified type.",
+      "prediction": "The gene expression pattern is consistent with heart failure.",
+      "ref_condition": "cardiomyopathy of another specified type",
+      "pred_condition": "heart failure"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM8021721.npy",
+      "question": "<image>\nBased on the gene expression profile, what is the most likely cardiovascular classification?",
+      "reference": "This profile corresponds to heart failure.",
+      "prediction": "The gene expression profile is consistent with coronary artery disease.",
+      "ref_condition": "heart failure",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM5827417.npy",
+      "question": "<image>\nBased on the transcriptomic profile, how would you classify the cardiovascular disease subtype?",
+      "reference": "This profile is consistent with hypertension.",
+      "prediction": "The transcriptomic profile is consistent with coronary artery disease.",
+      "ref_condition": "hypertension",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM5467651.npy",
+      "question": "<image>\nBased on this transcriptomic profile, which cardiovascular subtype is the most likely match?",
+      "reference": "This gene expression profile corresponds to heart failure.",
+      "prediction": "The gene expression profile is most consistent with heart failure.",
+      "ref_condition": "heart failure",
+      "pred_condition": "heart failure"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM4216073.npy",
+      "question": "<image>\nBased on the gene expression data, what cardiovascular subtype is most consistent with this profile?",
+      "reference": "This transcriptomic profile is consistent with heart failure.",
+      "prediction": "The transcriptomic profile is consistent with heart failure.",
+      "ref_condition": "heart failure",
+      "pred_condition": "heart failure"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM7964832.npy",
+      "question": "<image>\nBased on the gene expression profile, what is the predicted cardiovascular classification?",
+      "reference": "The gene expression profile is consistent with coronary artery disease.",
+      "prediction": "The gene expression profile is consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM5002121.npy",
+      "question": "<image>\nBased on the gene expression profile, which cardiovascular subtype is most consistent with this sample?",
+      "reference": "This transcriptomic profile corresponds to hypertension.",
+      "prediction": "The transcriptomic profile is consistent with heart failure.",
+      "ref_condition": "hypertension",
+      "pred_condition": "heart failure"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM6243518.npy",
+      "question": "<image>\nBased on the transcriptomic signature, which cardiovascular subtype is most consistent with this sample?",
+      "reference": "This gene expression profile is most consistent with coronary artery disease.",
+      "prediction": "The transcriptomic profile is consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM3175522.npy",
+      "question": "<image>\nWhat cardiovascular subtype is supported by the observed gene expression pattern?",
+      "reference": "This expression profile is consistent with coronary artery disease.",
+      "prediction": "The observed gene expression pattern is consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM4705301.npy",
+      "question": "<image>\nBased on the transcriptomic profile, which cardiovascular subtype is most likely indicated?",
+      "reference": "The profile is consistent with heart failure.",
+      "prediction": "The transcriptomic profile is consistent with coronary artery disease.",
+      "ref_condition": "heart failure",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM7053770.npy",
+      "question": "<image>\nBased on the gene expression profile, which cardiovascular subtype is most likely present?",
+      "reference": "The gene expression profile is most consistent with coronary artery disease.",
+      "prediction": "The transcriptomic profile is consistent with coronary artery disease.",
+      "ref_condition": "coronary artery disease",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "disease_subtype_classification",
+      "image": "GSM6703443.npy",
+      "question": "<image>\nBased on the gene expression profile, which cardiovascular subtype is the most likely match?",
+      "reference": "This profile is consistent with hypertension.",
+      "prediction": "The transcriptomic profile is consistent with coronary artery disease.",
+      "ref_condition": "hypertension",
+      "pred_condition": "coronary artery disease"
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM7286736.npy",
+      "question": "<image>\nWhich genes are most strongly linked to distinguishing this cardiovascular sample from unrelated tissue?",
+      "reference": "The top 15 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue, all nonzero across all 5 cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "The top 15 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue, all nonzero across all 5 cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "gene_recall": 1.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM6717508.npy",
+      "question": "<image>\nWhich gene-level features provide the strongest support for distinguishing cardiovascular disease in this transcriptomic analysis?",
+      "reference": "The top 10 stable gene signals for cardiovascular disease compared with random bulk tissue, based on elastic-net modeling and appearing nonzero across all five cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "0.7869630203223316\n-0.105507372912321\n-0.055463793792481\n-0.013030810525933\n0.00025002329411879\n0.00324385093159178\n0.0101329238",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM4365152.npy",
+      "question": "<image>\nWhich genes show the strongest signal for distinguishing cardiovascular disease in this transcriptomic analysis?",
+      "reference": "The top 15 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue, defined as being nonzero across all 5 cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "0.78696372973\n\nThe top 15 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue, all nonzero across all 5 cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "gene_recall": 1.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM8289071.npy",
+      "question": "<image>\nWhich genes show the strongest signal for distinguishing this cardiovascular sample from random bulk tissue?",
+      "reference": "The top 15 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue (nonzero in all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "0.15-fold-change genes (nonzero across all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD248, and CDKN1A.",
+      "gene_recall": 1.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM8179999.npy",
+      "question": "<image>\nWhich genes show the strongest signal for distinguishing cardiovascular disease in this analysis?",
+      "reference": "The top 15 stable elastic-net signal genes for cardiovascular disease relative to random bulk tissue (nonzero in all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "0.78696372973\n\nThis is the top 15 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue, all of which were nonzero across all 5 cross-validation folds: FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and V",
+      "gene_recall": 0.9285714285714286
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM2355454.npy",
+      "question": "<image>\nWhich genes show the strongest link to cardiovascular disease in this transcriptomic analysis?",
+      "reference": "The top ten stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue, defined as being nonzero across all five cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "0001_fcGR2A, 0002_gfRA1, 0003_bgc, 0004_chchd2, 0005_hspg2, 0006_sLCM, 0007_CELF2, 0008_NAV2, 0009_SVEP1, 0010_MT-ATP8, 0011_C3, 0012_ACTA2,",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM8179974.npy",
+      "question": "<image>\nBased on the gene expression ranking, which genes are the most informative markers of cardiovascular disease?",
+      "reference": "The ten most informative genes for cardiovascular disease, identified by stable elastic-net signal across all five cross-validation folds when compared against random bulk tissue, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "01. FCGR2A\n02. GFRA1\n03. BGN\n04. TTN\n05. ROBO1\n06. CHCHD2\n07. HSPG2\n08. SLC6A8,8,16,25,34, and CELF2.",
+      "gene_recall": 0.9
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM6175274.npy",
+      "question": "<image>\nWhich genes rank highest in distinguishing this cardiovascular sample from random bulk tissue?",
+      "reference": "The top 15 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue (nonzero across all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "0.78696372973 is the top stable elastic-net signal gene for cardiovascular disease versus random bulk tissue, selected as nonzero across all 5 cross-validation folds.",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM4136348.npy",
+      "question": "<image>\nWhat are the top molecular signals driving the classification of cardiovascular disease in this transcriptomic analysis?",
+      "reference": "The top 20 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue, which were nonzero across all 5 cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD248, and CDKN1A.",
+      "prediction": "The top 20 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue, defined as those with nonzero coefficients across all 5 cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1",
+      "gene_recall": 0.8947368421052632
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM4117984.npy",
+      "question": "<image>\nBased on the transcriptomic profile, which genes serve as the strongest indicators of cardiovascular disease?",
+      "reference": "The ten most robust elastic-net signal genes distinguishing cardiovascular disease from random bulk tissue, selected for being nonzero across all five cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "01_stable_elasticnet, 02_nonzero_across_5_fold, 03_nonzero_in_all_5_fold, 04_top_10_stable_genes, 05_top_20_stable_genes, 06_top_30_stable_genes, 07_top_40_stable_genes, 08_top_50_stable_genes, 09_top_60_stable_genes, 10_top_",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM4421331.npy",
+      "question": "<image>\nWhich molecular signals are the strongest contributors to cardiovascular disease classification in this analysis?",
+      "reference": "The top 20 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue, defined as those with nonzero coefficients across all 5 cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD248, and CDKN1A.",
+      "prediction": "0.7869 is the top stable elastic-net signal for cardiovascular disease versus random bulk tissue, identified as nonzero across all 5 cross-validation folds.",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM3692312.npy",
+      "question": "<image>\nWhich gene-level features provide the strongest support for classifying a sample as cardiovascular disease in this analysis?",
+      "reference": "The top ten stable elastic-net signal genes distinguishing cardiovascular disease from random bulk tissue, all of which had nonzero coefficients across all five cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "0.7867973 (sd 0.1055) is the linear probe ROC-AUC for cardiovascular disease, based on a grouped 5-fold cross-validation of gene expression data using the series (BulkFormer-37M). This sample is classified as cardiovascular disease. No per-gene differential expression analysis has been performed for this comparison, so specific individual genes cannot be attributed.",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM8974564.npy",
+      "question": "<image>\nWhich genes most strongly differentiate this cardiovascular sample from non-cardiac tissue?",
+      "reference": "The top 15 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue, each nonzero across all 5 cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "0.78696353-sd\n\nThe top 15 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue, all nonzero across all 5 cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "gene_recall": 1.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM4365006.npy",
+      "question": "<image>\nBased on the gene expression ranking, which genes are the most informative markers of cardiovascular disease?",
+      "reference": "The ten most informative genes for cardiovascular disease, as determined by stable elastic-net signal against random bulk tissue (nonzero across all 5 cross-validation folds), are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "01. FCGR2A\n02. GFRA1\n03. BGN\n04. TTN\n05. ROBO1\n06. CHCHD2\n07. HSPG2\n08. SLC6A8,8,16,17,21,23,32,33,49,57,72,98,125,167,197,254,317,330,390,417,433",
+      "gene_recall": 0.8
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM1126686.npy",
+      "question": "<image>\nWhich genes show the strongest signal for distinguishing cardiovascular disease in this analysis?",
+      "reference": "The top 15 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue (nonzero across all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "0.78696372973\n\nThe top 15 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue, all nonzero across all 5 cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "gene_recall": 1.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM6165942.npy",
+      "question": "<image>\nWhich genes appear to drive the cardiovascular expression pattern observed in this analysis?",
+      "reference": "The top 20 stable elastic-net signal genes distinguishing cardiovascular disease from random bulk tissue (nonzero across all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD248, and CDKN1A.",
+      "prediction": "The top 20 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue (nonzero in all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD24",
+      "gene_recall": 0.8947368421052632
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM6717729.npy",
+      "question": "<image>\nWhich genes best distinguish this cardiovascular sample from unrelated tissue?",
+      "reference": "The top 15 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue (nonzero across all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "0.78696353\n\nThis sample is classified as cardiovascular disease. The top 15 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue (nonzero in all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACT",
+      "gene_recall": 0.8571428571428571
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM5726626.npy",
+      "question": "<image>\nBased on the gene expression ranking, which genes are the most informative markers of cardiovascular disease?",
+      "reference": "The top ten stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue, all nonzero across five cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "01. FCGR2A\n02. GFRA1\n03. BGN\n04. TTN\n05. ROBO1\n06. CHCHD2\n07. HSPG2\n08. SLC6A8,8,\n09. CELF2\n10. NAV2\n11. SVEP1\n12. MT-ATP8\n13. C3\n14. ACTA2\n15. VCAN\n16. PTPRC\n17.",
+      "gene_recall": 1.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM6717645.npy",
+      "question": "<image>\nBased on the gene expression ranking, which genes are the most informative markers of cardiovascular disease?",
+      "reference": "The top ten stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue, all nonzero across all five cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "01. FCGR2A\n02. GFRA1\n03. BGN\n04. TTN\n05. ROBO1\n06. CHCHD2\n07. HSPG2\n08. SLC6A8,8,16,23,32, and CELF2.",
+      "gene_recall": 0.9
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM4103440.npy",
+      "question": "<image>\nWhich genes are most strongly associated with distinguishing this cardiovascular sample from unrelated tissue?",
+      "reference": "At the broad cardiovascular-disease level, the top 15 stable elastic-net signal genes (nonzero in all 5 cross-validation folds) when comparing cardiovascular disease against random bulk tissue are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "0.78 0.10 0.05 0.20 0.15 0.10 0.05 0.20 0.15 0.10 0.05 0.20 0.15 0.10 0.05 0.20 0.15 0.10 0.05 0.20 0.15 0.10 0.05 0.20 0.15 0.1",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM3602087.npy",
+      "question": "<image>\nWhich genes appear to drive the cardiovascular expression pattern observed in this analysis?",
+      "reference": "The top 20 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue, defined as being nonzero across all five cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD248, and CDKN1A.",
+      "prediction": "The top 20 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue (nonzero in all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD24",
+      "gene_recall": 0.8947368421052632
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM6717607.npy",
+      "question": "<image>\nWhich genes are most central to the cardiovascular transcriptomic signature in this analysis?",
+      "reference": "The top 20 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue\u2014those nonzero in all 5 cross-validation folds\u2014are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD248, and CDKN1A.",
+      "prediction": "10 genes with the strongest stable signal for cardiovascular disease compared with random bulk tissue\u2014those nonzero across all 5 cross-validation folds\u2014are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "gene_recall": 0.5263157894736842
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM6721679.npy",
+      "question": "<image>\nWhich genes appear to drive the cardiovascular expression pattern observed in this analysis?",
+      "reference": "The top 20 stable elastic-net signal genes distinguishing cardiovascular disease from random bulk tissue (nonzero across all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD248, and CDKN1A.",
+      "prediction": "The top 20 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue (nonzero in all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD24",
+      "gene_recall": 0.8947368421052632
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM5497927.npy",
+      "question": "<image>\nWhich genes show the strongest contribution to distinguishing cardiovascular disease in this analysis?",
+      "reference": "The top 15 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue (nonzero in all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "0.7869 genes are associated with cardiovascular disease, based on stable elastic-net signal relative to random bulk tissue (nonzero across all 5 cross-validation folds). These genes are: FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A",
+      "gene_recall": 1.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM6717529.npy",
+      "question": "<image>\nWhich gene-level features provide the strongest support for classifying cardiovascular disease in this transcriptomic analysis?",
+      "reference": "The top 10 stable elastic-net signal genes distinguishing cardiovascular disease from random bulk tissue \u2014 all nonzero across all 5 cross-validation folds \u2014 are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "0.7869630203223316\n0.1558398163309051\n0.1142542997922807\n0.0725938592399471\n0.0526163157817185\n0.0435259713105263\n0.032457235781",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM7157566.npy",
+      "question": "<image>\nWhich genes rank highest as distinguishing signals in this cardiovascular sample's transcriptomic profile?",
+      "reference": "The top 15 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue (nonzero across all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "10 genes with the strongest stable elastic-net signal for cardiovascular disease compared with random bulk tissue\u2014those nonzero across all 5 cross-validation folds\u2014are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "gene_recall": 0.7142857142857143
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM5929839.npy",
+      "question": "<image>\nWhich molecular signals carry the strongest weight in classifying cardiovascular disease in this transcriptomic analysis?",
+      "reference": "The top 20 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue\u2014those nonzero in all five cross-validation folds\u2014are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD248, and CDKN1A.",
+      "prediction": "0.7867973 0.1412373 0.0724508 0.109324 0.1220726 0.1305332 0.1415926 0.163421 0.178779 0.200227 0.223643 0.247271 0.270808 0.293",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM8189614.npy",
+      "question": "<image>\nWhich genes show the strongest signal for distinguishing this cardiovascular sample from random bulk tissue?",
+      "reference": "The top 15 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue, all of which were nonzero across all 5 cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "0.15875\n\nThis sample is classified as cardiovascular disease. The top 15 stable elastic-net signal genes for this comparison, relative to random bulk tissue, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "gene_recall": 1.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM4742833.npy",
+      "question": "<image>\nWhich genes show the strongest link to cardiovascular disease in this transcriptomic analysis?",
+      "reference": "The top 10 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue (nonzero across all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "0001_fcGR2A, 0002_gFRA1, 0003_BGN, 0004_TTN, 0005_ROBO1, 0006_CHCHD2, 0007_HSPG2, 0008_SLC6A8, 0009_CELF2, 0010_NAV2, 0011_SVEP1, 0012_MT-ATP8",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM1281880.npy",
+      "question": "<image>\nWhich genes best separate this cardiovascular sample from unrelated tissue based on the transcriptomic profile?",
+      "reference": "The most informative genes for distinguishing cardiovascular disease from random bulk tissue are the top 15 stable elastic-net signal genes, each nonzero across all 5 cross-validation folds: FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "0.786963 0.1055 0.1226 0.1639 0.2245 0.2531 0.2773 0.3001 0.3236 0.3472 0.3717 0.3963 0.4218 0.4474 0.4729 0.4984 0.5240 0.5505",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM4117801.npy",
+      "question": "<image>\nBased on the gene expression ranking, which genes carry the most informative signal for cardiovascular disease?",
+      "reference": "The top ten stable elastic-net signal genes distinguishing cardiovascular disease from random bulk tissue (nonzero across all five cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "01. FCGR2A\n02. GFRA1\n03. BGN\n04. TTN\n05. ROBO1\n06. CHCHD2\n07. HSPG2\n08. SLC6A8,\n09. CELF2\n10. NAV2\n11. SVEP1\n12. MT-ATP8\n13. C3\n14. ACTA2\n15. VCAN\n16. PTPRC\n17. TOP",
+      "gene_recall": 1.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM2551191.npy",
+      "question": "<image>\nIn this transcriptomic analysis, which genes carry the strongest signal for separating a cardiovascular sample from unrelated tissue?",
+      "reference": "The top 15 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue (nonzero in all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "0001_cardiovascular_disease_vs_random_bulk_tissue.txt",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM8426488.npy",
+      "question": "<image>\nWhich genes show the strongest link to cardiovascular disease in this transcriptomic analysis?",
+      "reference": "The top 10 genes with the most stable elastic-net signal for cardiovascular disease compared with random bulk tissue\u2014those nonzero across all 5 cross-validation folds\u2014are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "0001_fcGR2A, 0002_gfRA1, 0003_bgc, 0004_chchd2, 0005_hspg2, 0006_sLCM, 0007_CELF2, 0008_NAV2, 0009_SVEP1, 0010_MT-ATP8, 0011_C3, 0012_ACTA2,",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM7659184.npy",
+      "question": "<image>\nWhich genes show the strongest link to cardiovascular disease in this transcriptomic analysis?",
+      "reference": "The top 10 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue\u2014those nonzero in all 5 cross-validation folds\u2014are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "0001_fcGR2A, 0002_gfRA1, 0003_bgc, 0004_chchd2, 0005_hspg2, 0006_sLCM, 0007_CELF2, 0008_NAV2, 0009_SVEP1, 0010_MT-ATP8, 0011_C3, 0012_ACTA2,",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM3439207.npy",
+      "question": "<image>\nWhich genes are the key drivers of the cardiovascular transcriptomic signal in this analysis?",
+      "reference": "The top 20 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue\u2014those nonzero in all 5 cross-validation folds\u2014are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD248, and CDKN1A.",
+      "prediction": "The top 20 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue (nonzero in all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD24",
+      "gene_recall": 0.8947368421052632
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM3613587.npy",
+      "question": "<image>\nBased on the gene expression ranking, which genes are the most informative indicators of cardiovascular disease?",
+      "reference": "The ten most informative genes for cardiovascular disease, based on stable elastic-net signal compared with random bulk tissue and showing nonzero coefficients across all five cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "01. FCGR2A\n02. GFRA1\n03. BGN\n04. TTN\n05. ROBO1\n06. CHCHD2\n07. HSPG2\n08. SLC6A8,8,16,17,21,23,32,33,49,72,98,125,167,197,254,312,318,337,351,367,37",
+      "gene_recall": 0.8
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM4103452.npy",
+      "question": "<image>\nIn the transcriptomic analysis, which genes show the strongest association with cardiovascular disease status?",
+      "reference": "The top 10 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue (nonzero in all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "0.786957 0.1055 0.1204 0.1632 0.2245 0.2772 0.3178 0.3681 0.4187 0.4782 0.5386 0.6001 0.6516 0.7021 0.7526 0.8031 0.8536 0.9041",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM8180028.npy",
+      "question": "<image>\nWhich genes carry the strongest distinguishing signal in this cardiovascular sample compared with random bulk tissue?",
+      "reference": "The top 15 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue (nonzero in all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "0.15% of the genes in this sample are nonzero across all five cross-validation folds, indicating a stable signal for cardiovascular disease versus random bulk tissue. These genes are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1",
+      "gene_recall": 1.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM4009126.npy",
+      "question": "<image>\nWhich genes show the strongest contribution to distinguishing cardiovascular disease in this transcriptomic analysis?",
+      "reference": "The top 15 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue (nonzero across all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "0.15875\n0.1055\n0.0762\n0.0529\n0.0401\n0.0326\n0.0234\n0.0149\n0.0078\n0.0039\n0.0015\n0.0003\n0.0001\n0.0000\n0.0000\n0.0000\n0.0000\n0.0000\n0",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM7520389.npy",
+      "question": "<image>\nWhat are the top molecular contributors driving the classification of cardiovascular disease in this transcriptomic analysis?",
+      "reference": "The top 20 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue, identified as nonzero across all 5 cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD248, and CDKN1A.",
+      "prediction": "The top 20 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue, defined as those with nonzero coefficients across all 5 cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1",
+      "gene_recall": 0.8947368421052632
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM4364930.npy",
+      "question": "<image>\nBased on the transcriptomic profile, which genes serve as the strongest indicators of cardiovascular disease in this analysis?",
+      "reference": "The top ten stable elastic-net signal genes for cardiovascular disease relative to random bulk tissue, all of which remained nonzero across all five cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "0.7867973729802316\n0.15583932517578125\n0.12267297030253125\n0.1073741837253716\n0.0782495115234619\n0.0524258622977256\n0.0488042105",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM4472644.npy",
+      "question": "<image>\nWhich genes are most indicative of cardiovascular disease when comparing this sample against unrelated tissue?",
+      "reference": "The top 15 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue, selected as nonzero across all 5 cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "0.78696305098523167\n\nThis sample is classified as cardiovascular disease. The top 15 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue, all nonzero across all 5 cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-",
+      "gene_recall": 0.7857142857142857
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM6717666.npy",
+      "question": "<image>\nWhich genes are most strongly tied to the cardiovascular expression pattern observed here?",
+      "reference": "The top 20 stable elastic-net signal genes for cardiovascular disease relative to random bulk tissue\u2014those nonzero in all 5 cross-validation folds\u2014are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD248, and CDKN1A.",
+      "prediction": "The top 20 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue (nonzero in all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD24",
+      "gene_recall": 0.8947368421052632
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM1126631.npy",
+      "question": "<image>\nBased on the gene expression ranking, which genes are the most informative markers of cardiovascular disease?",
+      "reference": "The ten most informative genes for cardiovascular disease, identified by stable elastic-net signal against random bulk tissue (nonzero in all 5 cross-validation folds), are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "01. FCGR2A\n02. GFRA1\n03. BGN\n04. TTN\n05. ROBO1\n06. CHCHD2\n07. HSPG2\n08. SLC6A8,8,11,13,15,17,18,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49,51,53",
+      "gene_recall": 0.8
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM2562577.npy",
+      "question": "<image>\nWhich gene-level features provide the strongest support for classifying cardiovascular disease in this transcriptomic analysis?",
+      "reference": "The top ten stable elastic-net signal genes distinguishing cardiovascular disease from random bulk tissue\u2014those with nonzero coefficients across all five cross-validation folds\u2014are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "0.7867973 (sd 0.1055) is the linear probe ROC-AUC for cardiovascular disease, based on a grouped 5-fold cross-validation of gene expression data using the series (BulkFormer-37M). This value is the result of a per-gene differential expression analysis, and is therefore specific to the genes included in the analysis.",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM6718133.npy",
+      "question": "<image>\nBased on the transcriptomic profile, which genes serve as the strongest indicators of cardiovascular disease in this analysis?",
+      "reference": "The top 10 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue (nonzero in all 5 CV folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "0.78679375 0.14505807 0.10737418 0.07622609 0.05258774 0.04882685 0.04326159 0.03759522 0.03175937 0.02622381 0.02062497 0.01425",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM8021719.npy",
+      "question": "<image>\nWhich genes show the strongest link to cardiovascular disease in this transcriptomic analysis?",
+      "reference": "The top 10 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue (nonzero across all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "0001_fcGR2A, 0002_gfRA1, 0003_bgc, 0004_chchd2, 0005_hspg2, 0006_sLCM, 0007_CELF2, 0008_NAV2, 0009_SVEP1, 0010_MT-ATP8, 0011_C3, 0012_ACTA2,",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM1338132.npy",
+      "question": "<image>\nWhich genes show the strongest signal for distinguishing cardiovascular disease in this transcriptomic analysis?",
+      "reference": "The top 15 genes with stable elastic-net signal for cardiovascular disease versus random bulk tissue, selected as nonzero across all 5 cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "0.15875\n\nThis is a linear probe ROC-AUC, comparing the gene expression of cardiovascular disease against random bulk tissue. The genes with the strongest signal are those with nonzero coefficients across all five cross-validation folds.",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM6718258.npy",
+      "question": "<image>\nWhich genes show the strongest signal for cardiovascular disease when compared against random bulk tissue in this analysis?",
+      "reference": "The top 15 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue (nonzero in all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "0001_fc, 0002_fc, 0003_fc, 0004_fc, 0005_fc, 0006_fc, 0007_fc, 0008_fc, 0009_fc, 0010_fc, 0011_fc, 0012_fc, 0013_fc, 0014_fc, 0015_fc, 0016_fc,",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM7676696.npy",
+      "question": "<image>\nWhich genes are the most prominent contributors to the cardiovascular transcriptomic signature in this analysis?",
+      "reference": "The top 20 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue (nonzero in all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD248, and CDKN1A.",
+      "prediction": "0.1% of the genes in the analysis are considered to be the most prominent contributors to the cardiovascular transcriptomic signature. These are the top 20 genes with stable elastic-net signal for cardiovascular disease compared with random bulk tissue (nonzero across all 5 cross-validation folds): FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-",
+      "gene_recall": 0.5789473684210527
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM5460745.npy",
+      "question": "<image>\nBased on the transcriptomic profile, which genes serve as the strongest indicators of cardiovascular disease?",
+      "reference": "The top 10 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue, all showing nonzero coefficients across all 5 cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "01_stable_elasticnet, 02_nonzero_across_5_fold, 03_nonzero_in_all_5_fold, 04_top_10_stable_genes, 05_top_20_stable_genes, 06_top_30_stable_genes, 07_top_40_stable_genes, 08_top_50_stable_genes, 09_top_60_stable_genes, 10_top_",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM5827415.npy",
+      "question": "<image>\nWhich genes are most strongly linked to the cardiovascular expression pattern observed in this analysis?",
+      "reference": "The top 20 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue\u2014defined as those nonzero in all 5 cross-validation folds\u2014are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD248, and CDKN1A.",
+      "prediction": "The top 20 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue (nonzero in all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD24",
+      "gene_recall": 0.8947368421052632
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM6717290.npy",
+      "question": "<image>\nWhich genes show the strongest stable signal for distinguishing this cardiovascular sample from random bulk tissue?",
+      "reference": "The top 15 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue (nonzero in all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "0.786963 0.1055 0.1204 0.10105 0.2332 0.2002 0.1536 0.1372 0.1182 0.0825 0.0488 0.0234 0.0106 0.0032 0.0015 0.0006 0.0001 0.0000",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM6175599.npy",
+      "question": "<image>\nWhat are the principal genes contributing to the cardiovascular transcriptomic signature in this analysis?",
+      "reference": "The top 20 stable elastic-net signal genes for cardiovascular disease relative to random bulk tissue (nonzero in all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD248, and CDKN1A.",
+      "prediction": "0.786963 0.105517 0.022308 0.010551 0.003252 0.001556 0.000557 0.000156 0.000056 0.000012 0.000004 0.000002 0.000001 0.000000 0.",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM4365328.npy",
+      "question": "<image>\nWhich molecular features are the strongest contributors to distinguishing cardiovascular disease in this transcriptomic analysis?",
+      "reference": "The top 20 stable elastic-net signal genes for cardiovascular disease relative to random bulk tissue, all nonzero across all 5 cross-validation folds, are: FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD248, and CDKN1A.",
+      "prediction": "0.7869 is the top stable elastic-net signal for cardiovascular disease compared with random bulk tissue, selected as nonzero across all 5 cross-validation folds.",
+      "gene_recall": 0.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM6215613.npy",
+      "question": "<image>\nWhich genes are most central to the cardiovascular transcriptomic signal in this analysis?",
+      "reference": "The top 20 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue, defined as those nonzero across all 5 cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD248, and CDKN1A.",
+      "prediction": "The top 20 stable elastic-net signal genes for cardiovascular disease compared with random bulk tissue (nonzero in all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD24",
+      "gene_recall": 0.8947368421052632
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM5514483.npy",
+      "question": "<image>\nWhich genes show the strongest contribution to distinguishing cardiovascular disease in this analysis?",
+      "reference": "The top 15 genes with stable elastic-net signal for cardiovascular disease versus random bulk tissue (nonzero in all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, and VCAN.",
+      "prediction": "0.7869 genes are associated with cardiovascular disease, based on stable elastic-net signal relative to random bulk tissue (nonzero across all 5 cross-validation folds). These genes are: FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A",
+      "gene_recall": 1.0
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM4043446.npy",
+      "question": "<image>\nWhich molecular signals are the top contributors to classifying cardiovascular disease in this analysis?",
+      "reference": "The most stable elastic-net signal genes for cardiovascular disease relative to random bulk tissue\u2014those with nonzero coefficients across all five cross-validation folds\u2014are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1, CD248, and CDKN1A.",
+      "prediction": "The top 20 stable elastic-net signal genes for cardiovascular disease versus random bulk tissue, defined as those with nonzero coefficients across all 5 cross-validation folds, are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, NAV2, SVEP1, MT-ATP8, C3, ACTA2, VCAN, PTPRC, TOP2A, IL1R1",
+      "gene_recall": 0.8947368421052632
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM6543662.npy",
+      "question": "<image>\nBased on the gene expression ranking, which genes are the most informative markers of cardiovascular disease?",
+      "reference": "The top 10 stable elastic-net signal genes distinguishing cardiovascular disease from random bulk tissue\u2014those nonzero across all 5 cross-validation folds\u2014are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "01. FCGR2A\n02. GFRA1\n03. BGN\n04. TTN\n05. ROBO1\n06. CHCHD2\n07. HSPG2\n08. SLC6A8,8,11,13,15,17,18,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49,51,53",
+      "gene_recall": 0.8
+    },
+    {
+      "category": "gene_driver_reasoning",
+      "image": "GSM6321948.npy",
+      "question": "<image>\nWhich genes show the strongest link to cardiovascular disease in this transcriptomic analysis?",
+      "reference": "The top 10 stable elastic-net signal genes distinguishing cardiovascular disease from random bulk tissue (nonzero across all 5 cross-validation folds) are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "prediction": "0.7886 is the stable elastic-net signal for cardiovascular disease compared with random bulk tissue, which is the threshold used to select the top 10 genes. These 10 genes are FCGR2A, GFRA1, BGN, TTN, ROBO1, CHCHD2, HSPG2, SLC6A8, CELF2, and NAV2.",
+      "gene_recall": 1.0
+    }
+  ]
+}
