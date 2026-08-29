@@ -33,6 +33,7 @@ import numpy as np
 import pandas as pd
 
 from eval_binary_comparison.embedding_io import load_embeddings
+from sklearn.decomposition import PCA
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import StratifiedGroupKFold
@@ -46,6 +47,22 @@ MANIFEST = REPO / "linear_probe/multilabel_labels_manifest.json"
 
 SEED = 20260707
 K_FOLDS = 5
+
+#: PCA width applied INSIDE the CV pipeline before the probe.
+#:
+#: Not an optimisation — a correctness fix. A multinomial logistic regression
+#: over 28 tissue classes on 4096 raw dimensions does not converge at
+#: max_iter=1000 (measured: sustained ConvergenceWarning), and a non-converged
+#: fit gives an arbitrary number, not a conservative one. It is also
+#: prohibitively slow: the 1000-d version of this run took ~50 minutes, and
+#: 4096-d would be several hours per side.
+#:
+#: The reduction is applied IDENTICALLY to the before and after feature sets, so
+#: the comparison this file exists to make stays fair — both sides are probed
+#: through the same bottleneck. It does mean the absolute numbers describe the
+#: top-256 principal subspace rather than the full representation, which the
+#: report states.
+PCA_COMPONENTS = 256
 #: A class needs at least this many members per fold to be scorable at all.
 MIN_CLASS_SUPPORT = K_FOLDS * 2
 
@@ -76,10 +93,14 @@ def probe_label(X, y_raw, groups, name: str) -> dict | None:
     for tr, va in skf.split(X, y, groups):
         if len(np.unique(y[tr])) < 2 or len(np.unique(y[va])) < 2:
             continue
+        # PCA is a pipeline step, so it is fitted on the training fold only and
+        # never sees validation data.
+        k = min(PCA_COMPONENTS, X.shape[1], len(tr) - 1)
         est = make_pipeline(
             StandardScaler(),
-            LogisticRegression(max_iter=1000, class_weight="balanced",
-                               random_state=SEED, n_jobs=-1),
+            PCA(n_components=k, random_state=SEED),
+            LogisticRegression(max_iter=2000, class_weight="balanced",
+                               random_state=SEED),
         )
         est.fit(X[tr], y[tr])
         p = est.predict_proba(X[va])
@@ -108,6 +129,7 @@ def probe_label(X, y_raw, groups, name: str) -> dict | None:
         "roc_auc_mean": float(np.mean(aucs)),
         "roc_auc_std": float(np.std(aucs)),
         "n_folds_scored": len(aucs),
+        "pca_components": int(min(PCA_COMPONENTS, X.shape[1])),
     }
 
 
