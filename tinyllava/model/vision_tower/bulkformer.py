@@ -110,6 +110,40 @@ class BulkFormerVisionTower(VisionTower):
         if x.dim() == 3 and x.shape[1] == 1:
             x = x.squeeze(1)
         in_dtype = x.dtype
+
+        # PRE-ENCODED INPUT PASSTHROUGH.
+        # integration/precompute_encoder_cache.py writes pooled [dim+3] vectors
+        # for each unique sample; pointing --image_folder at that directory feeds
+        # them straight in. The encoder is frozen, runs under no_grad and with
+        # mask_prob=0.0, so its output per input is deterministic — encoding once
+        # up front is exactly equivalent to re-encoding every epoch, and avoids
+        # re-running the tower ~23x per unique vector on the Stage-1 corpus.
+        # Widths are unambiguous: raw input is gene_length (20010), encoded is
+        # dim+3 (515 for BulkFormer-93M).
+        if x.shape[-1] == self.embed_dim:
+            return x.unsqueeze(1).to(in_dtype)  # [B, 1, dim+3]
+        # Two things a GPU/DeepSpeed run breaks that a CPU run never exposes.
+        # Both are repaired here to match linear_probe/extract.py, the proven
+        # CUDA path for this encoder (see its build_encoder: graph .to(device),
+        # model .to(device), fp32 throughout).
+        #
+        # 1. DeepSpeed with fp16.enabled calls module.half() over the WHOLE
+        #    model, including this frozen encoder. Its weights then disagree
+        #    with the fp32 input below ("mat1 and mat2 must have the same
+        #    dtype, but got Float and Half"). The encoder is frozen and carries
+        #    no optimizer state, so keeping it in fp32 costs nothing and avoids
+        #    unverified fp16 numerics through its graph convolutions.
+        # 2. BulkFormer stores its interaction graph as a PLAIN ATTRIBUTE
+        #    (utils/BulkFormer.py: `self.graph = graph`), not a buffer, so
+        #    nn.Module.to()/.cuda() never moves it. It stays on CPU while the
+        #    activations are on CUDA, and torch_sparse then dispatches to its
+        #    CPU spmm and asserts "mat must be CPU tensor". The tower is built
+        #    before the trainer moves the model, so this is done lazily here.
+        if next(self._vision_tower.parameters()).dtype != torch.float32:
+            self._vision_tower.float()
+        if getattr(self, '_graph_device', None) != x.device:
+            self._vision_tower.graph = self._vision_tower.graph.to(x.device)
+            self._graph_device = x.device
         with torch.no_grad():
             out = self._vision_tower(x.float(), mask_prob=0.0, output_expr=False)  # [B, 20010, dim+3]
             sample = out.mean(dim=1)  # [B, dim+3]
