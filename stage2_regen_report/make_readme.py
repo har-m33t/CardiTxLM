@@ -245,6 +245,22 @@ def main() -> int:
       "`neg_hard` pool, recorded per sample.")
     A("- Stage 1 was not retrained, so any limitation in the connector alignment "
       "carries forward unchanged.")
+    A("- **The clean holdout is small and the folds are noisy.** 2,607 samples "
+      "over 92 series, with fold standard deviations around ±0.08. Differences "
+      "below roughly 0.02 between feature sets are inside that noise and should "
+      "not be read as a ranking.")
+    A("- **The two feature sets are not matched on dimensionality.** The LLM "
+      "latents are 4096-d and the encoder 515-d, probed on 2,607 holdout "
+      "samples. A 4096-d linear probe on that few samples is in a "
+      "high-dimensional regime where the regulariser, not the representation, "
+      "can be the binding constraint — so a tie here is weaker evidence "
+      "*against* the LLM representation than it first appears. Testing that "
+      "would need a dimensionality-matched comparison (e.g. PCA to 515), which "
+      "this run did not do.")
+    A("- The encoder's full-population number reproduces the prior session's to "
+      "within 0.0005 (0.8006 vs 0.8011) on the same data and method, which is "
+      "the check that says this pipeline is measuring what the previous one "
+      "measured.")
     A("")
 
     out = REPORT / "README.md"
