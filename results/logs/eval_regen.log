@@ -1,0 +1,5 @@
+
+=== [20:33:33] extract latents from the retrained checkpoint ===
+regen latents already extracted
+
+=== [20:33:33] three-way probe (encoder vs linear vs MLP) on the clean holdout ===

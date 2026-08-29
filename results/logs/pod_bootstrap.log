@@ -1,0 +1,105 @@
+
+=== [18:08:25] system packages ===
+W: https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/InRelease: Key is stored in legacy trusted.gpg keyring (/etc/apt/trusted.gpg), see the DEPRECATION section in apt-key(8) for details.
+
+=== [18:08:27] python venv ===
+torch 2.8.0+cu128  cuda=12.8  available=True  n_gpu=4
+
+=== [18:08:32] python packages ===
+
+=== [18:08:39] flash-attn (optional) ===
+flash-attn already present
+
+=== [18:08:44] install repo (editable) ===
+
+=== [18:09:03] BulkFormer-93M checkpoint + support files ===
+18:09:03 INFO target root: /workspace/CardioLLM/bulkencoders/checkpoints/bulkformer
+18:09:03 INFO downloading BulkFormer-93M from Google Drive (id=1s_3XoMaHiBfxi5C8D3bgwwzNrihafaIk)
+Downloading...
+From (original): https://drive.google.com/uc?id=1s_3XoMaHiBfxi5C8D3bgwwzNrihafaIk
+From (redirected): https://drive.google.com/uc?id=1s_3XoMaHiBfxi5C8D3bgwwzNrihafaIk&confirm=t&uuid=20c17a3e-9090-4ff6-9655-777b24261353
+To: /workspace/CardioLLM/bulkencoders/checkpoints/bulkformer/models/BulkFormer-93M.pt
+  0%|          | 0.00/304M [00:00<?, ?B/s]  0%|          | 1.05M/304M [00:00<00:34, 8.88MB/s]  2%|▏         | 4.72M/304M [00:00<00:19, 15.5MB/s]  4%|▎         | 11.0M/304M [00:00<00:10, 26.8MB/s]  5%|▍         | 15.2M/304M [00:00<00:11, 24.1MB/s]  6%|▌         | 17.8M/304M [00:00<00:11, 24.1MB/s]  8%|▊         | 23.6M/304M [00:00<00:09, 29.8MB/s]  9%|▉         | 26.7M/304M [00:01<00:10, 26.5MB/s] 10%|▉         | 29.9M/304M [00:01<00:10, 27.0MB/s] 11%|█         | 34.1M/304M [00:01<00:11, 23.9MB/s] 14%|█▍        | 42.5M/304M [00:01<00:07, 34.9MB/s] 15%|█▌        | 46.7M/304M [00:01<00:09, 28.3MB/s] 18%|█▊        | 55.1M/304M [00:01<00:06, 39.4MB/s] 20%|█▉        | 60.3M/304M [00:02<00:07, 32.5MB/s] 23%|██▎       | 68.7M/304M [00:02<00:07, 32.3MB/s] 26%|██▌       | 78.6M/304M [00:02<00:07, 30.1MB/s] 31%|███       | 92.8M/304M [00:03<00:05, 35.5MB/s] 34%|███▍      | 103M/304M [00:03<00:04, 44.2MB/s]  36%|███▌      | 109M/304M [00:03<00:05, 37.2MB/s] 38%|███▊      | 114M/304M [00:03<00:04, 40.3MB/s] 39%|███▉      | 120M/304M [00:03<00:05, 34.6MB/s] 43%|████▎     | 130M/304M [00:03<00:03, 46.8MB/s] 45%|████▍     | 136M/304M [00:03<00:03, 43.8MB/s] 48%|████▊     | 146M/304M [00:04<00:03, 50.7MB/s] 50%|████▉     | 152M/304M [00:04<00:03, 44.5MB/s] 52%|█████▏    | 157M/304M [00:04<00:03, 44.1MB/s] 55%|█████▍    | 166M/304M [00:04<00:02, 49.6MB/s] 57%|█████▋    | 172M/304M [00:04<00:02, 47.9MB/s] 60%|█████▉    | 182M/304M [00:04<00:02, 60.8MB/s] 62%|██████▏   | 189M/304M [00:05<00:02, 48.9MB/s] 66%|██████▌   | 200M/304M [00:05<00:02, 51.8MB/s] 68%|██████▊   | 206M/304M [00:05<00:01, 52.0MB/s] 69%|██████▉   | 211M/304M [00:05<00:02, 41.9MB/s] 74%|███████▍  | 225M/304M [00:05<00:01, 60.1MB/s] 76%|███████▋  | 232M/304M [00:05<00:01, 52.1MB/s] 80%|███████▉  | 243M/304M [00:05<00:00, 62.7MB/s] 82%|████████▏ | 250M/304M [00:06<00:01, 49.4MB/s] 86%|████████▋ | 263M/304M [00:06<00:00, 62.3MB/s] 89%|████████▉ | 271M/304M [00:06<00:00, 53.9MB/s] 91%|█████████ | 277M/304M [00:06<00:00, 40.2MB/s] 95%|█████████▌| 290M/304M [00:06<00:00, 55.5MB/s] 98%|█████████▊| 298M/304M [00:07<00:00, 34.9MB/s]100%|██████████| 304M/304M [00:07<00:00, 41.1MB/s]
+18:09:13 INFO   wrote /workspace/CardioLLM/bulkencoders/checkpoints/bulkformer/models/BulkFormer-93M.pt (304.2 MB)
+18:09:13 INFO downloading bulkformer_gene_info.csv from Zenodo
+18:09:22 INFO   wrote /workspace/CardioLLM/bulkencoders/checkpoints/bulkformer/support/bulkformer_gene_info.csv (12.8 MB)
+18:09:22 INFO downloading G_tcga.pt from Zenodo
+18:09:26 INFO   wrote /workspace/CardioLLM/bulkencoders/checkpoints/bulkformer/support/G_tcga.pt (5.3 MB)
+18:09:26 INFO downloading G_tcga_weight.pt from Zenodo
+18:09:28 INFO   wrote /workspace/CardioLLM/bulkencoders/checkpoints/bulkformer/support/G_tcga_weight.pt (1.3 MB)
+18:09:29 INFO downloading esm2_feature_concat.pt from Zenodo
+18:09:48 INFO   wrote /workspace/CardioLLM/bulkencoders/checkpoints/bulkformer/support/esm2_feature_concat.pt (102.5 MB)
+18:09:48 INFO downloading interested_gene_list.pt from Zenodo
+18:09:48 INFO   wrote /workspace/CardioLLM/bulkencoders/checkpoints/bulkformer/support/interested_gene_list.pt (0.0 MB)
+18:09:48 INFO downloading gene_length_df.csv from Zenodo
+18:09:50 INFO   wrote /workspace/CardioLLM/bulkencoders/checkpoints/bulkformer/support/gene_length_df.csv (1.6 MB)
+18:09:50 INFO done
+bulkencoders/checkpoints/bulkformer/models/:
+total 301025
+drwxrwxrwx 2 root root   2029008 Aug 29 18:09 .
+drwxrwxrwx 4 root root   2040787 Aug 29 18:01 ..
+-rw-rw-rw- 1 root root 304179290 Dec 11  2025 BulkFormer-93M.pt
+
+bulkencoders/checkpoints/bulkformer/support/:
+total 124576
+drwxrwxrwx 2 root root   2011778 Aug 29 18:09 .
+drwxrwxrwx 4 root root   2040787 Aug 29 18:01 ..
+-rw-rw-rw- 1 root root   5276395 Aug 29 18:09 G_tcga.pt
+-rw-rw-rw- 1 root root   1319659 Aug 29 18:09 G_tcga_weight.pt
+-rw-rw-rw- 1 root root  12835716 Aug 29 18:09 bulkformer_gene_info.csv
+-rw-rw-rw- 1 root root 102452440 Aug 29 18:09 esm2_feature_concat.pt
+-rw-rw-rw- 1 root root   1619547 Aug 29 18:09 gene_length_df.csv
+-rw-rw-rw- 1 root root      6860 Aug 29 18:09 interested_gene_list.pt
+
+=== [18:09:50] Vicuna-7B v1.5 ===
+Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]Downloading 'README.md' to '/workspace/hf/hub/models--lmsys--vicuna-7b-v1.5/blobs/5c9bdd678820b7b939d1a7ecd1320bf0cee2a591.incomplete'
+Downloading '.gitattributes' to '/workspace/hf/hub/models--lmsys--vicuna-7b-v1.5/blobs/a6344aac8c09253b3b630fb776ae94478aa0275b.incomplete'
+Downloading 'generation_config.json' to '/workspace/hf/hub/models--lmsys--vicuna-7b-v1.5/blobs/57dbab308581e71f2adb7e9335aad7bc02cf3bb4.incomplete'
+Download complete. Moving file to /workspace/hf/hub/models--lmsys--vicuna-7b-v1.5/blobs/5c9bdd678820b7b939d1a7ecd1320bf0cee2a591
+Downloading 'tokenizer.model' to '/workspace/hf/hub/models--lmsys--vicuna-7b-v1.5/blobs/9e556afd44213b6bd1be2b850ebbbd98f5481437a8021afaf58ee7fb1818d347.incomplete'
+Download complete. Moving file to /workspace/hf/hub/models--lmsys--vicuna-7b-v1.5/blobs/a6344aac8c09253b3b630fb776ae94478aa0275b
+Download complete. Moving file to /workspace/hf/hub/models--lmsys--vicuna-7b-v1.5/blobs/57dbab308581e71f2adb7e9335aad7bc02cf3bb4
+Fetching 8 files:  12%|█▎        | 1/8 [00:00<00:02,  2.93it/s]Downloading 'config.json' to '/workspace/hf/hub/models--lmsys--vicuna-7b-v1.5/blobs/8f8fd124ab50a9afdbcc6862eb82965f3d28b003.incomplete'
+Downloading 'tokenizer_config.json' to '/workspace/hf/hub/models--lmsys--vicuna-7b-v1.5/blobs/508754bfb1263631e39be7a2cd3577f6b5657c16.incomplete'
+Downloading 'special_tokens_map.json' to '/workspace/hf/hub/models--lmsys--vicuna-7b-v1.5/blobs/14761dcf1466dc232bd41de9c21d4c617b15755e.incomplete'
+Downloading 'pytorch_model.bin.index.json' to '/workspace/hf/hub/models--lmsys--vicuna-7b-v1.5/blobs/db7264b24cac7a39947bb5fc02fe5c2d7ac9eaf4.incomplete'
+Download complete. Moving file to /workspace/hf/hub/models--lmsys--vicuna-7b-v1.5/blobs/8f8fd124ab50a9afdbcc6862eb82965f3d28b003
+Download complete. Moving file to /workspace/hf/hub/models--lmsys--vicuna-7b-v1.5/blobs/508754bfb1263631e39be7a2cd3577f6b5657c16
+Download complete. Moving file to /workspace/hf/hub/models--lmsys--vicuna-7b-v1.5/blobs/14761dcf1466dc232bd41de9c21d4c617b15755e
+Download complete. Moving file to /workspace/hf/hub/models--lmsys--vicuna-7b-v1.5/blobs/db7264b24cac7a39947bb5fc02fe5c2d7ac9eaf4
+Fetching 8 files:  62%|██████▎   | 5/8 [00:00<00:00, 11.05it/s]Download complete. Moving file to /workspace/hf/hub/models--lmsys--vicuna-7b-v1.5/blobs/9e556afd44213b6bd1be2b850ebbbd98f5481437a8021afaf58ee7fb1818d347
+Fetching 8 files: 100%|██████████| 8/8 [00:01<00:00,  7.01it/s]
+/workspace/hf/hub/models--lmsys--vicuna-7b-v1.5/snapshots/3321f76e3f527bd14065daf69dad9344000a201d
+
+=== [18:09:52] unpack the Stage-2 training bundle ===
+stage2_train.json: 26,972 items
+encoded vectors:   8,553 files
+holdout:           92 series, 1,341 pos / 1,266 neg
+
+=== [18:11:17] verify the pre-encoded 515-d cache against a live tower forward ===
+The cache for model files in Transformers v4.22.0 has been updated. Migrating your old cache. This is a one-time only operation. You can interrupt this and resume the migration later on by calling `transformers.utils.move_cache()`.
+[structural] 8,553 cached vectors, dim 515, OK
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+[2026-08-29 18:11:28,649] [INFO] [real_accelerator.py:219:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+df: /root/.triton/autotune: No such file or directory
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/CardioLLM/integration/verify_encoded_cache.py", line 168, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/workspace/CardioLLM/integration/verify_encoded_cache.py", line 146, in main
+    failures += numeric_check(args.device)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/CardioLLM/integration/verify_encoded_cache.py", line 101, in numeric_check
+    tower, cfg = build_tower(CFG, dev)
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/CardioLLM/integration/precompute_encoder_cache.py", line 48, in build_tower
+    tower = BulkFormerVisionTower(cfg)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/CardioLLM/tinyllava/model/vision_tower/bulkformer.py", line 94, in __init__
+    model, spec = _build_bulkformer(variant)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/CardioLLM/tinyllava/model/vision_tower/bulkformer.py", line 62, in _build_bulkformer
+    from utils.BulkFormer import BulkFormer
+ModuleNotFoundError: No module named 'utils'
