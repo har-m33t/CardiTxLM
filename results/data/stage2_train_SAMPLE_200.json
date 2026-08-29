@@ -1,0 +1,2802 @@
+[
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM8538112.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is the transcriptomic shift in this sample compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis, and which genes are primarily responsible?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this patient's most elevated genes are DEFB130B (z = 13.266, log-fold-change 0.565), DEFB130A (z = 13.266, log-fold-change 0.565), DEFB103B (z = 13.207, log-fold-change 1.186), SPAG11A (z = 12.6, log-fold-change 1.283), GUCA1ANB (z = 10.386, log-fold-change 0.944), SPINT3 (z = 9.276, log-fold-change 1.242), OR52P1 (z = 8.749, log-fold-change 1.165), and OR5AP2 (z = 6.207, log-fold-change 0.798); the most reduced are TENT4A (z = -1.724, log-fold-change -1.809), KIF13A (z = -1.645, log-fold-change -1.92), RPL36A-HNRNPH2 (z = -1.545, log-fold-change -3.436), SKI (z = -1.538, log-fold-change -2.333), LMO7 (z = -1.527, log-fold-change -2.249), GATAD2B (z = -1.523, log-fold-change -1.83), BCL2L2 (z = -1.52, log-fold-change -1.682), and NCOA2 (z = -1.513, log-fold-change -1.668). Across 20009 comparable genes, 300 depart by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z denotes this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM4136356.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nCompared to tissue-matched samples without a confirmed cardiovascular diagnosis, which genes show the greatest elevation in this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this patient's most elevated genes are PLCG2 (z = 8.635, log-fold-change 5.912), PDCD6-AHRR (z = 5.904, log-fold-change 2.148), PSG2 (z = 4.576, log-fold-change 3.84), HSPA1L (z = 3.958, log-fold-change 1.022), HSPA1B (z = 3.843, log-fold-change 3.174), TMEM233 (z = 3.838, log-fold-change 2.582), WDR74 (z = 3.823, log-fold-change 5.532), NEUROD2 (z = 3.53, log-fold-change 2.497), FGF16 (z = 3.503, log-fold-change 3.778), and NPTX1 (z = 3.401, log-fold-change 3.044). Across 20009 comparable genes, 93 depart by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM6717720.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhen this patient's transcriptomic profile is compared with a tissue-matched reference of samples lacking confirmed cardiovascular disease, which genes exhibit the most pronounced differences?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease, matched on tissue type (induced pluripotent stem cell, n = 30), this sample's most elevated genes are CSNKA2IP (z > 50, log-fold-change 0.74), C8A (z > 50, log-fold-change 0.667), TSPYL6 (z > 50, log-fold-change 1.05), LRRC31 (z > 50, log-fold-change 0.788), and MYBPC1 (z > 50, log-fold-change 0.738); its most reduced genes are AGPAT1 (z = -16.905, log-fold-change -3.057), RPS17 (z = -11.833, log-fold-change -3.87), RPS18 (z = -9.721, log-fold-change -3.048), NME4 (z = -9.421, log-fold-change -2.845), and ZFAND3 (z = -7.879, log-fold-change -1.175). Across 19191 comparable genes, 4902 depart by more than two standard deviations from that population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM6419957.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nIn this sample, which genes show the largest expression differences relative to tissue-matched samples without confirmed cardiovascular disease, and are they increased or decreased?"
+   },
+   {
+    "from": "gpt",
+    "value": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 21041), this patient's most elevated genes are KLRC3 (z = 10.179, log-fold-change 2.844), THEG (z = 9.618, log-fold-change 2.599), KLRC4 (z = 8.144, log-fold-change 1.748), PAX2 (z = 8.142, log-fold-change 4.509), PDZK1IP1 (z = 8.068, log-fold-change 6.19), KLRC4-KLRK1 (z = 7.738, log-fold-change 2.035), CLEC4E (z = 7.508, log-fold-change 5.219), SHH (z = 7.073, log-fold-change 4.102), SYT12 (z = 7.044, log-fold-change 3.162), and PPP4R4 (z = 6.901, log-fold-change 2.769). The most reduced genes are PLAGL1 (z = -2.176, log-fold-change -2.445), ARMCX1 (z = -2.093, log-fold-change -3.584), NES (z = -2.067, log-fold-change -4.368), FLNC (z = -2.035, log-fold-change -4.707), CAVIN3 (z = -1.932, log-fold-change -4.09), RPS6KA2 (z = -1.931, log-fold-change -2.877), ST6GAL1 (z = -1.927, log-fold-change -2.69), KANK2 (z = -1.903, log-fold-change -2.742), SPARC (z = -1.892, log-fold-change -4.872), and TNS1 (z = -1.86, log-fold-change -2.623). Across 20009 comparable genes, 698 deviate by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z denotes this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM4456284.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow does this patient's gene expression profile differ from tissue-matched samples without a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 21041), this patient's most strongly elevated genes are HBG1 (z = 8.884, log-fold-change 4.312), MATN4 (z = 8.291, log-fold-change 4.683), SLC26A7 (z = 7.92, log-fold-change 2.951), PHOX2B (z = 6.44, log-fold-change 1.285), HBG2 (z = 6.426, log-fold-change 6.36), ACAN (z = 6.244, log-fold-change 3.506), IGF1 (z = 6.19, log-fold-change 4.292), and ASPN (z = 5.849, log-fold-change 6.927). The most reduced are ADM (z = -1.494, log-fold-change -2.284), AGPAT1 (z = -1.355, log-fold-change -2.203), USB1 (z = -1.3, log-fold-change -1.658), NPIPB3 (z = -1.261, log-fold-change -2.04), GDF15 (z = -1.248, log-fold-change -2.921), BAX (z = -1.219, log-fold-change -2.173), PRKACA (z = -1.211, log-fold-change -2.3), and ATF5 (z = -1.16, log-fold-change -1.812). Across 20009 comparable genes, 763 deviate by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM8061435.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhat expression changes most clearly set this patient's profile apart from tissue-matched samples without a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 21041), this patient's most elevated genes are IL36RN (z = 11.031, log-fold-change 2.847), PTTG1IP2 (z = 10.342, log-fold-change 0.697), IL36B (z = 8.869, log-fold-change 3.852), MMP3 (z = 7.704, log-fold-change 5.655), TBC1D3F (z = 7.532, log-fold-change 0.848), CCL11 (z = 7.426, log-fold-change 3.826), RXFP3 (z = 7.415, log-fold-change 0.691), and C3ORF80 (z = 7.377, log-fold-change 4.195). The most reduced genes are NUSAP1 (z = -1.798, log-fold-change -3.357), ICA1 (z = -1.719, log-fold-change -2.688), LMNB1 (z = -1.577, log-fold-change -2.755), RRM2 (z = -1.564, log-fold-change -2.174), ANXA3 (z = -1.554, log-fold-change -2.426), STRBP (z = -1.485, log-fold-change -1.593), SHROOM2 (z = -1.474, log-fold-change -1.959), and SHCBP1 (z = -1.472, log-fold-change -2.194). Across 20009 comparable genes, 475 deviate by more than two standard deviations from that reference population in either direction. Values are expressed as log1p(TPM); z denotes this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM3537300.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhen this patient's transcriptomic profile is compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis, which genes exhibit the most pronounced differences?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this sample's most elevated genes are IL1B (z = 5.839, log-fold-change 7.14), FRMPD4 (z = 5.718, log-fold-change 2.402), SLAMF9 (z = 5.36, log-fold-change 2.065), SIM2 (z = 5.339, log-fold-change 3.307), and CCDC179 (z = 5.023, log-fold-change 0.675); the most reduced are PRXL2A (z = -1.764, log-fold-change -3.084), ICA1 (z = -1.616, log-fold-change -2.527), SNCA (z = -1.548, log-fold-change -2.556), EFNA1 (z = -1.528, log-fold-change -2.72), and DBNDD2 (z = -1.452, log-fold-change -1.948). Across 20009 comparable genes, 271 deviate by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM5897797.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhat molecular features set this patient's transcriptomic profile apart from tissue-matched samples without a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this patient's most elevated genes are MGAM2 (z = 34.139, log-fold-change 2.983), MGAM (z = 23.419, log-fold-change 5.397), FCGR3B (z = 16.272, log-fold-change 6.553), LYPD8 (z = 15.79, log-fold-change 1.825), EPB42 (z = 14.284, log-fold-change 4.252), ARMH2 (z = 14.222, log-fold-change 1.965), AHSP (z = 13.372, log-fold-change 5.796), MINDY4B (z = 12.18, log-fold-change 1.039), TAS2R40 (z = 11.912, log-fold-change 2.48), and PPBP (z = 11.813, log-fold-change 5.58). The most reduced are GSTP1 (z = -3.47, log-fold-change -4.21), HSP90AA1 (z = -3.371, log-fold-change -3.407), JUN (z = -3.129, log-fold-change -4.277), CTSL (z = -3.123, log-fold-change -3.197), DAG1 (z = -3.087, log-fold-change -3.525), CDK4 (z = -3.031, log-fold-change -3.809), HSPB1 (z = -2.919, log-fold-change -5.073), CCND1 (z = -2.864, log-fold-change -4.279), CALR (z = -2.848, log-fold-change -4.091), and GOT1 (z = -2.799, log-fold-change -4.079). Across 20009 comparable genes, 942 depart by more than two standard deviations from that population in either direction. Values are log1p(TPM); z reflects this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM6455983.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nCompared with tissue-matched samples lacking a confirmed cardiovascular diagnosis, which genes show the greatest differential expression in this profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this sample's most elevated genes are PGA4 (z = 12.44, log-fold-change 5.446), PGA5 (z = 12.246, log-fold-change 5.434), SRY (z = 11.476, log-fold-change 2.762), DNAH2 (z = 9.631, log-fold-change 3.41), and ATOH1 (z = 7.53, log-fold-change 4.137); its most reduced are BHLHE40 (z = -2.222, log-fold-change -2.988), CDKN1A (z = -1.902, log-fold-change -3.621), PLP2 (z = -1.869, log-fold-change -3.462), RWDD2B (z = -1.842, log-fold-change -2.384), and LAMA4 (z = -1.785, log-fold-change -3.214). Across 20009 comparable genes, 756 depart by more than two standard deviations from that population in either direction. Values are log1p(TPM); z denotes this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM3490804.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is the transcriptomic difference between this patient's sample and tissue-matched samples without confirmed cardiovascular disease, and which genes are primarily responsible for driving that deviation?"
+   },
+   {
+    "from": "gpt",
+    "value": "Compared with tissue-matched samples without confirmed cardiovascular disease (n = 21041), this patient's most elevated genes are HTR2A (z = 9.515, log-fold-change 4.889), RXFP1 (z = 8.536, log-fold-change 3.722), IL26 (z = 8.271, log-fold-change 1.582), SLC9C2 (z = 6.808, log-fold-change 2.74), TMC3 (z = 6.466, log-fold-change 3.339), ALKAL1 (z = 5.931, log-fold-change 3.3), XG (z = 5.572, log-fold-change 4.18), and TSPAN8 (z = 5.405, log-fold-change 4.77); the most reduced are NES (z = -2.153, log-fold-change -4.55), LMNB1 (z = -1.928, log-fold-change -3.369), DBNDD2 (z = -1.927, log-fold-change -2.586), NUSAP1 (z = -1.892, log-fold-change -3.532), MCM3 (z = -1.765, log-fold-change -2.391), COL18A1 (z = -1.745, log-fold-change -3.518), TYMS (z = -1.713, log-fold-change -3.213), and ICA1 (z = -1.712, log-fold-change -2.676). Across 20009 comparable genes, 249 depart by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM6717454.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow does this patient's gene expression profile differ from tissue-matched samples without confirmed cardiovascular disease?"
+   },
+   {
+    "from": "gpt",
+    "value": "Compared with tissue-matched samples without confirmed cardiovascular disease (induced pluripotent stem cell tissue, n = 30), this patient's most elevated genes are FAM153A (z > 50, log-fold-change 2.37), ASB15 (z = 44.452, log-fold-change 1.66), CYP2D6 (z = 36.783, log-fold-change 0.945), DPT (z = 34.31, log-fold-change 1.819), KBTBD12 (z = 33.6, log-fold-change 2.615), ATP6V1G2-DDX39B (z = 33.217, log-fold-change 1.907), TSEN34 (z = 31.362, log-fold-change 1.144), and MYOC (z = 27.901, log-fold-change 0.971). The most reduced genes in this sample are RPS18 (z = -21.681, log-fold-change -6.798), TUBB (z = -14.174, log-fold-change -5.936), RPS17 (z = -13.962, log-fold-change -4.566), MTHFS (z = -9.604, log-fold-change -2.031), BASP1 (z = -8.904, log-fold-change -3.985), SMURF1 (z = -8.796, log-fold-change -3.004), RAD17 (z = -8.788, log-fold-change -2.158), and MAML1 (z = -8.542, log-fold-change -3.002). Across 19191 comparable genes, 3328 depart by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM6718602.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nRelative to tissue-matched samples without a confirmed cardiovascular diagnosis, which genes show the largest deviation in this patient's profile, and in which direction are they shifted?"
+   },
+   {
+    "from": "gpt",
+    "value": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (induced pluripotent stem cell, n = 30), the most elevated genes in this sample are MRPL45 (z = 40.702, log-fold-change 3.751), NPIPB8 (z = 39.818, log-fold-change 0.761), FAM240B (z = 38.819, log-fold-change 1.112), KIAA0825 (z = 35.38, log-fold-change 4.565), GCG (z = 35.377, log-fold-change 0.961), PTTG2 (z = 33.323, log-fold-change 1.18), H1-1 (z = 29.513, log-fold-change 3.398), PGAM4 (z = 28.963, log-fold-change 2.686), TSEN34 (z = 28.546, log-fold-change 1.042), and CLRN1 (z = 27.501, log-fold-change 1.174). The most reduced genes are CDK16 (z = -36.95, log-fold-change -4.363), TLE5 (z = -36.245, log-fold-change -4.964), ARAF (z = -28.46, log-fold-change -3.178), INPPL1 (z = -28.123, log-fold-change -4.635), UBAP1 (z = -27.528, log-fold-change -3.439), PLEKHM2 (z = -26.92, log-fold-change -4.374), CMTR1 (z = -26.874, log-fold-change -3.31), ZFAND3 (z = -26.842, log-fold-change -4.002), MAPKAPK2 (z = -26.606, log-fold-change -3.786), and SMG5 (z = -26.38, log-fold-change -4.163). Across 19191 comparable genes, 10061 depart by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z indicates this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM4760748.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is the transcriptomic shift between this patient's sample and tissue-matched samples without a confirmed cardiovascular diagnosis, and which genes are primarily responsible for it?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this patient's most elevated genes are DERL3 (z = 6.458, log-fold-change 3.487), THEGL (z = 5.848, log-fold-change 1.793), PNOC (z = 5.566, log-fold-change 2.052), GCK (z = 5.152, log-fold-change 3.265), SLC28A3 (z = 4.709, log-fold-change 3.006), PAGE2B (z = 4.584, log-fold-change 1.439), OOSP4A (z = 4.492, log-fold-change 1.055), and H4C11 (z = 4.285, log-fold-change 2.623); the most reduced are LAMP1 (z = -2.219, log-fold-change -2.785), BHLHE40 (z = -2.065, log-fold-change -2.777), SRM (z = -1.934, log-fold-change -2.645), TGFBR2 (z = -1.929, log-fold-change -3.418), IGF2R (z = -1.922, log-fold-change -1.996), ARHGEF12 (z = -1.886, log-fold-change -2.011), RNF19B (z = -1.789, log-fold-change -2.783), and PPP1R12C (z = -1.752, log-fold-change -2.321). Across 20009 comparable genes, 347 depart by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z denotes this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM5356915.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhat expression changes set this patient's transcriptomic profile apart from tissue-matched samples without a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this patient's most elevated genes are GSG1 (z = 7.371, log-fold-change 4.104), ABCC6 (z = 5.808, log-fold-change 2.258), ETDC (z = 5.59, log-fold-change 1.553), NPIPB8 (z = 4.416, log-fold-change 1.128), MYRFL (z = 4.087, log-fold-change 1.752), SEC14L5 (z = 4.055, log-fold-change 3.165), COL19A1 (z = 3.769, log-fold-change 2.047), and OOSP4A (z = 3.766, log-fold-change 0.885); its most reduced are DAXX (z = -1.557, log-fold-change -2.421), ID1 (z = -1.513, log-fold-change -2.657), ETS1 (z = -1.472, log-fold-change -2.546), ERO1A (z = -1.411, log-fold-change -1.769), MMP14 (z = -1.388, log-fold-change -2.961), GALNT4 (z = -1.369, log-fold-change -1.509), SCARA3 (z = -1.298, log-fold-change -2.267), and TMEM35B (z = -1.297, log-fold-change -2.142). Across 20009 comparable genes, 224 depart by more than two standard deviations from that population in either direction. Values are log1p(TPM); z denotes this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM7157560.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhat expression differences set this patient's profile apart from tissue-matched samples without a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this patient's most elevated genes are MMP3 (z = 6.19, log-fold-change 4.544), TDRD1 (z = 5.737, log-fold-change 2.555), RAB27B (z = 4.122, log-fold-change 3.422), TRABD2A (z = 3.767, log-fold-change 2.057), GDF5 (z = 3.569, log-fold-change 2.194), FOXG1 (z = 3.543, log-fold-change 2.779), H3C4 (z = 3.435, log-fold-change 3.499), and H3C14 (z = 3.312, log-fold-change 4.323). The most reduced are NES (z = -2.142, log-fold-change -4.526), TMEM98 (z = -2.032, log-fold-change -3.09), COL18A1 (z = -1.821, log-fold-change -3.671), CRIP2 (z = -1.735, log-fold-change -3.253), HES1 (z = -1.634, log-fold-change -2.585), PRXL2A (z = -1.615, log-fold-change -2.824), TINAGL1 (z = -1.555, log-fold-change -2.929), and ALPK3 (z = -1.553, log-fold-change -2.554). Across 20009 comparable genes, 155 depart by more than two standard deviations from that population in either direction. Values are log1p(TPM); z reflects this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM8289052.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nCompared with tissue-matched samples that have no confirmed cardiovascular diagnosis, which genes show the greatest reduction in this patient?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched liver samples without a confirmed cardiovascular diagnosis (n = 43), this patient's most reduced genes are ATP6V1E1 (z = -16.309, log-fold-change -2.077), MTA2 (z = -14.938, log-fold-change -2.216), YBX3 (z = -14.296, log-fold-change -3.62), EIF3C (z = -13.578, log-fold-change -2.041), and DDOST (z = -13.431, log-fold-change -2.187). Across 19601 comparable genes, 6638 depart by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM4365008.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhat specific transcriptomic alterations set this patient's profile apart from tissue-matched samples without a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "Compared with tissue-matched samples lacking a confirmed cardiovascular disease (n = 21041), this patient's most prominently elevated genes are CCDC175 (z = 11.547, log-fold-change 3.171), TP53TG3E (z = 11.088, log-fold-change 1.232), LEP (z = 10.289, log-fold-change 3.049), CTAGE9 (z = 10.209, log-fold-change 1.247), HSPB2-C11ORF52 (z = 9.11, log-fold-change 2.742), CCL11 (z = 7.001, log-fold-change 3.607), IL26 (z = 6.358, log-fold-change 1.216), and TARM1 (z = 5.642, log-fold-change 1.25). The most reduced genes are PINK1 (z = -2.633, log-fold-change -3.396), CSK (z = -2.492, log-fold-change -3.106), NISCH (z = -2.424, log-fold-change -3.313), RNF167 (z = -2.418, log-fold-change -3.605), SMARCD2 (z = -2.375, log-fold-change -2.992), PTPRK (z = -2.371, log-fold-change -2.385), MCM3 (z = -2.346, log-fold-change -3.179), and CANT1 (z = -2.321, log-fold-change -2.976). Across 20009 comparable genes, 314 depart by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM4365249.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow does this patient's gene expression profile differ from tissue-matched samples without a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "Compared with tissue-matched samples without confirmed cardiovascular disease (n = 21041), this sample shows the strongest elevations in LEP (z = 17.924, log-fold-change 5.311), TP53TG3E (z = 13.803, log-fold-change 1.533), RPS4Y2 (z = 8.561, log-fold-change 1.317), TM4SF20 (z = 8.51, log-fold-change 2.51), DYNLRB2 (z = 7.966, log-fold-change 2.338), GNG5P2 (z = 7.581, log-fold-change 2.037), CCDC175 (z = 7.192, log-fold-change 1.975), and HSPB2-C11ORF52 (z = 6.454, log-fold-change 1.942). The most reduced genes are PTPRK (z = -2.731, log-fold-change -2.747), CLTB (z = -2.666, log-fold-change -3.626), CSK (z = -2.486, log-fold-change -3.097), MAPKAPK2 (z = -2.467, log-fold-change -3.712), NISCH (z = -2.427, log-fold-change -3.317), KEAP1 (z = -2.395, log-fold-change -2.637), SMG5 (z = -2.37, log-fold-change -3.48), and SMARCD2 (z = -2.31, log-fold-change -2.91). Across 20009 comparable genes, 299 deviate by more than two standard deviations from that reference group in either direction. Values are log1p(TPM), with z representing this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM5862467.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is the transcriptomic gap between this patient's sample and tissue-matched controls without confirmed cardiovascular disease, and which genes are responsible for the difference?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this patient's profile shows the most elevated genes as KRTAP20-2 (z = 30.92, log-fold-change 2.411), CSN1S1 (z = 29.92, log-fold-change 6.263), IL17A (z = 20.394, log-fold-change 1.395), DEFB123 (z = 18.402, log-fold-change 2.116), OR9G4 (z = 17.369, log-fold-change 1.064), CST9L (z = 17.183, log-fold-change 1.474), TSPY4 (z = 15.737, log-fold-change 1.551), and LIPK (z = 15.673, log-fold-change 5.362). The most reduced genes are RPP40 (z = -1.639, log-fold-change -2.021), SULT1A3 (z = -1.636, log-fold-change -2.391), NUSAP1 (z = -1.626, log-fold-change -3.035), COQ3 (z = -1.544, log-fold-change -1.988), CDC25A (z = -1.543, log-fold-change -1.979), CDT1 (z = -1.535, log-fold-change -2.316), SHROOM2 (z = -1.499, log-fold-change -1.992), and DLGAP5 (z = -1.473, log-fold-change -2.493). Across 20009 comparable genes, 954 deviate by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z denotes this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM8426480.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nIn this sample, which genes show the largest expression changes relative to tissue-matched controls without a confirmed cardiovascular diagnosis, and are they increased or decreased?"
+   },
+   {
+    "from": "gpt",
+    "value": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 21041), the most elevated genes in this patient's profile are PRR33 (z = 5.08, log-fold-change 1.573), HSPB2-C11ORF52 (z = 4.151, log-fold-change 1.249), C1QTNF9 (z = 4.058, log-fold-change 1.642), CA3 (z = 4.019, log-fold-change 3.595), RPL3L (z = 3.962, log-fold-change 4.227), DPT (z = 3.959, log-fold-change 4.122), HJV (z = 3.936, log-fold-change 3.562), LSP1 (z = 3.932, log-fold-change 2.337), ANKRD2 (z = 3.89, log-fold-change 4.773), and ASB18 (z = 3.781, log-fold-change 2.066). The most reduced are TYMS (z = -2.093, log-fold-change -3.924), LMNB1 (z = -1.999, log-fold-change -3.494), F8A1 (z = -1.872, log-fold-change -2.726), NCAPG (z = -1.848, log-fold-change -2.715), NUSAP1 (z = -1.835, log-fold-change -3.425), G3BP2 (z = -1.808, log-fold-change -1.766), ERO1A (z = -1.746, log-fold-change -2.19), PTTG1 (z = -1.737, log-fold-change -2.887), TPX2 (z = -1.654, log-fold-change -3.268), and RRM2 (z = -1.625, log-fold-change -2.259). Across 20009 comparable genes, 256 deviate by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM5565903.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhat expression changes most clearly set this patient's profile apart from tissue-matched samples without a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this patient's most elevated genes are LY6G6F (z = 24.988, log-fold-change 5.406), PPBP (z = 20.649, log-fold-change 9.754), PF4V1 (z = 19.91, log-fold-change 7.833), LY6G6F-LY6G6D (z = 18.258, log-fold-change 1.149), PF4 (z = 16.403, log-fold-change 8.368), TUBB1 (z = 14.629, log-fold-change 8.045), RGS18 (z = 14.453, log-fold-change 7.528), and GP6 (z = 12.707, log-fold-change 4.65); the most reduced are NUDCD3 (z = -3.977, log-fold-change -3.277), CALR (z = -3.967, log-fold-change -5.697), CDK4 (z = -3.793, log-fold-change -4.767), CTSL (z = -3.648, log-fold-change -3.734), MBTPS1 (z = -3.478, log-fold-change -3.64), JUN (z = -3.395, log-fold-change -4.64), PEBP1 (z = -3.37, log-fold-change -3.864), and EIF3A (z = -3.308, log-fold-change -3.485). Across 20009 comparable genes, 775 depart by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z reflects this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM7053782.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nRelative to tissue-matched samples without a confirmed cardiovascular diagnosis, which genes show the largest deviations in this patient's profile, and are they elevated or reduced?"
+   },
+   {
+    "from": "gpt",
+    "value": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 21041), this patient's most elevated genes are IGHV3OR16-17 (z = 10.833, log-fold-change 1.509), JCHAIN (z = 10.007, log-fold-change 7.322), CD28 (z = 9.582, log-fold-change 2.875), LILRB2 (z = 8.93, log-fold-change 2.365), IGLL5 (z = 8.219, log-fold-change 4.863), RGS1 (z = 7.713, log-fold-change 4.847), SH2D1A (z = 7.513, log-fold-change 1.426), LILRA6 (z = 7.333, log-fold-change 1.338), PTPRC (z = 7.328, log-fold-change 3.825), and CD86 (z = 7.276, log-fold-change 3.379). The most reduced genes are TYMS (z = -1.812, log-fold-change -3.398), RNPS1 (z = -1.791, log-fold-change -1.826), GOT1 (z = -1.716, log-fold-change -2.501), CCDC85B (z = -1.703, log-fold-change -3.258), MDH2 (z = -1.695, log-fold-change -2.266), RTL8A (z = -1.655, log-fold-change -2.885), ATP5F1B (z = -1.655, log-fold-change -2.499), DAG1 (z = -1.65, log-fold-change -1.883), ECI1 (z = -1.595, log-fold-change -2.633), and BEX3 (z = -1.575, log-fold-change -2.793). Across 20009 comparable genes, 735 deviate by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM8644682.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is the transcriptomic deviation between this patient's sample and tissue-matched controls without confirmed cardiovascular disease, and which genes are primarily responsible for it?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this patient's most elevated genes are TPSD1 (z = 7.915, log-fold-change 1.442), UPK3B (z = 6.993, log-fold-change 3.152), PLIN1 (z = 6.746, log-fold-change 2.924), ITLN1 (z = 6.72, log-fold-change 7.03), PRG4 (z = 6.508, log-fold-change 5.096), LMAN1L (z = 6.143, log-fold-change 2.52), ADIPOQ (z = 5.929, log-fold-change 2.489), and TPSB2 (z = 5.779, log-fold-change 2.006). The most reduced genes in this sample are ABCF1 (z = -2.053, log-fold-change -2.405), NCAPG (z = -1.896, log-fold-change -2.786), NUSAP1 (z = -1.881, log-fold-change -3.512), RPS10-NUDT3 (z = -1.806, log-fold-change -2.457), ERO1A (z = -1.781, log-fold-change -2.233), LMNB1 (z = -1.767, log-fold-change -3.088), TYMS (z = -1.764, log-fold-change -3.307), and SHCBP1 (z = -1.669, log-fold-change -2.487). Across 20009 comparable genes, 382 depart by more than two standard deviations from that population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM8180014.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is the transcriptomic deviation between this patient's sample and tissue-matched samples without confirmed cardiovascular disease, and which genes are primarily responsible for driving it?"
+   },
+   {
+    "from": "gpt",
+    "value": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 21041), this patient's most elevated genes are DUSP29 (z = 36.374, log-fold-change 4.077), TNNI2 (z = 22.005, log-fold-change 7.97), MYBPC1 (z = 21.492, log-fold-change 8.256), MYH1 (z = 19.178, log-fold-change 7.713), IDI2 (z = 17.975, log-fold-change 4.921), KRT31 (z = 17.107, log-fold-change 1.094), MYH2 (z = 15.184, log-fold-change 9.079), and MYBPC2 (z = 14.645, log-fold-change 7.44). The most reduced genes are CDH2 (z = -2.421, log-fold-change -4.748), CLIC4 (z = -2.386, log-fold-change -2.945), SCRN1 (z = -2.311, log-fold-change -3.396), BEX3 (z = -2.307, log-fold-change -4.092), TYMS (z = -2.156, log-fold-change -4.043), ERO1A (z = -2.065, log-fold-change -2.59), CALR (z = -2.062, log-fold-change -2.962), and LMNB1 (z = -2.047, log-fold-change -3.577). Across 20009 comparable genes, 436 deviate by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM6718188.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhat specific gene expression changes set this patient's sample apart from tissue-matched samples without a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (induced pluripotent stem cell, n = 30), this patient's most elevated genes are HLA-F (z > 50, log-fold-change 1.224), VPS52 (z > 50, log-fold-change 2.761), AFM (z = 43.604, log-fold-change 0.924), PCDH11Y (z = 41.776, log-fold-change 0.549), GOT1L1 (z = 38.146, log-fold-change 0.909), CYP21A2 (z = 37.717, log-fold-change 1.237), PRR3 (z = 35.487, log-fold-change 1.986), and LMAN1L (z = 33.956, log-fold-change 0.918); its most reduced are RPS18 (z = -19.097, log-fold-change -5.987), AGPAT1 (z = -18.877, log-fold-change -3.414), RPS17 (z = -10.279, log-fold-change -3.361), SMURF1 (z = -10.014, log-fold-change -3.42), SMIM10L1 (z = -7.315, log-fold-change -1.154), HMGA2 (z = -7.233, log-fold-change -3.128), CEBPZOS (z = -6.407, log-fold-change -1.405), and MIF (z = -6.404, log-fold-change -1.814). Across 19191 comparable genes, 2661 depart by more than two standard deviations from that population in either direction. Values are log1p(TPM); z is this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM7670273.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow does this patient's transcriptomic profile compare with tissue-matched samples without a confirmed cardiovascular diagnosis, and which genes show the largest differences?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this patient's most elevated genes are CCDC92B (z = 10.145, log-fold-change 3.271), FOXD3 (z = 10.085, log-fold-change 3.547), CFAP95 (z = 8.021, log-fold-change 3.773), RTP1 (z = 7.682, log-fold-change 1.657), and CPNE9 (z = 7.669, log-fold-change 2.219). The most reduced are CAT (z = -2.006, log-fold-change -2.96), TGM2 (z = -1.758, log-fold-change -3.557), LAMA4 (z = -1.706, log-fold-change -3.073), SLC40A1 (z = -1.683, log-fold-change -2.484), and CRYZ (z = -1.683, log-fold-change -2.175). Across 20009 comparable genes, 1222 depart by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM8538094.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nRelative to tissue-matched samples without a confirmed cardiovascular diagnosis, which genes show the strongest reduction in this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Compared with tissue-matched samples lacking a confirmed cardiovascular disease (n = 21041), this patient's most reduced genes are KIF13A (z = -1.605, log-fold-change -1.873), HNRNPUL2-BSCL2 (z = -1.596, log-fold-change -2.686), GATAD2B (z = -1.557, log-fold-change -1.871), BCL2L2 (z = -1.551, log-fold-change -1.717), and MAPKAPK2 (z = -1.535, log-fold-change -2.309). Among 20009 comparable genes, 213 deviate by more than two standard deviations from that reference population in either direction. Values are expressed as log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM4742837.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhat molecular features most distinguish this patient's expression profile from tissue-matched samples without confirmed cardiovascular disease?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 21041), this patient's most elevated genes are TAS2R9 (z = 18.469, log-fold-change 1.324), CCDC179 (z = 13.029, log-fold-change 1.752), PTTG2 (z = 11.729, log-fold-change 3.389), OR2T6 (z = 10.037, log-fold-change 1.111), CPHXL2 (z = 9.112, log-fold-change 2.168), GNGT1 (z = 8.814, log-fold-change 2.141), OR2A14 (z = 8.528, log-fold-change 0.812), OR10A6 (z = 8.362, log-fold-change 1.129), ZNF676 (z = 7.906, log-fold-change 3.229), and PCDHGA8 (z = 7.675, log-fold-change 3.851). The most reduced genes are RPS6 (z = -2.742, log-fold-change -2.835), RPL3 (z = -2.71, log-fold-change -3.656), HSP90AA1 (z = -2.579, log-fold-change -2.607), RPS3 (z = -2.579, log-fold-change -3.042), RPL27 (z = -2.412, log-fold-change -3.393), GSTP1 (z = -2.24, log-fold-change -2.718), RPL36 (z = -2.011, log-fold-change -2.768), DBN1 (z = -1.996, log-fold-change -3.683), RPL26 (z = -1.966, log-fold-change -2.555), and MRPL14 (z = -1.885, log-fold-change -2.711). Across 20009 comparable genes, 1348 depart by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z denotes this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM7053715.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhich genes show the strongest upregulation in this patient when compared against tissue-matched samples lacking a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched reference samples without confirmed cardiovascular disease (n = 21041), the most elevated genes in this patient's profile are FHL5 (z = 8.971, log-fold-change 5.474), TC2N (z = 6.904, log-fold-change 4.27), MYH11 (z = 6.21, log-fold-change 5.107), HLA-DRA (z = 6.01, log-fold-change 4.483), INMT-MINDY4 (z = 5.825, log-fold-change 2.044), WFDC13 (z = 5.74, log-fold-change 0.686), UNC13C (z = 5.601, log-fold-change 2.462), CCL18 (z = 5.585, log-fold-change 1.284), RANBP3L (z = 5.38, log-fold-change 2.951), and ATP10A (z = 5.352, log-fold-change 2.419). Across 20009 comparable genes, 475 deviate by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM8837575.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhen this patient's transcriptomic profile is compared against tissue-matched samples without a confirmed cardiovascular diagnosis, which genes exhibit the most pronounced differences?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this sample shows the greatest elevations in PDX1 (z = 16.169, log-fold-change 4.3), SRY (z = 10.892, log-fold-change 2.621), SERPINF2 (z = 9.929, log-fold-change 6.438), SPTSSB (z = 9.077, log-fold-change 4.138), and SMLR1 (z = 8.995, log-fold-change 3.236); the most reduced genes are CEBPZOS (z = -1.464, log-fold-change -1.948), SRPX (z = -1.231, log-fold-change -2.27), NFIX (z = -1.174, log-fold-change -1.708), SMIM10L1 (z = -1.153, log-fold-change -1.385), and AGPAT1 (z = -1.13, log-fold-change -1.837). Across 20009 comparable genes, 1234 depart by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z denotes this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM7228589.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nRelative to tissue-matched samples without a confirmed cardiovascular diagnosis, which genes show the strongest deviation in this patient's profile, and in what direction?"
+   },
+   {
+    "from": "gpt",
+    "value": "Compared with tissue-matched samples lacking a confirmed cardiovascular disease (n = 21041), the most elevated genes in this patient's profile are HLA-DRA (z = 6.075, log-fold-change 4.531), GUCA1C (z = 5.304, log-fold-change 3.141), C1QTNF9 (z = 4.742, log-fold-change 1.919), HLA-DRB5 (z = 4.423, log-fold-change 3.816), RPL3L (z = 4.271, log-fold-change 4.556), CRYM (z = 4.208, log-fold-change 4.191), UGT2B4 (z = 4.204, log-fold-change 2.685), PRR33 (z = 4.127, log-fold-change 1.278), MYH11 (z = 3.936, log-fold-change 3.237), and DPT (z = 3.753, log-fold-change 3.908). The most reduced genes are TYMS (z = -2.174, log-fold-change -4.076), LMNB1 (z = -1.998, log-fold-change -3.492), NUSAP1 (z = -1.983, log-fold-change -3.703), NCAPG (z = -1.886, log-fold-change -2.771), SLC2A3 (z = -1.847, log-fold-change -2.625), KDM5B (z = -1.821, log-fold-change -1.769), ERO1A (z = -1.792, log-fold-change -2.247), TP53I3 (z = -1.792, log-fold-change -2.938), PTTG1 (z = -1.731, log-fold-change -2.875), and DHFR (z = -1.663, log-fold-change -2.042). Across 20009 comparable genes, 196 depart by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM6718228.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhat specific expression changes set this patient's sample apart from tissue-matched samples without a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (induced pluripotent stem cell tissue, n = 30), this patient's most elevated genes are GCG (z > 50, log-fold-change 1.833), TEX55 (z > 50, log-fold-change 0.912), HLA-F (z > 50, log-fold-change 0.945), CYP2D6 (z = 47.305, log-fold-change 1.215), AADACL4 (z = 41.803, log-fold-change 1.794), OR6V1 (z = 41.598, log-fold-change 0.634), TSPYL6 (z = 40.861, log-fold-change 0.692), and TSEN34 (z = 39.414, log-fold-change 1.438). The most reduced genes are AGPAT1 (z = -25.886, log-fold-change -4.681), ARL5A (z = -11.992, log-fold-change -2.011), G3BP2 (z = -11.735, log-fold-change -1.693), SCAMP1 (z = -9.902, log-fold-change -1.713), SMURF1 (z = -9.84, log-fold-change -3.36), TADA2A (z = -9.296, log-fold-change -2.069), PANK3 (z = -8.809, log-fold-change -1.736), and LMBR1 (z = -8.798, log-fold-change -1.415). Across 19191 comparable genes, 4405 depart by more than two standard deviations from that reference population in either direction. Values are expressed as log1p(TPM); z denotes this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM4139310.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is the transcriptomic difference between this patient's sample and tissue-matched samples without confirmed cardiovascular disease, and which genes are primarily responsible for that deviation?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this patient's most elevated genes are TSLP (z = 7.773, log-fold-change 5.464), C2CD4A (z = 5.939, log-fold-change 4.349), CSF3 (z = 5.562, log-fold-change 6.738), CXCL3 (z = 5.489, log-fold-change 6.366), SELE (z = 5.232, log-fold-change 7.272), CSF2 (z = 5.219, log-fold-change 5.325), CST2 (z = 5.015, log-fold-change 2.405), and TNIP3 (z = 4.908, log-fold-change 3.436); its most reduced are MYL9 (z = -1.957, log-fold-change -4.052), ADH5 (z = -1.662, log-fold-change -1.828), TSC22D3 (z = -1.659, log-fold-change -2.437), RAD50 (z = -1.648, log-fold-change -1.56), PRKAB1 (z = -1.628, log-fold-change -1.52), PPCS (z = -1.601, log-fold-change -2.264), RAB34 (z = -1.582, log-fold-change -2.373), and UBR7 (z = -1.575, log-fold-change -2.067). Across 20009 comparable genes, 137 depart by more than two standard deviations from that population in either direction. Values are log1p(TPM); z is this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM7070517.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nCompared with tissue-matched samples lacking a confirmed cardiovascular diagnosis, which genes show the most pronounced differential expression in this profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this profile's most elevated genes are BMP10 (z = 6.747, log-fold-change 6.664), CPLX3 (z = 6.64, log-fold-change 3.017), DPT (z = 5.051, log-fold-change 5.26), PRLH (z = 4.979, log-fold-change 0.623), and DHRS7C (z = 4.942, log-fold-change 4.691); its most reduced are TOPBP1 (z = -2.142, log-fold-change -2.121), PTPRK (z = -2.073, log-fold-change -2.085), SMC3 (z = -2.062, log-fold-change -1.757), LMNB1 (z = -2.04, log-fold-change -3.566), and TYMS (z = -2.019, log-fold-change -3.786). Across 20009 comparable genes, 267 deviate by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM2309838.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nCompared with tissue-matched samples that lack a confirmed cardiovascular diagnosis, which genes show the greatest differential expression in this profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease, matched on blood tissue (n = 86), this sample's most elevated genes are TREM1 (z > 50, log-fold-change 5.456), SERPINA1 (z > 50, log-fold-change 6.433), MGAM (z > 50, log-fold-change 5.978), PPBP (z > 50, log-fold-change 7.337), and GLT1D1 (z > 50, log-fold-change 5.435); its most reduced are ECSCR (z = -44.164, log-fold-change -5.826), TM4SF1 (z = -38.831, log-fold-change -6.232), RBFOX2 (z = -35.315, log-fold-change -4.0), GNA11 (z = -32.558, log-fold-change -3.79), and CAVIN1 (z = -30.02, log-fold-change -6.679). Across 19354 comparable genes, 11419 depart by more than two standard deviations from that population in either direction. Values are log1p(TPM); z is this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM7073899.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nCompared to tissue-matched samples without a confirmed cardiovascular diagnosis, which genes show the most pronounced differential expression in this profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this patient's most elevated genes are PF4V1 (z = 8.239, log-fold-change 3.241), IL26 (z = 7.788, log-fold-change 1.49), LEP (z = 7.222, log-fold-change 2.14), CCL11 (z = 7.218, log-fold-change 3.719), and LTF (z = 6.92, log-fold-change 3.334). The most reduced are NUSAP1 (z = -1.863, log-fold-change -3.478), NCAPG (z = -1.806, log-fold-change -2.654), HES1 (z = -1.778, log-fold-change -2.813), LMNB1 (z = -1.77, log-fold-change -3.093), and SHCBP1 (z = -1.723, log-fold-change -2.568). Across 20009 comparable genes, 283 deviate by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM6383379.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhat are the principal gene expression differences between this patient's sample and tissue-matched samples without a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "Compared with tissue-matched samples without confirmed cardiovascular disease (n = 21041), this patient's most elevated genes are SMIM42 (z = 15.029, log-fold-change 2.211), OR51B6 (z = 12.047, log-fold-change 2.272), RHOXF2 (z = 9.504, log-fold-change 3.364), LRRC74B (z = 9.36, log-fold-change 3.305), LDHC (z = 8.787, log-fold-change 3.485), NPIPB8 (z = 8.214, log-fold-change 2.098), STRIT1 (z = 7.0, log-fold-change 4.618), and IL25 (z = 6.816, log-fold-change 3.671). The most reduced genes are STUB1 (z = -2.887, log-fold-change -3.931), GMPR2 (z = -2.83, log-fold-change -2.985), RHOC (z = -2.666, log-fold-change -4.576), CD151 (z = -2.615, log-fold-change -4.733), CCDC85B (z = -2.598, log-fold-change -4.969), BCL2L1 (z = -2.56, log-fold-change -4.008), FLOT2 (z = -2.423, log-fold-change -3.941), and BAD (z = -2.396, log-fold-change -3.109). Across 20009 comparable genes, 1289 depart by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z denotes this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM6718110.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhat specific expression changes set this patient's sample apart from tissue-matched samples without a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "Compared with tissue-matched samples without confirmed cardiovascular disease, matched on induced pluripotent stem cell tissue (n = 30), this patient's most elevated genes are VPS52 (z > 50, log-fold-change 2.484), TBC1D3C (z = 48.698, log-fold-change 2.403), TSEN34 (z = 39.523, log-fold-change 1.442), AMY1C (z = 25.451, log-fold-change 2.723), NOMO1 (z = 20.733, log-fold-change 3.798), OR4F17 (z = 17.519, log-fold-change 1.571), GGT6 (z = 15.204, log-fold-change 1.071), and ABHD16A (z = 15.116, log-fold-change 2.548). The most reduced are AGPAT1 (z = -23.087, log-fold-change -4.175), RPS18 (z = -9.323, log-fold-change -2.923), ARL17B (z = -6.975, log-fold-change -1.256), C18ORF32 (z = -6.822, log-fold-change -1.216), TMUB1 (z = -6.398, log-fold-change -1.05), C4ORF48 (z = -6.348, log-fold-change -2.893), SMURF1 (z = -6.289, log-fold-change -2.148), and MIF (z = -6.143, log-fold-change -1.74). Across 19191 comparable genes, 2364 depart by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM4139256.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nIn this patient's sample, which genes show the strongest deviation from tissue-matched controls without confirmed cardiovascular disease, and are they elevated or reduced?"
+   },
+   {
+    "from": "gpt",
+    "value": "Compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis (n = 21041), this patient's most elevated genes are CST2 (z = 5.873, log-fold-change 2.816), TCAF2C (z = 5.091, log-fold-change 2.002), NLRP14 (z = 4.065, log-fold-change 1.354), TLX1 (z = 3.931, log-fold-change 2.528), PDCD6-AHRR (z = 3.91, log-fold-change 1.423), AMTN (z = 3.529, log-fold-change 3.124), GSDMC (z = 3.524, log-fold-change 1.759), DHH (z = 3.508, log-fold-change 2.284), POU4F1 (z = 3.267, log-fold-change 2.95), and RFLNA (z = 3.253, log-fold-change 4.253). The most reduced genes are SPRY1 (z = -1.461, log-fold-change -2.107), TIMM22 (z = -1.346, log-fold-change -2.149), RBP1 (z = -1.261, log-fold-change -2.202), RCSD1 (z = -1.243, log-fold-change -2.544), RGPD5 (z = -1.234, log-fold-change -1.427), IGFBP2 (z = -1.227, log-fold-change -2.375), AQP1 (z = -1.222, log-fold-change -2.741), QPRT (z = -1.22, log-fold-change -2.541), IRS2 (z = -1.217, log-fold-change -1.528), and VEGFA (z = -1.209, log-fold-change -1.958). Among 20009 comparable genes, 100 deviate by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z denotes this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM4500714.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhen comparing this patient's transcriptomic profile to tissue-matched samples without confirmed cardiovascular disease, which genes exhibit the most pronounced differences?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this patient's most elevated genes are ACAN (z = 10.769, log-fold-change 6.047), IL26 (z = 10.231, log-fold-change 1.957), SUSD2 (z = 7.775, log-fold-change 6.039), RDH5 (z = 5.764, log-fold-change 3.791), and WFDC1 (z = 5.572, log-fold-change 2.825); the most reduced genes are CXADR (z = -1.577, log-fold-change -2.324), KLHL24 (z = -1.538, log-fold-change -1.846), GFOD1 (z = -1.377, log-fold-change -1.535), CHD7 (z = -1.365, log-fold-change -1.522), and STRBP (z = -1.332, log-fold-change -1.429). Across 20009 comparable genes, 295 depart by more than two standard deviations from that population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM6717796.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nCompared to tissue-matched samples without confirmed cardiovascular disease, which genes show the most pronounced differential expression in this profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (induced pluripotent stem cell tissue, n = 30), this sample's most elevated genes are HLA-F (z > 50, log-fold-change 1.164), ASB15 (z = 42.153, log-fold-change 1.574), TSEN34 (z = 41.011, log-fold-change 1.496), ACSM5 (z = 30.086, log-fold-change 3.862), and CSF2 (z = 28.907, log-fold-change 0.983); its most reduced are AGPAT1 (z = -25.303, log-fold-change -4.576), RPS18 (z = -15.395, log-fold-change -4.827), RPS17 (z = -10.102, log-fold-change -3.303), CEBPZOS (z = -10.094, log-fold-change -2.213), and SMIM10L1 (z = -10.069, log-fold-change -1.589). Across 19191 comparable genes, 3325 depart by more than two standard deviations from that population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM6717879.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhen this patient's transcriptomic profile is compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis, which genes exhibit the most pronounced differences?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease, matched on tissue type (induced pluripotent stem cell, n = 30), this sample's most elevated genes are ASB15 (z = 33.644, log-fold-change 1.256), NPIPB8 (z = 30.72, log-fold-change 0.587), TBC1D3C (z = 28.546, log-fold-change 1.409), AMY1C (z = 26.018, log-fold-change 2.783), and TSEN34 (z = 23.505, log-fold-change 0.858); its most reduced genes are AGPAT1 (z = -25.886, log-fold-change -4.681), RPS18 (z = -13.288, log-fold-change -4.166), TUBB (z = -8.353, log-fold-change -3.498), TPGS1 (z = -7.605, log-fold-change -1.848), and CCDC102A (z = -7.443, log-fold-change -1.746). Across 19191 comparable genes, 3017 depart by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z denotes this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM8586499.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow does this patient's gene expression profile differ from tissue-matched samples without confirmed cardiovascular disease?"
+   },
+   {
+    "from": "gpt",
+    "value": "Compared with tissue-matched samples without confirmed cardiovascular disease (n = 21041), this patient's most elevated genes are FAM90A27P (z = 16.365, log-fold-change 1.853), CCL18 (z = 12.798, log-fold-change 2.941), RXFP3 (z = 11.199, log-fold-change 1.044), TRIM64B (z = 11.164, log-fold-change 1.57), HBZ (z = 9.612, log-fold-change 6.255), DEFB4A (z = 9.341, log-fold-change 1.517), BNIP5 (z = 8.778, log-fold-change 2.2), and H3Y1 (z = 8.691, log-fold-change 1.85). Its most reduced genes are DEPDC1 (z = -1.332, log-fold-change -1.778), TIMM22 (z = -1.329, log-fold-change -2.122), SHCBP1 (z = -1.324, log-fold-change -1.973), ARHGAP11A (z = -1.288, log-fold-change -2.054), DLGAP5 (z = -1.28, log-fold-change -2.166), AGPAT1 (z = -1.259, log-fold-change -2.047), NUSAP1 (z = -1.256, log-fold-change -2.346), and MKI67 (z = -1.24, log-fold-change -2.056). Across 20009 comparable genes, 1037 show a deviation of more than two standard deviations from that reference population in either direction. Values are expressed as log1p(TPM), with z representing this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM6717669.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhat expression changes most clearly set this patient's sample apart from tissue-matched controls without a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "Compared with induced pluripotent stem cell samples lacking a confirmed cardiovascular diagnosis (n = 30), this patient's most elevated genes are TBC1D3C (z > 50, log-fold-change 2.652), TSEN34 (z = 46.657, log-fold-change 1.702), GCG (z = 42.14, log-fold-change 1.145), GJA8 (z = 39.336, log-fold-change 0.742), VSX2 (z = 29.897, log-fold-change 1.18), CYP2D6 (z = 26.541, log-fold-change 0.682), AMY1C (z = 25.215, log-fold-change 2.698), and ASB15 (z = 23.006, log-fold-change 0.859). The most reduced genes are AGPAT1 (z = -15.713, log-fold-change -2.841), RPS18 (z = -12.092, log-fold-change -3.791), TUBB (z = -8.118, log-fold-change -3.4), RPS17 (z = -8.041, log-fold-change -2.629), SMURF1 (z = -6.919, log-fold-change -2.363), PSMB3 (z = -6.854, log-fold-change -2.018), HMGA2 (z = -6.574, log-fold-change -2.844), and ARL17B (z = -6.37, log-fold-change -1.147). Across 19191 comparable genes, 2702 deviate by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM4139359.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nRelative to tissue-matched samples without a confirmed cardiovascular diagnosis, which genes show the greatest reduction in this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Compared with tissue-matched samples lacking confirmed cardiovascular disease (n = 21041), this patient's most reduced genes are SPRY1 (z = -1.601, log-fold-change -2.308), IRS2 (z = -1.435, log-fold-change -1.802), ADM (z = -1.379, log-fold-change -2.109), IGFBP2 (z = -1.318, log-fold-change -2.552), and PPCS (z = -1.3, log-fold-change -1.838). Among 20009 comparable genes, 141 deviate by more than two standard deviations from that reference population in either direction. Values are expressed as log1p(TPM), with z representing this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM7053722.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow does this patient's gene expression profile differ from tissue-matched samples without a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), the most elevated genes in this patient's profile are WFDC13 (z = 8.925, log-fold-change 1.066), FHL5 (z = 8.201, log-fold-change 5.004), MYH11 (z = 7.499, log-fold-change 6.166), RANBP3L (z = 7.237, log-fold-change 3.968), NTRK3 (z = 7.065, log-fold-change 3.538), SLC51B (z = 6.884, log-fold-change 2.966), PTTG2 (z = 6.536, log-fold-change 1.889), and SPACA5 (z = 6.475, log-fold-change 1.869). The most reduced genes are ADM (z = -2.519, log-fold-change -3.851), TYMS (z = -2.205, log-fold-change -4.135), LMNB1 (z = -2.142, log-fold-change -3.743), TNFRSF21 (z = -2.028, log-fold-change -2.956), PAFAH1B3 (z = -1.901, log-fold-change -3.379), NCAPG (z = -1.788, log-fold-change -2.627), GOT1 (z = -1.779, log-fold-change -2.592), and TP53I3 (z = -1.773, log-fold-change -2.907). Across 20009 comparable genes, 492 depart by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM4697629.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow much does this patient's transcriptome deviate from tissue-matched samples without confirmed cardiovascular disease, and which genes are primarily responsible for that shift?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this patient's most elevated genes are UGT2A2 (z = 7.698, log-fold-change 0.702), SPANXN4 (z = 6.039, log-fold-change 0.928), ACTBL2 (z = 5.3, log-fold-change 2.871), PF4V1 (z = 4.233, log-fold-change 1.665), TNNI2 (z = 4.164, log-fold-change 1.508), PKNOX2 (z = 4.095, log-fold-change 3.718), IL1A (z = 4.0, log-fold-change 4.901), and GREM1 (z = 3.985, log-fold-change 3.345). The most reduced are DBNDD2 (z = -1.829, log-fold-change -2.455), RPL27 (z = -1.732, log-fold-change -2.437), NDUFA1 (z = -1.689, log-fold-change -2.653), PSMB3 (z = -1.686, log-fold-change -3.209), E2F1 (z = -1.676, log-fold-change -2.382), LSM2 (z = -1.562, log-fold-change -2.497), HSPB1 (z = -1.535, log-fold-change -2.667), and SHCBP1 (z = -1.479, log-fold-change -2.204). Across 20009 comparable genes, 144 depart by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z denotes this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM4139269.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nCompared to tissue-matched samples without a confirmed cardiovascular disease diagnosis, which genes show the most marked expression changes in this patient, and are they elevated or reduced?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this patient's most elevated genes are CST2 (z = 8.566, log-fold-change 4.107), CCL15-CCL14 (z = 5.503, log-fold-change 5.302), CST4 (z = 5.34, log-fold-change 2.041), POU4F1 (z = 4.492, log-fold-change 4.056), URGCP-MRPS24 (z = 4.395, log-fold-change 3.157), TLX1 (z = 4.157, log-fold-change 2.674), HSPA1B (z = 3.821, log-fold-change 3.156), CYP26B1 (z = 3.615, log-fold-change 4.044), PTPN22 (z = 3.533, log-fold-change 2.452), and SPECC1L-ADORA2A (z = 3.486, log-fold-change 1.735). The most reduced genes are AATF (z = -1.54, log-fold-change -1.467), PALLD (z = -1.54, log-fold-change -2.828), GGNBP2 (z = -1.5, log-fold-change -1.738), DSP (z = -1.467, log-fold-change -2.544), TMEM50B (z = -1.457, log-fold-change -1.79), MYL9 (z = -1.455, log-fold-change -3.014), TIMP3 (z = -1.442, log-fold-change -3.215), SPRY1 (z = -1.37, log-fold-change -1.976), IDI1 (z = -1.338, log-fold-change -1.72), and CXCL12 (z = -1.328, log-fold-change -2.264). Across 20009 comparable genes, 102 depart by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z indicates this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM4139268.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nCompared to tissue-matched samples without a confirmed cardiovascular diagnosis, which genes show the most pronounced differential expression in this profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this profile's most elevated genes are CST2 (z = 7.526, log-fold-change 3.608), CST4 (z = 5.461, log-fold-change 2.087), CCL15-CCL14 (z = 4.668, log-fold-change 4.498), HCRTR1 (z = 4.001, log-fold-change 1.852), and HS3ST1 (z = 3.992, log-fold-change 2.624). The most reduced are PALLD (z = -1.505, log-fold-change -2.765), DSP (z = -1.437, log-fold-change -2.492), CDH2 (z = -1.39, log-fold-change -2.725), TIMP3 (z = -1.348, log-fold-change -3.005), and TIMM22 (z = -1.346, log-fold-change -2.149). Across 20009 comparable genes, 186 deviate by more than two standard deviations from that reference population in either direction. Values are log1p(TPM); z represents this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "comparative_differential_reasoning",
+  "image": "GSM1085738.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nCompared to tissue-matched samples without a confirmed cardiovascular diagnosis, which genes show the most pronounced differential expression in this profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), this sample's most elevated genes are CCL11 (z = 11.288, log-fold-change 5.816), PF4V1 (z = 6.988, log-fold-change 2.749), MMP3 (z = 6.819, log-fold-change 5.006), LRRC15 (z = 5.949, log-fold-change 3.094), and CXCL6 (z = 5.3, log-fold-change 7.154); its most reduced are CSK (z = -2.073, log-fold-change -2.582), LAMA5 (z = -1.944, log-fold-change -3.001), ECH1 (z = -1.902, log-fold-change -2.204), HSPB1 (z = -1.891, log-fold-change -3.286), and PLA2G15 (z = -1.856, log-fold-change -2.112). Across 20009 comparable genes, 158 depart by more than two standard deviations from that population in either direction. Values are log1p(TPM); z is this sample's deviation in reference standard deviations."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM4705301.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this molecular expression profile, which cardiovascular subtype is indicated?"
+   },
+   {
+    "from": "gpt",
+    "value": "The profile is consistent with heart failure."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM1572237.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on the transcriptomic profile, which cardiovascular subtype is most likely present in this patient?"
+   },
+   {
+    "from": "gpt",
+    "value": "The profile is consistent with coronary artery disease."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM3613549.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on the transcriptomic profile, which cardiovascular subtype is most likely present in this patient?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM8027854.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhich cardiovascular subtype is reflected in this patient's molecular expression profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM5827413.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's gene expression profile, what is the most likely cardiovascular classification?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM4776976.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's gene expression profile, what cardiovascular classification is most likely?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM8426482.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's gene expression profile, which cardiovascular subtype is the most consistent match?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is most consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM8289046.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on the transcriptomic signature, which cardiovascular condition is most consistent with this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM8426515.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's gene expression profile, which cardiovascular subtype is the best match?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM5283964.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on the transcriptomic signature, which cardiovascular condition is most consistent with this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "This patient's gene expression profile is consistent with coronary artery disease."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM4673264.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's gene expression profile, what is the most likely cardiovascular condition?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM2391011.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on the observed gene expression pattern, what cardiovascular subtype label is supported?"
+   },
+   {
+    "from": "gpt",
+    "value": "The observed expression pattern supports a diagnosis of hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM7070535.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhich cardiovascular subtype is reflected in this molecular expression signature?"
+   },
+   {
+    "from": "gpt",
+    "value": "This molecular expression profile corresponds to arrhythmia (atrial fibrillation)."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM8644672.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's gene expression profile, what is the most probable cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with arrhythmia (atrial fibrillation)."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM1254465.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's gene expression profile, which cardiovascular condition is most likely present?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with coronary artery disease."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM8288981.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's transcriptomic profile, what cardiovascular disease category is most likely?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM3613540.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on the gene expression profile, what is the most probable cardiovascular condition for this patient?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM2839740.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's gene expression profile, what is the most likely cardiovascular condition?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with coronary artery disease."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM8289060.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's gene expression profile, which cardiovascular condition is most probable?"
+   },
+   {
+    "from": "gpt",
+    "value": "The expression profile is most consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM3640082.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on the observed gene expression pattern, which cardiovascular subtype is best supported?"
+   },
+   {
+    "from": "gpt",
+    "value": "The gene expression profile supports a diagnosis of coronary artery disease."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM8027843.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this molecular expression profile, which cardiovascular subtype is indicated?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM5172166.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhich cardiovascular subtype is indicated by this patient's molecular expression profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "The molecular expression profile corresponds to hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM8492030.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's gene expression profile, what is the most likely cardiovascular condition?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with coronary artery disease."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM9267739.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on the observed gene expression pattern, what cardiovascular subtype label is most consistent with this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "The gene expression profile supports a diagnosis of coronary artery disease."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM5002103.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's gene expression profile, what is the most likely cardiovascular condition?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM8426501.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on the observed gene expression pattern, which cardiovascular subtype label is best supported?"
+   },
+   {
+    "from": "gpt",
+    "value": "This patient's expression profile supports a diagnosis of hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM5415725.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's gene expression profile, what is the most likely cardiovascular classification?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with cardiomyopathy of the other subtype."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM7053771.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's transcriptomic profile, what is the associated cardiovascular condition?"
+   },
+   {
+    "from": "gpt",
+    "value": "The gene expression profile is consistent with coronary artery disease."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM3613547.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on the transcriptomic signature, which cardiovascular subtype is indicated for this patient?"
+   },
+   {
+    "from": "gpt",
+    "value": "The gene expression profile is consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM8180020.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on the transcriptomic profile, which cardiovascular subtype is most consistent with this patient's presentation?"
+   },
+   {
+    "from": "gpt",
+    "value": "This patient's gene expression profile is consistent with heart failure."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM2072317.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's transcriptomic profile, which cardiovascular subtype is most likely present?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is most consistent with coronary artery disease."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM8059214.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhich cardiovascular condition is indicated by this patient's transcriptomic signature?"
+   },
+   {
+    "from": "gpt",
+    "value": "This transcriptomic profile is consistent with coronary artery disease."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM3613579.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's gene expression profile, what is the most likely cardiovascular condition?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM8289011.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this gene expression profile, which cardiovascular subtype is the best match?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is most consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM7053806.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on the transcriptomic profile, which cardiovascular subtype is most likely associated with this patient's gene expression pattern?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with coronary artery disease."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM5565916.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's transcriptomic profile, which cardiovascular subtype is most consistent with the observed gene expression pattern?"
+   },
+   {
+    "from": "gpt",
+    "value": "The gene expression profile is consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM4669988.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhich cardiovascular subtype is reflected by this patient's molecular expression profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "This molecular expression profile is consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM8117741.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhich cardiovascular condition is indicated by this patient's transcriptomic signature?"
+   },
+   {
+    "from": "gpt",
+    "value": "This transcriptomic signature is consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM7070522.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhich cardiovascular subtype is most consistent with this patient's gene expression profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "The profile corresponds to arrhythmia (atrial fibrillation)."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM6173976.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's gene expression profile, what cardiovascular subtype is most consistent with the observed pattern?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM4907382.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's gene expression profile, what cardiovascular classification is most consistent with the observed molecular pattern?"
+   },
+   {
+    "from": "gpt",
+    "value": "The molecular profile corresponds to arrhythmia with atrial fibrillation."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM7053710.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhich cardiovascular subtype is indicated by this patient's molecular expression profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "This molecular expression profile is consistent with coronary artery disease."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM8853109.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhat cardiovascular subtype is supported by the observed gene expression pattern in this patient?"
+   },
+   {
+    "from": "gpt",
+    "value": "This patient's expression profile is consistent with coronary artery disease."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM8853117.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWhat cardiovascular subtype is supported by the observed gene expression pattern in this patient?"
+   },
+   {
+    "from": "gpt",
+    "value": "The observed gene expression pattern supports a diagnosis of coronary artery disease."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM4030475.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's gene expression profile, what is the most likely cardiovascular condition?"
+   },
+   {
+    "from": "gpt",
+    "value": "The profile is consistent with cardiomyopathy of an unspecified or other subtype."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM8538131.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on the observed gene expression pattern, what cardiovascular subtype label is supported?"
+   },
+   {
+    "from": "gpt",
+    "value": "The gene expression pattern supports a classification of coronary artery disease."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM8138157.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on the transcriptomic profile, which cardiovascular subtype is most consistent with this patient's gene expression pattern?"
+   },
+   {
+    "from": "gpt",
+    "value": "This patient's transcriptomic profile is consistent with coronary artery disease."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM3963768.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's transcriptomic profile, what cardiovascular disease category is most likely?"
+   },
+   {
+    "from": "gpt",
+    "value": "The profile is consistent with heart failure."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM3022391.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on the transcriptomic profile, which cardiovascular subtype is most consistent with this patient's gene expression pattern?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with coronary artery disease."
+   }
+  ]
+ },
+ {
+  "category": "disease_subtype_classification",
+  "image": "GSM5565899.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nBased on this patient's gene expression profile, what is the most likely cardiovascular classification?"
+   },
+   {
+    "from": "gpt",
+    "value": "This profile is consistent with hypertension."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM6717699.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWithin the panel of genes carrying a recognized cardiovascular signal, which ones show the most pronounced shifts in this patient's expression profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero in all 5 outer folds), the deviations most prominent in this sample relative to tissue-matched samples without confirmed cardiovascular disease (induced pluripotent stem cell, n = 30) are NOMO1 (z = 20.049, elevated), CHCHD2 (z = -14.127, reduced), PDE1C (z = 11.221, elevated), RPS18 (z = -10.991, reduced), HSPA1B (z = 7.977, elevated), CES1 (z = 7.422, elevated), PTGDS (z = 7.083, elevated), HMGA2 (z = -6.387, reduced), MIF (z = -6.135, reduced), and C1R (z = 5.644, elevated). This gene set reflects a broad cardiovascular-disease association rather than any specific subtype, and the observed deviations are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM5565893.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the genes with a recognized cardiovascular-disease signal, which show the most pronounced deviation in this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Within the 1142 genes that carry a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are DAPP1 (z = 10.198, elevated), CD3E (z = 8.408, elevated), BIN2 (z = 7.524, elevated), FYB1 (z = 7.247, elevated), CD52 (z = 7.223, elevated), F13A1 (z = 7.205, elevated), PRF1 (z = 6.918, elevated), DOK2 (z = 6.682, elevated), NKG7 (z = 6.528, elevated), and HLA-DRA (z = 6.186, elevated). This gene set reflects a broad cardiovascular-disease signal rather than a subtype-specific one, and the deviations are specific to this patient's own transcriptomic profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM8619723.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the genes with a broad cardiovascular disease association, which ones show the strongest elevation in this patient's own transcriptomic profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes carrying a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0, meaning nonzero across all 5 outer folds), the genes most elevated in this sample relative to tissue-matched samples without confirmed cardiovascular disease (matched on aorta, n = 160) are AP1M2 (z = 36.117), ELF3 (z = 35.376), ESRP1 (z = 29.257), SFN (z = 12.312), PKP3 (z = 12.167), SPINT1 (z = 4.948), MAL2 (z = 4.798), and WNK2 (z = 4.767). This reflects a broad cardiovascular disease gene set, not a subtype-specific signature, and the deviations are specific to this patient's sample."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM4139283.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the cardiovascular-associated genes, which ones show the most atypical expression in this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are SELL (z = 2.849, elevated), ITGB4 (z = 2.828, elevated), HSPA1B (z = 2.678, elevated), ALDH1A3 (z = 2.629, elevated), ABCA8 (z = 2.561, elevated), TFAP2A (z = 2.414, elevated), ITGB3 (z = 2.359, elevated), and SERPINB2 (z = 2.335, elevated). This gene set reflects a broad cardiovascular disease signal, not a subtype-specific one, and the deviations are specific to this patient's own expression profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM4139381.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nIn this patient's profile, which genes from the broad cardiovascular disease signal set show the greatest deviation compared with the reference population?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero fraction of 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are SERPINB2 (z = 3.965, elevated), TFAP2A (z = 3.409, elevated), SLC7A2 (z = 3.047, elevated), IL1B (z = 2.917, elevated), PTGS2 (z = 2.839, elevated), TNFAIP2 (z = 2.824, elevated), CSF2RB (z = 2.774, elevated), CXCL8 (z = 2.709, elevated), ICAM1 (z = 2.6, elevated), and VCAM1 (z = 2.592, elevated). This gene set reflects broad cardiovascular disease, not a specific subtype, and the deviations are specific to this patient's own expression profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM4139290.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWithin the broad set of genes most strongly associated with cardiovascular disease, does this patient's expression profile show elevated activity, and if so, which specific genes are affected?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the ones most elevated in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are SERPINB2 (z = 4.165, elevated), TFAP2A (z = 3.596, elevated), IL1B (z = 3.521, elevated), TNFAIP2 (z = 3.444, elevated), SLC7A2 (z = 3.127, elevated), CSF2RB (z = 3.108, elevated), PTGS2 (z = 2.935, elevated), and VCAM1 (z = 2.864, elevated). This gene set reflects a broad cardiovascular disease association, not a subtype-specific signature, and the deviations are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM7286738.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the cardiovascular-associated genes, which ones show the most unusual expression levels in this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are MXRA5 (z = 2.44, elevated), IGSF9B (z = 2.343, elevated), PRUNE2 (z = 2.292, elevated), NOMO1 (z = 2.234, elevated), ALOX5 (z = 2.189, elevated), TBX3 (z = 2.095, elevated), CYP1B1 (z = 2.034, elevated), and MB (z = 2.029, elevated). This gene set reflects a broad cardiovascular-disease signal, not a subtype-specific one, and the deviations are specific to this patient's own transcriptomic profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM3613582.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the genes with a broad cardiovascular disease association, which show the most pronounced elevation in this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Within the 1142 genes exhibiting a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the most elevated genes in this sample, relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), are AGR2 (z = 9.687, elevated), EHF (z = 7.118, elevated), KRT17 (z = 6.65, elevated), JCHAIN (z = 6.592, elevated), FGD3 (z = 5.873, elevated), TC2N (z = 5.636, elevated), HLA-DRB1 (z = 5.53, elevated), and CHI3L1 (z = 5.459, elevated). This reflects the broad cardiovascular gene set, not a subtype-specific signature, and the deviations are specific to this patient's own transcriptomic profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM6718173.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nIn this patient's expression profile, which established cardiovascular disease-associated genes show the most notable deviations?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (induced pluripotent stem cell, n = 30) are: NOMO1 (z = 19.466, elevated), CES1 (z = 15.962, elevated), CHCHD2 (z = -13.898, reduced), RPS18 (z = -11.633, reduced), PDE1C (z = 11.544, elevated), MIF (z = -8.089, reduced), PTGDS (z = 7.385, elevated), HMGA2 (z = -7.172, reduced), HSPA1B (z = 6.983, elevated), AGPAT1 (z = -6.706, reduced), MDFI (z = -5.994, reduced), IFI30 (z = 5.719, elevated), TMEM132A (z = -5.429, reduced), SLC1A5 (z = -5.361, reduced), and VARS1 (z = -5.298, reduced). This gene set reflects broad cardiovascular disease associations, not subtype-specific signals, and the deviations are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM5471944.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWithin the broad set of genes linked to cardiovascular disease, which ones show the greatest elevation in this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes that display a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes most elevated in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are AOAH (z = 7.018, elevated), FCN1 (z = 6.724, elevated), LSP1 (z = 6.512, elevated), CD4 (z = 6.241, elevated), ITGAL (z = 5.89, elevated), CHI3L1 (z = 5.251, elevated), ITGAX (z = 5.086, elevated), and MYO15B (z = 4.274, elevated). This gene set reflects broad cardiovascular disease rather than any specific subtype, and these deviations are unique to this patient's own transcriptomic profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM8289009.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the cardiovascular-associated genes in this profile, which ones show the most atypical expression?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (liver, n = 43) are ADH1B (z > 50, elevated), CD2 (z > 50, elevated), FCGR3A (z > 50, elevated), CD3E (z = 28.792, elevated), IL10RA (z = 26.048, elevated), FCGR3B (z = 24.712, elevated), FYB1 (z = 22.252, elevated), and FCN1 (z = 20.195, elevated). This is a broad cardiovascular disease gene set, not subtype-specific, and the deviations pertain to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM8288986.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the genes known to carry a cardiovascular-disease signal, which ones show abnormal expression in this particular sample?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (liver, n = 43) are ADH1B (z > 50, elevated), CD2 (z > 50, elevated), FCGR3A (z = 47.6, elevated), HLA-DRA (z = 43.54, elevated), FCN1 (z = 23.335, elevated), CD3E (z = 21.165, elevated), C7 (z = 19.471, elevated), IL10RA (z = 18.031, elevated), FYB1 (z = 17.473, elevated), MNDA (z = 17.091, elevated), FCGR3B (z = 16.536, elevated), CYBB (z = 16.225, elevated), PTPRC (z = 15.972, elevated), AIF1 (z = 14.766, elevated), and MS4A7 (z = 13.246, elevated). This is a broad cardiovascular gene set, not subtype-specific, and the deviations are specific to this patient's profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM6717173.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nIn this patient's expression profile, which established cardiovascular disease-associated genes show the most pronounced deviation?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (induced pluripotent stem cell, n = 30) are RPS18 (z = -20.066, reduced), CHCHD2 (z = -13.364, reduced), PDE1C (z = 11.02, elevated), ALDH1A3 (z = 7.944, elevated), BASP1 (z = -6.835, reduced), MIF (z = -6.823, reduced), HMGA2 (z = -6.699, reduced), PTGDS (z = 6.573, elevated), MRC2 (z = -5.422, reduced), DDR1 (z = 5.217, elevated), MDFI (z = -5.154, reduced), HLA-C (z = -5.137, reduced), SLC12A7 (z = 5.079, elevated), FKBP10 (z = -5.026, reduced), and SLC1A5 (z = -4.825, reduced). This gene set reflects broad cardiovascular disease association, not a subtype-specific signature, and the deviations are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM4139220.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWithin the established cardiovascular disease gene panel, which genes exhibit the most pronounced deviations in this patient's expression profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes that show a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are: ALDH1A3 (z = 2.853, elevated), TFAP2A (z = 2.257, elevated), SULF1 (z = 2.148, elevated), WDFY4 (z = 2.132, elevated), LAMC2 (z = 2.061, elevated), ALDH1A1 (z = 2.037, elevated), PIK3CG (z = 1.992, elevated), CYP1B1 (z = 1.983, elevated), HMCN1 (z = 1.944, elevated), and SPOCK1 (z = 1.904, elevated). This gene set reflects broad cardiovascular disease rather than a specific subtype, and these deviations are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM7549542.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the genes with a known cardiovascular-disease signal, which ones show the most pronounced deviation in this patient's expression profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are CCL5 (z = 4.128, elevated), LGALS9 (z = 3.539, elevated), WDFY4 (z = 3.025, elevated), SAMD9 (z = 2.832, elevated), SAMD9L (z = 2.821, elevated), TYMP (z = 2.734, elevated), PARP10 (z = 2.693, elevated), GPSM3 (z = 2.655, elevated), IFITM1 (z = 2.648, elevated), and CASP1 (z = 2.548, elevated). This gene set reflects a broad cardiovascular-disease association rather than any specific subtype, and the deviations reported are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM3403240.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the genes with a known cardiovascular-disease signal, which show the most pronounced deviation in this patient's expression profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Within the 1142 genes that carry a stable cardiovascular-disease signal in the elastic-net ranking (nonzero in all 5 outer folds), the deviations most notable in this sample, relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), are elevations in CMYA5 (z = 3.007), TTN (z = 2.66), CD36 (z = 2.606), SORBS1 (z = 2.351), SPARCL1 (z = 2.345), PDK4 (z = 2.182), RYR2 (z = 2.168), and PDE1C (z = 2.097), alongside reductions in GSTP1 (z = -2.314) and LMNB1 (z = -2.106). This gene set reflects broad cardiovascular disease signaling rather than any specific subtype, and the deviations are specific to this individual patient's profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM6717713.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nIn this patient's profile, which genes from the broad cardiovascular disease\u2013associated set show the most elevated expression?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes most elevated in this sample relative to tissue-matched samples without confirmed cardiovascular disease (induced pluripotent stem cell, n = 30) are PTPRC (z = 24.797), FYB1 (z = 23.82), CD163 (z = 23.599), JCHAIN (z = 18.14), CD3E (z = 17.791), EHF (z = 17.426), ALOX5 (z = 13.81), and IL1RN (z = 10.461). This gene set reflects broad cardiovascular disease, not a specific subtype, and the deviations are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM6718442.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the genes with a broad cardiovascular disease association, which show the strongest elevation in this patient's own profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero fraction of 1.0 across all 5 outer folds), the ones most elevated in this sample relative to tissue-matched samples without confirmed cardiovascular disease, matched on tissue type (induced pluripotent stem cell, n = 30), are H4C3 (z = 19.247, elevated), RPL41 (z = 7.111, elevated), AGR2 (z = 7.08, elevated), RPS4X (z = 5.982, elevated), CXCL8 (z = 5.609, elevated), IL1B (z = 5.436, elevated), S100A8 (z = 5.221, elevated), and ITGAX (z = 4.878, elevated). This gene set reflects a broad cardiovascular disease signal, not a subtype-specific one, and the deviations pertain to this patient's own transcriptomic profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM3613563.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the genes with a known cardiovascular-disease signal, which ones show the greatest reduction in this patient?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the most reduced in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are CDH2 (z = -2.382, reduced), ANKRD1 (z = -1.789, reduced), DLGAP5 (z = -1.493, reduced), HMGA2 (z = -1.428, reduced), CDK1 (z = -1.412, reduced), FBN2 (z = -1.404, reduced), CBS (z = -1.378, reduced), MYBL2 (z = -1.37, reduced), LMNB1 (z = -1.353, reduced), and TOP2A (z = -1.281, reduced). This gene set reflects broad cardiovascular disease, not a specific subtype, and the deviations are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM8246924.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nIn this patient's expression profile, which genes from the broad cardiovascular disease\u2013associated set show the strongest elevation, and are any of them significantly increased?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1,142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes most elevated in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21,041) are ITGB4 (z = 3.345, elevated), PTGS1 (z = 2.849, elevated), THBD (z = 2.716, elevated), ADAMTS1 (z = 2.637, elevated), NDRG1 (z = 2.585, elevated), AIF1L (z = 2.534, elevated), MALL (z = 2.413, elevated), and TNFRSF14 (z = 2.319, elevated). This gene set reflects broad cardiovascular disease association, not a specific subtype, and these deviations are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM4742841.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWithin the broad set of genes tied to cardiovascular disease, which ones show the strongest elevation in this particular patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes most elevated in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are PDE1C (z = 3.431), CD36 (z = 3.264), TTN (z = 2.988), CMYA5 (z = 2.485), SLC1A3 (z = 2.464), GPNMB (z = 2.376), ARHGAP15 (z = 2.182), and RYR2 (z = 2.156). This gene set reflects broad cardiovascular disease association rather than a specific subtype, and the deviations are specific to this patient's own transcriptomic profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM2562587.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the cardiovascular-associated genes, which show the most atypical expression in this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the ones deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are CEMIP (z = 5.451, elevated), FAP (z = 3.716, elevated), VASN (z = 3.711, elevated), THBS2 (z = 3.594, elevated), ITGBL1 (z = 3.495, elevated), CCDC80 (z = 3.325, elevated), THY1 (z = 3.261, elevated), and CYP1B1 (z = 3.18, elevated). These reflect a broad cardiovascular gene set, not a subtype-specific signature, and the deviations are specific to this patient's own transcriptomic profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM6717262.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the cardiovascular-associated genes, which ones show the most atypical expression in this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Within the 1142 genes exhibiting a stable cardiovascular-disease signal in the elastic-net ranking (nonzero fraction of 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (induced pluripotent stem cell, n = 30) are AGPAT1 (z = -25.886, reduced), SLAMF7 (z = 18.916, elevated), IL1RN (z = 16.562, elevated), HLA-A (z = 10.916, elevated), UBC (z = 10.777, elevated), FTH1 (z = 10.297, elevated), ITGAL (z = 8.507, elevated), and GAPDH (z = 8.081, elevated). This gene set reflects broad cardiovascular disease, not a subtype-specific signature, and the deviations are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM5820825.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWithin the established cardiovascular signal gene set, which genes show the strongest reduction in this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the most reduced genes in this sample, relative to tissue-matched samples without confirmed cardiovascular disease (pulmonary artery, n = 39), are HCLS1 (z = -19.66), ANKRD1 (z = -17.159), PECAM1 (z = -16.204), MFNG (z = -16.062), TINAGL1 (z = -15.946), CD93 (z = -13.139), ALPK3 (z = -9.764), PODXL (z = -9.427), GIMAP6 (z = -8.49), and GIMAP7 (z = -8.375). This gene set reflects broad cardiovascular disease rather than any specific subtype, and the deviations are specific to this patient's own transcriptomic profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM8538116.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the genes with a known broad cardiovascular disease association, which ones show the strongest elevation in this patient's specific profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes carrying a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes most elevated in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are RASAL3 (z = 2.543), GIMAP5 (z = 2.143), PDLIM4 (z = 2.055), GPRC5A (z = 1.992), MFNG (z = 1.979), ITM2A (z = 1.956), MGP (z = 1.911), and TINAGL1 (z = 1.891). This gene set reflects a broad cardiovascular disease signal, not a subtype-specific one, and the deviations are specific to this patient's own transcriptomic profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM6455968.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the genes with a known broad cardiovascular disease association, which show the strongest elevation in this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes carrying a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the ones most elevated in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are PIK3R5 (z = 4.057, elevated), AP1M2 (z = 3.521, elevated), DENND1C (z = 3.487, elevated), CDH1 (z = 3.487, elevated), ALPL (z = 3.339, elevated), SORL1 (z = 3.244, elevated), EPCAM (z = 3.19, elevated), and EFS (z = 3.041, elevated). This reflects a broad cardiovascular gene set, not a subtype-specific signature, and the deviations are specific to this patient's own transcriptome."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM4139356.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWithin the established cardiovascular signal gene set, which genes show the strongest reduction in this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes carrying a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes most reduced in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are DSP (z = -1.454), GYPC (z = -1.445), CXCL12 (z = -1.304), RPS18 (z = -1.292), MYL9 (z = -1.28), SDC2 (z = -1.271), VCAN (z = -1.245), IGFBP5 (z = -1.241), HSPB8 (z = -1.169), and SCRN1 (z = -1.156). This gene set reflects broad cardiovascular disease rather than a specific subtype, and the deviations pertain to this patient's own transcriptomic profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM4139367.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nIn this patient's expression profile, which well-established cardiovascular disease-associated genes show the most notable deviations?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero in all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are: SERPINB2 (z = 3.846, elevated), TNFAIP2 (z = 3.703, elevated), TFAP2A (z = 3.697, elevated), IL1B (z = 3.623, elevated), LIF (z = 3.261, elevated), CSF2RB (z = 3.205, elevated), PTGS2 (z = 3.109, elevated), SLC7A2 (z = 3.026, elevated), ICAM1 (z = 2.908, elevated), APOL3 (z = 2.899, elevated), CXCL1 (z = 2.832, elevated), VCAM1 (z = 2.806, elevated), CXCL8 (z = 2.795, elevated), ALDH1A3 (z = 2.596, elevated), and F3 (z = 2.531, elevated). This gene set reflects broad cardiovascular disease signal, not subtype-specific classification, and the deviations are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM7854050.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWithin the broadly defined cardiovascular gene set, which genes show the strongest elevation in this particular patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1,142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero fraction of 1.0 across all 5 outer folds), the genes most elevated in this sample relative to tissue-matched samples without confirmed cardiovascular disease (aorta, n = 160) are PDPN (z = 3.762, elevated), KRT19 (z = 3.659, elevated), ALPK2 (z = 3.421, elevated), GABRE (z = 3.41, elevated), GPRC5A (z = 3.1, elevated), L1CAM (z = 2.837, elevated), PDK4 (z = 2.727, elevated), and MME (z = 2.694, elevated). This reflects a broad cardiovascular disease gene set rather than a subtype-specific signature, and the deviations are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM6717108.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWithin the known cardiovascular-associated gene set, which genes show the most pronounced deviation in this patient's expression profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (induced pluripotent stem cell, n = 30) are: NOMO1 (z = 19.526, elevated), RPS18 (z = -19.472, reduced), CES1 (z = 18.207, elevated), CHCHD2 (z = -14.062, reduced), PDE1C (z = 8.856, elevated), HSPA1B (z = 7.519, elevated), MIF (z = -6.173, reduced), VARS1 (z = -5.744, reduced), AGPAT1 (z = -5.551, reduced), and BASP1 (z = -5.504, reduced). This gene set reflects broad cardiovascular disease signal rather than any specific subtype; the observed deviations are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM4365102.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nIn this specific sample, which genes from the broad cardiovascular-disease gene set show the largest expression departures relative to the comparison population?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes with a stable cardiovascular-disease signal from the elastic-net ranking (nonzero in all 5 outer folds), the genes deviating most in this sample compared with tissue-matched samples lacking confirmed cardiovascular disease (n = 21041) are FAP (z = 3.784, elevated), ADH1B (z = 3.14, elevated), DCN (z = 2.942, elevated), FMOD (z = 2.89, elevated), CCDC80 (z = 2.837, elevated), MGP (z = 2.815, elevated), CD36 (z = 2.81, elevated), ACTA2 (z = 2.77, elevated), COL14A1 (z = 2.564, elevated), and ABCA1 (z = 2.484, elevated). This gene set reflects broad cardiovascular disease rather than a specific subtype, and these deviations are specific to this patient's profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM5566101.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nIn this patient's expression profile, which genes from the broad cardiovascular disease\u2013associated set show the strongest elevation?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes most elevated in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are DAPP1 (z = 9.319), FCGR3B (z = 7.54), FYB1 (z = 7.306), ARHGAP15 (z = 7.231), CD52 (z = 7.222), CD3E (z = 7.152), BIN2 (z = 6.52), and FCN1 (z = 6.458). This gene set reflects broad cardiovascular disease rather than any specific subtype, and these deviations pertain to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM6717568.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nIn this patient's profile, which genes tied to a known cardiovascular disease signal show the most pronounced deviation?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (induced pluripotent stem cell, n = 30) are all reduced: BASP1 (z = -8.595), HMGA2 (z = -8.201), YAP1 (z = -7.558), CD24 (z = -6.764), IGF2BP3 (z = -6.514), PTPRK (z = -5.871), SLIT2 (z = -5.781), TUG1 (z = -5.718), HLA-C (z = -5.393), and JAG1 (z = -5.203). This gene set reflects broad cardiovascular disease, not a specific subtype, and the deviations are specific to this patient's own transcriptomic profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM7053770.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nIn this patient's profile, which genes from the broad cardiovascular disease-associated set show the largest expression departures relative to the comparison population?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero in all 5 outer folds), the ones deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are ADH1B (z = 5.798, elevated), HLA-DRA (z = 4.676, elevated), MS4A7 (z = 4.286, elevated), HLA-DPA1 (z = 4.13, elevated), TC2N (z = 4.119, elevated), HLA-DRB1 (z = 4.041, elevated), COL14A1 (z = 4.037, elevated), ARHGAP15 (z = 3.971, elevated), IL10RA (z = 3.808, elevated), and SPARCL1 (z = 3.806, elevated). This gene set reflects broad cardiovascular disease, not a subtype-specific signature, and the deviations are specific to this patient's own transcriptomic profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM6718487.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the genes with a stable cardiovascular-disease signal, which show the greatest reduction in this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero in all 5 outer folds), the ones most reduced in this sample relative to tissue-matched samples without confirmed cardiovascular disease (matched on tissue, induced pluripotent stem cell, n = 30) are: TLE5 (z = -33.522), FKBP8 (z = -25.443), AGPAT1 (z = -23.476), DLST (z = -22.196), EEF2 (z = -22.113), EDC4 (z = -19.405), SLC4A2 (z = -18.911), GRINA (z = -18.811), PPDPF (z = -18.28), and TUG1 (z = -18.144). This gene set reflects broad cardiovascular disease signal, not a specific subtype, and the reductions are specific to this patient's own expression profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM4647029.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the genes known to differentiate cardiovascular disease, which ones show abnormal expression in this particular sample?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are: HLA-DRA (z = 7.905, elevated), ADH1B (z = 7.382, elevated), NCF4 (z = 7.012, elevated), F13A1 (z = 6.941, elevated), CD163 (z = 6.857, elevated), IL10RA (z = 6.428, elevated), C1QA (z = 6.401, elevated), MS4A7 (z = 6.355, elevated), MPEG1 (z = 6.2, elevated), FCGR3A (z = 6.073, elevated), MS4A6A (z = 6.0, elevated), FYB1 (z = 5.836, elevated), IL16 (z = 5.811, elevated), HLA-DPA1 (z = 5.752, elevated), and HK3 (z = 5.721, elevated). This gene set reflects broad cardiovascular disease, not a subtype-specific signature; the deviations are specific to this patient's profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM6717908.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nIn this patient's expression profile, which genes from the established cardiovascular disease\u2013associated set show the most pronounced deviation?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero in all 5 outer folds), the ones deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (induced pluripotent stem cell, n = 30) are: HLA-DRB1 (z = 23.873, elevated), RPS18 (z = -19.644, reduced), PDE1C (z = 9.891, elevated), PTGDS (z = 9.873, elevated), BASP1 (z = -9.622, reduced), HMGA2 (z = -8.506, reduced), CD24 (z = -7.06, reduced), ARHGAP25 (z = 6.936, elevated), TMEM132A (z = -6.261, reduced), AGPAT1 (z = -6.203, reduced), CHCHD2 (z = -5.8, reduced), SLC1A5 (z = -5.711, reduced), SORBS1 (z = 5.49, elevated), DDR1 (z = 5.212, elevated), and UCHL1 (z = -5.03, reduced). This gene set reflects broad cardiovascular disease association, not subtype specificity; the deviations are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM2562586.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWithin the broad set of genes linked to cardiovascular disease, which ones show the strongest elevation in this particular patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes that carry a stable cardiovascular-disease signal in the elastic-net ranking (nonzero fraction equal to 1.0 across all 5 outer folds), the genes most elevated in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are CEMIP (z = 4.577, elevated), FAP (z = 4.21, elevated), THBS2 (z = 4.01, elevated), ITGBL1 (z = 3.959, elevated), ELN (z = 3.519, elevated), VASN (z = 3.397, elevated), CCDC80 (z = 3.321, elevated), and THY1 (z = 3.179, elevated). This gene set reflects a broad cardiovascular signal rather than any particular subtype, and the deviations reported are specific to this patient's own transcriptomic profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM6717540.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWithin the broad cardiovascular disease-associated gene set, which genes show the strongest elevation in this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes that carry a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the ones most elevated in this sample relative to tissue-matched samples without confirmed cardiovascular disease (induced pluripotent stem cell, n = 30) are NOMO1 (z = 19.838, elevated), PDE1C (z = 10.68, elevated), HSPA1B (z = 8.299, elevated), LCN2 (z = 6.554, elevated), SAMD9L (z = 6.456, elevated), CYBB (z = 6.151, elevated), PTGDS (z = 6.142, elevated), and SLFN11 (z = 5.453, elevated). This reflects a broad cardiovascular disease signal, not a subtype-specific one, and the deviations are specific to this patient's own transcriptome."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM2509695.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nIn this patient's specific profile, which genes from the broad cardiovascular disease-associated set show the most pronounced deviations relative to the comparison population?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the ones deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are: HLA-DRB1 (z = 3.724, elevated), S100A14 (z = 3.291, elevated), TFAP2A (z = 3.225, elevated), EPCAM (z = 2.779, elevated), SPP1 (z = 2.476, elevated), PTPRK (z = -2.296, reduced), SPINT2 (z = 2.28, elevated), SERPINE2 (z = 2.255, elevated), TGFBR2 (z = -2.112, reduced), and HSPG2 (z = -2.069, reduced). This gene set reflects broad cardiovascular disease rather than any specific subtype, and these deviations are specific to this patient's own transcriptomic profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM6717238.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the genes known to be informative for cardiovascular disease, which ones show abnormal expression in this particular sample?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (induced pluripotent stem cell, n = 30) are: AGPAT1 (z = -25.886, reduced), RPS18 (z = -18.854, reduced), CD163 (z = 17.324, elevated), HLA-A (z = 10.095, elevated), PDE1C (z = 8.463, elevated), HMGA2 (z = -7.01, reduced), MIF (z = -6.609, reduced), HLA-C (z = -6.591, reduced), VARS1 (z = -5.999, reduced), NOMO1 (z = 5.39, elevated), FDFT1 (z = 5.261, elevated), C1R (z = 5.025, elevated), FAM83H (z = 4.803, elevated), DDR1 (z = 4.685, elevated), and GABBR1 (z = 4.66, elevated). This gene set reflects broad cardiovascular disease rather than a specific subtype, and the deviations are specific to this patient's profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM5982707.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWithin the broad cardiovascular gene set, which genes show the strongest deviation in this specific patient's profile relative to the comparison group?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the ones deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are ADH1B (z = 4.55, elevated), C1QA (z = 4.476, elevated), F13A1 (z = 4.096, elevated), FGL2 (z = 3.981, elevated), MS4A7 (z = 3.896, elevated), HLA-DRB1 (z = 3.843, elevated), MS4A6A (z = 3.594, elevated), CD163 (z = 3.517, elevated), COL14A1 (z = 3.489, elevated), and IL16 (z = 3.419, elevated). This reflects a broad cardiovascular disease signal rather than a subtype-specific one, and the deviations are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM8027868.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nWithin the broadly defined cardiovascular gene set, which genes show the strongest elevated expression in this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes carrying a stable cardiovascular-disease signal in the elastic-net ranking (nonzero in all 5 outer folds), the most elevated in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are FCGR3B (z = 16.242, elevated), ARHGAP15 (z = 9.158, elevated), JAML (z = 8.611, elevated), PTPRC (z = 8.44, elevated), CD52 (z = 8.128, elevated), FCN1 (z = 7.95, elevated), CD48 (z = 7.653, elevated), and MNDA (z = 7.516, elevated). This reflects a broad cardiovascular-disease gene set rather than any subtype-specific signature, and the deviations are specific to this patient's own transcriptomic profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM6718234.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the genes carrying a known cardiovascular signal, which ones show the most pronounced deviation in this patient's expression profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (induced pluripotent stem cell, n = 30) are AGPAT1 (z = -19.571, reduced), RPS18 (z = -15.549, reduced), CES1 (z = 14.602, elevated), PDE1C (z = 11.521, elevated), HLA-A (z = 8.72, elevated), NOMO1 (z = 7.871, elevated), BASP1 (z = -7.724, reduced), HMGA2 (z = -6.71, reduced), MDFI (z = -6.633, reduced), and TUBB (z = -6.505, reduced). This gene set reflects broad cardiovascular disease, not a subtype-specific signature, and these deviations are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM4907388.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the genes with a known cardiovascular-disease signal, which ones show abnormal expression in this patient's sample?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are: C1QA (z = 3.957, elevated), CD163 (z = 3.366, elevated), PTGDS (z = 3.328, elevated), HLA-DPA1 (z = 3.286, elevated), NCF4 (z = 3.243, elevated), C1QC (z = 3.203, elevated), S100A9 (z = 3.135, elevated), C1QB (z = 3.072, elevated), S100A8 (z = 2.979, elevated), SPARCL1 (z = 2.945, elevated), HK3 (z = 2.931, elevated), F13A1 (z = 2.847, elevated), FCGR3A (z = 2.755, elevated), CD36 (z = 2.728, elevated), and GPX3 (z = 2.688, elevated). This gene set reflects a broad cardiovascular disease signal rather than any specific subtype, and these deviations are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM8974564.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the genes known to differentiate cardiovascular disease from non-disease states, which ones show abnormal expression in this specific sample?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes that carry a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the ones deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are: FCN1 (z = 8.42, elevated), DAPP1 (z = 6.989, elevated), CD52 (z = 6.922, elevated), APOBR (z = 6.528, elevated), NCF1 (z = 6.467, elevated), BIN2 (z = 6.237, elevated), NKG7 (z = 5.93, elevated), CD3E (z = 5.923, elevated), HBA1 (z = 5.518, elevated), CCL5 (z = 5.449, elevated), MYO1G (z = 5.349, elevated), CD48 (z = 5.211, elevated), ARHGAP30 (z = 5.208, elevated), CYTIP (z = 5.094, elevated), and S100A8 (z = 5.012, elevated). This gene set reflects broad cardiovascular disease rather than any specific subtype, and the deviations reported are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM4365315.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the genes known to differentiate cardiovascular disease, which ones show abnormal activity in this specific sample?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1,142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21,041) are: DAPP1 (z = 4.567, elevated), ADH1B (z = 3.22, elevated), FAP (z = 3.184, elevated), MGP (z = 3.04, elevated), CD36 (z = 3.015, elevated), FMOD (z = 3.008, elevated), ACTA2 (z = 2.851, elevated), DCN (z = 2.748, elevated), SEPTIN9 (z = -2.324, reduced), PKN1 (z = -2.273, reduced), RPL36A-HNRNPH2 (z = 2.268, elevated), HSPG2 (z = -2.223, reduced), LMNB1 (z = -2.214, reduced), FBLN5 (z = 2.166, elevated), and EEF2 (z = -2.164, reduced). The gene set reflects broad cardiovascular disease, not a specific subtype; these deviations are specific to this patient's profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM8266795.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nAmong the genes known to differentiate cardiovascular disease, which ones show abnormal expression in this particular patient's sample?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (skin, n = 40) are: MYH6 (z > 50, elevated), MXRA5 (z > 50, elevated), MYH7 (z > 50, elevated), MYBPC3 (z > 50, elevated), SLC1A3 (z > 50, elevated), COL11A1 (z > 50, elevated), RGS1 (z > 50, elevated), HSPB7 (z > 50, elevated), MYL7 (z > 50, elevated), TMEM176B (z > 50, elevated), RYR2 (z > 50, elevated), PLN (z > 50, elevated), ACTC1 (z > 50, elevated), COBL (z > 50, elevated), and FGD3 (z > 50, elevated). This gene set reflects a broad cardiovascular-disease signal, not a subtype-specific one, and the deviations reported are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM6383420.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nIn this patient's profile, are the genes most broadly associated with cardiovascular disease showing elevated expression, and if so, which ones stand out?"
+   },
+   {
+    "from": "gpt",
+    "value": "Among the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes most elevated in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are NCF1 (z = 5.2, elevated), ITGAX (z = 2.739, elevated), RUNX1T1 (z = 2.587, elevated), ETV1 (z = 2.462, elevated), ITGAL (z = 2.4, elevated), PCDH7 (z = 2.239, elevated), TTN (z = 2.203, elevated), and TBX3 (z = 2.083, elevated). This gene set reflects broad cardiovascular disease, not a specific subtype, and the deviations are specific to this patient's own transcriptomic profile."
+   }
+  ]
+ },
+ {
+  "category": "gene_driver_reasoning",
+  "image": "GSM3490806.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nIn this patient's expression profile, which established disease-associated genes show the most notable deviations?"
+   },
+   {
+    "from": "gpt",
+    "value": "Of the 1142 genes with a stable cardiovascular-disease signal in the elastic-net ranking (nonzero_frac == 1.0 across all 5 outer folds), the genes deviating most in this sample relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041) are: FAP (z = 3.89, elevated), SLPI (z = 3.453, elevated), CEMIP (z = 3.439, elevated), CFH (z = 3.041, elevated), SERPINE2 (z = 3.005, elevated), ITGBL1 (z = 2.917, elevated), CCDC80 (z = 2.769, elevated), LIF (z = 2.672, elevated), PRUNE2 (z = 2.646, elevated), PDE1C (z = 2.579, elevated), THY1 (z = 2.509, elevated), RGS4 (z = 2.432, elevated), THBS2 (z = 2.426, elevated), HMCN1 (z = 2.425, elevated), and AP1M2 (z = 2.379, elevated). The gene set reflects broad cardiovascular disease, not a specific subtype; these deviations are specific to this patient's own profile."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM1704807.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow far does this patient's transcriptomic profile sit from a typical non-diseased tissue reference?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is minimal: 302 of 20009 comparable genes (1.51%) depart by more than two standard deviations from tissue-matched samples without a confirmed cardiovascular diagnosis (n = 21041), with the largest single departure being OR2A2 at z = 12.907. Magnitude labels reflect tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM7073902.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow would you characterize the overall degree of transcriptomic disruption in this patient's expression profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation magnitude is minimal: 265 of 20009 comparable genes (1.32%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease (n = 21041); the largest single departure is PF4V1 at z = 8.009. Magnitude labels are tertiles of this statistic across the whole disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM4365207.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow pronounced is this patient's transcriptomic shift relative to tissue-matched controls without confirmed cardiovascular disease, and which genes show the strongest deviation?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is moderate in magnitude. Among the 20,009 comparable genes, 353 (1.76%) fall more than two standard deviations away from the tissue-matched reference without confirmed cardiovascular disease (n = 21,041), with the most extreme single departure being IL26 at z = 11.976. These magnitude categories are derived from tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM3403239.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow many genes in this sample show a substantial deviation from tissue-matched samples without confirmed cardiovascular disease, and what is the magnitude of the largest such departure?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation magnitude is minimal. Only 105 of 20,009 comparable genes (0.53%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease (n = 21,041), with the largest single departure being MYOM3 at z = 3.194. Magnitude labels are based on tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM8482441.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow far does this patient's transcriptomic profile diverge from a typical non-diseased tissue reference?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is moderate in size: 751 of 20009 comparable genes (3.75%) fall more than two standard deviations away from tissue-matched samples without confirmed cardiovascular disease (n = 21041), with the largest single departure being MAGEB3 at z = 10.513. Magnitude labels are based on tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM5572753.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow would you characterize the size of this patient's transcriptomic deviation from tissue-matched samples without confirmed cardiovascular disease, and which genes show the most pronounced changes?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is moderate in magnitude. Of the 20,009 comparable genes, 509 (2.54%) exceed a two-standard-deviation departure from tissue-matched samples without a confirmed cardiovascular diagnosis (reference n = 21,041); the largest single departure is TP53TG3F at z = 18.227. These magnitude labels are based on tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM4837013.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is the overall transcriptomic shift in this sample when compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is large: 1207 of 20009 comparable genes (6.03%) fall beyond a two-standard-deviation threshold relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041); the most extreme single departure is LILRA1 at z = 20.039. Magnitude labels are assigned as tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM4365157.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow pronounced is the transcriptomic shift in this patient's sample when compared with tissue-matched samples that have no confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is minimal: 332 of 20009 comparable genes (1.66%) fall beyond a two-standard-deviation threshold from tissue-matched samples without confirmed cardiovascular disease (n = 21041), with the largest single departure being TP53TG3E at z = 13.62. These magnitude labels are derived from tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM4610083.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow far does this patient's transcriptomic profile sit from a typical non-diseased tissue reference?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is minimal: 148 of 20009 comparable genes (0.74%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease (n = 21041), with the largest single departure being COL10A1 at z = 7.624. Magnitude labels are derived as tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM5929807.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow would you characterize the overall degree of transcriptomic disruption seen in this patient's expression profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is moderate in magnitude. Of 20,009 comparable genes, 965 (4.82%) show a departure exceeding two standard deviations from tissue-matched samples without confirmed cardiovascular disease (n = 21,041); the largest individual departure is LYPD8 at z = 18.948. These magnitude labels are based on tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM6717949.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow extensive is the transcriptomic disruption in this patient's profile compared with tissue-matched controls without cardiovascular disease?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is large: 3533 of 19191 comparable genes (18.41%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease, matched on tissue type (induced pluripotent stem cell, n = 30); the largest single departure is VPS52 at z > 50. Magnitude labels are assigned as tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM7998268.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow strongly does this patient's transcriptomic profile deviate from tissue-matched samples without a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is moderate: 493 of 20009 comparable genes (2.46%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease (n = 21041), with the largest single departure being AQP2 at z = 11.187. Magnitude labels are tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM6718127.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow far does this patient's transcriptomic profile sit from a typical non-diseased tissue profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is large: 3501 of 19191 comparable genes (18.24%) fall more than two standard deviations from tissue-matched samples without a confirmed cardiovascular diagnosis (induced pluripotent stem cell, n = 30), with the largest single departure being ASB15 at z = 47.385. These magnitude labels are derived from tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM5565930.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is this patient's transcriptomic deviation relative to tissue-matched samples without confirmed cardiovascular disease, and which genes show the most pronounced shifts?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation magnitude is large. Of 20,009 comparable genes, 3,573 (17.86%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease (n = 21,041), with the largest single departure seen in OR2B3 at z > 50. Magnitude labels are assigned as tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM4141399.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow would you characterize the overall degree of transcriptomic disruption in this patient's expression profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is moderate in magnitude. Of the 20,009 comparable genes assessed, 787 (3.93%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease (n = 21,041); the largest single departure is CPHXL2 at z = 6.086. Magnitude labels are defined as tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM7053715.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow would you characterize the overall degree of transcriptomic shift in this patient's sample when measured against tissue-matched specimens without a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is moderate: 475 of 20009 comparable genes (2.37%) fall beyond a two-standard-deviation threshold from tissue-matched samples without confirmed cardiovascular disease (n = 21041), with the largest single departure being FHL5 at z = 8.971. Magnitude labels are derived from tertiles of this metric across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM4551649.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nIn this sample, how many genes show a substantial deviation from tissue-matched controls without confirmed cardiovascular disease, and what is the magnitude of the largest such departure?"
+   },
+   {
+    "from": "gpt",
+    "value": "The overall deviation is minimal: 108 of 20009 comparable genes (0.54%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease (n = 21041), with the largest single departure being ITGB6 at z = 5.37. Magnitude labels are derived from tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM6717510.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is this patient's transcriptomic deviation from tissue-matched samples without confirmed cardiovascular disease, and which genes show the most pronounced changes?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation magnitude is large: 2746 of 19191 comparable genes (14.31%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease, matched on tissue (induced pluripotent stem cell, n = 30); the largest single departure is GCG at z = 37.458. Magnitude labels are based on tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM8644684.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow would you characterize the overall degree of transcriptomic shift in this sample when compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation magnitude is moderate. Of 20009 comparable genes, 365 (1.82%) show a departure exceeding two standard deviations from tissue-matched samples without confirmed cardiovascular disease (n = 21041); the largest individual departure is IGLL5 at z = 11.006. These magnitude categories are derived from tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM4365178.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow far does this patient's transcriptomic profile diverge from what would be expected in a non-diseased tissue sample?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is moderate: 352 of 20009 comparable genes (1.76%) fall more than two standard deviations from tissue-matched samples without confirmed cardiovascular disease (n = 21041), with the largest single departure being RPS4Y2 at z = 14.243. Magnitude labels here are tertiles of this statistic across the disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM4760749.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is this patient's transcriptomic deviation from tissue-matched samples without a confirmed cardiovascular diagnosis\u2014minimal, moderate, or substantial\u2014and which genes show the strongest departures?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation magnitude is minimal. Of 20,009 comparable genes, 306 (1.53%) exceed a two-standard-deviation threshold relative to tissue-matched samples without confirmed cardiovascular disease (n = 21,041); the single largest departure is DERL3 at z = 6.617. Magnitude labels are assigned as tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM4365141.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow many genes in this sample show a notable deviation from tissue-matched samples without confirmed cardiovascular disease, and what is the extent of the largest such deviation?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation magnitude is minimal. Of the 20,009 comparable genes, 311 (1.55%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease (n = 21,041); the largest single departure is RPS4Y2 at z = 11.063. Magnitude labels are based on tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM6383398.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow far does this patient's transcriptomic profile diverge from a typical non-diseased tissue reference?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is moderate: 952 of 20009 comparable genes (4.76%) exceed a two-standard-deviation threshold relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), with the largest single departure being SMIM42 at z = 12.229. Magnitude labels are based on tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM1281824.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is this patient's transcriptomic deviation from tissue-matched samples without confirmed cardiovascular disease, and which genes show the most pronounced shifts?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is large. 1755 of 20009 comparable genes (8.77%) depart by more than two standard deviations from tissue-matched samples without a confirmed cardiovascular diagnosis (n = 21041), with the most pronounced single departure being FCGR2A at z = 14.65. The magnitude labels are based on tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM5529326.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow would you characterize the overall degree of transcriptomic disruption in this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is moderate in magnitude. Of the 20,009 comparable genes, 415 (2.07%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease (n = 21,041); the largest single departure is WIF1 at z = 11.583. The magnitude labels are based on tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM4669984.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nIn this sample, how many genes show a substantial deviation from tissue-matched controls without confirmed cardiovascular disease, and what is the magnitude of the largest such deviation?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is moderate in size. Of 20,009 comparable genes, 656 (3.28%) exceed a two-standard-deviation threshold relative to tissue-matched samples without confirmed cardiovascular disease (reference n = 21,041). The largest single departure is DEFA1, with a z-score of 19.163. These magnitude labels are derived from tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM3109143.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is this patient's transcriptomic deviation from tissue-matched samples without a confirmed cardiovascular diagnosis, and which genes show the most pronounced shifts?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is minimal: 241 of 20,009 comparable genes (1.20%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease (n = 21,041), with the largest single departure being CCDC179 at z = 17.771. Magnitude labels are based on tertiles of this statistic across the disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM6614886.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is this patient's transcriptomic deviation from tissue-matched samples without confirmed cardiovascular disease, and which genes show the most pronounced changes?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is moderate in magnitude. Of the 20,009 comparable genes assessed, 823 (4.11%) fall more than two standard deviations away from the tissue-matched reference group without confirmed cardiovascular disease (n = 21,041). The single largest departure is DEFB103A, with a z-score of 17.374. Magnitude labels are defined by tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM3613545.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow substantial is this patient's transcriptomic deviation from tissue-matched samples without confirmed cardiovascular disease, and which genes show the most pronounced changes?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is large. Of 20,009 comparable genes, 1,144 (5.72%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease (n = 21,041); the largest single departure is LEP at z = 20.773. Magnitude labels are based on tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM8956990.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow pronounced is this patient's transcriptomic deviation from tissue-matched samples without a confirmed cardiovascular diagnosis, and which genes show the strongest departure?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is large. Of 20,009 comparable genes, 4,044 (20.21%) exceed a two-standard-deviation threshold relative to tissue-matched samples without confirmed cardiovascular disease (n = 21,041), with the most extreme single departure being KRT33A at z = 43.402. The magnitude classification is based on tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM6717607.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is this patient's transcriptomic deviation from tissue-matched samples without confirmed cardiovascular disease, and in which genes does it appear most strongly?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is large. Of 19,191 comparable genes, 2,060 (10.73%) show a departure exceeding two standard deviations from tissue-matched samples without a confirmed cardiovascular diagnosis (induced pluripotent stem cell tissue, n = 30); the most pronounced single deviation is TSEN34 at z = 29.29. These magnitude labels are based on tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM5862464.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow would you characterize the overall extent of transcriptomic deviation in this patient's sample when compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation magnitude is moderate. Specifically, 514 of 20,009 comparable genes (2.57%) show a departure exceeding two standard deviations from tissue-matched samples without confirmed cardiovascular disease (n = 21,041), with the largest single deviation being CSN1S1 at z = 15.226. Magnitude labels here are derived from tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM8675786.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow would you characterize the overall degree of transcriptomic disruption in this patient's expression profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation magnitude is large. Of 20,009 comparable genes, 1,347 (6.73%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease (n = 21,041), with the largest single departure being AQP2 at z = 26.81. Magnitude labels are defined as tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM8059200.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow many genes in this patient's profile show a substantial deviation from tissue-matched samples without confirmed cardiovascular disease, and what is the magnitude of the largest such deviation?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation magnitude is minimal. Specifically, 307 of 20,009 comparable genes (1.53%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease (n = 21,041); the largest single departure is CCL11 at z = 10.087. Magnitude labels are based on tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM8187400.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow would you characterize the overall degree of transcriptomic disruption in this patient's expression profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation magnitude is large. Specifically, 1039 of 20009 comparable genes (5.19%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease (n = 21041), with the largest single departure being MAGEA6 at z = 9.127. These magnitude labels are defined as tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM4365336.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow far does this patient's transcriptomic profile diverge from what would be expected in a typical non-diseased tissue sample?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is minimal: 275 of 20009 comparable genes (1.37%) fall beyond a two-standard-deviation threshold relative to tissue-matched samples without confirmed cardiovascular disease (n = 21041), with the largest single departure being TP53TG3E at z = 14.89. Magnitude categories are based on tertiles of this metric across the disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM6383355.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is the overall transcriptomic shift in this sample when compared with tissue-matched specimens that have no confirmed cardiovascular disease?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is large. Among 20,009 comparable genes, 1,051 (5.25%) fall beyond a two-standard-deviation threshold from tissue-matched samples without a confirmed cardiovascular diagnosis (n = 21,041); the most extreme single deviation is FRG2 at z = 14.877. Magnitude categories are derived from tertiles of this metric across the entire disease-confirmed cohort."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM4697636.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is the overall transcriptomic shift in this sample when compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is minimal: 242 of 20009 comparable genes (1.21%) fall beyond a two-standard-deviation threshold from tissue-matched samples without confirmed cardiovascular disease (n = 21041), with the largest single departure being SERPINA9 at z = 14.449. Magnitude labels are assigned as tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM8844034.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is the overall transcriptomic shift in this patient's sample when compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation magnitude is moderate: 960 of 20,009 comparable genes (4.80%) show a departure exceeding two standard deviations from tissue-matched samples without confirmed cardiovascular disease (n = 21,041), with the largest single deviation being CCL4L2 at z = 15.917. Magnitude labels are based on tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM4776978.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow far does this patient's transcriptomic profile diverge from a typical non-diseased tissue reference?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is moderate: 1016 of 20009 comparable genes (5.08%) fall beyond a two-standard-deviation threshold relative to tissue-matched samples without a confirmed cardiovascular diagnosis (n = 21041), with the largest single departure being LILRB2 at z = 15.103. Magnitude labels are assigned as tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM8180002.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow strongly does this patient's transcriptomic profile deviate from tissue-matched samples without confirmed cardiovascular disease?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is moderate: 429 of 20009 comparable genes (2.14%) fall beyond a two-standard-deviation threshold from tissue-matched samples without confirmed cardiovascular disease (n = 21041), with the largest single departure being DUSP29 at z = 37.853. Magnitude labels are assigned as tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM3109120.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow would you characterize the overall extent of transcriptomic deviation in this patient's sample when compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation magnitude is moderate. Of the 20009 comparable genes, 376 (1.88%) show a departure exceeding two standard deviations from tissue-matched samples without confirmed cardiovascular disease (n = 21041); the largest single departure is NLRP10 at z = 7.951. Magnitude labels are based on tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM5951792.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow far does this patient's transcriptomic profile sit from what would be expected in a typical non-diseased tissue sample?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is moderate: 1020 of 20009 comparable genes (5.10%) show a departure greater than two standard deviations from tissue-matched samples without a confirmed cardiovascular diagnosis (n = 21041), with the largest single deviation being TRIM31 at z = 17.956. Magnitude labels are assigned as tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM5703374.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow far does this patient\u2019s transcriptomic profile deviate from tissue-matched samples without a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is minimal: 288 of 20,009 comparable genes (1.44%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease (n = 21,041); the largest single departure is LRRC15 at z = 6.432. Magnitude labels are tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM6717163.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is this patient's transcriptomic deviation from tissue-matched controls without confirmed cardiovascular disease, and which genes show the most pronounced changes?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation magnitude is large. Of 19,191 comparable genes, 5,493 (28.62%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease (induced pluripotent stem cell tissue, n = 30). The single largest departure is TSEN34 at z = 46.548. These magnitude labels are derived from tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM8189601.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow large is this patient's transcriptomic deviation from tissue-matched samples without confirmed cardiovascular disease, and which genes show the most pronounced changes?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation magnitude is large. Of 20,009 comparable genes, 1,294 (6.47%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease (n = 21,041), with the largest single departure being FAM90A3P at z = 17.358. Magnitude labels are based on tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM8061434.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow pronounced is the overall transcriptomic shift in this sample when compared with tissue-matched samples lacking a confirmed cardiovascular diagnosis?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is moderate: 437 of 20,009 comparable genes (2.18%) fall beyond a two-standard-deviation threshold from tissue-matched samples without confirmed cardiovascular disease (n = 21,041), with the largest single departure being RXFP3 at z = 8.269. These magnitude labels are based on tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM4365139.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow far does this patient's transcriptomic profile diverge from a typical non-diseased tissue reference?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is minimal: 328 of 20009 comparable genes (1.64%) fall beyond two standard deviations from tissue-matched samples without confirmed cardiovascular disease (n = 21041), with the largest individual departure being RPS4Y2 at z = 9.982. Magnitude labels are assigned by tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM6717216.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow pronounced is the transcriptomic disruption in this patient's profile?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is large. Of 19,191 comparable genes, 4,750 (24.75%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease (induced pluripotent stem cell reference, n = 30); the largest single departure is MAGEA2B at z > 50. Magnitude labels are defined as tertiles of this statistic across the entire disease-confirmed population."
+   }
+  ]
+ },
+ {
+  "category": "magnitude_reasoning",
+  "image": "GSM6717876.npy",
+  "conversations": [
+   {
+    "from": "human",
+    "value": "<image>\nHow many genes in this sample show a substantial deviation from tissue-matched samples without confirmed cardiovascular disease, and what is the magnitude of the largest such departure?"
+   },
+   {
+    "from": "gpt",
+    "value": "The deviation is large. 3205 of 19191 comparable genes (16.70%) exceed a two-standard-deviation departure from tissue-matched samples without confirmed cardiovascular disease, matched on tissue (induced pluripotent stem cell, n = 30); the largest single departure is ASB15 at z = 48.138. Magnitude labels are tertiles of this statistic across the whole disease-confirmed population."
+   }
+  ]
+ }
+]

@@ -206,3 +206,7 @@ qa_generation/regen_pilot_results.jsonl
 # assignments need not be carried; stage2_regen_plan_stats.json IS tracked and
 # records what it contained.
 qa_generation/stage2_regen_plan.json
+
+# Redistribution bundle of results/ — derived, rebuild with:
+#   python3 scripts/build_results_folder.py && zip -r <name>.zip results
+CardioLLM_stage2_regen_results_*.zip

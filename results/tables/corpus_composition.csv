@@ -1,0 +1,5 @@
+category,items,unique_samples,mean_q_chars,mean_a_chars,p95_a_chars,max_a_chars,mean_genes_named,share_pct,distinct_answer_ratio
+gene_driver_reasoning,7210,7210,135.3,715.3,877.5,944,10.5,26.7,1.0
+comparative_differential_reasoning,7208,7208,157.4,980.8,1274.0,1345,13.6,26.7,1.0
+magnitude_reasoning,7202,7202,146.5,372.5,407.0,460,1.0,26.7,1.0
+disease_subtype_classification,5352,1784,102.6,60.2,82.0,164,0.0,19.8,0.0927

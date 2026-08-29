@@ -140,6 +140,11 @@ checkpoint was reused unchanged.
 **80.2% of the corpus is now grounded in real per-sample differential
 expression; it was 0%.**
 
+**5,436 distinct gene symbols** are named across the corpus, with a flat head —
+the most-frequent appears in 7.2% of items. The corpus it replaces named one
+fixed 1,142-gene list, identically, in every one of its 8,553
+`gene_driver_reasoning` answers. Full breakdown in `STAGE2_DATA_ANALYSIS.md`.
+
 `disease_subtype_classification`'s low ratio is **correct and is not
 degeneracy**: its answer is one of five subtype labels, so the target is
 determined by the input. That is what a classification task looks like, and the
@@ -328,6 +333,9 @@ HuggingFace. Only the adapter and connector carry training.
 ```
 results/
   SUMMARY.md                     this document
+  STAGE2_DATA_ANALYSIS.md        breakdown of the regenerated corpus: composition,
+                                 gene coverage, effect-size distributions, and one
+                                 worked example per category
   README.md                      generated from artifacts — numbers only, no prose
   MANIFEST.json                  machine-readable index
   loss_curves/
@@ -336,12 +344,17 @@ results/
   plots/
     probe_three_way.png          encoder vs linear vs MLP vs PCA-matched
     multilabel_before_after.png  paired bars, controls greyed
+    corpus_composition.png       four panels: composition, answer lengths,
+                                 magnitude tertiles, most-named genes
   tables/
     probe_comparison.csv         all probe results, both populations
     probe_three_way.json         raw, including per-fold values
     multilabel_before_after.csv  with fold counts
     multilabel_probe_{before,after}.csv
     encoder_scale_sweep.csv + _note.md
+    corpus_composition.csv       per-category item counts, lengths, ratios
+    corpus_gene_frequency.csv    all 5,436 named genes and their frequencies
+    corpus_de_statistics.csv     effect-size distribution over 8,553 samples
   data/
     de_manifest.json             the full audit record for the DE computation
     stage2_bundle_stats.json     corpus composition and distinct-answer ratios
@@ -351,6 +364,8 @@ results/
     encoded_cache_manifest.json  the CPU-derived cache and its verification
     multilabel_labels_manifest.json
     stage2_regen_plan_stats.json, step3_regen_stats.json
+    stage2_train.zip             THE CORPUS ITSELF — all 26,972 items
+    stage2_train_SAMPLE_200.json 200 items (50 per category), readable
   logs/
     stage2_regen_trainer_state.json   full loss history, corrected run
     stage2_trainer_state.json         full loss history, original run

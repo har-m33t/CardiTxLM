@@ -8,7 +8,8 @@ sources.
 
 Layout:
     results/
-      SUMMARY.md          the write-up: what was done, what was found
+      SUMMARY.md               the write-up: what was done, what was found
+      STAGE2_DATA_ANALYSIS.md  breakdown of the regenerated corpus
       README.md           generated from the artifacts, numbers only
       loss_curves/        stage 1 (replot) and stage 2 (before vs after)
       plots/              three-way probe, multi-label before/after
@@ -55,8 +56,18 @@ ITEMS: list[tuple[str, str]] = [
     # --- logs ---
     ("runlogs/stage2_regen_trainer_state.json", "logs"),
     ("runlogs/stage2_trainer_state.json", "logs"),
-    ("runlogs/eval_regen.log", "logs"),
     ("runlogs/pod_bootstrap.log", "logs"),
+    ("runlogs/stage2_regen_train.log", "logs"),
+    ("runlogs/probe_pca.log", "logs"),
+    ("runlogs/ml_before.log", "logs"),
+    ("runlogs/ml_after.log", "logs"),
+    # --- the corpus itself, so the folder is self-contained ---
+    ("data/cvd_transcriptome/text_files/stage2_train.zip", "data"),
+    # --- corpus breakdown (scripts/analyze_stage2_corpus.py) ---
+    ("results/tables/corpus_composition.csv", "tables"),
+    ("results/tables/corpus_gene_frequency.csv", "tables"),
+    ("results/tables/corpus_de_statistics.csv", "tables"),
+    ("results/plots/corpus_composition.png", "plots"),
     # --- the generated, numbers-only report ---
     ("stage2_regen_report/README.md", "."),
 ]
@@ -72,7 +83,12 @@ def main() -> int:
             continue
         d = OUT / sub
         d.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(s, d / s.name)
+        dest = d / s.name
+        # analyze_stage2_corpus.py writes its outputs straight into results/,
+        # so those entries are already in place. Listed here anyway so the
+        # manifest and the layout docstring stay complete.
+        if s.resolve() != dest.resolve():
+            shutil.copy2(s, dest)
         copied += 1
 
     print(f"copied {copied} artifacts into {OUT.relative_to(REPO)}/")
