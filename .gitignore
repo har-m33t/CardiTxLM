@@ -194,3 +194,11 @@ data/cvd_transcriptome/embeddings_encoded/
 !data/cvd_transcriptome/embeddings_encoded.zip
 data/cvd_transcriptome/verify_sample_raw/
 !data/cvd_transcriptome/verify_sample_raw.zip
+
+# Stage-2 regeneration intermediates. The plan, the bundle and the stats are
+# tracked; the multi-hundred-MB JSONL working files are not -- they are
+# reproducible from the plan plus a DeepSeek run.
+qa_generation/filled_pairs_stage2_regen.jsonl
+qa_generation/step4_input_stage2_regen.jsonl
+qa_generation/generated_pairs_stage2_regen.jsonl
+qa_generation/regen_pilot_results.jsonl
