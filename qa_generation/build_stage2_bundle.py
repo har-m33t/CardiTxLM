@@ -34,6 +34,8 @@ import zipfile
 from collections import Counter, defaultdict
 from pathlib import Path
 
+from qa_generation.verify_regen_pairs import check as factual_check
+
 REPO = Path(__file__).resolve().parent.parent
 QA = REPO / "qa_generation"
 DATA = REPO / "data/cvd_transcriptome"
@@ -70,6 +72,7 @@ def main() -> int:
     status_counts: Counter = Counter()
     dropped: Counter = Counter()
     per_sample: Counter = Counter()
+    rejected: list[dict] = []
 
     with args.input.open() as fh:
         for line in fh:
@@ -82,6 +85,17 @@ def main() -> int:
             a = (r.get("paraphrased_answer") or "").strip()
             if r.get("status") != "ok" or not q or not a:
                 dropped[r.get("skip_reason") or r.get("status") or "empty"] += 1
+                continue
+            # Hard filter, not a warning. The paraphraser corrupts a gene symbol
+            # or a number in a small fraction of calls (measured: 0.06%, e.g.
+            # NCAPG -> NCGAP, RBMY1B -> RBM1Y8, 19191 -> 19184). Those are
+            # fabricated biology dressed as fact, and this corpus exists to
+            # remove exactly that class of defect -- so they are dropped rather
+            # than repaired. Repairing would mean guessing which side is right.
+            probs = factual_check(r)
+            if probs:
+                dropped[f"factual:{probs[0].split(':')[0]}"] += 1
+                rejected.append({"id": r.get("id"), "problems": probs})
                 continue
             image = r["image"]
             items.append({
@@ -122,6 +136,11 @@ def main() -> int:
     if dropped:
         print(f"dropped             {dict(dropped)}")
     print(f"unique samples      {len(per_sample):,}")
+    if rejected:
+        print(f"factually rejected  {len(rejected):,} "
+              f"({100*len(rejected)/max(sum(status_counts.values()),1):.3f}%)")
+        (QA / "stage2_regen_rejected.json").write_text(
+            json.dumps(rejected, indent=2) + "\n")
     print("\ndistinct-answer ratio by category:")
     for cat, a in sorted(answers.items(), key=lambda kv: -len(kv[1])):
         mark = "" if cat not in PER_SAMPLE_CATEGORIES else "  <- per-sample gate"
@@ -149,6 +168,7 @@ def main() -> int:
         "status_counts": dict(status_counts),
         "n_written": len(items),
         "dropped": dict(dropped),
+        "n_factually_rejected": len(rejected),
         "n_unique_samples": len(per_sample),
         "items_by_category": {k: len(v) for k, v in answers.items()},
         "distinct_answer_ratio": ratios,

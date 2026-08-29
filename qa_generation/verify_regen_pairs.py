@@ -35,8 +35,12 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 
-#: A gene as this corpus renders it: "SYMBOL (z = ..." or "SYMBOL (0.123)".
-GENE_IN_GOLD = re.compile(r"\b([A-Z][A-Z0-9\-]{1,14})\s*\(")
+#: A gene as this corpus renders it. The gold answers always write
+#: "SYMBOL (z = ...", but the paraphraser legitimately rewrites that as
+#: "SYMBOL at z = ..." — so both forms must be recognised, or a corrupted
+#: symbol in the reworded form slips through. RBMY1B -> RBM1Y8 did exactly
+#: that, and was only caught incidentally by the numeric check.
+GENE_IN_GOLD = re.compile(r"\b([A-Z][A-Z0-9\-]{1,14})\s*(?:\(|\bat\s+z\s*[=<>])")
 NUMBER = re.compile(r"-?\d[\d,]*\.?\d*")
 
 #: Tokens that look like symbols but are not, and must not be treated as genes.
@@ -68,10 +72,11 @@ def check(rec: dict) -> list[str]:
 
     gold_genes = {g for g in GENE_IN_GOLD.findall(gold) if g not in NOT_GENES}
     if gold_genes:
-        # Only look for THESE symbols in the paraphrase — avoids flagging
-        # ordinary capitalised words as invented genes.
-        gen_upper = set(re.findall(r"\b([A-Z][A-Z0-9\-]{1,14})\b", gen)) - NOT_GENES
-        invented = {g for g in gen_upper if g not in gold_genes and GENE_IN_GOLD.search(gold + " ") and re.search(rf"\b{re.escape(g)}\b\s*\(", gen)}
+        # Only symbols the paraphrase actually PRESENTS as genes (followed by
+        # "(" or "at z =") are candidates, so ordinary capitalised words are
+        # never mistaken for fabricated symbols.
+        named_in_gen = set(GENE_IN_GOLD.findall(gen)) - NOT_GENES
+        invented = named_in_gen - gold_genes
         missing = {g for g in gold_genes if not re.search(rf"\b{re.escape(g)}\b", gen)}
         if invented:
             problems.append(f"invented gene(s): {sorted(invented)[:5]}")

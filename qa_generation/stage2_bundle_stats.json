@@ -1,0 +1,39 @@
+{
+  "input": "qa_generation/generated_pairs_stage2_regen.jsonl",
+  "n_generated": 26988,
+  "status_counts": {
+    "ok": 26988
+  },
+  "n_written": 26972,
+  "dropped": {
+    "factual:invented gene(s)": 13,
+    "factual:number(s) not in gold": 3
+  },
+  "n_factually_rejected": 16,
+  "n_unique_samples": 7212,
+  "items_by_category": {
+    "disease_subtype_classification": 5352,
+    "magnitude_reasoning": 7202,
+    "comparative_differential_reasoning": 7208,
+    "gene_driver_reasoning": 7210
+  },
+  "distinct_answer_ratio": {
+    "disease_subtype_classification": 0.09267563527653214,
+    "magnitude_reasoning": 1.0,
+    "comparative_differential_reasoning": 1.0,
+    "gene_driver_reasoning": 1.0
+  },
+  "min_distinct_ratio_gate": 0.9,
+  "per_sample_categories": [
+    "comparative_differential_reasoning",
+    "gene_driver_reasoning",
+    "magnitude_reasoning"
+  ],
+  "holdout_series_file": "data/cvd_transcriptome/holdout_series.json",
+  "n_holdout_accessions": 2607,
+  "assertions": {
+    "no_holdout_leak": true,
+    "all_images_present": true,
+    "distinct_ratio_gate_met": true
+  }
+}

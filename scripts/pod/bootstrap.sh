@@ -72,7 +72,7 @@ step "python packages"
     "sentencepiece==0.2.0" "protobuf" "einops" "einops-exts" "timm" \
     "tensorboard" "tensorboardX" "shortuuid" "ninja" \
     "numpy<2" "scikit-learn" "pandas" "pyarrow" "matplotlib" "h5py" \
-    "gdown" "requests" "huggingface_hub[cli]"
+    "gdown==5.2.0" "requests" "huggingface_hub[cli]"
 
 # torch_geometric supplies GCNConv, imported by
 # bulkencoders/BulkFormer/utils/BulkFormer_block.py. Pure-python wheel; the
@@ -122,10 +122,16 @@ fi
 
 # ---------------------------------------------------------------------------
 step "unpack the Stage-2 training bundle"
+# Unconditional overwrite, deliberately. A `[ -f ... ] ||` guard here would
+# skip re-extraction after a `git pull` brought a NEW bundle, silently training
+# on the previous corpus — the worst possible failure for a run whose entire
+# point is that the corpus changed. Extraction costs seconds; a stale corpus
+# costs the experiment.
 cd "$REPO/data/cvd_transcriptome/text_files"
-[ -f stage2_train.json ] || unzip -o -q stage2_train.zip
+unzip -o -q stage2_train.zip
 cd "$REPO/data/cvd_transcriptome"
-[ -d embeddings_encoded ] || unzip -o -q embeddings_encoded.zip
+unzip -o -q embeddings_encoded.zip
+unzip -o -q verify_sample_raw.zip
 cd "$REPO"
 "$PY" - <<'EOF'
 import json, pathlib
@@ -152,9 +158,6 @@ step "verify the pre-encoded 515-d cache against a live tower forward"
 # A full re-encode is deliberately impossible on the pod: the raw [20010]
 # vectors are 668 MB and not shipping them is the entire point. A 16-sample
 # slice travels with the repo (1.0 MB) purely so this check can run.
-cd "$REPO/data/cvd_transcriptome"
-[ -d verify_sample_raw ] || unzip -o -q verify_sample_raw.zip
-cd "$REPO"
 "$PY" -m integration.verify_encoded_cache --device cuda
 
 # ---------------------------------------------------------------------------
