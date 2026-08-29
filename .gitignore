@@ -202,3 +202,7 @@ qa_generation/filled_pairs_stage2_regen.jsonl
 qa_generation/step4_input_stage2_regen.jsonl
 qa_generation/generated_pairs_stage2_regen.jsonl
 qa_generation/regen_pilot_results.jsonl
+# Deterministic from build_stage2_regen_plan.py (fixed SEED), so the 5.7 MB of
+# assignments need not be carried; stage2_regen_plan_stats.json IS tracked and
+# records what it contained.
+qa_generation/stage2_regen_plan.json
