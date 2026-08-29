@@ -74,10 +74,24 @@ step "python packages"
     "numpy<2" "scikit-learn" "pandas" "pyarrow" "matplotlib" "h5py" \
     "gdown==5.2.0" "requests" "huggingface_hub[cli]"
 
-# torch_geometric supplies GCNConv, imported by
-# bulkencoders/BulkFormer/utils/BulkFormer_block.py. Pure-python wheel; the
-# compiled torch-scatter/torch-sparse companions are NOT required for GCNConv.
+# BulkFormer's own dependency chain. All three are required to CONSTRUCT the
+# tower, not merely to run it, because BulkFormerVisionTower.__init__ builds the
+# interaction graph — so training needs them even though the pre-encoded
+# passthrough means the encoder never actually runs a forward.
+#   torch_geometric   GCNConv, imported by utils/BulkFormer_block.py
+#   torch-sparse      SparseTensor, which torch_geometric refuses to construct
+#                     without it ("'SparseTensor' requires 'torch-sparse'").
+#                     Must match the exact torch+CUDA build, hence the PyG
+#                     wheel index rather than plain PyPI (a source build needs
+#                     the full CUDA toolkit and takes tens of minutes).
+#   performer-pytorch BulkFormer's attention block
 "$PIP" install -q "torch_geometric"
+TORCH_V=$("$PY" -c "import torch;print(torch.__version__.split('+')[0])")
+CU_V=$("$PY" -c "import torch;print('cu'+torch.version.cuda.replace('.',''))")
+"$PIP" install -q torch-sparse torch-scatter \
+    -f "https://data.pyg.org/whl/torch-${TORCH_V}+${CU_V}.html"
+"$PIP" install -q "performer-pytorch"
+"$PY" -c "import torch_sparse, performer_pytorch; print('torch_sparse', torch_sparse.__version__)"
 
 # flash-attn is what --attn_implementation flash_attention_2 needs. It is
 # OPTIONAL here: if the build fails, training falls back to sdpa via ATTN_IMPL
@@ -96,6 +110,27 @@ fi
 step "install repo (editable)"
 cd "$REPO"
 "$PIP" install -q -e . --no-deps
+
+# ---------------------------------------------------------------------------
+step "BulkFormer source"
+# bulkencoders/BulkFormer/ is the upstream authors' repo, vendored locally and
+# gitignored (.gitignore:103), so a clone of THIS repo does not carry it.
+# tinyllava/model/vision_tower/bulkformer.py puts that directory on sys.path and
+# imports `utils.BulkFormer`, so it must be present before the tower can be
+# constructed at all.
+#
+# CAVEAT: this pulls upstream HEAD. The local vendored copy is what every
+# measurement in this project was made against; if upstream has moved, the
+# encoder architecture could differ. The 93M checkpoint load is strict
+# (load_state_dict(..., strict=True) in bulkformer.py), so an incompatible
+# version fails loudly rather than silently — but if that happens, copy the
+# vendored bulkencoders/BulkFormer/ across instead of debugging upstream.
+if [ ! -f bulkencoders/BulkFormer/utils/BulkFormer.py ]; then
+    git clone --depth 1 https://github.com/KangBoming/BulkFormer.git \
+        bulkencoders/BulkFormer
+else
+    echo "BulkFormer source already present"
+fi
 
 # ---------------------------------------------------------------------------
 step "BulkFormer-93M checkpoint + support files"
