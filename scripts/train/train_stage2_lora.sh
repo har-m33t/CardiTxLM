@@ -64,9 +64,11 @@
 set -euo pipefail
 
 # ---- data -----------------------------------------------------------------
-# Materialized Stage-2 bundle: 19,793 items over all three categories
-# (disease_subtype_classification, comparative_differential_reasoning bound to
-# the neg_hard comparison group, gene_driver_reasoning).
+# Materialized Stage-2 bundle. REGENERATED 2026-08-29: 26,972 items over FOUR
+# categories — disease_subtype_classification, comparative_differential_reasoning
+# and gene_driver_reasoning (both now per-sample rather than corpus-level), plus
+# the new magnitude_reasoning. The 92 holdout series are excluded.
+# The previous bundle was 19,793 items whose answers were 86.4% a fixed string.
 DATA_PATH="${DATA_PATH:-data/cvd_transcriptome/text_files/stage2_train.json}"
 # Per-sample .npy expression vectors. Point this at the output of
 # integration/precompute_encoder_cache.py to feed pre-encoded [dim+3] vectors
@@ -94,10 +96,12 @@ MODEL_MAX_LENGTH=2048
 
 # Attention kernel. flash_attention_2 is the default and what the 2026-08-13 run
 # used, but it is the one dependency that can fail to build on a fresh pod. The
-# fallback is cheap here: Stage-2 sequences are short (measured on the real
-# bundle: mean 141, p95 190, max 199 tokens), so attention is not the bottleneck
-# and `sdpa` costs little. Set ATTN_IMPL=sdpa when flash-attn is unavailable
-# rather than blocking the run on it.
+# fallback is cheap here: even on the regenerated bundle the sequences are far
+# below the 2048 model_max_length, so attention is not the bottleneck and `sdpa`
+# costs little. Set ATTN_IMPL=sdpa when flash-attn is unavailable rather than
+# blocking the run on it. (The old "mean 141, p95 190" figures quoted here were
+# measured on the pre-fix bundle and no longer describe this corpus — see the
+# sizing block above.)
 ATTN_IMPL="${ATTN_IMPL:-flash_attention_2}"
 
 # The variant the tower actually instantiates comes from that config dir, not
