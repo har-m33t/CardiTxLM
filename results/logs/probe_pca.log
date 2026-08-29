@@ -1,0 +1,60 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/CardioLLM/eval_binary_comparison/run_regen_eval.py", line 216, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/workspace/CardioLLM/eval_binary_comparison/run_regen_eval.py", line 209, in main
+    print(f"\nwrote {args.out.relative_to(REPO)}")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'stage2_regen_report/tables/probe_three_way.json' is not in the subpath of '/workspace/CardioLLM'
+
+=== population: holdout_clean ===
+  LLM-latent-imgtok: n=2,607 dim=4096 pos=1,341 neg=1,266 series=92
+    [LLM-latent-imgtok/linear] fold 0: roc_auc=0.7562
+    [LLM-latent-imgtok/linear] fold 1: roc_auc=0.6419
+    [LLM-latent-imgtok/linear] fold 2: roc_auc=0.5988
+    [LLM-latent-imgtok/linear] fold 3: roc_auc=0.7452
+    [LLM-latent-imgtok/linear] fold 4: roc_auc=0.5899
+    [LLM-latent-imgtok/mlp] fold 0: roc_auc=0.8040
+    [LLM-latent-imgtok/mlp] fold 1: roc_auc=0.6772
+    [LLM-latent-imgtok/mlp] fold 2: roc_auc=0.6395
+    [LLM-latent-imgtok/mlp] fold 3: roc_auc=0.6918
+    [LLM-latent-imgtok/mlp] fold 4: roc_auc=0.5989
+    [LLM-latent-imgtok/linear-pca515] fold 0: roc_auc=0.7449
+    [LLM-latent-imgtok/linear-pca515] fold 1: roc_auc=0.6457
+    [LLM-latent-imgtok/linear-pca515] fold 2: roc_auc=0.5967
+    [LLM-latent-imgtok/linear-pca515] fold 3: roc_auc=0.7392
+    [LLM-latent-imgtok/linear-pca515] fold 4: roc_auc=0.5861
+  BulkFormer-93M: n=2,607 dim=515 pos=1,341 neg=1,266 series=92
+    [BulkFormer-93M/linear] fold 0: roc_auc=0.7958
+    [BulkFormer-93M/linear] fold 1: roc_auc=0.6031
+    [BulkFormer-93M/linear] fold 2: roc_auc=0.6181
+    [BulkFormer-93M/linear] fold 3: roc_auc=0.6894
+    [BulkFormer-93M/linear] fold 4: roc_auc=0.6336
+
+=== population: full_contaminated ===
+  LLM-latent-imgtok: n=31,032 dim=4096 pos=8,725 neg=22,307 series=1654
+    [LLM-latent-imgtok/linear] fold 0: roc_auc=0.9879
+    [LLM-latent-imgtok/linear] fold 1: roc_auc=0.7002
+    [LLM-latent-imgtok/linear] fold 2: roc_auc=0.3754
+    [LLM-latent-imgtok/linear] fold 3: roc_auc=0.8690
+    [LLM-latent-imgtok/linear] fold 4: roc_auc=0.8065
+    [LLM-latent-imgtok/mlp] fold 0: roc_auc=0.9010
+    [LLM-latent-imgtok/mlp] fold 1: roc_auc=0.6988
+    [LLM-latent-imgtok/mlp] fold 2: roc_auc=0.3498
+    [LLM-latent-imgtok/mlp] fold 3: roc_auc=0.8545
+    [LLM-latent-imgtok/mlp] fold 4: roc_auc=0.7712
+    [LLM-latent-imgtok/linear-pca515] fold 0: roc_auc=0.9693
+    [LLM-latent-imgtok/linear-pca515] fold 1: roc_auc=0.8145
+    [LLM-latent-imgtok/linear-pca515] fold 2: roc_auc=0.3677
+    [LLM-latent-imgtok/linear-pca515] fold 3: roc_auc=0.8625
+    [LLM-latent-imgtok/linear-pca515] fold 4: roc_auc=0.8382
+  BulkFormer-93M: n=31,032 dim=515 pos=8,725 neg=22,307 series=1654
+    [BulkFormer-93M/linear] fold 0: roc_auc=0.9954
+    [BulkFormer-93M/linear] fold 1: roc_auc=0.8716
+    [BulkFormer-93M/linear] fold 2: roc_auc=0.4428
+    [BulkFormer-93M/linear] fold 3: roc_auc=0.8577
+    [BulkFormer-93M/linear] fold 4: roc_auc=0.8354

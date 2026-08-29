@@ -1,0 +1,47 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/CardioLLM/eval_binary_comparison/run_multilabel_probe.py", line 177, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/workspace/CardioLLM/eval_binary_comparison/run_multilabel_probe.py", line 170, in main
+    print(f"\nwrote {args.out.relative_to(REPO)}")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'stage2_regen_report/tables/multilabel_probe_after.csv' is not in the subpath of '/workspace/CardioLLM'
+  probing tissue (28 raw classes)...
+    tissue             macro ROC-AUC 0.8577 +/- 0.0177  (scientific)
+  probing disease_category (5 raw classes)...
+    disease_category   macro ROC-AUC 0.7758 +/- 0.0550  (scientific)
+  probing cvd_subtype (7 raw classes)...
+    cvd_subtype        macro ROC-AUC 0.8501 +/- 0.0179  (scientific)
+  probing platform (12 raw classes)...
+    platform           macro ROC-AUC 0.7054 +/- 0.0464  (technical_control)
+  probing instrument (12 raw classes)...
+    instrument         macro ROC-AUC 0.7016 +/- 0.0452  (technical_control)
