@@ -43,6 +43,7 @@ from sklearn.model_selection import StratifiedGroupKFold
 from sklearn.neural_network import MLPClassifier
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
 from sklearn.linear_model import LogisticRegression
 
 from linear_probe.probe import _fold_metrics
@@ -72,6 +73,27 @@ def linear_est():
     return make_pipeline(
         StandardScaler(),
         LogisticRegression(max_iter=2000, class_weight="balanced", random_state=SEED),
+    )
+
+
+def pca_matched_est(n_components: int):
+    """Linear probe on the LLM latents reduced to the encoder's width.
+
+    The headline three-way comparison is not dimensionality-matched: 4096-d LLM
+    latents against a 515-d encoder, on 2,607 holdout samples. In that regime a
+    linear probe's regulariser, rather than the representation, can be the
+    binding constraint — so a tie is weaker evidence against the LLM than it
+    looks. Reducing the latents to exactly the encoder's width removes that
+    asymmetry and makes the two directly comparable.
+
+    Fitted INSIDE the CV loop (it is a pipeline step), so the PCA never sees the
+    validation fold. Fitting it once over the whole population would leak.
+    """
+    return make_pipeline(
+        StandardScaler(),
+        PCA(n_components=n_components, random_state=SEED),
+        LogisticRegression(max_iter=2000, class_weight="balanced",
+                           random_state=SEED),
     )
 
 
@@ -127,6 +149,7 @@ def main() -> int:
     feats["LLM-latent-imgtok"] = (Xl, idx_l)
     Xe, idx_e = load_features(args.encoder)
     feats["BulkFormer-93M"] = (Xe, idx_e)
+    encoder_dim = Xe.shape[1]
 
     results: dict = {"seed": SEED, "k_folds": K_FOLDS, "populations": {}}
 
@@ -157,6 +180,15 @@ def main() -> int:
             entry["linear"] = run_cv(Xs, y, groups, linear_est, f"{fname}/linear")
             if fname.startswith("LLM"):
                 entry["mlp"] = run_cv(Xs, y, groups, mlp_est, f"{fname}/mlp")
+                # Dimensionality-matched control: same estimator, same folds,
+                # reduced to the encoder's width so the comparison is like for
+                # like. n_components cannot exceed n_samples in the smallest
+                # training fold, so it is clamped.
+                k = min(encoder_dim, Xs.shape[1], int(Xs.shape[0] * 0.6))
+                entry["linear_pca_matched"] = run_cv(
+                    Xs, y, groups, lambda: pca_matched_est(k),
+                    f"{fname}/linear-pca{k}")
+                entry["pca_components"] = int(k)
             results["populations"][pop_name][fname] = entry
 
     # The guard that makes the holdout number trustworthy, asserted not assumed.

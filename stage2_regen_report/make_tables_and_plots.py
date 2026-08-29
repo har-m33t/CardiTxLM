@@ -52,7 +52,7 @@ def probe_table(path: Path) -> pd.DataFrame | None:
         for fname, entry in feats.items():
             if "skipped" in entry:
                 continue
-            for est in ("linear", "mlp"):
+            for est in ("linear", "mlp", "linear_pca_matched"):
                 if est not in entry:
                     continue
                 e = entry[est]
@@ -67,6 +67,8 @@ def probe_table(path: Path) -> pd.DataFrame | None:
                     "roc_auc_std": e.get("roc_auc_std"),
                     "pr_auc_mean": e.get("pr_auc_mean"),
                     "pr_auc_std": e.get("pr_auc_std"),
+                    "pca_components": entry.get("pca_components")
+                                      if est == "linear_pca_matched" else None,
                 })
     if not rows:
         return None
@@ -85,13 +87,18 @@ def probe_plot(df: pd.DataFrame) -> None:
         return
     labels, means, errs, colors = [], [], [], []
     for _, r in sub.iterrows():
-        est = "linear probe" if r.estimator == "linear" else "MLP probe"
+        est = {"linear": "linear probe",
+               "mlp": "MLP probe",
+               "linear_pca_matched": f"linear, PCA-{int(r.pca_components or 0)}"
+               }.get(r.estimator, r.estimator)
         name = "BulkFormer-93M" if r.feature_set.startswith("BulkFormer") else "LLM latent"
         labels.append(f"{name}\n{est}")
         means.append(r.roc_auc_mean)
         errs.append(r.roc_auc_std or 0)
         colors.append(C_ENCODER if name.startswith("BulkFormer")
-                      else (C_MLP if r.estimator == "mlp" else C_LINEAR))
+                      else (C_MLP if r.estimator == "mlp"
+                            else ("#7048E8" if r.estimator == "linear_pca_matched"
+                                  else C_LINEAR)))
 
     PLOTS.mkdir(parents=True, exist_ok=True)
     fig, ax = plt.subplots(figsize=(7.2, 4.4))
