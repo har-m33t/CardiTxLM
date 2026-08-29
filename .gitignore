@@ -176,3 +176,4 @@ integration/_stage2_lora_dryrun_tmp/
 **/*_report.md
 **/*_result.md
 **/*_verification.md
+regen_retrain_plan.md

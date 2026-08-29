@@ -52,8 +52,12 @@ set -euo pipefail
 # Materialized Stage-2 bundle: 19,793 items over all three categories
 # (disease_subtype_classification, comparative_differential_reasoning bound to
 # the neg_hard comparison group, gene_driver_reasoning).
-DATA_PATH=data/cvd_transcriptome/text_files/stage2_train.json
-IMAGE_PATH=data/cvd_transcriptome/embeddings   # per-sample .npy expression vectors
+DATA_PATH="${DATA_PATH:-data/cvd_transcriptome/text_files/stage2_train.json}"
+# Per-sample .npy expression vectors. Point this at the output of
+# integration/precompute_encoder_cache.py to feed pre-encoded [dim+3] vectors
+# instead of raw [20010] ones — BulkFormerVisionTower.forward detects the width
+# and passes them through. Keep it consistent with whatever Stage 1 used.
+IMAGE_PATH="${IMAGE_PATH:-data/cvd_transcriptome/embeddings}"
 
 # ---- encoder scale (LOCKED) -------------------------------------------------
 # BulkFormer-93M is the final, fixed encoder scale for this project — not a
@@ -103,6 +107,13 @@ if [ ! -d "$STAGE1_CKPT/connector" ]; then
   exit 1
 fi
 
+# Intermediate-checkpoint policy — see the same block in train_stage1.sh. A full
+# HF Trainer checkpoint here is tens of GB (frozen base weights + ZeRO optimizer
+# state) on top of the ~14 GB the LoRA recipe writes at the end. On a volume that
+# cannot hold both, set SAVE_STRATEGY=no and take the final save only.
+SAVE_STRATEGY="${SAVE_STRATEGY:-steps}"
+SAVE_STEPS="${SAVE_STEPS:-50000}"
+
 RUN_NAME=$(basename "$OUTPUT_DIR")
 
 # ---- hardware -------------------------------------------------------------
@@ -151,8 +162,8 @@ deepspeed --include "localhost:${GPUS}" --master_port 29501 tinyllava/train/trai
     --per_device_eval_batch_size 4 \
     --gradient_accumulation_steps "$GRAD_ACCUM" \
     --evaluation_strategy "no" \
-    --save_strategy "steps" \
-    --save_steps 50000 \
+    --save_strategy "$SAVE_STRATEGY" \
+    --save_steps "$SAVE_STEPS" \
     --save_total_limit 1 \
     --learning_rate 2e-4 \
     --mm_projector_lr 2e-5 \

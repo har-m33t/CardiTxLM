@@ -179,6 +179,15 @@ else
     GRAD_CKPT=True
 fi
 
+# Intermediate-checkpoint policy. Defaults preserved; overridable because a full
+# HF Trainer checkpoint here is ~52 GB (13 GB frozen weights + 26 GB ZeRO
+# optimizer state) to protect a 4 MB connector, and save_total_limit=1 rotates by
+# writing the new checkpoint BEFORE deleting the old — peaking near 104 GB. On a
+# volume smaller than that, set SAVE_STRATEGY=no and rely on the single final
+# save from training_recipe.save() (~14 GB).
+SAVE_STRATEGY="${SAVE_STRATEGY:-steps}"
+SAVE_STEPS="${SAVE_STEPS:-24000}"
+
 RUN_NAME="tiny-llava-bulkformer-${BULKFORMER_SCALE}-pretrain"
 
 # NOTE: ${A[@]+"${A[@]}"} — bash 3.2 (macOS) treats an empty array as unset
@@ -208,8 +217,8 @@ RUN_NAME="tiny-llava-bulkformer-${BULKFORMER_SCALE}-pretrain"
     --per_device_eval_batch_size 4 \
     --gradient_accumulation_steps "$GRAD_ACCUM" \
     --evaluation_strategy "no" \
-    --save_strategy "steps" \
-    --save_steps 24000 \
+    --save_strategy "$SAVE_STRATEGY" \
+    --save_steps "$SAVE_STEPS" \
     --save_total_limit 1 \
     --learning_rate 1e-3 \
     --weight_decay 0. \
