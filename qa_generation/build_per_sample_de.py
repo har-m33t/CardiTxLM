@@ -712,19 +712,18 @@ def main() -> int:
     all_up_z = np.concatenate([np.asarray(x) for x in res["up_z"] if len(x)])
 
     # --- confound measurement (measured, not assumed; nothing is removed) ---
-    SEX_GENES = {"RPS4Y1", "DDX3Y", "UTY", "USP9Y", "KDM5D", "EIF1AY",
-                 "NLGN4Y", "ZFY", "XIST", "TSIX"}
-
     def _rank1_counts(lists, n=15):
         c = pd.Series([x[0] for x in lists if len(x)]).value_counts()
         return {str(k): int(v) for k, v in c.head(n).items()}
 
-    def _sex_counts(lists):
-        r1 = sum(1 for x in lists if len(x) and x[0] in SEX_GENES)
-        t5 = sum(1 for x in lists if set(x[:5]) & SEX_GENES)
-        any_ = sum(1 for x in lists if set(x) & SEX_GENES)
-        return {"rank1": r1, "in_top5": t5, "anywhere_in_top25": any_,
-                "n_lists": sum(1 for x in lists if len(x))}
+    def _member_counts(lists, gene_set):
+        gs = set(gene_set)
+        n = sum(1 for x in lists if len(x))
+        r1 = sum(1 for x in lists if len(x) and x[0] in gs)
+        t5 = sum(1 for x in lists if set(x[:5]) & gs)
+        any_ = sum(1 for x in lists if set(x) & gs)
+        return {"rank1": r1, "rank1_pct": round(100.0 * r1 / max(n, 1), 2),
+                "in_top5": t5, "anywhere_in_top25": any_, "n_lists": n}
 
     confounds = {
         "note": ("Sex-linked genes are real biology but are CONFOUNDS, not "
@@ -737,28 +736,60 @@ def main() -> int:
             "elevated gene; 9.4% had one somewhere in the top 25. RPS4Y1 alone "
             "drove the large majority. Top-down was essentially clean."),
         "mitigation": "sex_linked_gene_gate (see ranking_gates.exclude_sex_linked)",
-        "sex_linked_genes_checked": sorted(SEX_GENES),
+        "sex_linked_genes_checked": sorted(SEX_LINKED_GENES),
+        "cnv_polymorphism_genes_checked": sorted(CNV_POLYMORPHISM_GENES),
         "top_up": {
             "rank1_ungated": _rank1_counts(res["ung_up5"]),
-            "rank1_before_sex_gate": _rank1_counts(res["presex_up"]),
-            "rank1_after_sex_gate": _rank1_counts(res["up_genes"]),
-            "sex_linked_ungated": _sex_counts(res["ung_up5"]),
-            "sex_linked_before_sex_gate": _sex_counts(res["presex_up"]),
-            "sex_linked_after_sex_gate": _sex_counts(res["up_genes"]),
+            "rank1_before_exclusion_gates": _rank1_counts(res["presex_up"]),
+            "rank1_after_all_gates": _rank1_counts(res["up_genes"]),
+            "sex_linked_before_exclusion_gates": _member_counts(res["presex_up"], SEX_LINKED_GENES),
+            "sex_linked_after_all_gates": _member_counts(res["up_genes"], SEX_LINKED_GENES),
+            "cnv_polymorphism_before_exclusion_gates": _member_counts(
+                res["presex_up"], CNV_POLYMORPHISM_GENES),
+            "cnv_polymorphism_after_all_gates": _member_counts(
+                res["up_genes"], CNV_POLYMORPHISM_GENES),
         },
         "top_down": {
             "rank1_ungated": _rank1_counts(res["ung_down5"]),
-            "rank1_before_sex_gate": _rank1_counts(res["presex_down"]),
-            "rank1_after_sex_gate": _rank1_counts(res["down_genes"]),
-            "sex_linked_ungated": _sex_counts(res["ung_down5"]),
-            "sex_linked_before_sex_gate": _sex_counts(res["presex_down"]),
-            "sex_linked_after_sex_gate": _sex_counts(res["down_genes"]),
+            "rank1_before_exclusion_gates": _rank1_counts(res["presex_down"]),
+            "rank1_after_all_gates": _rank1_counts(res["down_genes"]),
+            "sex_linked_before_exclusion_gates": _member_counts(res["presex_down"], SEX_LINKED_GENES),
+            "sex_linked_after_all_gates": _member_counts(res["down_genes"], SEX_LINKED_GENES),
+            "cnv_polymorphism_before_exclusion_gates": _member_counts(
+                res["presex_down"], CNV_POLYMORPHISM_GENES),
+            "cnv_polymorphism_after_all_gates": _member_counts(
+                res["down_genes"], CNV_POLYMORPHISM_GENES),
         },
         "caveat": ("'ungated' lists hold only 5 entries (diagnostic), so "
                    "'anywhere_in_top25' is not meaningful for them. "
-                   "'before_sex_gate' is the full top-25 with the lfc and "
-                   "nameable gates applied but NOT the sex gate — it is the "
-                   "live measurement of what the sex gate displaced."),
+                   "'before_exclusion_gates' is the full top-25 with the lfc "
+                   "and nameable gates applied but NEITHER exclusion gate — it "
+                   "is the live measurement of what those gates displaced, "
+                   "recomputed every run rather than carried as a constant."),
+        "retained_confounds": {
+            "note": ("Known confounds deliberately LEFT IN the ranked lists. "
+                     "Recorded so the corpus's limitations are stated rather "
+                     "than discovered downstream."),
+            "LEP": {
+                "rank1_count": int(sum(1 for x in res["up_genes"]
+                                       if len(x) and x[0] == "LEP")),
+                "rank1_pct": round(100.0 * sum(1 for x in res["up_genes"]
+                                               if len(x) and x[0] == "LEP")
+                                   / max(sum(1 for x in res["up_genes"] if len(x)), 1), 2),
+                "elasticnet_nonzero_frac": 0.0,
+                "why_retained": (
+                    "LEP tracks adipose content. That is real biology and a genuine "
+                    "phenotype, not a genotyping artifact, so it is NOT excluded even "
+                    "though its elastic-net coefficient is zero in every fold. "
+                    "Excluding it would amount to deciding which biology counts as "
+                    "interesting — a much weaker justification than the structural-"
+                    "polymorphism argument that removes GSTM1/GSTT1/UGT2B17."),
+            },
+            "zero_coefficient_genes_generally": (
+                "NOT excluded, by explicit decision. Gating on zero elastic-net "
+                "coefficient would collapse the DE lists toward the 1,142 stable CVD "
+                "genes and destroy the point of an unbiased differential comparison."),
+        },
     }
 
     checks = {
@@ -802,6 +833,13 @@ def main() -> int:
             len(set(x) & set(SEX_LINKED_GENES)) for x in res["up_genes"])),
         "n_sex_linked_in_top_down": int(sum(
             len(set(x) & set(SEX_LINKED_GENES)) for x in res["down_genes"])),
+        "n_cnv_polymorphism_in_top_up": int(sum(
+            len(set(x) & set(CNV_POLYMORPHISM_GENES)) for x in res["up_genes"])),
+        "n_cnv_polymorphism_in_top_down": int(sum(
+            len(set(x) & set(CNV_POLYMORPHISM_GENES)) for x in res["down_genes"])),
+        "no_cnv_polymorphism_in_ranked_lists": bool(
+            sum(len(set(x) & set(CNV_POLYMORPHISM_GENES))
+                for x in list(res["up_genes"]) + list(res["down_genes"])) == 0),
         "no_sex_linked_genes_in_ranked_lists": bool(
             sum(len(set(x) & set(SEX_LINKED_GENES))
                 for x in list(res["up_genes"]) + list(res["down_genes"])) == 0),
@@ -821,7 +859,8 @@ def main() -> int:
         "stable_z_nan_fully_explained_by_zero_variance",
         "all_top_genes_in_vocab", "no_holdout_series_in_reference", "reference_mask_prob_zero",
         "all_top_genes_nameable", "all_top_lfc_pass_gate",
-        "no_sex_linked_genes_in_ranked_lists", "no_ranked_list_short",
+        "no_sex_linked_genes_in_ranked_lists", "no_cnv_polymorphism_in_ranked_lists",
+        "no_ranked_list_short",
     ) if not checks[k]]
     checks["passed"] = not checks["failures"]
 
@@ -912,6 +951,23 @@ def main() -> int:
                 "signal. Applied by user decision after the confound was measured."),
             "mean_genes_dropped_per_sample_by_sex_gate": round(
                 float(res["n_drop_sex"][res["comparable"]].mean()), 3),
+            "exclude_cnv_polymorphism": True,
+            "cnv_polymorphism_genes": list(CNV_POLYMORPHISM_GENES),
+            "cnv_polymorphism_genes_matched_in_vocab": cnv_found,
+            "cnv_polymorphism_genes_not_in_vocab": cnv_missing,
+            "n_vocab_entries_cnv_polymorphism": int(is_cnv.sum()),
+            "exclude_cnv_polymorphism_rationale": (
+                "GSTM1, GSTT1 and UGT2B17 are common whole-gene germline DELETION "
+                "polymorphisms — a large fraction of the population is null for each, "
+                "so extreme expression variance reflects inherited copy number rather "
+                "than phenotype. All three carry nonzero_frac == 0.00 and "
+                "abs_mean_coef == 0.0000 in gene_signal_ranking.csv (zero elastic-net "
+                "coefficient in EVERY fold), so by this project's own measure they hold "
+                "no cardiovascular signal and excluding them removes nothing the "
+                "project considers disease-relevant. Exactly these three genes; the "
+                "gate is deliberately NOT generalized to zero-coefficient genes."),
+            "mean_genes_dropped_per_sample_by_cnv_gate": round(
+                float(res["n_drop_cnv"][res["comparable"]].mean()), 3),
             "mean_genes_dropped_per_sample_by_lfc_gate": round(
                 float(res["n_drop_lfc"][res["comparable"]].mean()), 1),
             "mean_nameable_genes_dropped_per_sample_by_symbol_gate": round(
@@ -922,6 +978,53 @@ def main() -> int:
             "stable_gene_z_note": ("z/lfc keep the full 1,142-gene row as required; the "
                                    "same gate is supplied precomputed as `rank_gate` for "
                                    "selection-time use."),
+        },
+        "gate_rationale": {
+            "purpose": ("All four selection-time gates in one place, with why each "
+                        "exists, so the reasoning need not be reconstructed later. "
+                        "Every gate applies to top_up_genes / top_down_genes ONLY. "
+                        "None of them touch mean_abs_z, max_abs_z, n_genes_abs_z_gt2, "
+                        "frac_genes_abs_z_gt2, the magnitude tertiles, or the z/lfc "
+                        "matrices — those are population statistics over all comparable "
+                        "genes, and a named-gene filter must not move them. The tertile "
+                        "cut points are verified identical across every gate revision."),
+            "chain": "pass_lfc AND nameable AND not_sex_linked AND not_cnv_polymorphism",
+            "gates": [
+                {"name": "lfc_gate",
+                 "rule": f"|lfc| >= {LFC_GATE} (log1p(TPM) scale, ~1.65x)",
+                 "why": ("Removes near-zero-denominator artifacts. A gene whose "
+                         "reference sd sits just above the 1e-6 floor can post an "
+                         "enormous z off a trivial fold change; 'GENE elevated "
+                         "(z=10548)' is supervision that teaches the model to "
+                         "describe noise.")},
+                {"name": "nameable",
+                 "rule": "gene_symbol is a real symbol, not an ENSG accession",
+                 "why": ("symbol_vocab_map falls back to the ENSG accession when a "
+                         "gene has no symbol (625 vocab entries). An accession is not "
+                         "a usable clinical claim — a reader cannot check it — so a "
+                         "gene we cannot name is a gene we should not claim.")},
+                {"name": "not_sex_linked",
+                 "rule": f"symbol not in {list(SEX_LINKED_GENES)}",
+                 "why": ("Sex is a covariate here, not the phenotype under study. "
+                         "Measured before acting: 8.9% of samples had a sex-linked "
+                         "gene as their single most notable elevated gene. Excluding "
+                         "sex-linked genes from a DE ranking is routine when sex is "
+                         "not the variable of interest.")},
+                {"name": "not_cnv_polymorphism",
+                 "rule": f"symbol not in {list(CNV_POLYMORPHISM_GENES)}",
+                 "why": ("Inherited copy number, not phenotype. These are common "
+                         "whole-gene germline deletion polymorphisms, and all three "
+                         "have a zero elastic-net coefficient in every fold, so the "
+                         "exclusion is evidence-based rather than a taste call.")},
+            ],
+            "deliberately_not_gated": {
+                "LEP": ("Real biology (adipose content), not a genotyping artifact — "
+                        "retained despite a zero elastic-net coefficient. See "
+                        "sanity_checks.confound_audit.retained_confounds."),
+                "zero_coefficient_genes_generally": (
+                    "Gating on these would collapse the lists toward the 1,142 stable "
+                    "CVD genes and destroy the point of an unbiased DE comparison."),
+            },
         },
         "ranking_semantics": {
             "what_top_k_is": ("The 25 most extreme genes by z among those passing the "
