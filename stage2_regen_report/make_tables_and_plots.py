@@ -136,6 +136,14 @@ def multilabel(before: Path, after: Path) -> None:
             "after_roc_auc": a.loc[l, "roc_auc_mean"],
             "after_std": a.loc[l].get("roc_auc_std"),
             "delta": a.loc[l, "roc_auc_mean"] - b.loc[l, "roc_auc_mean"],
+            # Carried because it is load-bearing for interpretation: a
+            # many-class label under series-grouped CV can lose most folds to
+            # "this validation fold contains only one class", and a mean over 2
+            # folds is not comparable to a mean over 5. Measured: `tissue` (28
+            # classes) scored 2/5. Without this column that difference is
+            # invisible and the delta looks more solid than it is.
+            "before_folds_scored": b.loc[l].get("n_folds_scored"),
+            "after_folds_scored": a.loc[l].get("n_folds_scored"),
         })
     df = pd.DataFrame(rows)
     TABLES.mkdir(parents=True, exist_ok=True)

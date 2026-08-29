@@ -192,11 +192,19 @@ def main() -> int:
     if ml is not None and len(ml):
         A("## 5. Broad multi-label probing, before vs after")
         A("")
-        A("| label | kind | before | after | delta |")
-        A("|---|---|---:|---:|---:|")
+        A("| label | kind | before | after | delta | folds scored |")
+        A("|---|---|---:|---:|---:|---:|")
         for _, r in ml.iterrows():
+            bf = r.get("before_folds_scored")
+            af = r.get("after_folds_scored")
             A(f"| {r.label} | {r.kind} | {fmt(r.before_roc_auc)} | "
-              f"{fmt(r.after_roc_auc)} | {r.delta:+.4f} |")
+              f"{fmt(r.after_roc_auc)} | {r.delta:+.4f} | {bf}/{af} of 5 |")
+        A("")
+        A("**Read `folds scored` before reading any delta.** Under "
+          "series-grouped CV a many-class label loses folds whose validation "
+          "split contains only one class, and a mean over 2 folds is not "
+          "comparable to a mean over 5. `tissue` (28 classes) is the case to "
+          "watch.")
         A("")
         A("`platform` and `instrument` are TECHNICAL CONTROLS. A high score there "
           "measures sequencing-batch signal, not representation quality, and is "
