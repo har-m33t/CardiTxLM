@@ -3,6 +3,15 @@
   "rebuild_with": "python3 scripts/build_results_folder.py",
   "note": "copied from canonical locations; delete and rebuild freely, this folder is never the source of truth",
   "contents": {
+    "loss_curves": [
+      "stage1_loss.png",
+      "stage2_loss_before_after.png"
+    ],
+    ".": [
+      "MANIFEST.json",
+      "README.md",
+      "SUMMARY.md"
+    ],
     "tables": [
       "encoder_scale_sweep.csv",
       "encoder_scale_sweep_note.md",
@@ -14,9 +23,17 @@
     ],
     "logs": [
       "eval_regen.log",
+      "ml_after.log",
+      "ml_before.log",
       "pod_bootstrap.log",
+      "probe_pca.log",
+      "stage2_regen_train.log",
       "stage2_regen_trainer_state.json",
       "stage2_trainer_state.json"
+    ],
+    "plots": [
+      "multilabel_before_after.png",
+      "probe_three_way.png"
     ],
     "data": [
       "de_manifest.json",
@@ -28,19 +45,6 @@
       "stage2_regen_plan_stats.json",
       "stage2_regen_rejected.json",
       "step3_regen_stats.json"
-    ],
-    "loss_curves": [
-      "stage1_loss.png",
-      "stage2_loss_before_after.png"
-    ],
-    "plots": [
-      "multilabel_before_after.png",
-      "probe_three_way.png"
-    ],
-    ".": [
-      "MANIFEST.json",
-      "README.md",
-      "SUMMARY.md"
     ]
   },
   "missing": []

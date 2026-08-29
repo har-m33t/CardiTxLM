@@ -1,7 +1,7 @@
 # Stage-2 Regeneration & Retrain — Full Summary
 
 **Date:** 2026-08-29 · **Encoder:** BulkFormer-93M (locked) · **Backbone:** Vicuna-7B v1.5 + LoRA
-**Hardware:** 4× NVIDIA L40S 46 GB (Runpod, US-MO-1) · **Total spend:** ≈ $15
+**Hardware:** 4× NVIDIA L40S 46 GB (Runpod, US-MO-1) · **Total spend: $11.62**
 
 ---
 
@@ -288,14 +288,40 @@ Two shortcuts were **validated rather than assumed**:
 
 ## 6. Cost
 
+Actual billed amounts, not estimates.
+
 | item | |
 |---|---|
-| DeepSeek generation (26,988 calls) | $2.45 |
-| Runpod 4× L40S @ $3.96/hr, ≈3.2 h | ≈ $12.7 |
-| Local compute (H5 reads, DE, probes) | $0 |
-| **Total** | **≈ $15** |
+| DeepSeek generation (26,988 calls, 0 errors) | $2.45 |
+| Runpod GPU (4× L40S, pod `qa4v56jkqcjaym`) | $9.12 |
+| Runpod disk | $0.06 |
+| Local compute (62 GB H5 reads, DE, cache build) | $0 |
+| **Total** | **$11.62** |
+
+The pod was **deleted**, not stopped — a stopped pod still bills for its volume.
+`list-pods` returns empty.
+
+Two decisions kept this down. The 515-d encoder cache was derived on CPU from an
+existing parquet instead of a GPU encoder pass, removing a whole GPU stage. And
+the pod only ever needed 19 MB of pre-encoded vectors rather than the 668 MB of
+raw ones, because the tower's passthrough takes them by width.
 
 ---
+
+## 6b. The retrained model
+
+`checkpoints/stage2-lora-bulkformer-93M-regen/` (615 MB, gitignored):
+
+    adapter_model.safetensors   640 MB   the trained LoRA adapters
+    adapter_config.json                  r=128, alpha=256 — verified unchanged
+    connector/pytorch_model.bin 4.2 MB   the retrained connector
+    trainer_state.json                   full loss history
+    config.json, tokenizer files
+
+The frozen `language_model/` the pod also wrote (13.5 GB) was deliberately NOT
+retrieved: Stage 2 froze the LLM, so those are the base Vicuna weights unchanged
+and `integration/materialize_stage1_llm.py` reconstructs them exactly from
+HuggingFace. Only the adapter and connector carry training.
 
 ## 7. What is in this folder
 
