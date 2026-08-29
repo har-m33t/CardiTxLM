@@ -40,10 +40,25 @@
 #   fp32 Adam states are ~3.9 GB sharded 4 ways => ~1 GB/GPU. Small, and it does
 #   not scale with batch.
 #   Batch-scaling terms: the frozen BulkFormer forward's fp32 [B, 20010, 515]
-#   intermediates (the dominant one), then LLM activations. The tower mean-pools
-#   to ONE token per sample, so the LLM sees text only — and Stage-2 sequences are
-#   short and tight (measured on the real bundle: mean 141, p95 190, max 199
-#   tokens), which is why the LLM side stays cheap even at batch 32.
+#   intermediates, then LLM activations.
+#
+#   ⚠ THE 2026-08-11 SIZING BELOW IS STALE FOR THE REGENERATED CORPUS.
+#   It was measured on the pre-fix bundle, whose answers were 86.4% a single
+#   fixed string: mean 141, p95 190, max 199 tokens. The regenerated answers
+#   name genes and effect sizes and are several times longer (mean ~950
+#   characters for comparative_differential_reasoning alone), so the logits
+#   term — which materializes BOTH a bf16 [B,S,32000] tensor and an fp32 copy
+#   for the CE loss — grows with them.
+#
+#   Measured on 4x L40S-46GB with the regenerated bundle at PER_DEVICE_BS=32:
+#   peak 45.1 GB of 46.1 GB (98%). That survived 15 steps but is not survivable
+#   across 211 with variable-length batches padding to the longest item, so the
+#   real run used PER_DEVICE_BS=16 GRAD_ACCUM=2 — global batch UNCHANGED at 128,
+#   activations roughly halved. On 80 GB cards 32 is still fine.
+#
+#   Note the tower term is now ZERO in practice: --image_folder points at the
+#   pre-encoded 515-d cache, so the passthrough returns without running the
+#   encoder at all.
 # ---------------------------------------------------------------------------
 
 set -euo pipefail
