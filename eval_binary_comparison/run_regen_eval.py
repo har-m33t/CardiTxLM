@@ -37,6 +37,8 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+
+from eval_binary_comparison.embedding_io import load_embeddings
 from sklearn.model_selection import StratifiedGroupKFold
 from sklearn.neural_network import MLPClassifier
 from sklearn.pipeline import make_pipeline
@@ -56,15 +58,14 @@ SEED = 20260707
 K_FOLDS = 5
 
 
-def load_features(path: Path) -> tuple[np.ndarray, list[int]]:
-    import pyarrow.parquet as pq
-    t = pq.read_table(path).to_pydict()
-    cols = sorted(c for c in t if c.startswith("e0"))
-    n = len(t["sample_index"])
-    X = np.empty((n, len(cols)), dtype=np.float32)
-    for j, c in enumerate(cols):
-        X[:, j] = np.asarray(t[c], dtype=np.float32)
-    return X, [int(i) for i in t["sample_index"]]
+def load_features(path: Path):
+    """Delegates to embedding_io, which asserts no dimension was dropped.
+
+    Do NOT inline a `startswith("e0")` filter here — that matches only
+    e0000..e0999 and silently truncates a 4096-d latent to 1000. See
+    eval_binary_comparison/embedding_io.py.
+    """
+    return load_embeddings(path)
 
 
 def linear_est():
