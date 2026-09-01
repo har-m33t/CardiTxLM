@@ -380,6 +380,46 @@ and rebuilt at any time.
 
 ## 8. Limitations
 
+### 8.0 Scope of validation — read this first
+
+**The evaluation was NOT run over the full ARCHS4 corpus, and was NOT stratified
+by tissue subtype.** Both are worth stating plainly because the corpus is large
+and the reported numbers are not.
+
+| population | n | % of ARCHS4 |
+|---|---:|---:|
+| ARCHS4 full corpus | 1,098,771 | 100% |
+| Embeddings ever extracted | 57,207 | 5.21% |
+| CVD evaluation population (`is_positive ∨ is_neg_hard`) | 31,032 | 2.82% |
+| **Clean holdout — every headline number in §3.3** | **2,607** | **0.237%** |
+
+On tissue specifically:
+
+- **No per-tissue CVD result exists.** `tables/probe_three_way.json` contains two
+  populations (`holdout_clean`, `full_contaminated`) and no tissue breakdown. The
+  CVD probe is **pooled binary**. Nothing in this run reports CVD performance
+  within an individual tissue.
+- **Most tissue types were collapsed, not modelled.** 9,716 distinct normalized
+  `source_name_ch1` values exist; **27** cleared the ≥200-sample floor and
+  **9,689 were merged into `__other__`**, which holds **68.2%** of samples.
+- **The multi-label `tissue` probe is a different thing** — it predicts tissue as
+  a representation-quality label, it does not evaluate CVD per tissue. It also
+  scored only **2 of 5 folds**, because with 28 classes under series-grouped CV
+  most validation folds contain a single class.
+- **The holdout could not support per-tissue validation as constructed.** It
+  contains 10 tissue classes, **66.9% of it `__other__`**, with several classes
+  at 3-6 samples (cardiomyocyte n=3, huvec n=6). Only `left ventricle` (443) and
+  possibly `heart` (151) have enough samples for a meaningful per-tissue number.
+
+Do not read "tissue-matched" elsewhere in this document as tissue-stratified
+validation. That phrase describes how *training answers* were built: the DE
+reference used 96 buckets of 1,258 distinct source names, and only **2,144 of
+8,553 samples (25.1%)** received a tissue-matched reference while 6,409 fell back
+to the whole pool. It is a training-data construction detail on the other side of
+the holdout wall from validation.
+
+### 8.1 Other limitations
+
 - **The clean holdout is small and noisy.** 2,607 samples over 92 series, fold
   std ≈ ±0.08. Differences under ~0.02 are inside that noise.
 - **Tissue matching covers only a quarter of the corpus** (2,144 of 8,553); the
