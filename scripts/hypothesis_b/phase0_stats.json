@@ -1,0 +1,1753 @@
+{
+  "generated": "2026-09-02T05:34:00.221843+00:00",
+  "script": "scripts/hypothesis_b/phase0_analysis.py",
+  "seed": 20260707,
+  "k_folds": 5,
+  "reused_code": {
+    "grouped_cv_harness": "linear_probe.probe.run_cv + summarize (StratifiedGroupKFold(5, shuffle=True, random_state=20260707), groups=series_id, StandardScaler + balanced LogisticRegression)",
+    "embedding_column_selector": "eval_binary_comparison.embedding_io.embedding_columns / load_embeddings (never c.startswith('e0'))",
+    "tissue_normalization": "qa_generation.build_per_sample_de.normalize_tissue (the DE pipeline's own source_name_ch1 bucket key)",
+    "h5_metadata_reader": "qa_generation.build_per_sample_de.read_source_names",
+    "new_here": "coarse_tissue() \u2014 a reporting-only grouping layered on top of normalize_tissue, used to bracket the confound measurement; it replaces nothing."
+  },
+  "s0a_populations": {
+    "label_frame": "linear_probe/probe_sample_labels.parquet",
+    "n_label_rows": 1098771,
+    "n_positive_global": 8725,
+    "n_neg_hard_global": 22307,
+    "n_samples_in_both_classes": 0,
+    "holdout": {
+      "file": "data/cvd_transcriptome/holdout_series.json",
+      "n_series": 92,
+      "definition": "series_id values where (is_positive AND is_neg_hard) both occur, over linear_probe/probe_sample_labels.parquet",
+      "excluded_by": "series_id",
+      "n_positive_excluded": 1341,
+      "n_neg_hard_excluded": 1266,
+      "n_total_excluded": 2607
+    },
+    "train_eligible": {
+      "n_positive": 7384,
+      "n_neg_hard": 21041,
+      "raw_ratio_pos_to_neg": 2.8495,
+      "raw_ratio_str": "1 : 2.85",
+      "positive_prevalence_if_all_negs_used": 0.25977,
+      "n_total_if_all_negs_used": 28425
+    },
+    "embedding_coverage": {
+      "file": "linear_probe/embeddings/embeddings_BulkFormer-93M.parquet",
+      "n_unique_sample_index": 57207,
+      "embedding_dim": 515,
+      "n_positive_covered": 8725,
+      "pct_positive_covered": 100.0,
+      "n_neg_hard_covered": 22307,
+      "pct_neg_hard_covered": 100.0
+    },
+    "expression_row_coverage": {
+      "file": "qa_generation/bulkformer_input/bulkformer_sample_index.npy",
+      "n_rows": 8553,
+      "n_positive_global_with_expression": 8553,
+      "n_positive_train_with_expression": 7212,
+      "n_positive_train_without_expression": 172
+    },
+    "gap_7384_vs_7212": {
+      "n_positive_train_eligible": 7384,
+      "n_positive_in_current_corpus": 7212,
+      "gap": 172,
+      "explanation": "The 7,384 figure is holdout-excluded positives that have a 515-d BulkFormer embedding (coverage is 100%). The 7,212 figure is the subset that also has a normalized expression row in bulkformer_sample_index.npy, which the DE-grounded categories require. The 172-sample gap is expression-row coverage, not label coverage."
+    },
+    "current_corpus": {
+      "file": "qa_generation/stage2_bundle_stats.json",
+      "items_by_category": {
+        "disease_subtype_classification": 5352,
+        "magnitude_reasoning": 7202,
+        "comparative_differential_reasoning": 7208,
+        "gene_driver_reasoning": 7210
+      },
+      "n_items": 26972,
+      "n_unique_samples": 7212
+    }
+  },
+  "s0b_series_structure": {
+    "scope": "holdout-excluded",
+    "positive_pool": {
+      "n_samples": 7384,
+      "n_series": 388,
+      "max_series_share": 0.15845070422535212,
+      "max_series_id": "GSE217421,GSE217424",
+      "max_series_n": 1170,
+      "top5_share": 0.3057963163596966,
+      "top15_share": 0.4307963163596967,
+      "n_series_for_50pct": 26,
+      "n_series_for_80pct": 136,
+      "hhi": 0.03517286211644398,
+      "hhi_even_reference": 0.002577319587628866,
+      "effective_n_series": 28.431010154629444,
+      "gini": 0.6465316482559114,
+      "median_series_size": 8.0,
+      "mean_series_size": 19.030927835051546,
+      "n_singleton_series": 27,
+      "top15": [
+        {
+          "series_id": "GSE217421,GSE217424",
+          "n": 1170,
+          "pct_of_pool": 15.845
+        },
+        {
+          "series_id": "GSE146096,GSE146097",
+          "n": 501,
+          "pct_of_pool": 6.785
+        },
+        {
+          "series_id": "GSE139377",
+          "n": 211,
+          "pct_of_pool": 2.858
+        },
+        {
+          "series_id": "GSE209677,GSE239891",
+          "n": 208,
+          "pct_of_pool": 2.817
+        },
+        {
+          "series_id": "GSE97117,GSE97358",
+          "n": 168,
+          "pct_of_pool": 2.275
+        },
+        {
+          "series_id": "GSE53080,GSE53081",
+          "n": 149,
+          "pct_of_pool": 2.018
+        },
+        {
+          "series_id": "GSE225650",
+          "n": 138,
+          "pct_of_pool": 1.869
+        },
+        {
+          "series_id": "GSE217423,GSE217424",
+          "n": 120,
+          "pct_of_pool": 1.625
+        },
+        {
+          "series_id": "GSE268273",
+          "n": 109,
+          "pct_of_pool": 1.476
+        },
+        {
+          "series_id": "GSE253782",
+          "n": 77,
+          "pct_of_pool": 1.043
+        },
+        {
+          "series_id": "GSE148506,GSE148507",
+          "n": 74,
+          "pct_of_pool": 1.002
+        },
+        {
+          "series_id": "GSE183635",
+          "n": 71,
+          "pct_of_pool": 0.962
+        },
+        {
+          "series_id": "GSE146095,GSE146097",
+          "n": 70,
+          "pct_of_pool": 0.948
+        },
+        {
+          "series_id": "GSE126803",
+          "n": 60,
+          "pct_of_pool": 0.813
+        },
+        {
+          "series_id": "GSE262824",
+          "n": 55,
+          "pct_of_pool": 0.745
+        }
+      ]
+    },
+    "negative_pool": {
+      "n_samples": 21041,
+      "n_series": 1174,
+      "max_series_share": 0.208877905042536,
+      "max_series_id": "GSE262419",
+      "max_series_n": 4395,
+      "top5_share": 0.32526971151561235,
+      "top15_share": 0.390095527779098,
+      "n_series_for_50pct": 56,
+      "n_series_for_80pct": 400,
+      "hhi": 0.050835186744844586,
+      "hhi_even_reference": 0.0008517887563884157,
+      "effective_n_series": 19.67141391688532,
+      "gini": 0.6628758875650178,
+      "median_series_size": 8.0,
+      "mean_series_size": 17.922487223168655,
+      "n_singleton_series": 82,
+      "top15": [
+        {
+          "series_id": "GSE262419",
+          "n": 4395,
+          "pct_of_pool": 20.888
+        },
+        {
+          "series_id": "GSE186121",
+          "n": 1551,
+          "pct_of_pool": 7.371
+        },
+        {
+          "series_id": "GSE244107,GSE244110",
+          "n": 318,
+          "pct_of_pool": 1.511
+        },
+        {
+          "series_id": "GSE63935",
+          "n": 296,
+          "pct_of_pool": 1.407
+        },
+        {
+          "series_id": "GSE193817",
+          "n": 284,
+          "pct_of_pool": 1.35
+        },
+        {
+          "series_id": "GSE122380",
+          "n": 278,
+          "pct_of_pool": 1.321
+        },
+        {
+          "series_id": "GSE244109,GSE244110",
+          "n": 197,
+          "pct_of_pool": 0.936
+        },
+        {
+          "series_id": "GSE295444",
+          "n": 131,
+          "pct_of_pool": 0.623
+        },
+        {
+          "series_id": "GSE249925",
+          "n": 118,
+          "pct_of_pool": 0.561
+        },
+        {
+          "series_id": "GSE295447",
+          "n": 117,
+          "pct_of_pool": 0.556
+        },
+        {
+          "series_id": "GSE260643",
+          "n": 111,
+          "pct_of_pool": 0.528
+        },
+        {
+          "series_id": "GSE150736",
+          "n": 109,
+          "pct_of_pool": 0.518
+        },
+        {
+          "series_id": "GSE160987",
+          "n": 105,
+          "pct_of_pool": 0.499
+        },
+        {
+          "series_id": "GSE131047",
+          "n": 104,
+          "pct_of_pool": 0.494
+        },
+        {
+          "series_id": "GSE106589",
+          "n": 94,
+          "pct_of_pool": 0.447
+        }
+      ]
+    },
+    "series_overlap": {
+      "n_series_with_both_classes_after_holdout_exclusion": 0,
+      "series_with_both_classes": [],
+      "n_series_with_both_classes_before_exclusion": 92,
+      "note": "The holdout was DEFINED as every series containing both a positive and a neg_hard sample, so zero mixed series outside the holdout is structurally guaranteed, not a lucky draw. The consequence is that series_id is a perfect predictor of class in the training population: any series-level covariate (batch, platform, lab, protocol) is an available shortcut, and grouped CV controls how it is EVALUATED but not what the model LEARNS to associate with 'negative' during training."
+    },
+    "why_this_matters_for_training": "Series concentration biases what the model learns, independently of leakage. If one series supplies a large share of the negative class, its batch signature becomes the model's operational definition of 'no disease'."
+  },
+  "s0c_tissue": {
+    "source": "meta/samples/source_name_ch1 in eda/dataset/cvd_data/archs4/human_gene_v2.latest.h5",
+    "normalization": "qa_generation.build_per_sample_de.normalize_tissue (imported, not reimplemented)",
+    "h5_meta_sample_fields": [
+      "alignedreads",
+      "channel_count",
+      "characteristics_ch1",
+      "contact_address",
+      "contact_city",
+      "contact_country",
+      "contact_institute",
+      "contact_name",
+      "contact_zip",
+      "data_processing",
+      "extract_protocol_ch1",
+      "geo_accession",
+      "instrument_model",
+      "last_update_date",
+      "library_selection",
+      "library_source",
+      "library_strategy",
+      "molecule_ch1",
+      "organism_ch1",
+      "platform_id",
+      "relation",
+      "sample",
+      "series_id",
+      "singlecellprobability",
+      "source_name_ch1",
+      "status",
+      "submission_date",
+      "taxid_ch1",
+      "title",
+      "type"
+    ],
+    "fallback_fields_checked": {
+      "meta/samples/tissue_present": false,
+      "meta/samples/characteristics_ch1_present": true,
+      "note": "source_name_ch1 was used because it is the field the DE pipeline's tissue buckets were built from and it is non-blank for the fraction reported in coverage_pct_nonblank; the fallbacks were only consulted if that coverage had been poor."
+    },
+    "n_samples": 28425,
+    "n_blank_source_name": 5,
+    "coverage_pct_nonblank": 99.982,
+    "n_distinct_normalized_tissues": 1782,
+    "n_distinct_in_positive_pool": 556,
+    "n_distinct_in_negative_pool": 1258,
+    "n_tissues_shared_by_both_pools": 32,
+    "positive_top25": [
+      {
+        "tissue": "induced pluripotent stem cell",
+        "n": 1290,
+        "pct": 17.47
+      },
+      {
+        "tissue": "cardiac",
+        "n": 349,
+        "pct": 4.726
+      },
+      {
+        "tissue": "right atrial appendage biopsies",
+        "n": 168,
+        "pct": 2.275
+      },
+      {
+        "tissue": "whole blood",
+        "n": 156,
+        "pct": 2.113
+      },
+      {
+        "tissue": "liver",
+        "n": 109,
+        "pct": 1.476
+      },
+      {
+        "tissue": "human aortic endothelial cell il 1b treated rna seq",
+        "n": 107,
+        "pct": 1.449
+      },
+      {
+        "tissue": "human aortic endothelial cell untreated rna seq",
+        "n": 104,
+        "pct": 1.408
+      },
+      {
+        "tissue": "primary cardiomyocytes vehicle control",
+        "n": 102,
+        "pct": 1.381
+      },
+      {
+        "tissue": "plasma",
+        "n": 95,
+        "pct": 1.287
+      },
+      {
+        "tissue": "human coronary artery endothelial cells",
+        "n": 93,
+        "pct": 1.259
+      },
+      {
+        "tissue": "aortic valve",
+        "n": 91,
+        "pct": 1.232
+      },
+      {
+        "tissue": "explant coronary artery lad segment",
+        "n": 81,
+        "pct": 1.097
+      },
+      {
+        "tissue": "coronary artery smooth muscle cell",
+        "n": 78,
+        "pct": 1.056
+      },
+      {
+        "tissue": "cardiac right atria",
+        "n": 74,
+        "pct": 1.002
+      },
+      {
+        "tissue": "human aortic endothelial cell",
+        "n": 73,
+        "pct": 0.989
+      },
+      {
+        "tissue": "cardiac tissue",
+        "n": 71,
+        "pct": 0.962
+      },
+      {
+        "tissue": "breast tissue",
+        "n": 60,
+        "pct": 0.813
+      },
+      {
+        "tissue": "cardiac fibroblasts",
+        "n": 59,
+        "pct": 0.799
+      },
+      {
+        "tissue": "blood",
+        "n": 58,
+        "pct": 0.785
+      },
+      {
+        "tissue": "hesc derived cardiac cells",
+        "n": 57,
+        "pct": 0.772
+      },
+      {
+        "tissue": "human aortic smooth muscle",
+        "n": 57,
+        "pct": 0.772
+      },
+      {
+        "tissue": "cardiac progenitor cells",
+        "n": 56,
+        "pct": 0.758
+      },
+      {
+        "tissue": "human aortic endothelial cells",
+        "n": 56,
+        "pct": 0.758
+      },
+      {
+        "tissue": "aorta",
+        "n": 55,
+        "pct": 0.745
+      },
+      {
+        "tissue": "vastus lateralis",
+        "n": 55,
+        "pct": 0.745
+      }
+    ],
+    "negative_top25": [
+      {
+        "tissue": "ipsc cardiomyocytes",
+        "n": 4395,
+        "pct": 20.888
+      },
+      {
+        "tissue": "endo",
+        "n": 995,
+        "pct": 4.729
+      },
+      {
+        "tissue": "cardiomyocyte",
+        "n": 724,
+        "pct": 3.441
+      },
+      {
+        "tissue": "huvec",
+        "n": 626,
+        "pct": 2.975
+      },
+      {
+        "tissue": "blank",
+        "n": 515,
+        "pct": 2.448
+      },
+      {
+        "tissue": "heart",
+        "n": 466,
+        "pct": 2.215
+      },
+      {
+        "tissue": "human umbilical vein endothelial cells",
+        "n": 466,
+        "pct": 2.215
+      },
+      {
+        "tissue": "h1 human embryonic stem cell derived neural progenitor cells endothelial cells mesenchymal stem cells and microglia macrophage precursors",
+        "n": 292,
+        "pct": 1.388
+      },
+      {
+        "tissue": "smooth muscle cell",
+        "n": 284,
+        "pct": 1.35
+      },
+      {
+        "tissue": "differentiating ipsc derived cardiomyocytes",
+        "n": 278,
+        "pct": 1.321
+      },
+      {
+        "tissue": "endothelial cells",
+        "n": 204,
+        "pct": 0.97
+      },
+      {
+        "tissue": "aorta",
+        "n": 160,
+        "pct": 0.76
+      },
+      {
+        "tissue": "umbilical vein",
+        "n": 145,
+        "pct": 0.689
+      },
+      {
+        "tissue": "cell line",
+        "n": 144,
+        "pct": 0.684
+      },
+      {
+        "tissue": "left ventricle",
+        "n": 138,
+        "pct": 0.656
+      },
+      {
+        "tissue": "huvecs",
+        "n": 126,
+        "pct": 0.599
+      },
+      {
+        "tissue": "ipsc cm",
+        "n": 120,
+        "pct": 0.57
+      },
+      {
+        "tissue": "cardiomyocytes",
+        "n": 119,
+        "pct": 0.566
+      },
+      {
+        "tissue": "heart muscle",
+        "n": 118,
+        "pct": 0.561
+      },
+      {
+        "tissue": "vascular",
+        "n": 111,
+        "pct": 0.528
+      },
+      {
+        "tissue": "primary",
+        "n": 105,
+        "pct": 0.499
+      },
+      {
+        "tissue": "brain",
+        "n": 97,
+        "pct": 0.461
+      },
+      {
+        "tissue": "hipsc",
+        "n": 96,
+        "pct": 0.456
+      },
+      {
+        "tissue": "hipsc derived cell line",
+        "n": 94,
+        "pct": 0.447
+      },
+      {
+        "tissue": "ipsc derived cardiomyocytes",
+        "n": 93,
+        "pct": 0.442
+      }
+    ],
+    "positive_top25_cumulative_pct": 48.13,
+    "negative_top25_cumulative_pct": 51.86,
+    "coarse_distribution": [
+      {
+        "coarse_tissue": "ipsc_derived",
+        "n": 7405,
+        "n_pos": 1475,
+        "pos_frac": 0.1992,
+        "pct_of_positive_pool": 19.98,
+        "pct_of_negative_pool": 28.18
+      },
+      {
+        "coarse_tissue": "endothelial",
+        "n": 6062,
+        "n_pos": 802,
+        "pos_frac": 0.1323,
+        "pct_of_positive_pool": 10.86,
+        "pct_of_negative_pool": 25.0
+      },
+      {
+        "coarse_tissue": "other",
+        "n": 5248,
+        "n_pos": 815,
+        "pos_frac": 0.1553,
+        "pct_of_positive_pool": 11.04,
+        "pct_of_negative_pool": 21.07
+      },
+      {
+        "coarse_tissue": "heart_tissue",
+        "n": 3407,
+        "n_pos": 1815,
+        "pos_frac": 0.5327,
+        "pct_of_positive_pool": 24.58,
+        "pct_of_negative_pool": 7.57
+      },
+      {
+        "coarse_tissue": "cardiomyocyte",
+        "n": 2213,
+        "n_pos": 680,
+        "pos_frac": 0.3073,
+        "pct_of_positive_pool": 9.21,
+        "pct_of_negative_pool": 7.29
+      },
+      {
+        "coarse_tissue": "vascular_tissue",
+        "n": 1195,
+        "n_pos": 600,
+        "pos_frac": 0.5021,
+        "pct_of_positive_pool": 8.13,
+        "pct_of_negative_pool": 2.83
+      },
+      {
+        "coarse_tissue": "blood",
+        "n": 860,
+        "n_pos": 556,
+        "pos_frac": 0.6465,
+        "pct_of_positive_pool": 7.53,
+        "pct_of_negative_pool": 1.44
+      },
+      {
+        "coarse_tissue": "smooth_muscle",
+        "n": 835,
+        "n_pos": 426,
+        "pos_frac": 0.5102,
+        "pct_of_positive_pool": 5.77,
+        "pct_of_negative_pool": 1.94
+      },
+      {
+        "coarse_tissue": "esc_derived",
+        "n": 406,
+        "n_pos": 10,
+        "pos_frac": 0.0246,
+        "pct_of_positive_pool": 0.14,
+        "pct_of_negative_pool": 1.88
+      },
+      {
+        "coarse_tissue": "neural",
+        "n": 201,
+        "n_pos": 21,
+        "pos_frac": 0.1045,
+        "pct_of_positive_pool": 0.28,
+        "pct_of_negative_pool": 0.86
+      },
+      {
+        "coarse_tissue": "liver",
+        "n": 166,
+        "n_pos": 112,
+        "pos_frac": 0.6747,
+        "pct_of_positive_pool": 1.52,
+        "pct_of_negative_pool": 0.26
+      },
+      {
+        "coarse_tissue": "lung",
+        "n": 148,
+        "n_pos": 9,
+        "pos_frac": 0.0608,
+        "pct_of_positive_pool": 0.12,
+        "pct_of_negative_pool": 0.66
+      },
+      {
+        "coarse_tissue": "fibroblast",
+        "n": 99,
+        "n_pos": 32,
+        "pos_frac": 0.3232,
+        "pct_of_positive_pool": 0.43,
+        "pct_of_negative_pool": 0.32
+      },
+      {
+        "coarse_tissue": "placental",
+        "n": 60,
+        "n_pos": 0,
+        "pos_frac": 0.0,
+        "pct_of_positive_pool": 0.0,
+        "pct_of_negative_pool": 0.29
+      },
+      {
+        "coarse_tissue": "kidney",
+        "n": 56,
+        "n_pos": 0,
+        "pos_frac": 0.0,
+        "pct_of_positive_pool": 0.0,
+        "pct_of_negative_pool": 0.27
+      },
+      {
+        "coarse_tissue": "adipose",
+        "n": 28,
+        "n_pos": 16,
+        "pos_frac": 0.5714,
+        "pct_of_positive_pool": 0.22,
+        "pct_of_negative_pool": 0.06
+      },
+      {
+        "coarse_tissue": "tumor",
+        "n": 23,
+        "n_pos": 7,
+        "pos_frac": 0.3043,
+        "pct_of_positive_pool": 0.09,
+        "pct_of_negative_pool": 0.08
+      },
+      {
+        "coarse_tissue": "skeletal_muscle",
+        "n": 8,
+        "n_pos": 8,
+        "pos_frac": 1.0,
+        "pct_of_positive_pool": 0.11,
+        "pct_of_negative_pool": 0.0
+      },
+      {
+        "coarse_tissue": "unspecified",
+        "n": 5,
+        "n_pos": 0,
+        "pos_frac": 0.0,
+        "pct_of_positive_pool": 0.0,
+        "pct_of_negative_pool": 0.02
+      }
+    ],
+    "per_tissue_positive_fraction": {
+      "min_n": 50,
+      "n_tissues_qualifying": 85,
+      "n_samples_in_qualifying_tissues": 17121,
+      "pct_of_pool_in_qualifying_tissues": 60.23,
+      "n_qualifying_tissues_effectively_pure": 68,
+      "pct_of_qualifying_samples_in_pure_tissues": 79.43,
+      "rows": [
+        {
+          "tissue": "ipsc cardiomyocytes",
+          "n": 4395,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "induced pluripotent stem cell",
+          "n": 1320,
+          "n_pos": 1290,
+          "pos_frac": 0.9773
+        },
+        {
+          "tissue": "endo",
+          "n": 995,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "cardiomyocyte",
+          "n": 724,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "huvec",
+          "n": 626,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "blank",
+          "n": 515,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "heart",
+          "n": 496,
+          "n_pos": 30,
+          "pos_frac": 0.0605
+        },
+        {
+          "tissue": "human umbilical vein endothelial cells",
+          "n": 466,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "cardiac",
+          "n": 349,
+          "n_pos": 349,
+          "pos_frac": 1.0
+        },
+        {
+          "tissue": "h1 human embryonic stem cell derived neural progenitor cells endothelial cells mesenchymal stem cells and microglia macrophage precursors",
+          "n": 292,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "smooth muscle cell",
+          "n": 284,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "differentiating ipsc derived cardiomyocytes",
+          "n": 278,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "endothelial cells",
+          "n": 216,
+          "n_pos": 12,
+          "pos_frac": 0.0556
+        },
+        {
+          "tissue": "aorta",
+          "n": 215,
+          "n_pos": 55,
+          "pos_frac": 0.2558
+        },
+        {
+          "tissue": "right atrial appendage biopsies",
+          "n": 168,
+          "n_pos": 168,
+          "pos_frac": 1.0
+        },
+        {
+          "tissue": "whole blood",
+          "n": 168,
+          "n_pos": 156,
+          "pos_frac": 0.9286
+        },
+        {
+          "tissue": "liver",
+          "n": 152,
+          "n_pos": 109,
+          "pos_frac": 0.7171
+        },
+        {
+          "tissue": "umbilical vein",
+          "n": 145,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "blood",
+          "n": 144,
+          "n_pos": 58,
+          "pos_frac": 0.4028
+        },
+        {
+          "tissue": "cell line",
+          "n": 144,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "left ventricle",
+          "n": 138,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "cardiomyocytes",
+          "n": 133,
+          "n_pos": 14,
+          "pos_frac": 0.1053
+        },
+        {
+          "tissue": "huvecs",
+          "n": 126,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "ipsc cm",
+          "n": 120,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "heart muscle",
+          "n": 118,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "vascular",
+          "n": 111,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "human aortic endothelial cell il 1b treated rna seq",
+          "n": 107,
+          "n_pos": 107,
+          "pos_frac": 1.0
+        },
+        {
+          "tissue": "plasma",
+          "n": 105,
+          "n_pos": 95,
+          "pos_frac": 0.9048
+        },
+        {
+          "tissue": "primary",
+          "n": 105,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "human aortic endothelial cell untreated rna seq",
+          "n": 104,
+          "n_pos": 104,
+          "pos_frac": 1.0
+        },
+        {
+          "tissue": "brain",
+          "n": 103,
+          "n_pos": 6,
+          "pos_frac": 0.0583
+        },
+        {
+          "tissue": "primary cardiomyocytes vehicle control",
+          "n": 102,
+          "n_pos": 102,
+          "pos_frac": 1.0
+        },
+        {
+          "tissue": "hipsc",
+          "n": 96,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "hipsc derived cell line",
+          "n": 94,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "ipsc derived cardiomyocytes",
+          "n": 93,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "human coronary artery endothelial cells",
+          "n": 93,
+          "n_pos": 93,
+          "pos_frac": 1.0
+        },
+        {
+          "tissue": "human induced pluripotent stem cell derived cardiomyocytes",
+          "n": 92,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "aortic valve",
+          "n": 91,
+          "n_pos": 91,
+          "pos_frac": 1.0
+        },
+        {
+          "tissue": "human induced pluripotent stem cell hipsc cardiomyocytes",
+          "n": 88,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        },
+        {
+          "tissue": "lsec",
+          "n": 85,
+          "n_pos": 0,
+          "pos_frac": 0.0
+        }
+      ]
+    },
+    "confound_measurement": {
+      "protocol": "StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=20260707) grouped by series_id \u2014 identical to every prior probe in this repo \u2014 via linear_probe.probe.run_cv.",
+      "interpretation": "AUC ~0.5 means tissue carries no class information; AUC ~1.0 means the discriminative task is largely tissue recognition.",
+      "tissue_only_normalized": {
+        "n_features": 1782,
+        "roc_auc_mean": 0.6914189068779029,
+        "roc_auc_std": 0.16752083912664315,
+        "accuracy_mean": 0.7905056605886048,
+        "pr_auc_mean": 0.6058747132043083,
+        "sensitivity_mean": 0.31965314212842594,
+        "specificity_mean": 0.9717685383924792,
+        "full": {
+          "n_folds_ran": 5,
+          "n_folds_skipped": 0,
+          "roc_auc_mean": 0.6914189068779029,
+          "roc_auc_std": 0.16752083912664315,
+          "pr_auc_mean": 0.6058747132043083,
+          "pr_auc_std": 0.15347014259809852,
+          "accuracy_mean": 0.7905056605886048,
+          "accuracy_std": 0.06523346578143344,
+          "sensitivity_mean": 0.31965314212842594,
+          "sensitivity_std": 0.1381366689823616,
+          "specificity_mean": 0.9717685383924792,
+          "specificity_std": 0.010205073572207105,
+          "f1_mean": 0.4426684664733411,
+          "f1_std": 0.1623345458363361,
+          "brier_mean": 0.1957413986885513,
+          "brier_std": 0.06522002853278515,
+          "folds": [
+            {
+              "fold": 0,
+              "n_train": 27336,
+              "n_val": 1089,
+              "n_train_pos": 6997,
+              "n_val_pos": 387,
+              "n_train_neg": 20339,
+              "n_val_neg": 702,
+              "train_series_count": 1477,
+              "val_series_count": 85,
+              "fit_seconds": 0.458,
+              "skipped": false,
+              "reason": null,
+              "roc_auc": 0.7558249961350736,
+              "pr_auc": 0.7521467410952041,
+              "accuracy": 0.7851239669421488,
+              "sensitivity": 0.4573643410852713,
+              "specificity": 0.9658119658119658,
+              "f1": 0.6020408163265306,
+              "brier": 0.20379554319672014
+            },
+            {
+              "fold": 1,
+              "n_train": 22279,
+              "n_val": 6146,
+              "n_train_pos": 6172,
+              "n_val_pos": 1212,
+              "n_train_neg": 16107,
+              "n_val_neg": 4934,
+              "train_series_count": 1197,
+              "val_series_count": 365,
+              "fit_seconds": 0.324,
+              "skipped": false,
+              "reason": null,
+              "roc_auc": 0.8378843305895244,
+              "pr_auc": 0.7319866553132852,
+              "accuracy": 0.8878945655711031,
+              "sensitivity": 0.46947194719471946,
+              "specificity": 0.9906769355492501,
+              "f1": 0.6228790366721402,
+              "brier": 0.09931406561959534
+            },
+            {
+              "fold": 2,
+              "n_train": 23386,
+              "n_val": 5039,
+              "n_train_pos": 6336,
+              "n_val_pos": 1048,
+              "n_train_neg": 17050,
+              "n_val_neg": 3991,
+              "train_series_count": 1212,
+              "val_series_count": 350,
+              "fit_seconds": 0.395,
+              "skipped": false,
+              "reason": null,
+              "roc_auc": 0.7605492606456129,
+              "pr_auc": 0.5824686892222939,
+              "accuracy": 0.8329033538400477,
+              "sensitivity": 0.3463740458015267,
+              "specificity": 0.9606614883487847,
+              "f1": 0.4630102040816326,
+              "brier": 0.14964656609257357
+            },
+            {
+              "fold": 3,
+              "n_train": 23125,
+              "n_val": 5300,
+              "n_train_pos": 5512,
+              "n_val_pos": 1872,
+              "n_train_neg": 17613,
+              "n_val_neg": 3428,
+              "train_series_count": 1183,
+              "val_series_count": 379,
+              "fit_seconds": 0.377,
+              "skipped": false,
+              "reason": null,
+              "roc_auc": 0.7394822770497362,
+              "pr_auc": 0.637787217968622,
+              "accuracy": 0.7016981132075472,
+              "sensitivity": 0.20673076923076922,
+              "specificity": 0.9719953325554259,
+              "f1": 0.3286624203821656,
+              "brier": 0.28220563097103024
+            },
+            {
+              "fold": 4,
+              "n_train": 17574,
+              "n_val": 10851,
+              "n_train_pos": 4519,
+              "n_val_pos": 2865,
+              "n_train_neg": 13055,
+              "n_val_neg": 7986,
+              "train_series_count": 1179,
+              "val_series_count": 383,
+              "fit_seconds": 0.256,
+              "skipped": false,
+              "reason": null,
+              "roc_auc": 0.36335366996956725,
+              "pr_auc": 0.32498426242213674,
+              "accuracy": 0.7449083033821767,
+              "sensitivity": 0.11832460732984293,
+              "specificity": 0.9696969696969697,
+              "f1": 0.1967498549042368,
+              "brier": 0.2437451875628373
+            }
+          ]
+        }
+      },
+      "tissue_only_coarse": {
+        "n_features": 19,
+        "levels": [
+          "adipose",
+          "blood",
+          "cardiomyocyte",
+          "endothelial",
+          "esc_derived",
+          "fibroblast",
+          "heart_tissue",
+          "ipsc_derived",
+          "kidney",
+          "liver",
+          "lung",
+          "neural",
+          "other",
+          "placental",
+          "skeletal_muscle",
+          "smooth_muscle",
+          "tumor",
+          "unspecified",
+          "vascular_tissue"
+        ],
+        "roc_auc_mean": 0.6470977592138887,
+        "roc_auc_std": 0.12714539507822525,
+        "accuracy_mean": 0.7042315997305314,
+        "full": {
+          "n_folds_ran": 5,
+          "n_folds_skipped": 0,
+          "roc_auc_mean": 0.6470977592138887,
+          "roc_auc_std": 0.12714539507822525,
+          "pr_auc_mean": 0.4443841092595524,
+          "pr_auc_std": 0.1176842367038138,
+          "accuracy_mean": 0.7042315997305314,
+          "accuracy_std": 0.04200218090656977,
+          "sensitivity_mean": 0.554491972434522,
+          "sensitivity_std": 0.18685131128434346,
+          "specificity_mean": 0.7730588936985497,
+          "specificity_std": 0.07209066385508851,
+          "f1_mean": 0.4864633513874099,
+          "f1_std": 0.08731755527819893,
+          "brier_mean": 0.23188756343782463,
+          "brier_std": 0.038786865688814585,
+          "folds": [
+            {
+              "fold": 0,
+              "n_train": 27336,
+              "n_val": 1089,
+              "n_train_pos": 6997,
+              "n_val_pos": 387,
+              "n_train_neg": 20339,
+              "n_val_neg": 702,
+              "train_series_count": 1477,
+              "val_series_count": 85,
+              "fit_seconds": 0.009,
+              "skipped": false,
+              "reason": null,
+              "roc_auc": 0.7102483123154958,
+              "pr_auc": 0.6400982326730598,
+              "accuracy": 0.7346189164370982,
+              "sensitivity": 0.6304909560723514,
+              "specificity": 0.792022792022792,
+              "f1": 0.6280566280566281,
+              "brier": 0.20229264604409541
+            },
+            {
+              "fold": 1,
+              "n_train": 22279,
+              "n_val": 6146,
+              "n_train_pos": 6172,
+              "n_val_pos": 1212,
+              "n_train_neg": 16107,
+              "n_val_neg": 4934,
+              "train_series_count": 1197,
+              "val_series_count": 365,
+              "fit_seconds": 0.008,
+              "skipped": false,
+              "reason": null,
+              "roc_auc": 0.7785829049058128,
+              "pr_auc": 0.5130619133742245,
+              "accuracy": 0.6988285063455907,
+              "sensitivity": 0.7813531353135313,
+              "specificity": 0.6785569517632752,
+              "f1": 0.5057409879839786,
+              "brier": 0.23465562913931653
+            },
+            {
+              "fold": 2,
+              "n_train": 23386,
+              "n_val": 5039,
+              "n_train_pos": 6336,
+              "n_val_pos": 1048,
+              "n_train_neg": 17050,
+              "n_val_neg": 3991,
+              "train_series_count": 1212,
+              "val_series_count": 350,
+              "fit_seconds": 0.008,
+              "skipped": false,
+              "reason": null,
+              "roc_auc": 0.7386741829421543,
+              "pr_auc": 0.3336054733070538,
+              "accuracy": 0.7229609049414566,
+              "sensitivity": 0.691793893129771,
+              "specificity": 0.7311450764219494,
+              "f1": 0.5094869992972593,
+              "brier": 0.21814427986215557
+            },
+            {
+              "fold": 3,
+              "n_train": 23125,
+              "n_val": 5300,
+              "n_train_pos": 5512,
+              "n_val_pos": 1872,
+              "n_train_neg": 17613,
+              "n_val_neg": 3428,
+              "train_series_count": 1183,
+              "val_series_count": 379,
+              "fit_seconds": 0.008,
+              "skipped": false,
+              "reason": null,
+              "roc_auc": 0.4325476966958881,
+              "pr_auc": 0.33473837773983056,
+              "accuracy": 0.6250943396226415,
+              "sensitivity": 0.3627136752136752,
+              "specificity": 0.7683780630105017,
+              "f1": 0.40597907324364724,
+              "brier": 0.30521383036662747
+            },
+            {
+              "fold": 4,
+              "n_train": 17574,
+              "n_val": 10851,
+              "n_train_pos": 4519,
+              "n_val_pos": 2865,
+              "n_train_neg": 13055,
+              "n_val_neg": 7986,
+              "train_series_count": 1179,
+              "val_series_count": 383,
+              "fit_seconds": 0.006,
+              "skipped": false,
+              "reason": null,
+              "roc_auc": 0.5754356992100923,
+              "pr_auc": 0.40041654920359326,
+              "accuracy": 0.7396553313058705,
+              "sensitivity": 0.30610820244328096,
+              "specificity": 0.8951915852742299,
+              "f1": 0.38305306835553615,
+              "brier": 0.19913143177692824
+            }
+          ]
+        }
+      },
+      "tissue_only_bayes_rule": {
+        "roc_auc_mean": 0.7015995415116947,
+        "roc_auc_std": 0.17359831489858507,
+        "accuracy_mean": 0.7938920684187962,
+        "accuracy_std": 0.06440728637042449,
+        "roc_auc_folds": [
+          0.7711153809345024,
+          0.8149370368735293,
+          0.8073312854686403,
+          0.7575370690342977,
+          0.3570769352475034
+        ],
+        "mean_val_frac_tissue_unseen_in_train": 0.5499936751197461
+      },
+      "reference_bulkformer_515d_probe": {
+        "roc_auc_mean": 0.8004879923374721,
+        "roc_auc_std": 0.07055841435885492,
+        "accuracy_mean": 0.7678132371187099,
+        "full": {
+          "n_folds_ran": 5,
+          "n_folds_skipped": 0,
+          "roc_auc_mean": 0.8004879923374721,
+          "roc_auc_std": 0.07055841435885492,
+          "pr_auc_mean": 0.6546863700625456,
+          "pr_auc_std": 0.09465058756712673,
+          "accuracy_mean": 0.7678132371187099,
+          "accuracy_std": 0.023978326049578117,
+          "sensitivity_mean": 0.6035895539741398,
+          "sensitivity_std": 0.1368667269891758,
+          "specificity_mean": 0.8276378551425912,
+          "specificity_std": 0.06524417449122619,
+          "f1_mean": 0.5743459864708191,
+          "f1_std": 0.06938404301760971,
+          "brier_mean": 0.17674482730441823,
+          "brier_std": 0.022095630895817817,
+          "folds": [
+            {
+              "fold": 0,
+              "n_train": 27336,
+              "n_val": 1089,
+              "n_train_pos": 6997,
+              "n_val_pos": 387,
+              "n_train_neg": 20339,
+              "n_val_neg": 702,
+              "train_series_count": 1477,
+              "val_series_count": 85,
+              "fit_seconds": 2.339,
+              "skipped": false,
+              "reason": null,
+              "roc_auc": 0.663313382951626,
+              "pr_auc": 0.6701355531059066,
+              "accuracy": 0.7447199265381084,
+              "sensitivity": 0.5167958656330749,
+              "specificity": 0.8703703703703703,
+              "f1": 0.5899705014749262,
+              "brier": 0.20733870270690744
+            },
+            {
+              "fold": 1,
+              "n_train": 22279,
+              "n_val": 6146,
+              "n_train_pos": 6172,
+              "n_val_pos": 1212,
+              "n_train_neg": 16107,
+              "n_val_neg": 4934,
+              "train_series_count": 1197,
+              "val_series_count": 365,
+              "fit_seconds": 1.643,
+              "skipped": false,
+              "reason": null,
+              "roc_auc": 0.8451251235784301,
+              "pr_auc": 0.5888042881140877,
+              "accuracy": 0.8122356003904979,
+              "sensitivity": 0.6105610561056105,
+              "specificity": 0.8617754357519254,
+              "f1": 0.5618830675778284,
+              "brier": 0.13896230201538304
+            },
+            {
+              "fold": 2,
+              "n_train": 23386,
+              "n_val": 5039,
+              "n_train_pos": 6336,
+              "n_val_pos": 1048,
+              "n_train_neg": 17050,
+              "n_val_neg": 3991,
+              "train_series_count": 1212,
+              "val_series_count": 350,
+              "fit_seconds": 1.725,
+              "skipped": false,
+              "reason": null,
+              "roc_auc": 0.8104499436709697,
+              "pr_auc": 0.57335791996565,
+              "accuracy": 0.7648342925183568,
+              "sensitivity": 0.6898854961832062,
+              "specificity": 0.784515159107993,
+              "f1": 0.5496009122006842,
+              "brier": 0.17285226497324863
+            },
+            {
+              "fold": 3,
+              "n_train": 23125,
+              "n_val": 5300,
+              "n_train_pos": 5512,
+              "n_val_pos": 1872,
+              "n_train_neg": 17613,
+              "n_val_neg": 3428,
+              "train_series_count": 1183,
+              "val_series_count": 379,
+              "fit_seconds": 1.829,
+              "skipped": false,
+              "reason": null,
+              "roc_auc": 0.8587242505161117,
+              "pr_auc": 0.8321907412297636,
+              "accuracy": 0.7488679245283019,
+              "sensitivity": 0.7986111111111112,
+              "specificity": 0.7217036172695449,
+              "f1": 0.6919694515158528,
+              "brier": 0.18156730374099847
+            },
+            {
+              "fold": 4,
+              "n_train": 17574,
+              "n_val": 10851,
+              "n_train_pos": 4519,
+              "n_val_pos": 2865,
+              "n_train_neg": 13055,
+              "n_val_neg": 7986,
+              "train_series_count": 1179,
+              "val_series_count": 383,
+              "fit_seconds": 1.275,
+              "skipped": false,
+              "reason": null,
+              "roc_auc": 0.8248272609702232,
+              "pr_auc": 0.6089433478973201,
+              "accuracy": 0.768408441618284,
+              "sensitivity": 0.40209424083769635,
+              "specificity": 0.899824693213123,
+              "f1": 0.4783059995848038,
+              "brier": 0.1830035630855536
+            }
+          ]
+        }
+      },
+      "paired_fold_comparison": {
+        "fold_roc_auc_tissue_only": [
+          0.7558249961350736,
+          0.8378843305895244,
+          0.7605492606456129,
+          0.7394822770497362,
+          0.36335366996956725
+        ],
+        "fold_roc_auc_bulkformer_515d": [
+          0.663313382951626,
+          0.8451251235784301,
+          0.8104499436709697,
+          0.8587242505161117,
+          0.8248272609702232
+        ],
+        "fold_delta_embedding_minus_tissue": [
+          -0.09251161318344758,
+          0.0072407929889056755,
+          0.049900683025356773,
+          0.11924197346637544,
+          0.46147359100065594
+        ],
+        "n_folds_where_tissue_within_0.10_of_embedding": 3,
+        "n_folds_where_tissue_beats_embedding": 1,
+        "median_fold_roc_auc_tissue_only": 0.7558249961350736,
+        "median_fold_roc_auc_bulkformer_515d": 0.8248272609702232,
+        "excess_auc_over_chance_ratio_mean": 0.6370268089212832,
+        "excess_auc_over_chance_ratio_median": 0.7875724327168617,
+        "note": "excess_auc_over_chance_ratio = (AUC_tissue - 0.5) / (AUC_embedding - 0.5): the share of the full transcriptome probe's above-chance discrimination that a tissue label alone already reproduces."
+      },
+      "numerical_note": "sklearn's lbfgs emits spurious 'divide by zero / overflow / invalid value encountered in matmul' RuntimeWarnings on this platform (numpy + Apple Accelerate BLAS) for BOTH the one-hot and the dense embedding probe. They are not affecting the results: the reference embedding probe reproduces this repo's published BulkFormer-93M/neg_hard ROC-AUC of 0.80050 to four decimals on a differently-scoped population."
+    },
+    "tissue_matching_feasibility": {
+      "normalized": {
+        "key": "tissue",
+        "n_tissues_with_both_classes": 32,
+        "n_positives_in_tissues_with_no_negative": 5223,
+        "n_negatives_in_tissues_with_no_positive": 19191,
+        "max_matched_negatives_at_ratio_0.5": 335,
+        "achieved_ratio_at_target_0.5": 0.045,
+        "max_matched_negatives_at_ratio_1.0": 495,
+        "achieved_ratio_at_target_1.0": 0.067,
+        "max_matched_negatives_at_ratio_2.0": 704,
+        "achieved_ratio_at_target_2.0": 0.095,
+        "max_matched_negatives_at_ratio_2.85": 829,
+        "achieved_ratio_at_target_2.85": 0.112
+      },
+      "coarse": {
+        "key": "tissue_coarse",
+        "n_tissues_with_both_classes": 15,
+        "n_positives_in_tissues_with_no_negative": 8,
+        "n_negatives_in_tissues_with_no_positive": 121,
+        "max_matched_negatives_at_ratio_0.5": 3683,
+        "achieved_ratio_at_target_0.5": 0.499,
+        "max_matched_negatives_at_ratio_1.0": 6817,
+        "achieved_ratio_at_target_1.0": 0.923,
+        "max_matched_negatives_at_ratio_2.0": 10668,
+        "achieved_ratio_at_target_2.0": 1.445,
+        "max_matched_negatives_at_ratio_2.85": 13504,
+        "achieved_ratio_at_target_2.85": 1.829
+      }
+    },
+    "joint_feasibility_coarse_match_plus_series_cap": [
+      {
+        "per_series_cap": 10,
+        "n_negatives_available_after_cap": 8398,
+        "n_series_contributing": 1174,
+        "tissue_matched_negatives_at_ratio_1.0": 4363,
+        "achieved_ratio_at_target_1.0": 0.591,
+        "tissue_matched_negatives_at_ratio_2.0": 6027,
+        "achieved_ratio_at_target_2.0": 0.816,
+        "tissue_matched_negatives_at_ratio_2.85": 7389,
+        "achieved_ratio_at_target_2.85": 1.001
+      },
+      {
+        "per_series_cap": 25,
+        "n_negatives_available_after_cap": 11751,
+        "n_series_contributing": 1174,
+        "tissue_matched_negatives_at_ratio_1.0": 5539,
+        "achieved_ratio_at_target_1.0": 0.75,
+        "tissue_matched_negatives_at_ratio_2.0": 7301,
+        "achieved_ratio_at_target_2.0": 0.989,
+        "tissue_matched_negatives_at_ratio_2.85": 8712,
+        "achieved_ratio_at_target_2.85": 1.18
+      },
+      {
+        "per_series_cap": 50,
+        "n_negatives_available_after_cap": 13296,
+        "n_series_contributing": 1174,
+        "tissue_matched_negatives_at_ratio_1.0": 6098,
+        "achieved_ratio_at_target_1.0": 0.826,
+        "tissue_matched_negatives_at_ratio_2.0": 8045,
+        "achieved_ratio_at_target_2.0": 1.09,
+        "tissue_matched_negatives_at_ratio_2.85": 9456,
+        "achieved_ratio_at_target_2.85": 1.281
+      },
+      {
+        "per_series_cap": 100,
+        "n_negatives_available_after_cap": 14427,
+        "n_series_contributing": 1174,
+        "tissue_matched_negatives_at_ratio_1.0": 6577,
+        "achieved_ratio_at_target_1.0": 0.891,
+        "tissue_matched_negatives_at_ratio_2.0": 8665,
+        "achieved_ratio_at_target_2.0": 1.173,
+        "tissue_matched_negatives_at_ratio_2.85": 10079,
+        "achieved_ratio_at_target_2.85": 1.365
+      },
+      {
+        "per_series_cap": 250,
+        "n_negatives_available_after_cap": 15669,
+        "n_series_contributing": 1174,
+        "tissue_matched_negatives_at_ratio_1.0": 6783,
+        "achieved_ratio_at_target_1.0": 0.919,
+        "tissue_matched_negatives_at_ratio_2.0": 9308,
+        "achieved_ratio_at_target_2.0": 1.261,
+        "tissue_matched_negatives_at_ratio_2.85": 10722,
+        "achieved_ratio_at_target_2.85": 1.452
+      },
+      {
+        "per_series_cap": null,
+        "n_negatives_available_after_cap": 21041,
+        "n_series_contributing": 1174,
+        "tissue_matched_negatives_at_ratio_1.0": 6817,
+        "achieved_ratio_at_target_1.0": 0.923,
+        "tissue_matched_negatives_at_ratio_2.0": 10668,
+        "achieved_ratio_at_target_2.0": 1.445,
+        "tissue_matched_negatives_at_ratio_2.85": 13509,
+        "achieved_ratio_at_target_2.85": 1.829
+      }
+    ]
+  },
+  "s0d_de_reusability": {
+    "per_sample_de": {
+      "file": "qa_generation/de/per_sample_de.parquet",
+      "n_rows": 8553,
+      "n_unique_sample_index": 8553,
+      "n_rows_status_ok": 8553,
+      "n_rows_in_holdout": 1341,
+      "n_positive_samples_covered": 8553,
+      "n_neg_hard_samples_covered": 0,
+      "n_train_eligible_positives_covered": 7212,
+      "identical_to_expression_index": true
+    },
+    "stable_gene_z": {
+      "file": "qa_generation/de/stable_gene_z.npz",
+      "shape_z": [
+        8553,
+        1142
+      ],
+      "n_sample_rows": 8553,
+      "n_neg_hard_covered": 0,
+      "covers_negatives": false
+    },
+    "negatives_role": {
+      "manifest_populations": {
+        "n_neg_hard_total": 22307,
+        "n_neg_hard_excluded_holdout": 1266,
+        "n_neg_hard_reference": 21041,
+        "n_positive_missing_label_meta": 0
+      },
+      "tissue_matching": {
+        "bucket_key": "normalized source_name_ch1 (lowercase, punctuation/whitespace collapsed)",
+        "min_bucket_n": 30,
+        "n_distinct_reference_source_names": 1258,
+        "n_qualifying_buckets": 96,
+        "n_reference_samples_in_qualifying_buckets": 14562,
+        "n_positives_tissue_matched": 2144,
+        "n_positives_pooled_fallback": 6409,
+        "note": "reference_scope records the choice per sample; never silently substituted"
+      },
+      "role": "The 21,041 holdout-excluded neg_hard samples were consumed as a REFERENCE POOL: their normalized expression was reduced to per-tissue-bucket and pooled mean/sd vectors in de_reference_stats.npz. No per-negative-sample DE row was ever written.",
+      "reference_stats_file": "qa_generation/de/de_reference_stats.npz"
+    },
+    "verdict": {
+      "negatives_with_own_de_rows": 0,
+      "de_needed_for_discriminative_task": false,
+      "reasoning": "Plan \u00a72.1 states the discriminative task's ground truth is the verified binary label. The model input is the 515-d BulkFormer embedding, which exists for 100% of neg_hard. Neither the question nor the answer references a DE statistic, so no per-negative DE row is required.",
+      "if_de_were_required": "It would be a full recomputation for every selected negative: H5 read + TPM/log1p/vocab-align + z against a reference. The reference itself would also have to be rebuilt to exclude each negative from its own comparison population, otherwise every negative is scored against a pool containing itself."
+    }
+  },
+  "corpus_integration": {
+    "holdout_eval_prior": {
+      "n_holdout_positive": 1341,
+      "n_holdout_neg_hard": 1266,
+      "pos_to_neg": 0.944
+    },
+    "scenarios_matched_pairs_1to1": [
+      {
+        "per_series_cap": 10,
+        "n_per_class": 4363,
+        "new_category_items": 8726,
+        "positives_dropped_from_this_category": 2849,
+        "total_corpus_items": 35698,
+        "new_category_share_pct": 24.44,
+        "each_existing_category_share_pct": 18.89
+      },
+      {
+        "per_series_cap": 25,
+        "n_per_class": 5539,
+        "new_category_items": 11078,
+        "positives_dropped_from_this_category": 1673,
+        "total_corpus_items": 38050,
+        "new_category_share_pct": 29.11,
+        "each_existing_category_share_pct": 17.72
+      },
+      {
+        "per_series_cap": 50,
+        "n_per_class": 6098,
+        "new_category_items": 12196,
+        "positives_dropped_from_this_category": 1114,
+        "total_corpus_items": 39168,
+        "new_category_share_pct": 31.14,
+        "each_existing_category_share_pct": 17.22
+      },
+      {
+        "per_series_cap": 100,
+        "n_per_class": 6577,
+        "new_category_items": 13154,
+        "positives_dropped_from_this_category": 635,
+        "total_corpus_items": 40126,
+        "new_category_share_pct": 32.78,
+        "each_existing_category_share_pct": 16.8
+      },
+      {
+        "per_series_cap": 250,
+        "n_per_class": 6783,
+        "new_category_items": 13566,
+        "positives_dropped_from_this_category": 429,
+        "total_corpus_items": 40538,
+        "new_category_share_pct": 33.46,
+        "each_existing_category_share_pct": 16.63
+      },
+      {
+        "per_series_cap": null,
+        "n_per_class": 6817,
+        "new_category_items": 13634,
+        "positives_dropped_from_this_category": 395,
+        "total_corpus_items": 40606,
+        "new_category_share_pct": 33.58,
+        "each_existing_category_share_pct": 16.61
+      }
+    ],
+    "existing_items": 26972,
+    "existing_items_by_category": {
+      "disease_subtype_classification": 5352,
+      "magnitude_reasoning": 7202,
+      "comparative_differential_reasoning": 7208,
+      "gene_driver_reasoning": 7210
+    },
+    "existing_unique_samples": 7212,
+    "assumption": "one discriminative QA item per sample (positive or negative); no paraphrase multiplication modelled here.",
+    "scenarios_append_only": [
+      {
+        "n_negatives": 3000,
+        "n_positive_items": 7212,
+        "new_category_items": 10212,
+        "pos_to_neg_within_category": 0.416,
+        "total_corpus_items": 37184,
+        "new_category_share_pct": 27.46,
+        "each_existing_category_share_pct": 18.13
+      },
+      {
+        "n_negatives": 4363,
+        "n_positive_items": 7212,
+        "new_category_items": 11575,
+        "pos_to_neg_within_category": 0.605,
+        "total_corpus_items": 38547,
+        "new_category_share_pct": 30.03,
+        "each_existing_category_share_pct": 17.49
+      },
+      {
+        "n_negatives": 5539,
+        "n_positive_items": 7212,
+        "new_category_items": 12751,
+        "pos_to_neg_within_category": 0.768,
+        "total_corpus_items": 39723,
+        "new_category_share_pct": 32.1,
+        "each_existing_category_share_pct": 16.98
+      },
+      {
+        "n_negatives": 6098,
+        "n_positive_items": 7212,
+        "new_category_items": 13310,
+        "pos_to_neg_within_category": 0.846,
+        "total_corpus_items": 40282,
+        "new_category_share_pct": 33.04,
+        "each_existing_category_share_pct": 16.74
+      },
+      {
+        "n_negatives": 6817,
+        "n_positive_items": 7212,
+        "new_category_items": 14029,
+        "pos_to_neg_within_category": 0.945,
+        "total_corpus_items": 41001,
+        "new_category_share_pct": 34.22,
+        "each_existing_category_share_pct": 16.45
+      },
+      {
+        "n_negatives": 7212,
+        "n_positive_items": 7212,
+        "new_category_items": 14424,
+        "pos_to_neg_within_category": 1.0,
+        "total_corpus_items": 41396,
+        "new_category_share_pct": 34.84,
+        "each_existing_category_share_pct": 16.29
+      },
+      {
+        "n_negatives": 10668,
+        "n_positive_items": 7212,
+        "new_category_items": 17880,
+        "pos_to_neg_within_category": 1.479,
+        "total_corpus_items": 44852,
+        "new_category_share_pct": 39.86,
+        "each_existing_category_share_pct": 15.03
+      },
+      {
+        "n_negatives": 21041,
+        "n_positive_items": 7212,
+        "new_category_items": 28253,
+        "pos_to_neg_within_category": 2.917,
+        "total_corpus_items": 55225,
+        "new_category_share_pct": 51.16,
+        "each_existing_category_share_pct": 12.21
+      }
+    ],
+    "note": "append-only over-weights the new category. The alternative is to downsample the four existing categories to hold the new one at a target share \u2014 Phase 1's decision, not Phase 0's."
+  },
+  "assertions": {
+    "expected": {
+      "n_label_rows": 1098771,
+      "n_positive_global": 8725,
+      "n_neg_hard_global": 22307,
+      "n_holdout_series": 92,
+      "n_positive_train": 7384,
+      "n_neg_hard_train": 21041,
+      "n_holdout_positive": 1341,
+      "n_holdout_neg_hard": 1266,
+      "n_corpus_positives": 7212
+    },
+    "failures": [],
+    "passed": true
+  },
+  "elapsed_seconds": 15.7
+}

@@ -1,0 +1,201 @@
+{
+  "generated": "2026-09-02T05:38:10Z",
+  "seed": 20260901,
+  "per_series_cap": 50,
+  "ratio_neg_per_pos": 1.0,
+  "candidate_pools": {
+    "n_positive": 7212,
+    "n_negative": 21041,
+    "positive_pool_definition": "with-expression"
+  },
+  "after_series_cap": {
+    "n_positive": 4894,
+    "n_negative": 13220
+  },
+  "selected": {
+    "n_positive": 4360,
+    "n_negative": 4360,
+    "n_total": 8720,
+    "n_series": 1541,
+    "n_series_positive": 383,
+    "n_series_negative": 1158,
+    "max_series_share_pct": 0.573,
+    "n_tissue_buckets": 15
+  },
+  "buckets": [
+    {
+      "tissue_coarse": "adipose",
+      "n_pos_available": 15,
+      "n_neg_available": 12,
+      "n_pos_taken": 12,
+      "n_neg_taken": 12,
+      "dropped_reason": null
+    },
+    {
+      "tissue_coarse": "blood",
+      "n_pos_available": 489,
+      "n_neg_available": 266,
+      "n_pos_taken": 266,
+      "n_neg_taken": 266,
+      "dropped_reason": null
+    },
+    {
+      "tissue_coarse": "cardiomyocyte",
+      "n_pos_available": 209,
+      "n_neg_available": 906,
+      "n_pos_taken": 209,
+      "n_neg_taken": 209,
+      "dropped_reason": null
+    },
+    {
+      "tissue_coarse": "endothelial",
+      "n_pos_available": 637,
+      "n_neg_available": 4229,
+      "n_pos_taken": 637,
+      "n_neg_taken": 637,
+      "dropped_reason": null
+    },
+    {
+      "tissue_coarse": "esc_derived",
+      "n_pos_available": 10,
+      "n_neg_available": 150,
+      "n_pos_taken": 10,
+      "n_neg_taken": 10,
+      "dropped_reason": null
+    },
+    {
+      "tissue_coarse": "fibroblast",
+      "n_pos_available": 32,
+      "n_neg_available": 56,
+      "n_pos_taken": 32,
+      "n_neg_taken": 32,
+      "dropped_reason": null
+    },
+    {
+      "tissue_coarse": "heart_tissue",
+      "n_pos_available": 1392,
+      "n_neg_available": 1342,
+      "n_pos_taken": 1342,
+      "n_neg_taken": 1342,
+      "dropped_reason": null
+    },
+    {
+      "tissue_coarse": "ipsc_derived",
+      "n_pos_available": 285,
+      "n_neg_available": 1256,
+      "n_pos_taken": 285,
+      "n_neg_taken": 285,
+      "dropped_reason": null
+    },
+    {
+      "tissue_coarse": "kidney",
+      "n_pos_available": 0,
+      "n_neg_available": 56,
+      "n_pos_taken": 0,
+      "n_neg_taken": 0,
+      "dropped_reason": "no positives in bucket"
+    },
+    {
+      "tissue_coarse": "liver",
+      "n_pos_available": 52,
+      "n_neg_available": 54,
+      "n_pos_taken": 52,
+      "n_neg_taken": 52,
+      "dropped_reason": null
+    },
+    {
+      "tissue_coarse": "lung",
+      "n_pos_available": 9,
+      "n_neg_available": 139,
+      "n_pos_taken": 9,
+      "n_neg_taken": 9,
+      "dropped_reason": null
+    },
+    {
+      "tissue_coarse": "neural",
+      "n_pos_available": 20,
+      "n_neg_available": 180,
+      "n_pos_taken": 20,
+      "n_neg_taken": 20,
+      "dropped_reason": null
+    },
+    {
+      "tissue_coarse": "other",
+      "n_pos_available": 792,
+      "n_neg_available": 3723,
+      "n_pos_taken": 792,
+      "n_neg_taken": 792,
+      "dropped_reason": null
+    },
+    {
+      "tissue_coarse": "placental",
+      "n_pos_available": 0,
+      "n_neg_available": 60,
+      "n_pos_taken": 0,
+      "n_neg_taken": 0,
+      "dropped_reason": "no positives in bucket"
+    },
+    {
+      "tissue_coarse": "skeletal_muscle",
+      "n_pos_available": 8,
+      "n_neg_available": 0,
+      "n_pos_taken": 0,
+      "n_neg_taken": 0,
+      "dropped_reason": "no negatives in bucket"
+    },
+    {
+      "tissue_coarse": "smooth_muscle",
+      "n_pos_available": 425,
+      "n_neg_available": 175,
+      "n_pos_taken": 175,
+      "n_neg_taken": 175,
+      "dropped_reason": null
+    },
+    {
+      "tissue_coarse": "tumor",
+      "n_pos_available": 7,
+      "n_neg_available": 16,
+      "n_pos_taken": 7,
+      "n_neg_taken": 7,
+      "dropped_reason": null
+    },
+    {
+      "tissue_coarse": "unspecified",
+      "n_pos_available": 0,
+      "n_neg_available": 5,
+      "n_pos_taken": 0,
+      "n_neg_taken": 0,
+      "dropped_reason": "no positives in bucket"
+    },
+    {
+      "tissue_coarse": "vascular_tissue",
+      "n_pos_available": 512,
+      "n_neg_available": 595,
+      "n_pos_taken": 512,
+      "n_neg_taken": 512,
+      "dropped_reason": null
+    }
+  ],
+  "tissue_confound": {
+    "tissue_only_auc_before_matching_grouped": 0.6914189068779029,
+    "tissue_only_auc_after_matching_grouped": 0.3612147028151037,
+    "tissue_only_auc_after_matching_ungrouped": 0.4696321858429425,
+    "per_bucket_positive_rate_is_constant": true,
+    "note": "Ungrouped is the measurement that answers 'did matching remove the tissue shortcut' \u2014 ~0.5 means yes. The grouped number can fall BELOW 0.5 without any residual confound: single-class series + whole-series folds make per-bucket rates invert between train and validation. Neither is a defect; they answer different questions."
+  },
+  "series_shortcut_upper_bound": {
+    "series_only_auc_ungrouped": 0.9995792915158658,
+    "note": "What a model could score using series identity alone. Expected ~1.0 and irreducible: no non-holdout series is mixed. Measured ungrouped on purpose \u2014 grouped folds hide the shortcut by construction, which is exactly why the real check is within-series AUC on the mixed holdout."
+  },
+  "series_shortcut": {
+    "n_mixed_series_in_selection": 0,
+    "note": "Expected to be 0 and NOT a defect of this selection: no non-holdout series contains both classes, because the holdout was defined as every mixed series. Series identity therefore remains a perfect predictor within training data. This is detected at eval time by within-series AUC on the 92 mixed holdout series, never claimed to be fixed here."
+  },
+  "assertions": {
+    "no_holdout_series": true,
+    "no_duplicate_samples": true,
+    "all_have_encoded_vector": true,
+    "series_cap_respected": true,
+    "tissue_uninformative": true
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "purpose": "live-encoder verification of NEGATIVE (is_neg_hard) cache entries \u2014 the population build_encoded_cache_from_parquet could not check, because negatives have no raw vector on disk",
+  "generated": "2026-09-02T05:32:36Z",
+  "n_verified": 8,
+  "n_cached_negatives": 22307,
+  "samples": [
+    "GSM5359581",
+    "GSM5638087",
+    "GSM7767127",
+    "GSM7919570",
+    "GSM8167460",
+    "GSM8167514",
+    "GSM8168550",
+    "GSM8912725"
+  ],
+  "sample_index": [
+    562254,
+    628464,
+    881380,
+    905967,
+    956396,
+    956450,
+    957410,
+    1058376
+  ],
+  "source": "raw H5 columns -> normalize_and_align -> real BulkFormerVisionTower (CPU)",
+  "mask_prob": 0.0,
+  "max_abs_diff": 4.76837158203125e-07,
+  "control_rolled_cache_max_abs_diff": 3.1116437911987305,
+  "tolerance": 0.0001,
+  "deepspeed_import_shim": false,
+  "passed": true
+}
