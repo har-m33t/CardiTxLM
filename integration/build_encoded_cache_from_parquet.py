@@ -25,12 +25,37 @@ the REAL BulkFormerVisionTower on CPU from `integration/bulkformer_hf_config`
 max_abs_diff <= 1e-4 (the prior GPU-built cache measured 7.87e-06 against a
 live forward under different batching). A failure is reported, not swallowed.
 
+POPULATIONS
+-----------
+`--population stage2` (default) reproduces the original build: the 8,553
+Stage-2 positives listed in `bulkformer_sample_index.npy`.
+
+`--population union` extends the cache to the full 31,032-sample union of every
+`is_positive` (8,725) and every `is_neg_hard` (22,307) sample in
+`linear_probe/probe_sample_labels.parquet`. Hypothesis B adds a
+disease-vs-no-disease discriminative task, so negatives are now model INPUTS and
+need cached vectors too.
+
+Cache membership is NOT training membership. The union deliberately includes the
+92 holdout series (1,341 positives + 1,266 neg_hard), because those samples are
+the inputs to the held-out binary CVD evaluation. The train/eval split is
+enforced separately, at data-generation time, by
+`data/cvd_transcriptome/holdout_series.json`.
+
+Writes are skip-if-identical: an existing file is re-derived from the parquet
+and left untouched if byte-identical. A mismatch is REPORTED, never overwritten.
+
 Run:
     python3 -m integration.build_encoded_cache_from_parquet \
         --parquet linear_probe/embeddings/embeddings_BulkFormer-93M.parquet \
         --sample-index qa_generation/bulkformer_input/bulkformer_sample_index.npy \
         --raw data/cvd_transcriptome/embeddings \
         --dest data/cvd_transcriptome/embeddings_encoded \
+        --verify 8
+
+    python3 -m integration.build_encoded_cache_from_parquet \
+        --population union \
+        --manifest data/cvd_transcriptome/encoded_cache_manifest_v2.json \
         --verify 8
 """
 
@@ -51,13 +76,18 @@ TOLERANCE = 1e-4
 def load_population(parquet_path):
     """Read the probe embedding parquet.
 
-    Lifted verbatim from `eval_binary_comparison/extract_llm_latents.py::
-    load_population` so the embedding-column convention (`e0000`...`e0514`,
-    sorted) is defined in exactly one place.
+    Embedding columns come from `eval_binary_comparison.embedding_io.
+    embedding_columns`, which is the single correct definition of the
+    convention in this repo. It replaces the `c.startswith("e0")` filter this
+    function used to carry: that filter silently keeps only e0000..e0999 and has
+    already truncated two analyses in this project (see that module's
+    docstring). It happens to be harmless at 515-d — every column really does
+    start with "e0" — but it must not be propagated by copy-paste.
     """
     import pyarrow.parquet as pq
+    from eval_binary_comparison.embedding_io import embedding_columns
     t = pq.read_table(parquet_path).to_pydict()
-    ecols = sorted(c for c in t if c.startswith("e0"))
+    ecols = embedding_columns(t.keys())
     n = len(t["geo_accession"])
     X = np.empty((n, len(ecols)), dtype=np.float32)
     for j, c in enumerate(ecols):
@@ -154,6 +184,16 @@ def main(argv=None):
     ap.add_argument("--stage2-json",
                     default=str(REPO / "data/cvd_transcriptome/text_files/stage2_train.json"))
     ap.add_argument("--cfg", default=str(DEFAULT_CFG))
+    ap.add_argument("--population", choices=("stage2", "union"), default="stage2",
+                    help="stage2: the 8,553 Stage-2 positives in --sample-index. "
+                         "union: every is_positive + every is_neg_hard sample in "
+                         "--labels (cache coverage, NOT training membership).")
+    ap.add_argument("--labels",
+                    default=str(REPO / "linear_probe/probe_sample_labels.parquet"),
+                    help="label frame defining is_positive / is_neg_hard (union only)")
+    ap.add_argument("--holdout",
+                    default=str(REPO / "data/cvd_transcriptome/holdout_series.json"),
+                    help="holdout series list, for reporting cache-vs-holdout overlap")
     ap.add_argument("--verify", type=int, default=8,
                     help="live-forward this many raw vectors through the real tower "
                          "and compare against the written cache (0 disables)")
@@ -181,8 +221,33 @@ def main(argv=None):
     assert X.shape[1] == hidden, f"parquet embedding dim {X.shape[1]} != hidden_size {hidden}"
 
     by_index = {int(s): i for i, s in enumerate(meta["sample_index"])}
-    wanted = np.load(args.sample_index)
-    print(f"[index] {len(wanted)} Stage-2 sample_index values ({wanted.dtype})")
+
+    labels = None
+    if args.population == "stage2":
+        wanted = [int(s) for s in np.load(args.sample_index)]
+        print(f"[index] {len(wanted)} Stage-2 sample_index values")
+    else:
+        import pyarrow.parquet as pq
+        lab = pq.read_table(args.labels).to_pydict()
+        labels = {int(si): (bool(p), bool(nh), sid) for si, p, nh, sid in zip(
+            lab["sample_index"], lab["is_positive"], lab["is_neg_hard"],
+            lab["series_id"])}
+        pos = sorted(si for si, (p, nh, _) in labels.items() if p)
+        neg = sorted(si for si, (p, nh, _) in labels.items() if nh)
+        both = set(pos) & set(neg)
+        assert not both, f"{len(both)} samples are both is_positive and is_neg_hard"
+        wanted = sorted(set(pos) | set(neg))
+        print(f"[labels] {args.labels}: {len(lab['sample_index'])} rows -> "
+              f"{len(pos)} is_positive + {len(neg)} is_neg_hard "
+              f"= {len(wanted)} union sample_index values")
+        # The embedding parquet carries its own copy of these flags. Cross-check
+        # rather than trust one of the two silently.
+        emb_flag_disagree = sum(
+            1 for si, (p, nh, _) in labels.items()
+            if si in by_index and (
+                bool(meta["is_positive"][by_index[si]]) != p or
+                bool(meta["is_neg_hard"][by_index[si]]) != nh))
+        print(f"[labels] flag disagreements vs the embedding parquet: {emb_flag_disagree}")
 
     missing = [int(s) for s in wanted if int(s) not in by_index]
     if missing:
@@ -190,7 +255,8 @@ def main(argv=None):
 
     rows = [by_index[int(s)] for s in wanted if int(s) in by_index]
     accs = [meta["geo_accession"][r] for r in rows]
-    assert len(set(accs)) == len(accs), "duplicate geo_accession among the Stage-2 population"
+    dupes = sorted({a for a in accs if accs.count(a) > 1}) if len(set(accs)) != len(accs) else []
+    assert not dupes, f"duplicate geo_accession in the population: {dupes[:10]}"
 
     # ---- filenames must match the `image` field in stage2_train.json ------
     stage2 = json.loads(Path(args.stage2_json).read_text())
@@ -201,20 +267,103 @@ def main(argv=None):
           f"(e.g. {sorted(imgs)[0]}); uncovered by this cache: {len(uncovered)}")
     assert not uncovered, f"stage2_train.json references images not in the cache: {uncovered[:10]}"
 
-    # ---- write ------------------------------------------------------------
+    # ---- write (skip-if-identical; never silently overwrite) ---------------
+    #
+    # Every file already in the cache was derived from these same parquet rows,
+    # so re-deriving it must reproduce it byte for byte. Compare rather than
+    # assume: an existing file that does NOT match is left on disk untouched and
+    # reported, because a mismatch means one of the two is wrong and clobbering
+    # it would destroy the evidence.
     dest.mkdir(parents=True, exist_ok=True)
+    n_written, n_skipped_identical = 0, 0
+    mismatched, nonfinite = [], []
     total_bytes = 0
     for r, acc in zip(rows, accs):
         vec = np.ascontiguousarray(X[r], dtype=np.float32)
         assert vec.shape == (hidden,), vec.shape
+        if not np.isfinite(vec).all():
+            nonfinite.append(acc)
         p = dest / f"{acc}.npy"
-        np.save(p, vec)
+        if p.exists():
+            old = np.load(p)
+            if (old.dtype == vec.dtype and old.shape == vec.shape
+                    and old.tobytes() == vec.tobytes()):
+                n_skipped_identical += 1
+            else:
+                mismatched.append({
+                    "geo_accession": acc,
+                    "existing_dtype": str(old.dtype), "existing_shape": list(old.shape),
+                    "max_abs_diff": (float(np.abs(old.astype(np.float64) - vec).max())
+                                     if old.shape == vec.shape else None),
+                })
+                continue  # left untouched on purpose
+        else:
+            np.save(p, vec)
+            n_written += 1
         total_bytes += p.stat().st_size
-    print(f"[write] {len(rows)} files, {total_bytes} bytes ({total_bytes/1e6:.1f} MB) -> {dest}")
+    print(f"[write] newly written {n_written}, already present and byte-identical "
+          f"{n_skipped_identical}, MISMATCHED (left untouched) {len(mismatched)}")
+    print(f"[write] {total_bytes} bytes ({total_bytes/1e6:.1f} MB) -> {dest}")
+    if mismatched:
+        print(f"[write] !! {len(mismatched)} existing files disagree with the parquet: "
+              f"{[m['geo_accession'] for m in mismatched[:10]]}")
+    if nonfinite:
+        print(f"[write] !! {len(nonfinite)} vectors contain NaN/Inf: {nonfinite[:10]}")
+
+    # ---- class + holdout accounting (cache coverage, NOT training membership)
+    holdout_series = set(json.loads(Path(args.holdout).read_text())["holdout_series"])
+    n_pos = n_neg = n_hold_pos = n_hold_neg = 0
+    if labels is not None:
+        for s in wanted:
+            if int(s) not in by_index:
+                continue
+            is_pos, is_neg, sid = labels[int(s)]
+            in_hold = sid in holdout_series
+            n_pos += is_pos
+            n_neg += is_neg
+            n_hold_pos += is_pos and in_hold
+            n_hold_neg += is_neg and in_hold
+        print(f"[population] positives={n_pos} negatives={n_neg}; of those, in a "
+              f"holdout series: {n_hold_pos} positive + {n_hold_neg} negative "
+              f"(present as EVALUATION inputs; the training split is enforced "
+              f"separately by {Path(args.holdout).name})")
+
+    # ---- every file in the cache: dtype / shape / finiteness ---------------
+    bad_files, cache_files = [], sorted(dest.glob("*.npy"))
+    cache_bytes = 0
+    for p in cache_files:
+        cache_bytes += p.stat().st_size
+        a = np.load(p)
+        if a.dtype != np.float32 or a.shape != (hidden,) or not np.isfinite(a).all():
+            bad_files.append({"file": p.name, "dtype": str(a.dtype),
+                              "shape": list(a.shape),
+                              "finite": bool(np.isfinite(a).all())})
+    print(f"[audit] {len(cache_files)} files in cache, {cache_bytes} bytes "
+          f"({cache_bytes/1e6:.1f} MB); dtype/shape/finiteness failures: {len(bad_files)}")
+    if bad_files:
+        print(f"[audit] !! {bad_files[:10]}")
 
     # ---- verification against a LIVE forward of the real tower ------------
+    #
+    # A live forward needs the raw [20010] expression vector. Those were only
+    # ever materialized for the Stage-2 positives, so under --population union
+    # the verifiable pool is a strict subset of the cache. What IS verified is
+    # the parquet->cache code path itself, which is byte-for-byte the same code
+    # for a negative as for a positive (same load_population, same X[r] slice,
+    # same np.save). What is NOT verified for negatives is the upstream claim
+    # that the parquet row equals a live tower forward for THAT sample. Say so
+    # in the manifest; do not let the positives' pass be read as covering them.
+    verify_pool = [a for a in accs if (raw_dir / f"{a}.npy").exists()]
+    n_no_raw = len(accs) - len(verify_pool)
+    print(f"[verify] raw [20010] vectors available for {len(verify_pool)}/{len(accs)} "
+          f"cache members ({n_no_raw} have none and cannot be live-forwarded)")
     verification = {"attempted": bool(args.verify), "ok": None}
-    if args.verify:
+    if args.verify and not verify_pool:
+        print("[verify] !! no raw vectors at all — nothing can be live-forwarded")
+        verification = {"attempted": True, "ok": False,
+                        "error": "no raw [20010] vectors available",
+                        "note": "equivalence unverified"}
+    elif args.verify:
         try:
             import torch
             tower, cfg, shimmed = build_tower(Path(args.cfg))
@@ -236,8 +385,9 @@ def main(argv=None):
             for off in offsets:
                 # Disjoint groups drawn from different parts of the population, so a
                 # pass cannot be an artifact of one lucky contiguous block.
-                off = off % len(accs)
-                picks = (accs + accs)[off:off + min(args.verify, len(accs))]
+                off = off % len(verify_pool)
+                picks = (verify_pool + verify_pool)[
+                    off:off + min(args.verify, len(verify_pool))]
                 n = len(picks)
                 print(f"[verify] --- group offset={off} n={n} ---")
                 t1 = time.time()
@@ -287,11 +437,30 @@ def main(argv=None):
                 "attempted": True, "ok": passed, "device": "cpu",
                 "worst_max_abs_diff": worst, "groups": groups,
                 "deepspeed_import_shim": shimmed,
+                "verifiable_pool": {
+                    "n_cache_members": len(accs),
+                    "n_with_raw_20010_vectors": len(verify_pool),
+                    "n_without_raw_vectors": n_no_raw,
+                    "raw_dir": str(raw_dir),
+                },
                 "note": ("live forward of the real BulkFormerVisionTower on CPU over "
                          "the raw [20010] vectors, on disjoint sample groups, with a "
                          "rolled-cache control proving the comparison discriminates" +
                          (" (deepspeed absent: import-only placeholder used; the "
                           "encoder itself is fully real)" if shimmed else "")),
+                "scope_limitation": (
+                    f"{n_no_raw} of {len(accs)} cache members have no raw [20010] "
+                    f"vector on disk ({raw_dir}), so NO live tower forward was run "
+                    "for them — under --population union these are the is_neg_hard "
+                    "negatives and the 172 positives never materialized for Stage 2. "
+                    "The live-forward check therefore covers only samples that have "
+                    "raw vectors. It does still exercise the exact parquet->cache "
+                    "code path used for every sample (same load_population, same row "
+                    "slice, same np.save), so the write path is verified for all; "
+                    "what is NOT independently verified for the unraw'd samples is "
+                    "that their parquet row equals a live tower forward of that "
+                    "sample's expression vector."
+                ) if n_no_raw else "every cache member had a raw vector available",
             }
         except Exception as e:  # noqa: BLE001 — report the failure, never mask it
             import traceback
@@ -304,13 +473,15 @@ def main(argv=None):
                             "error": f"{type(e).__name__}: {e}",
                             "note": "tower could not be run on CPU; equivalence unverified"}
 
-    passed = bool(verification.get("ok")) and not missing
+    passed = (bool(verification.get("ok")) and not missing
+              and not mismatched and not nonfinite and not bad_files)
     manifest = {
         "purpose": "Pre-encoded 515-d BulkFormer-93M vectors for Stage-2 training, "
                    "derived from the linear-probe embedding parquet instead of a GPU "
                    "encoder pass (equivalent computation; see module docstring).",
         "built_by": "integration/build_encoded_cache_from_parquet.py",
         "built_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
+        "population": args.population,
         "source_parquet": str(Path(args.parquet)),
         "source_sample_index": str(Path(args.sample_index)),
         "encoder": {"variant": variant, "hidden_size": hidden,
@@ -319,15 +490,53 @@ def main(argv=None):
         "dest": str(dest),
         "filename_convention": "<GEO_ACCESSION>.npy, float32 (515,)",
         "n_requested": int(len(wanted)),
-        "n_written": len(rows),
-        "total_bytes": total_bytes,
+        "n_resolved_to_parquet_rows": len(rows),
+        "n_newly_written": n_written,
+        "n_already_present_byte_identical": n_skipped_identical,
+        "n_mismatched_left_untouched": len(mismatched),
+        "mismatched": mismatched[:50],
+        "bytes_for_this_population": total_bytes,
+        "cache_total_files": len(cache_files),
+        "cache_total_bytes": cache_bytes,
         "missing_from_parquet": missing,
+        "geo_accession_duplicates": dupes,
         "stage2_json": str(Path(args.stage2_json)),
         "stage2_images_uncovered": uncovered,
         "acceptance_threshold_max_abs_diff": TOLERANCE,
         "verification": verification,
         "passed": passed,
     }
+    if labels is not None:
+        manifest["source_labels"] = str(Path(args.labels))
+        manifest["source_holdout"] = str(Path(args.holdout))
+        manifest["class_composition"] = {
+            "n_is_positive": int(n_pos),
+            "n_is_neg_hard": int(n_neg),
+            "n_union": int(n_pos + n_neg),
+            "flag_disagreements_vs_embedding_parquet": int(emb_flag_disagree),
+        }
+        manifest["holdout_membership"] = {
+            "holdout_series_file": str(Path(args.holdout)),
+            "n_holdout_series": len(holdout_series),
+            "n_cached_holdout_positive": int(n_hold_pos),
+            "n_cached_holdout_neg_hard": int(n_hold_neg),
+            "n_cached_holdout_total": int(n_hold_pos + n_hold_neg),
+            "IMPORTANT": (
+                "Cache membership is NOT training membership. The holdout samples "
+                "are cached on purpose: they are the INPUTS to the held-out binary "
+                "CVD evaluation, which cannot run without their vectors. Nothing "
+                "about a sample being in this cache admits it to training. The "
+                "train/eval separation is enforced upstream, at data-generation "
+                "time, by holdout_series.json — a leak would be a training-JSON "
+                "containing a holdout accession, not a cache file existing."),
+        }
+        manifest["file_integrity_audit"] = {
+            "checked": len(cache_files),
+            "requirement": "dtype float32, shape (515,), all finite",
+            "failures": len(bad_files),
+            "failing_files": bad_files[:50],
+            "nonfinite_source_rows": nonfinite[:50],
+        }
     Path(args.manifest).write_text(json.dumps(manifest, indent=2) + "\n")
     print(f"[manifest] wrote {args.manifest}  passed={passed}")
     return 0 if passed else 1
