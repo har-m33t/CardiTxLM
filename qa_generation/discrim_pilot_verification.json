@@ -1,0 +1,11 @@
+{
+  "generated": "2026-09-02T05:42:01Z",
+  "self_test_passed": true,
+  "n_checked": 40,
+  "verdicts": {
+    "ok": 40
+  },
+  "reject_rate": 0.0,
+  "rejected": [],
+  "n_rejected_total": 0
+}

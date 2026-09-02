@@ -1,0 +1,37 @@
+{
+  "generated": "2026-09-02T05:39:50Z",
+  "category": "cvd_presence_discrimination",
+  "n_items": 8720,
+  "n_positive": 4360,
+  "n_negative": 4360,
+  "n_templates": 10,
+  "items_per_template": {
+    "0": 872,
+    "1": 872,
+    "2": 872,
+    "3": 872,
+    "4": 872,
+    "5": 872,
+    "6": 872,
+    "7": 872,
+    "8": 872,
+    "9": 872
+  },
+  "positive_rate_per_template": {
+    "0": 0.4989,
+    "1": 0.4966,
+    "2": 0.4989,
+    "3": 0.4989,
+    "4": 0.5,
+    "5": 0.4989,
+    "6": 0.5034,
+    "7": 0.5023,
+    "8": 0.5023,
+    "9": 0.5
+  },
+  "n_distinct_gold_answers": 20,
+  "label_semantics": "negative == cvd_subtype 'tissue_only_disease_unconfirmed' \u2014 disease UNCONFIRMED, not healthy. No answer claims absence of disease.",
+  "assertions": {
+    "template_label_balance": true
+  }
+}

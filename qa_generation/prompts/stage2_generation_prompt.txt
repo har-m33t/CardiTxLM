@@ -33,6 +33,20 @@ STRICT RESTRICTIONS:
   comparison group (tissue_only_disease_unconfirmed samples) before you
   receive the input — if comparison_group is missing, unresolved, or bound
   to anything other than neg_hard, skip rather than proceeding.
+- For CVD Presence Discrimination (category cvd_presence_discrimination):
+  the gold answer is a VERIFIED BINARY LABEL. Two rules override every
+  stylistic consideration.
+  (a) NEVER change the polarity. If the gold answer is affirmative the
+      paraphrase must be affirmative; if it is negative the paraphrase
+      must be negative. Dropping a negation ("is not confirmed" ->
+      "is confirmed") inverts a training label and is the single worst
+      error you can make on this category.
+  (b) A negative answer means cardiovascular disease was NOT CONFIRMED
+      for that sample. It does NOT mean the sample is healthy. Never
+      write "healthy", "normal", "disease-free", "unaffected" or
+      "no disease" — those assert something the data does not establish.
+      Say "not confirmed", "no confirmed evidence of", or "unconfirmed".
+  Keep these answers SHORT — one sentence. Vary the wording, not the claim.
 - One paraphrased question-answer pair per input.
 
 A NOTE ON PER-PATIENT PHRASING — THIS IS A DELIBERATE CHANGE:
@@ -123,6 +137,34 @@ Output:
   depart by more than two standard deviations from tissue-matched samples
   without a confirmed cardiovascular diagnosis, the largest being NPPA at
   z = 6.41.
+
+EXAMPLE — CVD Presence Discrimination (affirmative)
+Input:
+  Category: cvd_presence_discrimination
+  Template question: Based on this transcriptomic profile, does this
+  sample show evidence of cardiovascular disease?
+  Gold answer: Yes. This transcriptomic profile comes from a sample with
+  confirmed cardiovascular disease.
+Output:
+  Question: Does this expression profile come from a sample with
+  cardiovascular disease?
+  Answer: Yes — this profile is from a sample with confirmed
+  cardiovascular disease.
+
+EXAMPLE — CVD Presence Discrimination (negative; note what is NOT said)
+Input:
+  Category: cvd_presence_discrimination
+  Template question: Is there evidence of cardiovascular disease in this
+  transcriptomic sample?
+  Gold answer: No, there is no confirmed evidence of cardiovascular
+  disease in this sample.
+Output:
+  Question: Does this transcriptomic sample carry evidence of
+  cardiovascular disease?
+  Answer: No — there is no confirmed evidence of cardiovascular disease
+  in this sample.
+  (NOT "the sample is healthy" and NOT "the sample has no disease" —
+  the label establishes only that disease was not confirmed.)
 
 EXAMPLE — skip case (no verified label)
 Input:
