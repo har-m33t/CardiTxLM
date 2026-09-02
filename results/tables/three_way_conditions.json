@@ -1,0 +1,38 @@
+{
+  "purpose": "all three Stage-2 training conditions on one page",
+  "read_me_first": {
+    "pooled_auc_is_not_the_headline": "Zero non-holdout series contains both classes, so pooled AUC can be reached by recognizing batch signature. Within-series AUC cannot.",
+    "encoder_bar_within_series": 0.765,
+    "encoder_bar_pooled": 0.643,
+    "loss_floor_is_not_evidence": "condition 3 adds an easy one-bit target, so a lower floor is mixture arithmetic, not representation quality"
+  },
+  "conditions": {
+    "original": {
+      "condition": "original",
+      "probe": "not produced",
+      "loss_floor": 0.07242666666666668
+    },
+    "data-fix": {
+      "condition": "data-fix",
+      "LLM-latent-imgtok:linear": [
+        0.6663893066028955,
+        0.071123043212742
+      ],
+      "LLM-latent-imgtok:mlp": [
+        0.682273868140701,
+        0.06889142045365855
+      ],
+      "BulkFormer-93M:linear": [
+        0.6680078706645071,
+        0.07026425198765435
+      ],
+      "n_holdout": 2607,
+      "loss_floor": 0.46806190476190473
+    },
+    "discrim": {
+      "condition": "discrim",
+      "probe": "not produced",
+      "binary": "not produced"
+    }
+  }
+}

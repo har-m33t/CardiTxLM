@@ -1,0 +1,16 @@
+{
+  "original (86.4% fixed-string targets)": {
+    "n_steps": 155,
+    "first": 2.8828,
+    "last": 0.0655,
+    "min": 0.0655,
+    "final_10pct_mean": 0.07242666666666668
+  },
+  "data fix (per-sample targets)": {
+    "n_steps": 211,
+    "first": 1.9339,
+    "last": 0.5009,
+    "min": 0.4384,
+    "final_10pct_mean": 0.46806190476190473
+  }
+}

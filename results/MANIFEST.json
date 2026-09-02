@@ -3,12 +3,6 @@
   "rebuild_with": "python3 scripts/build_results_folder.py",
   "note": "copied from canonical locations; delete and rebuild freely, this folder is never the source of truth",
   "contents": {
-    ".": [
-      "MANIFEST.json",
-      "README.md",
-      "STAGE2_DATA_ANALYSIS.md",
-      "SUMMARY.md"
-    ],
     "logs": [
       "ml_after.log",
       "ml_before.log",
@@ -18,22 +12,21 @@
       "stage2_regen_trainer_state.json",
       "stage2_trainer_state.json"
     ],
-    "loss_curves": [
-      "stage1_loss.png",
-      "stage2_loss_before_after.png"
-    ],
-    "plots": [
-      "corpus_composition.png",
-      "multilabel_before_after.png",
-      "probe_three_way.png"
-    ],
     "data": [
       "de_manifest.json",
+      "discrim_usage_summary.json",
+      "discriminative_pairs_stats.json",
+      "discriminative_plan_stats.json",
+      "discriminative_verification.json",
       "encoded_cache_manifest.json",
+      "encoded_cache_manifest_v2.json",
       "holdout_series.json",
       "multilabel_labels_manifest.json",
+      "negative_encoding_verification.json",
+      "phase0_stats.json",
       "regen_usage_summary.json",
       "stage2_bundle_stats.json",
+      "stage2_bundle_stats_hypb.json",
       "stage2_regen_plan_stats.json",
       "stage2_regen_rejected.json",
       "stage2_train.zip",
@@ -50,8 +43,37 @@
       "multilabel_probe_after.csv",
       "multilabel_probe_before.csv",
       "probe_comparison.csv",
-      "probe_three_way.json"
+      "probe_three_way.json",
+      "three_way_conditions.csv",
+      "three_way_conditions.json"
+    ],
+    ".": [
+      "MANIFEST.json",
+      "README.md",
+      "STAGE2_DATA_ANALYSIS.md",
+      "SUMMARY.md",
+      "hypothesis_b_data_plan.md"
+    ],
+    "loss_curves": [
+      "stage1_loss.png",
+      "stage2_loss_before_after.png",
+      "stage2_loss_floors.json",
+      "stage2_loss_three_way.png"
+    ],
+    "plots": [
+      "corpus_composition.png",
+      "multilabel_before_after.png",
+      "probe_three_way.png"
     ]
   },
-  "missing": []
+  "missing": [
+    "stage2_regen_report/tables/probe_three_way_hypb.json",
+    "stage2_regen_report/tables/multilabel_probe_hypb.csv",
+    "stage2_regen_report/tables/binary_cvd_eval_hypb.json",
+    "stage2_regen_report/tables/binary_cvd_eval_hypb.csv",
+    "stage2_regen_report/plots/binary_cvd_eval_hypb.png",
+    "runlogs/train_hypb.log",
+    "runlogs/stage2_hypb_trainer_state.json",
+    "runlogs/eval_hypb.log"
+  ]
 }

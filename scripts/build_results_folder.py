@@ -70,6 +70,32 @@ ITEMS: list[tuple[str, str]] = [
     ("results/plots/corpus_composition.png", "plots"),
     # --- the generated, numbers-only report ---
     ("stage2_regen_report/README.md", "."),
+    # --- Hypothesis B: discriminative training condition ---
+    # The three-way condition table is the top-level answer; everything else
+    # here supports it. Missing entries are reported, not fatal, so this list
+    # can be complete before the GPU run that fills it.
+    ("stage2_regen_report/tables/three_way_conditions.csv", "tables"),
+    ("stage2_regen_report/tables/three_way_conditions.json", "tables"),
+    ("stage2_regen_report/tables/probe_three_way_hypb.json", "tables"),
+    ("stage2_regen_report/tables/multilabel_probe_hypb.csv", "tables"),
+    ("stage2_regen_report/tables/binary_cvd_eval_hypb.json", "tables"),
+    ("stage2_regen_report/tables/binary_cvd_eval_hypb.csv", "tables"),
+    ("stage2_regen_report/plots/binary_cvd_eval_hypb.png", "plots"),
+    ("stage2_regen_report/loss_curves/stage2_loss_three_way.png", "loss_curves"),
+    ("stage2_regen_report/loss_curves/stage2_loss_floors.json", "loss_curves"),
+    # provenance for the new category
+    ("hypothesis_b_data_plan.md", "."),
+    ("scripts/hypothesis_b/phase0_stats.json", "data"),
+    ("scripts/hypothesis_b/discriminative_plan_stats.json", "data"),
+    ("scripts/hypothesis_b/negative_encoding_verification.json", "data"),
+    ("qa_generation/discriminative_pairs_stats.json", "data"),
+    ("qa_generation/discriminative_verification.json", "data"),
+    ("qa_generation/stage2_bundle_stats_hypb.json", "data"),
+    ("qa_generation/discrim_usage_summary.json", "data"),
+    ("data/cvd_transcriptome/encoded_cache_manifest_v2.json", "data"),
+    ("runlogs/train_hypb.log", "logs"),
+    ("runlogs/stage2_hypb_trainer_state.json", "logs"),
+    ("runlogs/eval_hypb.log", "logs"),
 ]
 
 
