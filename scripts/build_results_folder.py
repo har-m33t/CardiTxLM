@@ -88,6 +88,7 @@ ITEMS: list[tuple[str, str]] = [
     ("HYPOTHESIS_B_RESULTS.md", "."),
     (".claude/hypothesis_b_interpretation_criteria.md", "."),
     ("stage2_regen_report/tables/scorer_diagnostic.json", "tables"),
+    ("stage2_regen_report/tables/within_series_comparison.json", "tables"),
     ("scripts/hypothesis_b/phase0_stats.json", "data"),
     ("scripts/hypothesis_b/discriminative_plan_stats.json", "data"),
     ("scripts/hypothesis_b/negative_encoding_verification.json", "data"),

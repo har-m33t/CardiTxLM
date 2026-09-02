@@ -3,11 +3,52 @@
   "rebuild_with": "python3 scripts/build_results_folder.py",
   "note": "copied from canonical locations; delete and rebuild freely, this folder is never the source of truth",
   "contents": {
-    "loss_curves": [
-      "stage1_loss.png",
-      "stage2_loss_before_after.png",
-      "stage2_loss_floors.json",
-      "stage2_loss_three_way.png"
+    ".": [
+      "HYPOTHESIS_B_RESULTS.md",
+      "MANIFEST.json",
+      "README.md",
+      "STAGE2_DATA_ANALYSIS.md",
+      "SUMMARY.md",
+      "hypothesis_b_data_plan.md",
+      "hypothesis_b_interpretation_criteria.md"
+    ],
+    "logs": [
+      "eval_hypb.log",
+      "ml_after.log",
+      "ml_before.log",
+      "pod_bootstrap.log",
+      "probe_pca.log",
+      "stage2_hypb_trainer_state.json",
+      "stage2_regen_train.log",
+      "stage2_regen_trainer_state.json",
+      "stage2_trainer_state.json",
+      "train_hypb.log"
+    ],
+    "plots": [
+      "binary_cvd_eval_hypb.png",
+      "corpus_composition.png",
+      "multilabel_before_after.png",
+      "probe_three_way.png"
+    ],
+    "tables": [
+      "binary_cvd_eval_hypb.csv",
+      "binary_cvd_eval_hypb.json",
+      "corpus_composition.csv",
+      "corpus_de_statistics.csv",
+      "corpus_gene_frequency.csv",
+      "encoder_scale_sweep.csv",
+      "encoder_scale_sweep_note.md",
+      "multilabel_before_after.csv",
+      "multilabel_probe_after.csv",
+      "multilabel_probe_before.csv",
+      "multilabel_probe_hypb.csv",
+      "probe_comparison.csv",
+      "probe_three_way.json",
+      "probe_three_way_hypb.json",
+      "scorer_diagnostic.json",
+      "three_way_conditions.csv",
+      "three_way_conditions.json",
+      "within_series_comparison.json"
     ],
     "data": [
       "de_manifest.json",
@@ -30,51 +71,11 @@
       "stage2_train_SAMPLE_200.json",
       "step3_regen_stats.json"
     ],
-    ".": [
-      "HYPOTHESIS_B_RESULTS.md",
-      "MANIFEST.json",
-      "README.md",
-      "STAGE2_DATA_ANALYSIS.md",
-      "SUMMARY.md",
-      "hypothesis_b_data_plan.md",
-      "hypothesis_b_interpretation_criteria.md"
-    ],
-    "logs": [
-      "eval_hypb.log",
-      "ml_after.log",
-      "ml_before.log",
-      "pod_bootstrap.log",
-      "probe_pca.log",
-      "stage2_hypb_trainer_state.json",
-      "stage2_regen_train.log",
-      "stage2_regen_trainer_state.json",
-      "stage2_trainer_state.json",
-      "train_hypb.log"
-    ],
-    "tables": [
-      "binary_cvd_eval_hypb.csv",
-      "binary_cvd_eval_hypb.json",
-      "corpus_composition.csv",
-      "corpus_de_statistics.csv",
-      "corpus_gene_frequency.csv",
-      "encoder_scale_sweep.csv",
-      "encoder_scale_sweep_note.md",
-      "multilabel_before_after.csv",
-      "multilabel_probe_after.csv",
-      "multilabel_probe_before.csv",
-      "multilabel_probe_hypb.csv",
-      "probe_comparison.csv",
-      "probe_three_way.json",
-      "probe_three_way_hypb.json",
-      "scorer_diagnostic.json",
-      "three_way_conditions.csv",
-      "three_way_conditions.json"
-    ],
-    "plots": [
-      "binary_cvd_eval_hypb.png",
-      "corpus_composition.png",
-      "multilabel_before_after.png",
-      "probe_three_way.png"
+    "loss_curves": [
+      "stage1_loss.png",
+      "stage2_loss_before_after.png",
+      "stage2_loss_floors.json",
+      "stage2_loss_three_way.png"
     ]
   },
   "missing": []

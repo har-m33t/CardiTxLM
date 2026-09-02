@@ -1,0 +1,27 @@
+{
+  "purpose": "Batch-controlled comparison: linear probe on LLM latents vs the frozen BulkFormer-93M encoder, computed INSIDE each holdout series.",
+  "why_this_metric": "Zero non-holdout series contains both classes, so pooled AUC can reward batch/series signature. All 92 holdout series are mixed by construction, so comparing samples inside one series holds batch, platform, lab and largely tissue fixed. Only per-sample biology can order them.",
+  "population": {"n": 2607, "n_positive": 1341, "n_negative": 1266, "n_series": 92,
+                 "n_series_eligible": 84, "n_series_skipped": 8,
+                 "skip_reason": "fewer than 6 samples"},
+  "method": "out-of-fold predictions from the same grouped 5-fold linear probe (StratifiedGroupKFold(5, shuffle, seed 20260707) by series_id, StandardScaler + balanced LogisticRegression) used by run_regen_eval.py; no sample is scored by a model that saw it",
+  "results": {
+    "BulkFormer-93M": {"pooled_oof": 0.6429, "within_weighted": 0.7645,
+                       "within_unweighted": 0.7393, "within_median": 0.7987,
+                       "n_series_above_half": 68},
+    "LLM-latent-datafix": {"pooled_oof": 0.6829, "within_weighted": 0.7717,
+                           "within_unweighted": 0.7039, "within_median": 0.7500,
+                           "n_series_above_half": 66},
+    "LLM-latent-discrim-RECONSTRUCTED": {"pooled_oof": 0.6802, "within_weighted": 0.7795,
+                                         "within_unweighted": 0.7090, "within_median": 0.7639,
+                                         "n_series_above_half": 65}
+  },
+  "verdict": "On the batch-controlled metric the LLM's advantage largely disappears. Weighted mean favours the LLM (+0.0150); unweighted mean (-0.0303), median (-0.0348) and the count of series above chance (65 vs 68) favour the ENCODER. Read as a wash, not a win.",
+  "IMPORTANT_CAVEAT": {
+    "issue": "The discrim row comes from a RECONSTRUCTED checkpoint, not the one that produced the reported 0.7034.",
+    "detail": "Only the LoRA adapter, connector and configs were downloaded before the training pod was deleted; the frozen base language_model and vision_tower were rebuilt from source. Training ran --bf16, so the trainer saved bf16-rounded base weights and the adapters were fitted against those; the rebuild writes higher-precision weights from HuggingFace. Same architecture, genuinely different weights.",
+    "evidence": "The rebuild scores mean-of-folds 0.6617 +/- 0.0836 where the original scored 0.7034 +/- 0.0563, with fold 0 at 0.501 vs 0.768. It is a different model and is labelled as such.",
+    "status": "The discrim within-series figures are INDICATIVE, not the measured value for the reported model. A faithful number requires a retrain with full checkpoint retention."
+  },
+  "note_on_metric_choice": "pooled-OOF and mean-of-folds disagree materially on this population (encoder 0.6429 pooled-OOF vs 0.6680 mean-of-folds; data-fix LLM 0.6829 vs 0.6664). Quote which one is meant."
+}

@@ -13,8 +13,9 @@ those criteria applied.
 
 ## 0. The one-paragraph version
 
-**Hypothesis B is supported on its primary metric, and the more important
-finding is the one it turned up by accident.** Adding a genuine
+**Hypothesis B is supported on its primary (pooled) metric, does NOT survive the
+stricter batch-controlled metric, and the most important finding is the one it
+turned up by accident.** Adding a genuine
 disease-vs-control discriminative task moved the LLM's latents from *tying* the
 frozen encoder to *beating* it — 0.6664 → 0.7034 against the encoder's 0.6680,
 improving on 5 of 5 folds and surviving a dimensionality-matched control. That
@@ -62,6 +63,47 @@ disease signal more **linearly accessible** without making the representation
 more **informative** overall. That is exactly what training a linear
 discriminative objective should do, and it is a narrower claim than "the
 representation got better".
+
+## 1b. Batch-controlled comparison — the advantage largely disappears
+
+Added 2026-09-02 after the original write-up, on a second pod. §1's numbers are
+pooled across the holdout; because no non-holdout series carries both classes,
+pooled AUC can reward batch signature. All 92 holdout series ARE mixed, so
+computing AUC *inside* each series holds batch, platform, lab and largely tissue
+fixed. This is the stricter test, and it does not support the §1 headline.
+
+| features | pooled OOF | within (weighted) | within (unweighted) | median | series >0.5 |
+|---|---|---|---|---|---|
+| BulkFormer-93M | 0.6429 | 0.7645 | **0.7393** | **0.7987** | **68**/84 |
+| LLM — data-fix | 0.6829 | 0.7717 | 0.7039 | 0.7500 | 66/84 |
+| LLM — discrim* | 0.6802 | **0.7795** | 0.7090 | 0.7639 | 65/84 |
+
+**Read this as a wash, not a win.** The weighted mean favours the LLM (+0.0150),
+but the unweighted mean (−0.0303), the median (−0.0348) and the number of series
+scoring above chance (65 vs 68) all favour the **encoder**. Weighted mean is
+dominated by the largest series; the other three say the encoder is at least as
+good per-series. **§1's +0.0353 does not survive holding batch fixed.**
+
+Also note the two pooling conventions disagree materially on this population —
+encoder 0.6429 pooled-OOF against 0.6680 mean-of-folds, data-fix LLM 0.6829
+against 0.6664. Which convention is quoted changes the story, so it should
+always be named.
+
+**\* The discrim row is from a RECONSTRUCTED checkpoint and is indicative, not
+measured.** Only the LoRA adapter, connector and configs were kept before the
+training pod was deleted; the frozen base `language_model` and `vision_tower`
+were rebuilt from source. Training ran `--bf16`, so the trainer saved
+bf16-rounded base weights and the adapters were fitted against *those*, while
+the rebuild writes higher-precision weights from HuggingFace — same
+architecture, different weights. The rebuild scores **0.6617 ± 0.0836** on the
+§1 metric where the original scored **0.7034 ± 0.0563** (fold 0: 0.501 vs
+0.768), so it is demonstrably a different model. That check is the only reason
+this is labelled rather than reported as fact. A faithful within-series number
+requires a retrain with full checkpoint retention (~$5).
+
+**Operational lesson:** a 629 MB adapter is not a reproducible checkpoint for a
+run trained in bf16. Keep the trainer's own `language_model/` and
+`vision_tower/`, or accept that the model cannot be rebuilt.
 
 ## 2. The finding that matters more — the readout ignores the input
 
