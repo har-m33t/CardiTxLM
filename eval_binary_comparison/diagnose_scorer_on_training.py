@@ -76,6 +76,7 @@ def main() -> int:
     print(f"discriminative training items available: {len(items):,}")
 
     rng = random.Random(20260902)
+    rng_np = np.random.default_rng(20260902)
     rng.shuffle(items)
     picked, seen = [], set()
     for it in items:                       # one item per sample
@@ -103,25 +104,56 @@ def main() -> int:
     pos_a = "Yes. This transcriptomic profile comes from a sample with confirmed cardiovascular disease."
     neg_a = "No. This transcriptomic profile shows no confirmed evidence of cardiovascular disease."
 
+    # THE CONTROL THAT MAKES THIS DIAGNOSTIC MEAN SOMETHING.
+    #
+    # Scoring the real embeddings alone cannot distinguish "the model reads the
+    # profile and gets it wrong" from "the model never reads the profile at
+    # all". So the same prompts are scored twice: once with each sample's real
+    # 515-d vector, and once with those vectors SHUFFLED across samples within
+    # the batch. If the two runs produce near-identical scores, the output does
+    # not depend on the transcriptomic input, and no amount of prompt tuning
+    # would change that.
     scores = np.zeros(len(picked))
+    scores_shuf = np.zeros(len(picked))
+    deltas = []
     for q, idxs in by_q.items():
         emb = np.stack([np.load(args.encoded_dir / picked[i]["image"]) for i in idxs])
-        res = scorer.score(emb, q, [pos_a, neg_a])
-        lp = res.sum_logprob if hasattr(res, "sum_logprob") else np.asarray(res)
-        lp = np.asarray(lp, dtype=np.float64)
-        for k, i in enumerate(idxs):
-            scores[i] = lp[k, 0] - lp[k, 1]      # logP(yes) - logP(no)
+        perm = rng_np.permutation(len(emb)) if len(emb) > 1 else np.array([0])
+        for tag, e, dest in (("real", emb, scores), ("shuffled", emb[perm], scores_shuf)):
+            res = scorer.score(e, q, [pos_a, neg_a])
+            lp = np.asarray(res.sum_logprob, dtype=np.float64)
+            for k, i in enumerate(idxs):
+                dest[i] = lp[k, 0] - lp[k, 1]    # logP(yes) - logP(no)
+        deltas.append(np.abs(scores[idxs] - scores_shuf[idxs]))
+    delta = float(np.concatenate(deltas).mean()) if deltas else float("nan")
+    spread = float(np.std(scores))
 
     auc = float(roc_auc_score(ys, scores))
     acc = float(((scores > 0).astype(int) == ys).mean())
-    verdict = ("SCORER LOOKS BROKEN — near chance on data the model was trained on; "
+    auc_shuf = float(roc_auc_score(ys, scores_shuf))
+    # Ratio of "how much the score moves when the input is replaced by another
+    # sample's" to "how much the score varies across samples at all". Near 0
+    # means the input is being ignored.
+    sensitivity = delta / spread if spread > 0 else float("nan")
+    if sensitivity < 0.25:
+        verdict = ("MODEL OUTPUT IS INPUT-INDEPENDENT — shuffling the transcriptomic "
+                   "vectors barely moves the scores, so the forced-choice head is "
+                   "not conditioning on the profile. The low holdout AUC reflects "
+                   "the readout path, not the representation.")
+    else:
+        verdict = ("SCORER LOOKS BROKEN — near chance on data the model was trained on; "
                "the holdout number cannot be interpreted"
                if auc < 0.60 else
                "SCORER WORKS — it reads the trained signal back out on training data, "
                "so the low holdout number is a real generalization failure")
 
-    print(f"\ntraining-set AUC : {auc:.4f}")
-    print(f"training-set acc : {acc:.4f}")
+    print(f"\ntraining-set AUC (real embeddings)     : {auc:.4f}")
+    print(f"training-set AUC (SHUFFLED embeddings) : {auc_shuf:.4f}")
+    print(f"training-set accuracy                  : {acc:.4f}")
+    print(f"mean |score(real) - score(shuffled)|   : {delta:.4f}")
+    print(f"std of scores across samples           : {spread:.4f}")
+    print(f"input sensitivity (delta/spread)       : {sensitivity:.4f}   "
+          f"(<0.25 == input essentially ignored)")
     print(f"n unique questions: {len(by_q)}")
     print(f"\n{verdict}")
 
@@ -130,6 +162,11 @@ def main() -> int:
         "n_scored": len(picked), "n_positive": int(ys.sum()),
         "n_unique_questions": len(by_q),
         "training_set_roc_auc": auc, "training_set_accuracy": acc,
+        "training_set_roc_auc_shuffled_embeddings": auc_shuf,
+        "mean_abs_score_change_when_input_shuffled": delta,
+        "std_of_scores_across_samples": spread,
+        "input_sensitivity_ratio": sensitivity,
+        "input_sensitivity_threshold": 0.25,
         "holdout_pooled_roc_auc_for_reference": 0.5118492247774349,
         "threshold": 0.60,
         "verdict": verdict,
