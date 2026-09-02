@@ -166,6 +166,11 @@ cd "$REPO/data/cvd_transcriptome/text_files"
 unzip -o -q stage2_train.zip
 cd "$REPO/data/cvd_transcriptome"
 unzip -o -q embeddings_encoded.zip
+# NOTE: the in-repo zip holds only the 8,553 Stage-2 POSITIVES. Hypothesis B
+# also trains on negatives and needs the full 31,032-entry cache, which is
+# 66 MB and deliberately not in git — transfer it separately:
+#   scp embeddings_encoded_v2.zip <pod>:/workspace/ && \
+#     (cd data/cvd_transcriptome && unzip -o -q /workspace/embeddings_encoded_v2.zip)
 unzip -o -q verify_sample_raw.zip
 cd "$REPO"
 "$PY" - <<'EOF'
@@ -210,7 +215,21 @@ if cfg.get("hidden_size") != 515:
 
 ck = pathlib.Path("checkpoints/stage1-connector-93M/connector/pytorch_model.bin")
 if not ck.exists():
-    fail.append("stage-1 connector checkpoint missing — stage 2 starts from it")
+    fail.append(
+        "stage-1 connector missing at checkpoints/stage1-connector-93M/connector/"
+        "pytorch_model.bin. checkpoints/ is gitignored (.gitignore:59), so a "
+        "clone does NOT carry it — copy it from the workstation:\n"
+        "    scp -r checkpoints/stage1-connector-93M <pod>:$PWD/checkpoints/\n"
+        "It is 4.2 MB and is the ONLY Stage-1 artifact carrying training; it "
+        "must be copied, never regenerated.")
+elif not pathlib.Path("checkpoints/stage1-connector-93M/language_model/config.json").exists():
+    fail.append(
+        "stage-1 connector present but language_model/ is not. "
+        "training_recipe/base.py loads the LLM from <stage1>/language_model, "
+        "and Stage 1 froze the LLM so those are the unmodified base weights. "
+        "Rebuild them exactly (13.5 GB, from the HF cache already downloaded):\n"
+        "    python -m integration.materialize_stage1_llm "
+        "--ckpt ./checkpoints/stage1-connector-93M")
 
 # Holdout must not leak into training. This is the single most important
 # invariant of the whole regeneration; assert it on the pod too, because the
@@ -226,6 +245,39 @@ for f in fail:
     print("PREFLIGHT FAIL:", f)
 sys.exit(1 if fail else 0)
 EOF
+
+# ---------------------------------------------------------------------------
+step "NCCL peer-to-peer transport check"
+# On at least one L40S host this hangs: every rank blocks on the FIRST
+# collective and the run dies 600 s later with a watchdog timeout, having
+# logged nothing that names the cause. It presents as "training never starts",
+# not as an error, so it is worth ten seconds to test up front.
+#
+# The fix is NCCL_P2P_DISABLE=1. The cost is a slower gradient all-reduce; with
+# ZeRO-2 and only ~322 M trainable parameters that is affordable (measured 7
+# steps/min against 35 on a healthy host).
+cat > /tmp/nccl_probe.py <<'NCCLPROBE'
+import torch, torch.distributed as dist
+dist.init_process_group("nccl")
+r = dist.get_rank(); torch.cuda.set_device(r)
+t = torch.ones(1024, device=f"cuda:{r}") * r
+dist.all_reduce(t)
+if r == 0:
+    print(f"all_reduce ok (sum={t[0].item()})")
+dist.destroy_process_group()
+NCCLPROBE
+NGPU=$(nvidia-smi -L | wc -l)
+if timeout 90 "$VENV/bin/torchrun" --nproc_per_node="$NGPU" --master_port=29599 \
+       /tmp/nccl_probe.py 2>/dev/null | grep -q "all_reduce ok"; then
+    echo "NCCL peer-to-peer OK — no flag needed"
+elif NCCL_P2P_DISABLE=1 timeout 90 "$VENV/bin/torchrun" --nproc_per_node="$NGPU" \
+       --master_port=29598 /tmp/nccl_probe.py 2>/dev/null | grep -q "all_reduce ok"; then
+    echo "WARNING: default NCCL p2p HANGS on this host; it works with p2p off."
+    echo "         Prefix training and eval with NCCL_P2P_DISABLE=1."
+else
+    echo "WARNING: NCCL all_reduce failed both with and without p2p — "
+    echo "         multi-GPU training will not work on this host."
+fi
 
 step "ready"
 nvidia-smi --query-gpu=index,name,memory.total --format=csv
