@@ -1,4 +1,4 @@
 condition,BulkFormer-93M:linear (mean),LLM-latent-imgtok:linear (mean),LLM-latent-imgtok:mlp (mean),BulkFormer-93M:linear (std),LLM-latent-imgtok:linear (std),LLM-latent-imgtok:mlp (std),loss_floor,n_holdout
 original,,,,,,,0.07242666666666668,
-data-fix,0.6680,0.6664,0.6823,0.0703,0.0711,0.0689,0.46806190476190473,2607
-discrim,,,,,,,,
+data-fix,0.6680,0.6664,0.6823,0.0703,0.0711,0.0689,0.44348148148148153,2607
+discrim,0.6680,0.7034,0.6700,0.0703,0.0563,0.0559,0.44348148148148153,2607

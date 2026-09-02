@@ -63,7 +63,9 @@ def main() -> int:
 
     from sklearn.metrics import roc_auc_score
     from eval_binary_comparison.run_binary_cvd_eval import TinyLlavaScorer
-    from eval_binary_comparison.evaluate_and_compare import load_model
+    # evaluate_and_compare.py sits at the repo ROOT, not inside the package —
+    # same top-level import run_binary_cvd_eval.py uses.
+    from evaluate_and_compare import load_model
 
     label_by_acc = {s["geo_accession"]: s["label"]
                     for s in json.loads(args.plan.read_text())["samples"]}
@@ -88,8 +90,8 @@ def main() -> int:
     print(f"scoring {len(picked)} training samples "
           f"({ys.sum()} positive / {(1-ys).sum()} negative)")
 
-    model, tokenizer = load_model(args.lora_ckpt)
-    model = model.cuda().eval()
+    model, tokenizer = load_model(args.lora_ckpt, device='cuda')
+    model = model.eval()
     scorer = TinyLlavaScorer(model, tokenizer, conv_version=args.conv_version)
 
     # Group by the exact question text so each batch shares one prompt.
