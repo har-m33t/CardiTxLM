@@ -1,0 +1,6 @@
+label,n,n_classes,roc_auc_mean,roc_auc_std,n_folds_scored,pca_components,feature_set,kind
+tissue,57207,28,0.8626969288127722,0.014741589723522297,2,256,LLM-latent-hypb-imgtok,scientific
+disease_category,57207,5,0.784720583330488,0.039587474561306076,5,256,LLM-latent-hypb-imgtok,scientific
+cvd_subtype,57207,7,0.8473355519203366,0.016186152402374983,5,256,LLM-latent-hypb-imgtok,scientific
+platform,57207,12,0.704517701999648,0.03756078950144699,5,256,LLM-latent-hypb-imgtok,technical_control
+instrument,57207,12,0.7024431235061079,0.03950452695434348,5,256,LLM-latent-hypb-imgtok,technical_control

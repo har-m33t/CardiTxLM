@@ -85,6 +85,9 @@ ITEMS: list[tuple[str, str]] = [
     ("stage2_regen_report/loss_curves/stage2_loss_floors.json", "loss_curves"),
     # provenance for the new category
     ("hypothesis_b_data_plan.md", "."),
+    ("HYPOTHESIS_B_RESULTS.md", "."),
+    (".claude/hypothesis_b_interpretation_criteria.md", "."),
+    ("stage2_regen_report/tables/scorer_diagnostic.json", "tables"),
     ("scripts/hypothesis_b/phase0_stats.json", "data"),
     ("scripts/hypothesis_b/discriminative_plan_stats.json", "data"),
     ("scripts/hypothesis_b/negative_encoding_verification.json", "data"),

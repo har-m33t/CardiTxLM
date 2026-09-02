@@ -12,5 +12,12 @@
     "last": 0.5009,
     "min": 0.4384,
     "final_10pct_mean": 0.46806190476190473
+  },
+  "data fix + discriminative (Hypothesis B)": {
+    "n_steps": 279,
+    "first": 2.0179,
+    "last": 0.4332,
+    "min": 0.4109,
+    "final_10pct_mean": 0.44348148148148153
   }
 }

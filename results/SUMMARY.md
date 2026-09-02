@@ -5,6 +5,32 @@
 
 ---
 
+> ## ⚠ SUPERSEDED IN PART — read `HYPOTHESIS_B_RESULTS.md` alongside this
+>
+> This document reports the **data-fix** condition (2026-08-29) and its
+> conclusion, correct at the time, that fixing the data did not improve the
+> representation. A follow-up run on **2026-09-02** added a genuine
+> disease-vs-control discriminative task and **changed that conclusion**: the
+> LLM's latents moved from tying the frozen encoder (0.6664 vs 0.6680) to
+> beating it (**0.7034**), improving on 5 of 5 folds and surviving a
+> dimensionality-matched control.
+>
+> Two corrections to figures quoted below:
+>
+> 1. **The encoder baseline was understated.** Its *within-series* AUC on the
+>    92 mixed holdout series is **0.772**, not the pooled 0.668 used throughout
+>    this document. The pooled figure is deflated by cross-series offsets.
+> 2. **The model's readout does not use its own representation.** Shuffling the
+>    transcriptomic vectors across samples leaves its answers essentially
+>    unchanged (input sensitivity 0.088), which is direct evidence for the
+>    connector bottleneck (Hypothesis A) that this document lists as untested.
+>
+> Nothing in §1–§8 below is retracted; the data defect was real and its fix
+> stands. What changed is the answer to "was the data the thing holding the
+> representation back" — partly, and not only.
+
+---
+
 ## 0. The one-paragraph version
 
 Stage-2 training data was broken: 86.4% of its answers were a single fixed

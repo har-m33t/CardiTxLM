@@ -1,0 +1,17 @@
+{
+  "purpose": "distinguish a broken forced-choice scorer from a real model failure",
+  "n_scored": 400,
+  "n_positive": 330,
+  "n_unique_questions": 290,
+  "training_set_roc_auc": 0.47632034632034626,
+  "training_set_accuracy": 0.635,
+  "training_set_roc_auc_shuffled_embeddings": 0.4731601731601732,
+  "mean_abs_score_change_when_input_shuffled": 0.30865575790405275,
+  "std_of_scores_across_samples": 3.493474271695712,
+  "input_sensitivity_ratio": 0.08835209132776382,
+  "input_sensitivity_threshold": 0.25,
+  "holdout_pooled_roc_auc_for_reference": 0.5118492247774349,
+  "threshold": 0.6,
+  "verdict": "MODEL OUTPUT IS INPUT-INDEPENDENT \u2014 shuffling the transcriptomic vectors barely moves the scores, so the forced-choice head is not conditioning on the profile. The low holdout AUC reflects the readout path, not the representation.",
+  "caveat": "training-set performance is NOT evidence of generalization and is not used as such here; this is a functional check of the readout path only"
+}
